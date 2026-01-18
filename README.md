@@ -89,6 +89,32 @@ Once connected, you can ask questions like:
 --username USER   Username for authentication (optional)
 --password PASS   Password for authentication (optional)
 --timeout SECS    Connection timeout in seconds (default: 10)
+--qlic PATH       Path to directory containing kc.lic license file
+```
+
+## License Configuration
+
+PyKX will automatically detect your license. If you have a `kc.lic` file:
+
+1. **Default location**: Place `kc.lic` in `~/.pykx/` directory
+2. **Environment variable**: Set `QLIC=/path/to/license/directory`
+3. **Command line**: Use `--qlic /path/to/license/directory`
+
+Example with license:
+```json
+{
+  "mcpServers": {
+    "kdb": {
+      "command": "python",
+      "args": [
+        "/path/to/kdb_mcp_server.py",
+        "--host", "localhost",
+        "--port", "5001",
+        "--qlic", "/path/to/.kx"
+      ]
+    }
+  }
+}
 ```
 
 ## Available Tools

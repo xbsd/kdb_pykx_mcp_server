@@ -20,8 +20,8 @@ import logging
 from typing import Any, Optional
 from contextlib import asynccontextmanager
 
-# Set PyKX to unlicensed mode for IPC-only usage
-os.environ['PYKX_UNLICENSED'] = 'true'
+# PyKX will auto-detect license. If not found, falls back to unlicensed (IPC-only) mode.
+# Set QLIC environment variable to specify license directory if needed.
 
 import pykx as kx
 from mcp.server import Server
@@ -465,7 +465,9 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                      f"  Host: {KDB_HOST}\n"
                      f"  Port: {KDB_PORT}\n"
                      f"  Timeout: {KDB_TIMEOUT}s\n"
-                     f"  Auth: {'Yes' if KDB_USERNAME else 'No'}"
+                     f"  Auth: {'Yes' if KDB_USERNAME else 'No'}\n"
+                     f"  PyKX Version: {kx.__version__}\n"
+                     f"  PyKX Licensed: {kx.licensed}"
             )]
 
         else:
@@ -484,6 +486,13 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
         return [TextContent(type="text", text=f"Error: {str(e)}")]
 
 
+def setup_license(qlic_path: Optional[str] = None):
+    """Set up PyKX license from specified path."""
+    if qlic_path and os.path.isdir(qlic_path):
+        os.environ['QLIC'] = qlic_path
+        logger.info(f"QLIC set to: {qlic_path}")
+
+
 async def main():
     """Main entry point for the MCP server."""
     global KDB_HOST, KDB_PORT, KDB_USERNAME, KDB_PASSWORD, KDB_TIMEOUT
@@ -494,6 +503,7 @@ async def main():
     parser.add_argument("--username", default=None, help="Username for authentication")
     parser.add_argument("--password", default=None, help="Password for authentication")
     parser.add_argument("--timeout", type=float, default=10.0, help="Connection timeout in seconds")
+    parser.add_argument("--qlic", default=None, help="Path to directory containing kc.lic license file")
 
     args = parser.parse_args()
 
@@ -504,6 +514,7 @@ async def main():
     KDB_TIMEOUT = args.timeout
 
     logger.info(f"Starting KDB+ PyKX MCP Server (connecting to {KDB_HOST}:{KDB_PORT})")
+    logger.info(f"PyKX licensed: {kx.licensed}")
 
     async with stdio_server() as (read_stream, write_stream):
         await app.run(read_stream, write_stream, app.create_initialization_options())
