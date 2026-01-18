@@ -3,14 +3,19 @@
 KDB+ PyKX MCP Server
 
 An MCP (Model Context Protocol) server for interacting with KDB+ databases
-using PyKX. This server provides tools for querying tables, getting metadata,
-and executing safe q queries against a KDB+ server.
+using PyKX in native/embedded mode. This server provides comprehensive tools
+for querying tables, analyzing stock data, and executing safe q queries.
 
 Usage:
-    python kdb_mcp_server.py --host localhost --port 5001
+    python kdb_mcp_server.py --data-dir /path/to/data
 
-Or configure in your MCP client settings with args:
-    ["--host", "localhost", "--port", "5001"]
+Tools are organized into categories:
+- Basic: Table info, schema, sample data
+- Discovery: Symbols, distributions, date ranges
+- Price Analysis: Averages, ranges, volatility, highs/lows
+- Volume Analysis: Volume stats, top volume records
+- Filtering: By symbol, date, price thresholds
+- Advanced: OHLC aggregation, custom queries
 """
 
 import os
@@ -18,10 +23,7 @@ import re
 import argparse
 import logging
 from typing import Any, Optional
-from contextlib import asynccontextmanager
-
-# PyKX will auto-detect license. If not found, falls back to unlicensed (IPC-only) mode.
-# Set QLIC environment variable to specify license directory if needed.
+from pathlib import Path
 
 import pykx as kx
 from mcp.server import Server
@@ -32,17 +34,14 @@ from mcp.types import Tool, TextContent
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Global connection parameters
-KDB_HOST = "localhost"
-KDB_PORT = 5001
-KDB_USERNAME: Optional[str] = None
-KDB_PASSWORD: Optional[str] = None
-KDB_TIMEOUT = 10.0
+# Global configuration
+DATA_DIR: Optional[str] = None
+LOADED_TABLES: list[str] = []
 
 # Dangerous operations that should be blocked for safety
 DANGEROUS_PATTERNS = [
     r'\bdrop\b',           # DROP table
-    r'\bdelete\s+from\b',  # DELETE FROM (without where clause detection)
+    r'\bdelete\s+from\b',  # DELETE FROM
     r'\\\\',               # Exit q session
     r'\\l\s+/',            # Load from root path
     r'\bexit\b',           # Exit command
@@ -50,73 +49,76 @@ DANGEROUS_PATTERNS = [
     r'\bsystem\b',         # System commands
     r'\bhclose\b',         # Close handles
     r'\bhdel\b',           # Delete files
-    r'`:.*/',              # File path operations to root
+    r'`:/',                # File path operations to root
 ]
 
-# Compile patterns for efficiency
 DANGEROUS_REGEX = [re.compile(p, re.IGNORECASE) for p in DANGEROUS_PATTERNS]
 
 
 def is_dangerous_query(query: str) -> tuple[bool, str]:
-    """
-    Check if a query contains potentially dangerous operations.
-
-    Args:
-        query: The q query string to check
-
-    Returns:
-        Tuple of (is_dangerous, reason)
-    """
-    query_lower = query.lower().strip()
-
+    """Check if a query contains potentially dangerous operations."""
     for i, pattern in enumerate(DANGEROUS_REGEX):
         if pattern.search(query):
             return True, f"Query contains dangerous pattern: {DANGEROUS_PATTERNS[i]}"
-
     return False, ""
 
 
-def get_connection() -> kx.SyncQConnection:
-    """
-    Create a connection to the KDB+ server.
+def load_tables_from_directory(data_dir: str) -> list[str]:
+    """Load splayed tables from a directory into the q session."""
+    loaded = []
+    data_path = Path(data_dir)
 
-    Returns:
-        SyncQConnection instance
-    """
-    kwargs = {
-        'host': KDB_HOST,
-        'port': KDB_PORT,
-        'timeout': KDB_TIMEOUT,
-    }
+    if not data_path.exists():
+        logger.warning(f"Data directory does not exist: {data_dir}")
+        return loaded
 
-    if KDB_USERNAME and KDB_PASSWORD:
-        kwargs['username'] = KDB_USERNAME
-        kwargs['password'] = KDB_PASSWORD
+    for item in data_path.iterdir():
+        if item.is_dir() and (item / '.d').exists():
+            table_name = item.name
+            try:
+                kx.q(f'{table_name}: get`:{item}')
+                loaded.append(table_name)
+                count = kx.q(f'count {table_name}').py()
+                logger.info(f"Loaded table '{table_name}' with {count:,} rows")
+            except Exception as e:
+                logger.error(f"Failed to load table '{table_name}': {e}")
 
-    return kx.SyncQConnection(**kwargs)
+    return loaded
 
 
-def format_result(result: Any) -> str:
-    """
-    Format a PyKX result for display.
-
-    Args:
-        result: PyKX result object
-
-    Returns:
-        Formatted string representation
-    """
+def format_result(result: Any, max_width: int = 120) -> str:
+    """Format a PyKX result for display."""
     try:
-        # Try to convert to pandas for better formatting
-        if hasattr(result, 'pd'):
-            df = result.pd()
-            return df.to_string()
-        elif hasattr(result, 'py'):
-            return str(result.py())
-        else:
-            return str(result)
-    except Exception as e:
+        result_str = str(result)
+        # Truncate very long lines
+        lines = result_str.split('\n')
+        formatted_lines = []
+        for line in lines[:100]:  # Limit to 100 lines
+            if len(line) > max_width:
+                formatted_lines.append(line[:max_width] + '...')
+            else:
+                formatted_lines.append(line)
+        if len(lines) > 100:
+            formatted_lines.append(f'... ({len(lines) - 100} more rows)')
+        return '\n'.join(formatted_lines)
+    except Exception:
         return str(result)
+
+
+def validate_table_name(name: str) -> bool:
+    """Validate table name format."""
+    return bool(re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', name))
+
+
+def validate_column_name(name: str) -> bool:
+    """Validate column name format."""
+    return bool(re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', name))
+
+
+def table_exists(table_name: str) -> bool:
+    """Check if a table exists in the session."""
+    tables = kx.q('tables[]').py()
+    return table_name in tables
 
 
 # Create the MCP server
@@ -127,129 +129,343 @@ app = Server("kdb-pykx-mcp-server")
 async def list_tools():
     """List available tools for the MCP client."""
     return [
+        # =====================================================================
+        # CATEGORY A: BASIC TABLE INFORMATION (Tools 1-5)
+        # =====================================================================
         Tool(
-            name="kdb_list_tables",
-            description="List all tables available in the connected KDB+ session",
+            name="list_tables",
+            description="List all tables available in the KDB+ session",
+            inputSchema={"type": "object", "properties": {}, "required": []}
+        ),
+        Tool(
+            name="table_schema",
+            description="Get the schema (column names, types, attributes) of a table using meta",
             inputSchema={
                 "type": "object",
-                "properties": {},
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table"}
+                },
+                "required": ["table_name"]
+            }
+        ),
+        Tool(
+            name="table_count",
+            description="Get the number of rows in a table",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table"}
+                },
+                "required": ["table_name"]
+            }
+        ),
+        Tool(
+            name="table_sample",
+            description="Get sample rows from a table (first N rows)",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table"},
+                    "num_rows": {"type": "integer", "description": "Number of rows (default: 10, max: 100)", "default": 10}
+                },
+                "required": ["table_name"]
+            }
+        ),
+        Tool(
+            name="column_names",
+            description="Get the list of column names in a table",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table"}
+                },
+                "required": ["table_name"]
+            }
+        ),
+
+        # =====================================================================
+        # CATEGORY B: DATA DISCOVERY (Tools 6-10)
+        # =====================================================================
+        Tool(
+            name="distinct_values",
+            description="Get distinct values in a column (useful for symbols, categories)",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table"},
+                    "column_name": {"type": "string", "description": "Name of the column"},
+                    "limit": {"type": "integer", "description": "Max values to return (default: 50)", "default": 50}
+                },
+                "required": ["table_name", "column_name"]
+            }
+        ),
+        Tool(
+            name="count_by_group",
+            description="Get row counts grouped by a column (distribution)",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table"},
+                    "group_column": {"type": "string", "description": "Column to group by"}
+                },
+                "required": ["table_name", "group_column"]
+            }
+        ),
+        Tool(
+            name="date_range",
+            description="Get the min and max dates/timestamps in a table",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table"},
+                    "date_column": {"type": "string", "description": "Date/timestamp column name", "default": "timestamp"}
+                },
+                "required": ["table_name"]
+            }
+        ),
+        Tool(
+            name="data_points_per_day",
+            description="Count data points per day for time series analysis",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table"},
+                    "date_column": {"type": "string", "description": "Date/timestamp column", "default": "timestamp"},
+                    "limit": {"type": "integer", "description": "Number of days to show (default: 10)", "default": 10}
+                },
+                "required": ["table_name"]
+            }
+        ),
+        Tool(
+            name="column_stats",
+            description="Get basic statistics for a numeric column (count, nulls, distinct count)",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table"},
+                    "column_name": {"type": "string", "description": "Name of the column"}
+                },
+                "required": ["table_name", "column_name"]
+            }
+        ),
+
+        # =====================================================================
+        # CATEGORY C: PRICE ANALYSIS (Tools 11-15)
+        # =====================================================================
+        Tool(
+            name="average_price_by_symbol",
+            description="Calculate average price (close) for each symbol",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table", "default": "stocks"},
+                    "price_column": {"type": "string", "description": "Price column name", "default": "close"}
+                },
                 "required": []
             }
         ),
         Tool(
-            name="kdb_table_schema",
-            description="Get the schema (column names and types) of a specific table",
+            name="price_range_by_symbol",
+            description="Get min, max, and price range for each symbol",
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "table_name": {
-                        "type": "string",
-                        "description": "Name of the table to get schema for"
-                    }
+                    "table_name": {"type": "string", "description": "Name of the table", "default": "stocks"},
+                    "price_column": {"type": "string", "description": "Price column name", "default": "close"}
                 },
-                "required": ["table_name"]
+                "required": []
             }
         ),
         Tool(
-            name="kdb_table_count",
-            description="Get the number of rows in a specific table",
+            name="highest_prices",
+            description="Get the highest (max) price for each symbol",
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "table_name": {
-                        "type": "string",
-                        "description": "Name of the table to count rows for"
-                    }
+                    "table_name": {"type": "string", "description": "Name of the table", "default": "stocks"},
+                    "price_column": {"type": "string", "description": "Price column name", "default": "close"}
                 },
-                "required": ["table_name"]
+                "required": []
             }
         ),
         Tool(
-            name="kdb_table_sample",
-            description="Get a sample of rows from a specific table",
+            name="price_volatility",
+            description="Calculate price volatility (standard deviation) for each symbol",
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "table_name": {
-                        "type": "string",
-                        "description": "Name of the table to sample from"
-                    },
-                    "num_rows": {
-                        "type": "integer",
-                        "description": "Number of rows to retrieve (default: 10, max: 100)",
-                        "default": 10
-                    }
+                    "table_name": {"type": "string", "description": "Name of the table", "default": "stocks"},
+                    "price_column": {"type": "string", "description": "Price column name", "default": "close"}
                 },
-                "required": ["table_name"]
+                "required": []
             }
         ),
         Tool(
-            name="kdb_query",
-            description="Execute a q query against the KDB+ database. Use for SELECT queries and data analysis. Dangerous operations (DROP, DELETE without WHERE, system commands) are blocked for safety.",
+            name="price_statistics",
+            description="Get comprehensive price stats: avg, median, std dev for each symbol",
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "query": {
-                        "type": "string",
-                        "description": "The q query to execute (e.g., 'select from stocks where symbol=\"AAPL\"')"
-                    },
-                    "max_rows": {
-                        "type": "integer",
-                        "description": "Maximum number of rows to return (default: 100, max: 10000)",
-                        "default": 100
-                    }
+                    "table_name": {"type": "string", "description": "Name of the table", "default": "stocks"},
+                    "price_column": {"type": "string", "description": "Price column name", "default": "close"}
+                },
+                "required": []
+            }
+        ),
+
+        # =====================================================================
+        # CATEGORY D: VOLUME ANALYSIS (Tools 16-18)
+        # =====================================================================
+        Tool(
+            name="average_volume_by_symbol",
+            description="Calculate average trading volume for each symbol",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table", "default": "stocks"}
+                },
+                "required": []
+            }
+        ),
+        Tool(
+            name="total_volume_by_symbol",
+            description="Calculate total trading volume for each symbol",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table", "default": "stocks"}
+                },
+                "required": []
+            }
+        ),
+        Tool(
+            name="top_volume_records",
+            description="Get records with the highest trading volume",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table", "default": "stocks"},
+                    "limit": {"type": "integer", "description": "Number of records (default: 10)", "default": 10}
+                },
+                "required": []
+            }
+        ),
+
+        # =====================================================================
+        # CATEGORY E: FILTERING & SELECTION (Tools 19-22)
+        # =====================================================================
+        Tool(
+            name="filter_by_symbol",
+            description="Get data for a specific stock symbol",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table", "default": "stocks"},
+                    "symbol": {"type": "string", "description": "Stock symbol (e.g., AAPL, NVDA)"},
+                    "limit": {"type": "integer", "description": "Max rows to return (default: 100)", "default": 100}
+                },
+                "required": ["symbol"]
+            }
+        ),
+        Tool(
+            name="filter_by_price_threshold",
+            description="Get records where price exceeds a threshold",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table", "default": "stocks"},
+                    "price_column": {"type": "string", "description": "Price column", "default": "close"},
+                    "threshold": {"type": "number", "description": "Price threshold"},
+                    "operator": {"type": "string", "description": "Comparison: gt, lt, gte, lte", "default": "gt"}
+                },
+                "required": ["threshold"]
+            }
+        ),
+        Tool(
+            name="filter_by_date",
+            description="Get data from a specific year or date range",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table", "default": "stocks"},
+                    "year": {"type": "integer", "description": "Year to filter (e.g., 2025)"},
+                    "start_date": {"type": "string", "description": "Start date (YYYY.MM.DD format)"},
+                    "end_date": {"type": "string", "description": "End date (YYYY.MM.DD format)"}
+                },
+                "required": []
+            }
+        ),
+        Tool(
+            name="symbol_summary",
+            description="Get a summary for a specific symbol: count, avg price, avg volume",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table", "default": "stocks"},
+                    "symbol": {"type": "string", "description": "Stock symbol (e.g., NVDA)"}
+                },
+                "required": ["symbol"]
+            }
+        ),
+
+        # =====================================================================
+        # CATEGORY F: ADVANCED ANALYTICS (Tools 23-25)
+        # =====================================================================
+        Tool(
+            name="daily_ohlc",
+            description="Get daily OHLC (Open, High, Low, Close) aggregation for a symbol",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table", "default": "stocks"},
+                    "symbol": {"type": "string", "description": "Stock symbol"},
+                    "limit": {"type": "integer", "description": "Number of days (default: 10)", "default": 10}
+                },
+                "required": ["symbol"]
+            }
+        ),
+        Tool(
+            name="price_change_analysis",
+            description="Analyze daily price ranges and spread percentages by symbol",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {"type": "string", "description": "Name of the table", "default": "stocks"}
+                },
+                "required": []
+            }
+        ),
+        Tool(
+            name="execute_query",
+            description="Execute a custom q query. Use for complex queries not covered by other tools. Dangerous operations are blocked.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "query": {"type": "string", "description": "The q query to execute"},
+                    "max_rows": {"type": "integer", "description": "Max rows to return (default: 100)", "default": 100}
                 },
                 "required": ["query"]
             }
         ),
+
+        # =====================================================================
+        # CATEGORY G: SERVER & TABLE MANAGEMENT (Tools 26-27)
+        # =====================================================================
         Tool(
-            name="kdb_column_stats",
-            description="Get statistics for a specific column in a table (min, max, avg, count, distinct count)",
+            name="server_info",
+            description="Get information about the KDB+/PyKX session and loaded tables",
+            inputSchema={"type": "object", "properties": {}, "required": []}
+        ),
+        Tool(
+            name="load_table",
+            description="Load a splayed table from disk into the session",
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "table_name": {
-                        "type": "string",
-                        "description": "Name of the table"
-                    },
-                    "column_name": {
-                        "type": "string",
-                        "description": "Name of the column to analyze"
-                    }
+                    "table_path": {"type": "string", "description": "Path to the splayed table directory"},
+                    "table_name": {"type": "string", "description": "Name for the table (optional)"}
                 },
-                "required": ["table_name", "column_name"]
-            }
-        ),
-        Tool(
-            name="kdb_distinct_values",
-            description="Get distinct values for a column (useful for categorical columns like symbols)",
-            inputSchema={
-                "type": "object",
-                "properties": {
-                    "table_name": {
-                        "type": "string",
-                        "description": "Name of the table"
-                    },
-                    "column_name": {
-                        "type": "string",
-                        "description": "Name of the column to get distinct values for"
-                    },
-                    "limit": {
-                        "type": "integer",
-                        "description": "Maximum number of distinct values to return (default: 50)",
-                        "default": 50
-                    }
-                },
-                "required": ["table_name", "column_name"]
-            }
-        ),
-        Tool(
-            name="kdb_connection_info",
-            description="Get information about the current KDB+ connection",
-            inputSchema={
-                "type": "object",
-                "properties": {},
-                "required": []
+                "required": ["table_path"]
             }
         ),
     ]
@@ -260,261 +476,342 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
     """Handle tool calls from the MCP client."""
 
     try:
-        if name == "kdb_list_tables":
-            with get_connection() as conn:
-                result = conn('tables[]')
-                tables = result.py()
-                if not tables:
-                    return [TextContent(type="text", text="No tables found in the current session.")]
+        # =====================================================================
+        # CATEGORY A: BASIC TABLE INFORMATION
+        # =====================================================================
+        if name == "list_tables":
+            result = kx.q('tables[]')
+            tables = result.py()
+            if not tables:
+                return [TextContent(type="text", text="No tables found in the current session.")]
+            table_list = "\n".join([f"  - {t}" for t in tables])
+            return [TextContent(type="text", text=f"Available tables ({len(tables)}):\n{table_list}")]
 
-                table_list = "\n".join([f"  - {t}" for t in tables])
-                return [TextContent(
-                    type="text",
-                    text=f"Available tables ({len(tables)}):\n{table_list}"
-                )]
-
-        elif name == "kdb_table_schema":
+        elif name == "table_schema":
             table_name = arguments.get("table_name")
-            if not table_name:
-                return [TextContent(type="text", text="Error: table_name is required")]
-
-            # Validate table name (alphanumeric and underscore only)
-            if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', table_name):
+            if not validate_table_name(table_name):
                 return [TextContent(type="text", text="Error: Invalid table name format")]
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'meta {table_name}')
+            return [TextContent(type="text", text=f"Schema for '{table_name}':\n{format_result(result)}")]
 
-            with get_connection() as conn:
-                # Check if table exists
-                tables = conn('tables[]').py()
-                if table_name not in tables:
-                    return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
-
-                result = conn(f'meta {table_name}')
-                schema_str = format_result(result)
-                return [TextContent(
-                    type="text",
-                    text=f"Schema for table '{table_name}':\n{schema_str}"
-                )]
-
-        elif name == "kdb_table_count":
+        elif name == "table_count":
             table_name = arguments.get("table_name")
-            if not table_name:
-                return [TextContent(type="text", text="Error: table_name is required")]
-
-            if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', table_name):
+            if not validate_table_name(table_name):
                 return [TextContent(type="text", text="Error: Invalid table name format")]
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            count = kx.q(f'count {table_name}').py()
+            return [TextContent(type="text", text=f"Table '{table_name}' has {count:,} rows")]
 
-            with get_connection() as conn:
-                tables = conn('tables[]').py()
-                if table_name not in tables:
-                    return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
-
-                result = conn(f'count {table_name}')
-                count = result.py()
-                return [TextContent(
-                    type="text",
-                    text=f"Table '{table_name}' has {count:,} rows"
-                )]
-
-        elif name == "kdb_table_sample":
+        elif name == "table_sample":
             table_name = arguments.get("table_name")
-            num_rows = min(arguments.get("num_rows", 10), 100)  # Cap at 100
-
-            if not table_name:
-                return [TextContent(type="text", text="Error: table_name is required")]
-
-            if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', table_name):
+            num_rows = min(arguments.get("num_rows", 10), 100)
+            if not validate_table_name(table_name):
                 return [TextContent(type="text", text="Error: Invalid table name format")]
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'{num_rows}#{table_name}')
+            return [TextContent(type="text", text=f"Sample ({num_rows} rows) from '{table_name}':\n{format_result(result)}")]
 
-            with get_connection() as conn:
-                tables = conn('tables[]').py()
-                if table_name not in tables:
-                    return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+        elif name == "column_names":
+            table_name = arguments.get("table_name")
+            if not validate_table_name(table_name):
+                return [TextContent(type="text", text="Error: Invalid table name format")]
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'cols {table_name}')
+            return [TextContent(type="text", text=f"Columns in '{table_name}':\n{format_result(result)}")]
 
-                result = conn(f'{num_rows}#{table_name}')
-                sample_str = format_result(result)
-                return [TextContent(
-                    type="text",
-                    text=f"Sample of {num_rows} rows from '{table_name}':\n{sample_str}"
-                )]
+        # =====================================================================
+        # CATEGORY B: DATA DISCOVERY
+        # =====================================================================
+        elif name == "distinct_values":
+            table_name = arguments.get("table_name")
+            column_name = arguments.get("column_name")
+            limit = min(arguments.get("limit", 50), 500)
+            if not validate_table_name(table_name) or not validate_column_name(column_name):
+                return [TextContent(type="text", text="Error: Invalid table or column name")]
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'{limit}#distinct {table_name}`{column_name}')
+            return [TextContent(type="text", text=f"Distinct values in '{table_name}.{column_name}':\n{format_result(result)}")]
 
-        elif name == "kdb_query":
+        elif name == "count_by_group":
+            table_name = arguments.get("table_name")
+            group_column = arguments.get("group_column")
+            if not validate_table_name(table_name) or not validate_column_name(group_column):
+                return [TextContent(type="text", text="Error: Invalid table or column name")]
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'select cnt: count i by {group_column} from {table_name}')
+            return [TextContent(type="text", text=f"Count by '{group_column}':\n{format_result(result)}")]
+
+        elif name == "date_range":
+            table_name = arguments.get("table_name")
+            date_column = arguments.get("date_column", "timestamp")
+            if not validate_table_name(table_name) or not validate_column_name(date_column):
+                return [TextContent(type="text", text="Error: Invalid table or column name")]
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'select min_date: min {date_column}, max_date: max {date_column} from {table_name}')
+            return [TextContent(type="text", text=f"Date range in '{table_name}':\n{format_result(result)}")]
+
+        elif name == "data_points_per_day":
+            table_name = arguments.get("table_name")
+            date_column = arguments.get("date_column", "timestamp")
+            limit = arguments.get("limit", 10)
+            if not validate_table_name(table_name):
+                return [TextContent(type="text", text="Error: Invalid table name")]
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'{limit}#select cnt: count i by dt: `date${date_column} from {table_name}')
+            return [TextContent(type="text", text=f"Data points per day:\n{format_result(result)}")]
+
+        elif name == "column_stats":
+            table_name = arguments.get("table_name")
+            column_name = arguments.get("column_name")
+            if not validate_table_name(table_name) or not validate_column_name(column_name):
+                return [TextContent(type="text", text="Error: Invalid table or column name")]
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'select cnt: count {column_name}, nulls: sum null {column_name}, distinct_cnt: count distinct {column_name} from {table_name}')
+            return [TextContent(type="text", text=f"Stats for '{table_name}.{column_name}':\n{format_result(result)}")]
+
+        # =====================================================================
+        # CATEGORY C: PRICE ANALYSIS
+        # =====================================================================
+        elif name == "average_price_by_symbol":
+            table_name = arguments.get("table_name", "stocks")
+            price_column = arguments.get("price_column", "close")
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'select avg_{price_column}: avg {price_column} by symbol from {table_name}')
+            return [TextContent(type="text", text=f"Average {price_column} by symbol:\n{format_result(result)}")]
+
+        elif name == "price_range_by_symbol":
+            table_name = arguments.get("table_name", "stocks")
+            price_column = arguments.get("price_column", "close")
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'select min_{price_column}: min {price_column}, max_{price_column}: max {price_column}, price_range: (max {price_column}) - min {price_column} by symbol from {table_name}')
+            return [TextContent(type="text", text=f"Price range by symbol:\n{format_result(result)}")]
+
+        elif name == "highest_prices":
+            table_name = arguments.get("table_name", "stocks")
+            price_column = arguments.get("price_column", "close")
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'select max_{price_column}: max {price_column} by symbol from {table_name}')
+            return [TextContent(type="text", text=f"Highest {price_column} by symbol:\n{format_result(result)}")]
+
+        elif name == "price_volatility":
+            table_name = arguments.get("table_name", "stocks")
+            price_column = arguments.get("price_column", "close")
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'select volatility: dev {price_column} by symbol from {table_name}')
+            return [TextContent(type="text", text=f"Price volatility (std dev) by symbol:\n{format_result(result)}")]
+
+        elif name == "price_statistics":
+            table_name = arguments.get("table_name", "stocks")
+            price_column = arguments.get("price_column", "close")
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'select avg_{price_column}: avg {price_column}, median_{price_column}: med {price_column}, std_{price_column}: dev {price_column} by symbol from {table_name}')
+            return [TextContent(type="text", text=f"Price statistics by symbol:\n{format_result(result)}")]
+
+        # =====================================================================
+        # CATEGORY D: VOLUME ANALYSIS
+        # =====================================================================
+        elif name == "average_volume_by_symbol":
+            table_name = arguments.get("table_name", "stocks")
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'select avg_volume: avg volume by symbol from {table_name}')
+            return [TextContent(type="text", text=f"Average volume by symbol:\n{format_result(result)}")]
+
+        elif name == "total_volume_by_symbol":
+            table_name = arguments.get("table_name", "stocks")
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'select total_volume: sum volume by symbol from {table_name}')
+            return [TextContent(type="text", text=f"Total volume by symbol:\n{format_result(result)}")]
+
+        elif name == "top_volume_records":
+            table_name = arguments.get("table_name", "stocks")
+            limit = arguments.get("limit", 10)
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'{limit} sublist `volume xdesc select symbol, timestamp, volume from {table_name}')
+            return [TextContent(type="text", text=f"Top {limit} highest volume records:\n{format_result(result)}")]
+
+        # =====================================================================
+        # CATEGORY E: FILTERING & SELECTION
+        # =====================================================================
+        elif name == "filter_by_symbol":
+            table_name = arguments.get("table_name", "stocks")
+            symbol = arguments.get("symbol", "").upper()
+            limit = min(arguments.get("limit", 100), 1000)
+            if not symbol:
+                return [TextContent(type="text", text="Error: symbol is required")]
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'{limit}#select from {table_name} where symbol like "{symbol}"')
+            count = kx.q(f'count select from {table_name} where symbol like "{symbol}"').py()
+            return [TextContent(type="text", text=f"Data for {symbol} ({count:,} total rows, showing {limit}):\n{format_result(result)}")]
+
+        elif name == "filter_by_price_threshold":
+            table_name = arguments.get("table_name", "stocks")
+            price_column = arguments.get("price_column", "close")
+            threshold = arguments.get("threshold")
+            operator = arguments.get("operator", "gt")
+            if threshold is None:
+                return [TextContent(type="text", text="Error: threshold is required")]
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            op_map = {"gt": ">", "lt": "<", "gte": ">=", "lte": "<="}
+            op = op_map.get(operator, ">")
+            result = kx.q(f'select cnt: count i, symbols: distinct symbol from {table_name} where {price_column} {op} {threshold}')
+            return [TextContent(type="text", text=f"Records where {price_column} {op} {threshold}:\n{format_result(result)}")]
+
+        elif name == "filter_by_date":
+            table_name = arguments.get("table_name", "stocks")
+            year = arguments.get("year")
+            start_date = arguments.get("start_date")
+            end_date = arguments.get("end_date")
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+
+            if year:
+                result = kx.q(f'select cnt: count i by symbol from {table_name} where timestamp >= {year}.01.01')
+                return [TextContent(type="text", text=f"Data from {year} onward:\n{format_result(result)}")]
+            elif start_date and end_date:
+                result = kx.q(f'select cnt: count i by symbol from {table_name} where timestamp >= {start_date}, timestamp <= {end_date}')
+                return [TextContent(type="text", text=f"Data from {start_date} to {end_date}:\n{format_result(result)}")]
+            else:
+                return [TextContent(type="text", text="Error: Provide either 'year' or both 'start_date' and 'end_date'")]
+
+        elif name == "symbol_summary":
+            table_name = arguments.get("table_name", "stocks")
+            symbol = arguments.get("symbol", "").upper()
+            if not symbol:
+                return [TextContent(type="text", text="Error: symbol is required")]
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'select cnt: count i, avg_close: avg close, avg_volume: avg volume from {table_name} where symbol like "{symbol}"')
+            return [TextContent(type="text", text=f"Summary for {symbol}:\n{format_result(result)}")]
+
+        # =====================================================================
+        # CATEGORY F: ADVANCED ANALYTICS
+        # =====================================================================
+        elif name == "daily_ohlc":
+            table_name = arguments.get("table_name", "stocks")
+            symbol = arguments.get("symbol", "").upper()
+            limit = arguments.get("limit", 10)
+            if not symbol:
+                return [TextContent(type="text", text="Error: symbol is required")]
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'{limit} sublist `dt xdesc select open: first open, high: max high, low: min low, close: last close, volume: sum volume by dt: `date$timestamp from {table_name} where symbol like "{symbol}"')
+            return [TextContent(type="text", text=f"Daily OHLC for {symbol} (last {limit} days):\n{format_result(result)}")]
+
+        elif name == "price_change_analysis":
+            table_name = arguments.get("table_name", "stocks")
+            if not table_exists(table_name):
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            result = kx.q(f'select avg_daily_range: avg (high - low), avg_spread_pct: avg 100 * (high - low) % low by symbol from {table_name}')
+            return [TextContent(type="text", text=f"Price change analysis by symbol:\n{format_result(result)}")]
+
+        elif name == "execute_query":
             query = arguments.get("query", "").strip()
-            max_rows = min(arguments.get("max_rows", 100), 10000)  # Cap at 10000
-
+            max_rows = min(arguments.get("max_rows", 100), 10000)
             if not query:
                 return [TextContent(type="text", text="Error: query is required")]
-
-            # Safety check
             is_dangerous, reason = is_dangerous_query(query)
             if is_dangerous:
-                return [TextContent(
-                    type="text",
-                    text=f"Error: Query blocked for safety. {reason}\n\nPlease use SELECT queries only."
-                )]
+                return [TextContent(type="text", text=f"Error: Query blocked for safety. {reason}")]
+            result = kx.q(query)
+            try:
+                if hasattr(result, '__len__') and len(result) > max_rows:
+                    result = kx.q(f'{max_rows}#', result)
+                    return [TextContent(type="text", text=f"Query result (limited to {max_rows} rows):\n{format_result(result)}")]
+            except:
+                pass
+            return [TextContent(type="text", text=f"Query result:\n{format_result(result)}")]
 
-            with get_connection() as conn:
-                # Execute the query
-                result = conn(query)
-
-                # If result is a table, limit rows
+        # =====================================================================
+        # CATEGORY G: SERVER & TABLE MANAGEMENT
+        # =====================================================================
+        elif name == "server_info":
+            tables = kx.q('tables[]').py()
+            table_info = []
+            for t in tables:
                 try:
-                    if hasattr(result, '__len__') and len(result) > max_rows:
-                        result = conn(f'{max_rows}#{query}')
-                        result_str = format_result(result)
-                        return [TextContent(
-                            type="text",
-                            text=f"Query result (limited to {max_rows} rows):\n{result_str}"
-                        )]
+                    count = kx.q(f'count {t}').py()
+                    table_info.append(f"    {t}: {count:,} rows")
                 except:
-                    pass
-
-                result_str = format_result(result)
-                return [TextContent(
-                    type="text",
-                    text=f"Query result:\n{result_str}"
-                )]
-
-        elif name == "kdb_column_stats":
-            table_name = arguments.get("table_name")
-            column_name = arguments.get("column_name")
-
-            if not table_name or not column_name:
-                return [TextContent(type="text", text="Error: table_name and column_name are required")]
-
-            if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', table_name):
-                return [TextContent(type="text", text="Error: Invalid table name format")]
-            if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', column_name):
-                return [TextContent(type="text", text="Error: Invalid column name format")]
-
-            with get_connection() as conn:
-                tables = conn('tables[]').py()
-                if table_name not in tables:
-                    return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
-
-                # Get column metadata first
-                meta = conn(f'meta {table_name}')
-                meta_df = meta.pd()
-
-                if column_name not in meta_df.index:
-                    return [TextContent(type="text", text=f"Error: Column '{column_name}' not found in table '{table_name}'")]
-
-                col_type = meta_df.loc[column_name, 't']
-
-                # Build stats query based on column type
-                stats_parts = [f"count: count {column_name}"]
-                stats_parts.append(f"nulls: sum null {column_name}")
-                stats_parts.append(f"distinct_count: count distinct {column_name}")
-
-                # Numeric types support min/max/avg
-                if col_type in ['i', 'j', 'h', 'e', 'f', 'n', 'p', 'z', 'd', 't']:
-                    stats_parts.append(f"min_val: min {column_name}")
-                    stats_parts.append(f"max_val: max {column_name}")
-                    if col_type in ['i', 'j', 'h', 'e', 'f']:
-                        stats_parts.append(f"avg_val: avg {column_name}")
-                        stats_parts.append(f"sum_val: sum {column_name}")
-
-                stats_query = f"select {'; '.join(stats_parts)} from {table_name}"
-                result = conn(stats_query)
-                stats_str = format_result(result)
-
-                return [TextContent(
-                    type="text",
-                    text=f"Statistics for '{table_name}.{column_name}' (type: {col_type}):\n{stats_str}"
-                )]
-
-        elif name == "kdb_distinct_values":
-            table_name = arguments.get("table_name")
-            column_name = arguments.get("column_name")
-            limit = min(arguments.get("limit", 50), 500)  # Cap at 500
-
-            if not table_name or not column_name:
-                return [TextContent(type="text", text="Error: table_name and column_name are required")]
-
-            if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', table_name):
-                return [TextContent(type="text", text="Error: Invalid table name format")]
-            if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', column_name):
-                return [TextContent(type="text", text="Error: Invalid column name format")]
-
-            with get_connection() as conn:
-                tables = conn('tables[]').py()
-                if table_name not in tables:
-                    return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
-
-                # Get distinct values with count
-                query = f"select count_rows: count i by {column_name} from {table_name}"
-                result = conn(query)
-
-                # Limit results
-                if hasattr(result, '__len__') and len(result) > limit:
-                    result = conn(f'{limit}#{query}')
-                    truncated = True
-                else:
-                    truncated = False
-
-                result_str = format_result(result)
-                msg = f"Distinct values for '{table_name}.{column_name}':\n{result_str}"
-                if truncated:
-                    msg += f"\n\n(Results truncated to {limit} values)"
-
-                return [TextContent(type="text", text=msg)]
-
-        elif name == "kdb_connection_info":
+                    table_info.append(f"    {t}: N/A")
             return [TextContent(
                 type="text",
-                text=f"KDB+ Connection Info:\n"
-                     f"  Host: {KDB_HOST}\n"
-                     f"  Port: {KDB_PORT}\n"
-                     f"  Timeout: {KDB_TIMEOUT}s\n"
-                     f"  Auth: {'Yes' if KDB_USERNAME else 'No'}\n"
+                text=f"KDB+/PyKX Server Info:\n"
                      f"  PyKX Version: {kx.__version__}\n"
-                     f"  PyKX Licensed: {kx.licensed}"
+                     f"  PyKX Licensed: {kx.licensed}\n"
+                     f"  Data Directory: {DATA_DIR or 'Not set'}\n"
+                     f"  Loaded Tables ({len(tables)}):\n" + '\n'.join(table_info)
             )]
+
+        elif name == "load_table":
+            table_path = arguments.get("table_path")
+            table_name = arguments.get("table_name")
+            if not table_path:
+                return [TextContent(type="text", text="Error: table_path is required")]
+            path = Path(table_path)
+            if not path.exists():
+                return [TextContent(type="text", text=f"Error: Path '{table_path}' does not exist")]
+            if not (path / '.d').exists():
+                return [TextContent(type="text", text=f"Error: '{table_path}' is not a valid splayed table")]
+            if not table_name:
+                table_name = path.name
+            if not validate_table_name(table_name):
+                return [TextContent(type="text", text="Error: Invalid table name format")]
+            kx.q(f'{table_name}: get`:{path}')
+            count = kx.q(f'count {table_name}').py()
+            return [TextContent(type="text", text=f"Loaded table '{table_name}' with {count:,} rows")]
 
         else:
             return [TextContent(type="text", text=f"Unknown tool: {name}")]
 
-    except kx.QError as e:
+    except kx.exceptions.QError as e:
         return [TextContent(type="text", text=f"KDB+ Error: {str(e)}")]
-    except ConnectionError as e:
-        return [TextContent(
-            type="text",
-            text=f"Connection Error: Could not connect to KDB+ at {KDB_HOST}:{KDB_PORT}\n"
-                 f"Make sure the KDB+ server is running with: q -p {KDB_PORT}"
-        )]
     except Exception as e:
         logger.exception(f"Error in tool {name}")
         return [TextContent(type="text", text=f"Error: {str(e)}")]
 
 
-def setup_license(qlic_path: Optional[str] = None):
-    """Set up PyKX license from specified path."""
-    if qlic_path and os.path.isdir(qlic_path):
-        os.environ['QLIC'] = qlic_path
-        logger.info(f"QLIC set to: {qlic_path}")
-
-
 async def main():
     """Main entry point for the MCP server."""
-    global KDB_HOST, KDB_PORT, KDB_USERNAME, KDB_PASSWORD, KDB_TIMEOUT
+    global DATA_DIR, LOADED_TABLES
 
     parser = argparse.ArgumentParser(description="KDB+ PyKX MCP Server")
-    parser.add_argument("--host", default="localhost", help="KDB+ server host (default: localhost)")
-    parser.add_argument("--port", type=int, default=5001, help="KDB+ server port (default: 5001)")
-    parser.add_argument("--username", default=None, help="Username for authentication")
-    parser.add_argument("--password", default=None, help="Password for authentication")
-    parser.add_argument("--timeout", type=float, default=10.0, help="Connection timeout in seconds")
-    parser.add_argument("--qlic", default=None, help="Path to directory containing kc.lic license file")
+    parser.add_argument("--data-dir", default=None,
+                       help="Directory containing splayed tables to load at startup")
 
     args = parser.parse_args()
 
-    KDB_HOST = args.host
-    KDB_PORT = args.port
-    KDB_USERNAME = args.username
-    KDB_PASSWORD = args.password
-    KDB_TIMEOUT = args.timeout
+    logger.info(f"Starting KDB+ PyKX MCP Server")
+    logger.info(f"PyKX Version: {kx.__version__}")
+    logger.info(f"PyKX Licensed: {kx.licensed}")
 
-    logger.info(f"Starting KDB+ PyKX MCP Server (connecting to {KDB_HOST}:{KDB_PORT})")
-    logger.info(f"PyKX licensed: {kx.licensed}")
+    if not kx.licensed:
+        logger.warning("PyKX is running in unlicensed mode. Some features may be limited.")
+
+    if args.data_dir:
+        DATA_DIR = args.data_dir
+        logger.info(f"Loading tables from: {DATA_DIR}")
+        LOADED_TABLES = load_tables_from_directory(DATA_DIR)
+        logger.info(f"Loaded {len(LOADED_TABLES)} table(s): {LOADED_TABLES}")
 
     async with stdio_server() as (read_stream, write_stream):
         await app.run(read_stream, write_stream, app.create_initialization_options())
