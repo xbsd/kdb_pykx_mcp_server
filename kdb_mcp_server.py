@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-KDB+ PyKX MCP Server
+KDB+ PyKX MCP Server (Native Mode)
 
 An MCP (Model Context Protocol) server for interacting with KDB+ databases
-using PyKX. This server provides tools for querying tables, getting metadata,
-and executing safe q queries against a KDB+ server.
+using PyKX in native/embedded mode. This server provides tools for querying
+tables, getting metadata, and executing safe q queries.
 
 Usage:
-    python kdb_mcp_server.py --host localhost --port 5001
+    python kdb_mcp_server.py --data-dir /path/to/data
 
 Or configure in your MCP client settings with args:
-    ["--host", "localhost", "--port", "5001"]
+    ["--data-dir", "/path/to/kdb/tables"]
 """
 
 import os
@@ -18,10 +18,7 @@ import re
 import argparse
 import logging
 from typing import Any, Optional
-from contextlib import asynccontextmanager
-
-# PyKX will auto-detect license. If not found, falls back to unlicensed (IPC-only) mode.
-# Set QLIC environment variable to specify license directory if needed.
+from pathlib import Path
 
 import pykx as kx
 from mcp.server import Server
@@ -32,12 +29,9 @@ from mcp.types import Tool, TextContent
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Global connection parameters
-KDB_HOST = "localhost"
-KDB_PORT = 5001
-KDB_USERNAME: Optional[str] = None
-KDB_PASSWORD: Optional[str] = None
-KDB_TIMEOUT = 10.0
+# Global configuration
+DATA_DIR: Optional[str] = None
+LOADED_TABLES: list[str] = []
 
 # Dangerous operations that should be blocked for safety
 DANGEROUS_PATTERNS = [
@@ -50,7 +44,7 @@ DANGEROUS_PATTERNS = [
     r'\bsystem\b',         # System commands
     r'\bhclose\b',         # Close handles
     r'\bhdel\b',           # Delete files
-    r'`:.*/',              # File path operations to root
+    r'`:/',                # File path operations to root
 ]
 
 # Compile patterns for efficiency
@@ -67,33 +61,43 @@ def is_dangerous_query(query: str) -> tuple[bool, str]:
     Returns:
         Tuple of (is_dangerous, reason)
     """
-    query_lower = query.lower().strip()
-
     for i, pattern in enumerate(DANGEROUS_REGEX):
         if pattern.search(query):
             return True, f"Query contains dangerous pattern: {DANGEROUS_PATTERNS[i]}"
-
     return False, ""
 
 
-def get_connection() -> kx.SyncQConnection:
+def load_tables_from_directory(data_dir: str) -> list[str]:
     """
-    Create a connection to the KDB+ server.
+    Load splayed tables from a directory into the q session.
+
+    Args:
+        data_dir: Path to directory containing splayed tables
 
     Returns:
-        SyncQConnection instance
+        List of loaded table names
     """
-    kwargs = {
-        'host': KDB_HOST,
-        'port': KDB_PORT,
-        'timeout': KDB_TIMEOUT,
-    }
+    loaded = []
+    data_path = Path(data_dir)
 
-    if KDB_USERNAME and KDB_PASSWORD:
-        kwargs['username'] = KDB_USERNAME
-        kwargs['password'] = KDB_PASSWORD
+    if not data_path.exists():
+        logger.warning(f"Data directory does not exist: {data_dir}")
+        return loaded
 
-    return kx.SyncQConnection(**kwargs)
+    # Look for splayed tables (directories with .d file)
+    for item in data_path.iterdir():
+        if item.is_dir() and (item / '.d').exists():
+            table_name = item.name
+            try:
+                # Load splayed table
+                kx.q(f'{table_name}: get`:{item}')
+                loaded.append(table_name)
+                count = kx.q(f'count {table_name}').py()
+                logger.info(f"Loaded table '{table_name}' with {count:,} rows")
+            except Exception as e:
+                logger.error(f"Failed to load table '{table_name}': {e}")
+
+    return loaded
 
 
 def format_result(result: Any) -> str:
@@ -115,7 +119,7 @@ def format_result(result: Any) -> str:
             return str(result.py())
         else:
             return str(result)
-    except Exception as e:
+    except Exception:
         return str(result)
 
 
@@ -129,7 +133,7 @@ async def list_tools():
     return [
         Tool(
             name="kdb_list_tables",
-            description="List all tables available in the connected KDB+ session",
+            description="List all tables available in the KDB+ session",
             inputSchema={
                 "type": "object",
                 "properties": {},
@@ -191,7 +195,7 @@ async def list_tools():
                 "properties": {
                     "query": {
                         "type": "string",
-                        "description": "The q query to execute (e.g., 'select from stocks where symbol=\"AAPL\"')"
+                        "description": "The q query to execute (e.g., 'select from stocks where symbol=`AAPL')"
                     },
                     "max_rows": {
                         "type": "integer",
@@ -244,8 +248,26 @@ async def list_tools():
             }
         ),
         Tool(
-            name="kdb_connection_info",
-            description="Get information about the current KDB+ connection",
+            name="kdb_load_table",
+            description="Load a splayed table from disk into the KDB+ session",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_path": {
+                        "type": "string",
+                        "description": "Path to the splayed table directory"
+                    },
+                    "table_name": {
+                        "type": "string",
+                        "description": "Name to assign to the table (optional, defaults to directory name)"
+                    }
+                },
+                "required": ["table_path"]
+            }
+        ),
+        Tool(
+            name="kdb_server_info",
+            description="Get information about the KDB+/PyKX session",
             inputSchema={
                 "type": "object",
                 "properties": {},
@@ -261,17 +283,16 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
 
     try:
         if name == "kdb_list_tables":
-            with get_connection() as conn:
-                result = conn('tables[]')
-                tables = result.py()
-                if not tables:
-                    return [TextContent(type="text", text="No tables found in the current session.")]
+            result = kx.q('tables[]')
+            tables = result.py()
+            if not tables:
+                return [TextContent(type="text", text="No tables found in the current session.")]
 
-                table_list = "\n".join([f"  - {t}" for t in tables])
-                return [TextContent(
-                    type="text",
-                    text=f"Available tables ({len(tables)}):\n{table_list}"
-                )]
+            table_list = "\n".join([f"  - {t}" for t in tables])
+            return [TextContent(
+                type="text",
+                text=f"Available tables ({len(tables)}):\n{table_list}"
+            )]
 
         elif name == "kdb_table_schema":
             table_name = arguments.get("table_name")
@@ -282,18 +303,17 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', table_name):
                 return [TextContent(type="text", text="Error: Invalid table name format")]
 
-            with get_connection() as conn:
-                # Check if table exists
-                tables = conn('tables[]').py()
-                if table_name not in tables:
-                    return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            # Check if table exists
+            tables = kx.q('tables[]').py()
+            if table_name not in tables:
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
 
-                result = conn(f'meta {table_name}')
-                schema_str = format_result(result)
-                return [TextContent(
-                    type="text",
-                    text=f"Schema for table '{table_name}':\n{schema_str}"
-                )]
+            result = kx.q(f'meta {table_name}')
+            schema_str = format_result(result)
+            return [TextContent(
+                type="text",
+                text=f"Schema for table '{table_name}':\n{schema_str}"
+            )]
 
         elif name == "kdb_table_count":
             table_name = arguments.get("table_name")
@@ -303,17 +323,16 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', table_name):
                 return [TextContent(type="text", text="Error: Invalid table name format")]
 
-            with get_connection() as conn:
-                tables = conn('tables[]').py()
-                if table_name not in tables:
-                    return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            tables = kx.q('tables[]').py()
+            if table_name not in tables:
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
 
-                result = conn(f'count {table_name}')
-                count = result.py()
-                return [TextContent(
-                    type="text",
-                    text=f"Table '{table_name}' has {count:,} rows"
-                )]
+            result = kx.q(f'count {table_name}')
+            count = result.py()
+            return [TextContent(
+                type="text",
+                text=f"Table '{table_name}' has {count:,} rows"
+            )]
 
         elif name == "kdb_table_sample":
             table_name = arguments.get("table_name")
@@ -325,17 +344,16 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', table_name):
                 return [TextContent(type="text", text="Error: Invalid table name format")]
 
-            with get_connection() as conn:
-                tables = conn('tables[]').py()
-                if table_name not in tables:
-                    return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            tables = kx.q('tables[]').py()
+            if table_name not in tables:
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
 
-                result = conn(f'{num_rows}#{table_name}')
-                sample_str = format_result(result)
-                return [TextContent(
-                    type="text",
-                    text=f"Sample of {num_rows} rows from '{table_name}':\n{sample_str}"
-                )]
+            result = kx.q(f'{num_rows}#{table_name}')
+            sample_str = format_result(result)
+            return [TextContent(
+                type="text",
+                text=f"Sample of {num_rows} rows from '{table_name}':\n{sample_str}"
+            )]
 
         elif name == "kdb_query":
             query = arguments.get("query", "").strip()
@@ -352,27 +370,26 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                     text=f"Error: Query blocked for safety. {reason}\n\nPlease use SELECT queries only."
                 )]
 
-            with get_connection() as conn:
-                # Execute the query
-                result = conn(query)
+            # Execute the query
+            result = kx.q(query)
 
-                # If result is a table, limit rows
-                try:
-                    if hasattr(result, '__len__') and len(result) > max_rows:
-                        result = conn(f'{max_rows}#{query}')
-                        result_str = format_result(result)
-                        return [TextContent(
-                            type="text",
-                            text=f"Query result (limited to {max_rows} rows):\n{result_str}"
-                        )]
-                except:
-                    pass
+            # If result is a table, limit rows
+            try:
+                if hasattr(result, '__len__') and len(result) > max_rows:
+                    result = kx.q(f'{max_rows}#', result)
+                    result_str = format_result(result)
+                    return [TextContent(
+                        type="text",
+                        text=f"Query result (limited to {max_rows} rows):\n{result_str}"
+                    )]
+            except:
+                pass
 
-                result_str = format_result(result)
-                return [TextContent(
-                    type="text",
-                    text=f"Query result:\n{result_str}"
-                )]
+            result_str = format_result(result)
+            return [TextContent(
+                type="text",
+                text=f"Query result:\n{result_str}"
+            )]
 
         elif name == "kdb_column_stats":
             table_name = arguments.get("table_name")
@@ -386,41 +403,40 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', column_name):
                 return [TextContent(type="text", text="Error: Invalid column name format")]
 
-            with get_connection() as conn:
-                tables = conn('tables[]').py()
-                if table_name not in tables:
-                    return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            tables = kx.q('tables[]').py()
+            if table_name not in tables:
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
 
-                # Get column metadata first
-                meta = conn(f'meta {table_name}')
-                meta_df = meta.pd()
+            # Get column metadata first
+            meta = kx.q(f'meta {table_name}')
+            meta_df = meta.pd()
 
-                if column_name not in meta_df.index:
-                    return [TextContent(type="text", text=f"Error: Column '{column_name}' not found in table '{table_name}'")]
+            if column_name not in meta_df.index:
+                return [TextContent(type="text", text=f"Error: Column '{column_name}' not found in table '{table_name}'")]
 
-                col_type = meta_df.loc[column_name, 't']
+            col_type = meta_df.loc[column_name, 't']
 
-                # Build stats query based on column type
-                stats_parts = [f"count: count {column_name}"]
-                stats_parts.append(f"nulls: sum null {column_name}")
-                stats_parts.append(f"distinct_count: count distinct {column_name}")
+            # Build stats query based on column type
+            stats_parts = [f"cnt: count {column_name}"]
+            stats_parts.append(f"nulls: sum null {column_name}")
+            stats_parts.append(f"distinct_count: count distinct {column_name}")
 
-                # Numeric types support min/max/avg
-                if col_type in ['i', 'j', 'h', 'e', 'f', 'n', 'p', 'z', 'd', 't']:
-                    stats_parts.append(f"min_val: min {column_name}")
-                    stats_parts.append(f"max_val: max {column_name}")
-                    if col_type in ['i', 'j', 'h', 'e', 'f']:
-                        stats_parts.append(f"avg_val: avg {column_name}")
-                        stats_parts.append(f"sum_val: sum {column_name}")
+            # Numeric types support min/max/avg
+            if col_type in ['i', 'j', 'h', 'e', 'f', 'n', 'p', 'z', 'd', 't']:
+                stats_parts.append(f"min_val: min {column_name}")
+                stats_parts.append(f"max_val: max {column_name}")
+                if col_type in ['i', 'j', 'h', 'e', 'f']:
+                    stats_parts.append(f"avg_val: avg {column_name}")
+                    stats_parts.append(f"sum_val: sum {column_name}")
 
-                stats_query = f"select {'; '.join(stats_parts)} from {table_name}"
-                result = conn(stats_query)
-                stats_str = format_result(result)
+            stats_query = f"select {', '.join(stats_parts)} from {table_name}"
+            result = kx.q(stats_query)
+            stats_str = format_result(result)
 
-                return [TextContent(
-                    type="text",
-                    text=f"Statistics for '{table_name}.{column_name}' (type: {col_type}):\n{stats_str}"
-                )]
+            return [TextContent(
+                type="text",
+                text=f"Statistics for '{table_name}.{column_name}' (type: {col_type}):\n{stats_str}"
+            )]
 
         elif name == "kdb_distinct_values":
             table_name = arguments.get("table_name")
@@ -435,86 +451,112 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', column_name):
                 return [TextContent(type="text", text="Error: Invalid column name format")]
 
-            with get_connection() as conn:
-                tables = conn('tables[]').py()
-                if table_name not in tables:
-                    return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
+            tables = kx.q('tables[]').py()
+            if table_name not in tables:
+                return [TextContent(type="text", text=f"Error: Table '{table_name}' not found")]
 
-                # Get distinct values with count
-                query = f"select count_rows: count i by {column_name} from {table_name}"
-                result = conn(query)
+            # Get distinct values with count
+            query = f"select count_rows: count i by {column_name} from {table_name}"
+            result = kx.q(query)
 
-                # Limit results
-                if hasattr(result, '__len__') and len(result) > limit:
-                    result = conn(f'{limit}#{query}')
-                    truncated = True
-                else:
-                    truncated = False
+            # Limit results
+            truncated = False
+            if hasattr(result, '__len__') and len(result) > limit:
+                result = kx.q(f'{limit}#', result)
+                truncated = True
 
-                result_str = format_result(result)
-                msg = f"Distinct values for '{table_name}.{column_name}':\n{result_str}"
-                if truncated:
-                    msg += f"\n\n(Results truncated to {limit} values)"
+            result_str = format_result(result)
+            msg = f"Distinct values for '{table_name}.{column_name}':\n{result_str}"
+            if truncated:
+                msg += f"\n\n(Results truncated to {limit} values)"
 
-                return [TextContent(type="text", text=msg)]
+            return [TextContent(type="text", text=msg)]
 
-        elif name == "kdb_connection_info":
+        elif name == "kdb_load_table":
+            table_path = arguments.get("table_path")
+            table_name = arguments.get("table_name")
+
+            if not table_path:
+                return [TextContent(type="text", text="Error: table_path is required")]
+
+            path = Path(table_path)
+            if not path.exists():
+                return [TextContent(type="text", text=f"Error: Path '{table_path}' does not exist")]
+
+            if not (path / '.d').exists():
+                return [TextContent(type="text", text=f"Error: '{table_path}' is not a valid splayed table (missing .d file)")]
+
+            # Use directory name if table_name not provided
+            if not table_name:
+                table_name = path.name
+
+            if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', table_name):
+                return [TextContent(type="text", text="Error: Invalid table name format")]
+
+            try:
+                kx.q(f'{table_name}: get`:{path}')
+                count = kx.q(f'count {table_name}').py()
+                return [TextContent(
+                    type="text",
+                    text=f"Successfully loaded table '{table_name}' with {count:,} rows"
+                )]
+            except Exception as e:
+                return [TextContent(type="text", text=f"Error loading table: {str(e)}")]
+
+        elif name == "kdb_server_info":
+            tables = kx.q('tables[]').py()
+            table_counts = {}
+            for t in tables:
+                try:
+                    table_counts[t] = kx.q(f'count {t}').py()
+                except:
+                    table_counts[t] = "N/A"
+
+            table_info = "\n".join([f"    {t}: {c:,} rows" if isinstance(c, int) else f"    {t}: {c}"
+                                   for t, c in table_counts.items()])
+
             return [TextContent(
                 type="text",
-                text=f"KDB+ Connection Info:\n"
-                     f"  Host: {KDB_HOST}\n"
-                     f"  Port: {KDB_PORT}\n"
-                     f"  Timeout: {KDB_TIMEOUT}s\n"
-                     f"  Auth: {'Yes' if KDB_USERNAME else 'No'}\n"
+                text=f"KDB+/PyKX Server Info:\n"
                      f"  PyKX Version: {kx.__version__}\n"
-                     f"  PyKX Licensed: {kx.licensed}"
+                     f"  PyKX Licensed: {kx.licensed}\n"
+                     f"  Data Directory: {DATA_DIR or 'Not set'}\n"
+                     f"  Loaded Tables ({len(tables)}):\n{table_info if table_info else '    (none)'}"
             )]
 
         else:
             return [TextContent(type="text", text=f"Unknown tool: {name}")]
 
-    except kx.QError as e:
+    except kx.exceptions.QError as e:
         return [TextContent(type="text", text=f"KDB+ Error: {str(e)}")]
-    except ConnectionError as e:
-        return [TextContent(
-            type="text",
-            text=f"Connection Error: Could not connect to KDB+ at {KDB_HOST}:{KDB_PORT}\n"
-                 f"Make sure the KDB+ server is running with: q -p {KDB_PORT}"
-        )]
     except Exception as e:
         logger.exception(f"Error in tool {name}")
         return [TextContent(type="text", text=f"Error: {str(e)}")]
 
 
-def setup_license(qlic_path: Optional[str] = None):
-    """Set up PyKX license from specified path."""
-    if qlic_path and os.path.isdir(qlic_path):
-        os.environ['QLIC'] = qlic_path
-        logger.info(f"QLIC set to: {qlic_path}")
-
-
 async def main():
     """Main entry point for the MCP server."""
-    global KDB_HOST, KDB_PORT, KDB_USERNAME, KDB_PASSWORD, KDB_TIMEOUT
+    global DATA_DIR, LOADED_TABLES
 
-    parser = argparse.ArgumentParser(description="KDB+ PyKX MCP Server")
-    parser.add_argument("--host", default="localhost", help="KDB+ server host (default: localhost)")
-    parser.add_argument("--port", type=int, default=5001, help="KDB+ server port (default: 5001)")
-    parser.add_argument("--username", default=None, help="Username for authentication")
-    parser.add_argument("--password", default=None, help="Password for authentication")
-    parser.add_argument("--timeout", type=float, default=10.0, help="Connection timeout in seconds")
-    parser.add_argument("--qlic", default=None, help="Path to directory containing kc.lic license file")
+    parser = argparse.ArgumentParser(description="KDB+ PyKX MCP Server (Native Mode)")
+    parser.add_argument("--data-dir", default=None,
+                       help="Directory containing splayed tables to load at startup")
 
     args = parser.parse_args()
 
-    KDB_HOST = args.host
-    KDB_PORT = args.port
-    KDB_USERNAME = args.username
-    KDB_PASSWORD = args.password
-    KDB_TIMEOUT = args.timeout
+    logger.info(f"Starting KDB+ PyKX MCP Server (Native Mode)")
+    logger.info(f"PyKX Version: {kx.__version__}")
+    logger.info(f"PyKX Licensed: {kx.licensed}")
 
-    logger.info(f"Starting KDB+ PyKX MCP Server (connecting to {KDB_HOST}:{KDB_PORT})")
-    logger.info(f"PyKX licensed: {kx.licensed}")
+    if not kx.licensed:
+        logger.warning("PyKX is running in unlicensed mode. Some features may be limited.")
+
+    # Load tables from data directory if specified
+    if args.data_dir:
+        DATA_DIR = args.data_dir
+        logger.info(f"Loading tables from: {DATA_DIR}")
+        LOADED_TABLES = load_tables_from_directory(DATA_DIR)
+        logger.info(f"Loaded {len(LOADED_TABLES)} table(s): {LOADED_TABLES}")
 
     async with stdio_server() as (read_stream, write_stream):
         await app.run(read_stream, write_stream, app.create_initialization_options())
