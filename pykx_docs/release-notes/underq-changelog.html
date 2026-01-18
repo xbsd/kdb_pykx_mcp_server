@@ -1,0 +1,3984 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="PyKX Documentation">
+      
+      
+        <meta name="author" content="KX">
+      
+      
+        <link rel="canonical" href="https://code.kx.com/pykx/release-notes/underq-changelog.html">
+      
+      
+        
+      
+      <link rel="icon" href="https://code.kx.com/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.2.7+insiders-4.11.0">
+    
+    
+      
+        <title>PyKX under q - PyKX</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5216e7b8.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+      
+    
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/assets/stylesheets/main.b941530a.min.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/2021.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/prism.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/hide-footer-nav.css">
+    
+      <link rel="stylesheet" href="../stylesheets/mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/dashboards.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/dashboards/stylesheets/dashboards.css">
+    
+      <link rel="stylesheet" href="../stylesheets/swagger.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PG938LS');</script>
+<!-- End Google Tag Manager -->
+<!-- Delighted Survey tool -->
+<script type="text/javascript">
+	!function(e,t,r,n){if(!e[n]){for(var a=e[n]=[],i=["survey","reset","config","init","set","get","event","identify","track","page","screen","group","alias"],s=0;s<i.length;s++){var c=i[s];a[c]=a[c]||function(e){return function(){var t=Array.prototype.slice.call(arguments);a.push([e,t])}}(c)}a.SNIPPET_VERSION="1.0.1";var o=t.createElement("script");o.type="text/javascript",o.async=!0,o.src="https://d2yyd1h5u9mauk.cloudfront.net/integrations/web/v1/library/"+r+"/"+n+".js";var p=t.getElementsByTagName("script")[0];p.parentNode.insertBefore(o,p)}}(window,document,"QKBtsIp633c7g2I2","delightedThumbsP"); 
+   
+   delightedThumbsP.survey({
+	properties: { // extra context (optional)
+	product: "PyKX"
+	}
+	});
+   </script>
+<!-- End Delighted Survey tool -->
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="kx-light" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pykx-under-q-changelog" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header"  onload="loadVersions()">
+    <!--<link rel="stylesheet" href="https://code.kx.com/home/assets/stylesheets/main.b941530a.min.css">-->
+    <!--<link rel="stylesheet" href="https://code.kx.com/home/assets/stylesheets/vendor/mermaid.733f213f.min.css">-->
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://code.kx.com/" title="code.kx.com" class="md-header__button md-logo" aria-label="PyKX" data-md-component="logo">
+      <img src="https://code.kx.com/img/kx.svg" alt="logo" style="width:1.2rem; height:1.2rem">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic" style="font-weight:500">
+            <span class="md-ellipsis" >
+            PyKX
+          </span>
+          <script>
+            var currVersion = '2.5'
+          </script>
+          <style>
+            .md-version:focus-within .md-version__list, .md-version:hover .md-version__list {
+              max-height: 6rem;
+              opacity: 1;
+              transition: max-height 0ms,opacity .25s;
+            }
+          </style>
+              <div class="md-version">
+                <button class="md-version__current" aria-label="Select version">2.5</button>
+                <ul class="md-version__list" style="margin-top: 20%;">
+                  <div id="versionList"></div>
+                </ul>
+              </div>
+              <div id="latestFlag"></div>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PyKX under q
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="kx-light" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kxsystems/pykx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+<style>
+    @media (max-width: 430px) {
+      .md-typeset span{display:none;}
+    }
+  /* Button used to open the chat form - fixed at the bottom of the page */
+  .open-button {
+    background-color: var(--md-typeset-a-color);
+    border: none;
+    border-radius: 10px;
+    bottom: 23px;
+    box-sizing: border-box;
+    color: var(--md-default-bg-color);
+    cursor: pointer;
+    font-size: 13px;
+    opacity: 0.8;
+    padding: 10px 10px;
+    position: fixed;
+    right: 28px;
+    width: 160px;
+    z-index: 3;
+  }
+</style>
+<body>
+  <button class="open-button md-typeset" onclick="window.location.href='https://community.kx.com/t5/forums/postpage/choose-node/true/interaction-style/forum/override-styles/true/board-id/kxinsights'"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29 7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160-93.3 160-208 160z"></path></svg></span>&nbsp;Ask a question</button>
+  </body>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/" class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/q" class="md-tabs__link">
+        
+  
+  kdb+ and q
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/core" class="md-tabs__link">
+        
+  
+  kdb Insights SDK
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/platform/" class="md-tabs__link">
+        
+  
+  kdb Insights Enterprise
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/kdbai/" class="md-tabs__link">
+        
+  
+  KDB.AI
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+      
+    
+  
+  
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../index.html" class="md-tabs__link md-tabs__link--active">
+          
+  
+    
+  
+  PyKX
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/api/index.html" class="md-tabs__link">
+        
+  
+  APIs
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/licensing/licensing/" class="md-tabs__link">
+        
+  
+  Licensing
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/home/support/" class="md-tabs__link">
+        
+  
+  Help
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="PyKX" class="md-nav__button md-logo" aria-label="PyKX" data-md-component="logo">
+      <img src="https://code.kx.com/img/kx.svg" alt="logo" style="width:1.2rem; height:1.2rem">
+    </a>
+    PyKX
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kxsystems/pykx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/q" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb+ and q
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/core" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb Insights SDK
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/platform/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb Insights Enterprise
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/kdbai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    KDB.AI
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          
+  
+  <span class="md-ellipsis">
+    PyKX
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PyKX" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          PyKX
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Documentation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/what_is_pykx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is PyKX?
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/installing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/quickstart.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart guide
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/PyKX%20Introduction%20Notebook.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Introduction Notebook
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/q_magic_command.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jupyter q Magic Command Notebook
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/configuration.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_3" type="checkbox" id="__nav_6_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_3">
+          
+  
+  <span class="md-ellipsis">
+    Fundamentals
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fundamentals" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Fundamentals
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/creating.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generating PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/evaluating.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interacting with PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/querying.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying data
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/indexing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Indexing PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/conversion_considerations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conversion considerations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/text.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Representation in PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/nulls_and_infinities.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handling nulls and infinities
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_4" type="checkbox" id="__nav_6_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_4">
+          
+  
+  <span class="md-ellipsis">
+    Advanced usage and performance considerations
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Advanced usage and performance considerations" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced usage and performance considerations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/ipc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Communicating via IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/database.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database interactions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/context_interface.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using q functions in a Pythonic way
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/modes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modes of operation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/numpy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NumPy integration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/serialization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization and de-serialization
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/performance.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance considerations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/limitations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface limitations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/attributes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Attributes
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/pandas_breakdown.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas Like API Coverage
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_1" type="checkbox" id="__nav_6_4_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_1">
+          
+  
+  <span class="md-ellipsis">
+    Code execution
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code execution" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          Code execution
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-execution/q.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX native functions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-execution/embedded_q.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX execution classes
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-execution/ctx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Context interface
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-execution/console.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX console
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_2" type="checkbox" id="__nav_6_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_2">
+          
+  
+  <span class="md-ellipsis">
+    Data types and conversions
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data types and conversions" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Data types and conversions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-q-data/toq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Convert Pythonic data to PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-q-data/wrappers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX type wrappers
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-q-data/type_conversions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX to Pythonic data type mapping
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-q-data/register.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Registering Custom Conversions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/Pandas_API.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas API
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/random.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random data generation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/query.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/compress.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption APIs
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/db.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Interactions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/remote.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote Python Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/ipc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/exceptions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Exceptions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/schema.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schema generation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/streamlit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streamlit Integration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/system.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Command Wrappers
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/util.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_16" type="checkbox" id="__nav_6_4_16" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_16">
+          
+  
+  <span class="md-ellipsis">
+    File loading and saving
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="File loading and saving" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_16">
+          <span class="md-nav__icon md-icon"></span>
+          File loading and saving
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-save-load/write.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Writing data to disk
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-save-load/read.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reading data from disk
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/reimporting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reimporter module
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/serialize.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          
+  
+  <span class="md-ellipsis">
+    Beta Features
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Beta Features" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Beta Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/db-management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/compress-encypt.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/remote-functions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote Function Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/threading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multithreading
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/streamlit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streamlit
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          
+  
+  <span class="md-ellipsis">
+    Python within q
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python within q" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Python within q
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-under-q/intro.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-under-q/api.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-under-q/upgrade.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade from embedPy
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-under-q/known_issues.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Known Issues
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_7" type="checkbox" id="__nav_6_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_7">
+          
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_7">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/subscriber/readme.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Subscriber
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/compress_and_encrypt/readme.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/db-management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Creation and Management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/ipc/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/charting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Charting Data with PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/server/server.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX as a Server
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/threaded_execution/threading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multithreaded Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_8" type="checkbox" id="__nav_6_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_8">
+          
+  
+  <span class="md-ellipsis">
+    Extras
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Extras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_8">
+          <span class="md-nav__icon md-icon"></span>
+          Extras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/comparisons.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Comparisons against other Python/q interfaces
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/known_issues.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Known issues
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_9" type="checkbox" id="__nav_6_9" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_9">
+          
+  
+  <span class="md-ellipsis">
+    Release notes
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Release notes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_9">
+          <span class="md-nav__icon md-icon"></span>
+          Release notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    PyKX under q
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="underq-changelog.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    PyKX under q
+  </span>
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-254" class="md-nav__link">
+    PyKX 2.5.4
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.5.4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-253" class="md-nav__link">
+    PyKX 2.5.3
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.5.3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_1" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_1" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-250" class="md-nav__link">
+    PyKX 2.5.0
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.5.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_2" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_2" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-241" class="md-nav__link">
+    PyKX 2.4.1
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.4.1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_3" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_3" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-231" class="md-nav__link">
+    PyKX 2.3.1
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.3.1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_4" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_4" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-230" class="md-nav__link">
+    PyKX 2.3.0
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.3.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_5" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_5" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-222" class="md-nav__link">
+    PyKX 2.2.2
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.2.2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_6" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_6" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-221" class="md-nav__link">
+    PyKX 2.2.1
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.2.1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_7" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_7" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-220" class="md-nav__link">
+    PyKX 2.2.0
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.2.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_8" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additions" class="md-nav__link">
+    Additions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_8" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-210" class="md-nav__link">
+    PyKX 2.1.0
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.1.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_9" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_9" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-200" class="md-nav__link">
+    PyKX 2.0.0
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.0.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_10" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additions_1" class="md-nav__link">
+    Additions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_10" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../blogs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blogs, Articles and Videos
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frequently Asked Questions (FAQ)
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../support.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributors.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributors
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/api/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    APIs
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/licensing/licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licensing
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/home/support/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Help
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-254" class="md-nav__link">
+    PyKX 2.5.4
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.5.4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-253" class="md-nav__link">
+    PyKX 2.5.3
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.5.3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_1" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_1" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-250" class="md-nav__link">
+    PyKX 2.5.0
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.5.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_2" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_2" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-241" class="md-nav__link">
+    PyKX 2.4.1
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.4.1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_3" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_3" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-231" class="md-nav__link">
+    PyKX 2.3.1
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.3.1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_4" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_4" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-230" class="md-nav__link">
+    PyKX 2.3.0
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.3.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_5" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_5" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-222" class="md-nav__link">
+    PyKX 2.2.2
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.2.2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_6" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_6" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-221" class="md-nav__link">
+    PyKX 2.2.1
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.2.1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_7" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_7" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-220" class="md-nav__link">
+    PyKX 2.2.0
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.2.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_8" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additions" class="md-nav__link">
+    Additions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_8" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-210" class="md-nav__link">
+    PyKX 2.1.0
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.1.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_9" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_9" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx-200" class="md-nav__link">
+    PyKX 2.0.0
+  </a>
+  
+    <nav class="md-nav" aria-label="PyKX 2.0.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-date_10" class="md-nav__link">
+    Release Date
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additions_1" class="md-nav__link">
+    Additions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixes-and-improvements_10" class="md-nav__link">
+    Fixes and Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/kxsystems/pykx/edit/main/docs/release-notes/underq-changelog.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="pykx-under-q-changelog">PyKX under q Changelog</h1>
+<p>This changelog provides updates from PyKX 2.0.0 and above, for information relating to versions of PyKX prior to this version see the changelog linked below.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The changelog presented here outlines changes to PyKX when operating within a q environment specifically, if you require changelogs associated with PyKX operating within a Python environment see <a href="changelog.html">here</a>.</p>
+</div>
+<h2 id="pykx-254">PyKX 2.5.4</h2>
+<h4 id="release-date">Release Date</h4>
+<p>2024-10-22</p>
+<h3 id="fixes-and-improvements">Fixes and Improvements</h3>
+<ul>
+<li><code>.pykx.util.loadfile</code> now loads a file using it's full path unless it contains a space. This is to avoid issues loading scripts which are sensitive to their working directory.</li>
+</ul>
+<h2 id="pykx-253">PyKX 2.5.3</h2>
+<h4 id="release-date_1">Release Date</h4>
+<p>2024-08-22</p>
+<h3 id="fixes-and-improvements_1">Fixes and Improvements</h3>
+<ul>
+<li>
+<p>Previously PyKX conversions of generic lists (type 0h) would convert this data to it's <code>raw</code> representation rather than it's <code>python</code> representation as documented. This had the effect of restricting the usability of some types within PyKX under q in non-trivial use-cases. With the <code>2.5.2</code> changes to more accurately represent <code>raw</code> data at depth this became more obvious as an issue.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Behaviour prior to change</label><label for="__tabbed_1_2">Behaviour post change</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.version[]
+"2.5.2"
+q).pykx.print .pykx.eval["lambda x:x"](`test;::;first 1?0p)
+[b'test', None, 49577290277400616]</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.print .pykx.eval["lambda x:x"](`test;::;first 1?0p)
+['test', None, datetime.datetime(2002, 1, 25, 11, 16, 58, 871372)]</code></pre>
+</div>
+</div>
+</div>
+</li>
+</ul>
+<h2 id="pykx-250">PyKX 2.5.0</h2>
+<h4 id="release-date_2">Release Date</h4>
+<p>2024-05-15</p>
+<h3 id="fixes-and-improvements_2">Fixes and Improvements</h3>
+<ul>
+<li>When loading PyKX under from a source file path containing a space initialisation would fail with an <code>nyi</code> error message, this has now been resolved.</li>
+</ul>
+<h2 id="pykx-241">PyKX 2.4.1</h2>
+<h4 id="release-date_3">Release Date</h4>
+<p>2024-03-27</p>
+<h3 id="fixes-and-improvements_3">Fixes and Improvements</h3>
+<ul>
+<li>
+<p>When loading PyKX under q users who had previously loaded <a href="https://github.com/KxSystems/embedPy">embedPy</a> into their process would cause a segfault of unspecified origin. With this release we have added a warning prior to loading of PyKX which specifies that if a value of <code>.p.e</code> has been specified which does not match that expected of PyKX a user should consider installing PyKX under q fully:</p>
+<pre class="highlight"><code class="language-q">q)\l p.q     // Load embedPy
+q)\l pykx.q
+Warning: Detected invalid '.p.e' function definition expected for PyKX.
+Have you loaded another Python integration first?
+
+Please consider full installation of PyKX under q following instructions at:
+https://code.kx.com/pykx/pykx-under-q/intro.html#installation</code></pre>
+</li>
+</ul>
+<h2 id="pykx-231">PyKX 2.3.1</h2>
+<h4 id="release-date_4">Release Date</h4>
+<p>2024-02-07</p>
+<h3 id="fixes-and-improvements_4">Fixes and Improvements</h3>
+<ul>
+<li>
+<p><code>.pykx.eval</code> is now variadic allowing an optional second parameter to be passed to define return type. Previously would error with <code>rank</code>.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Behavior prior to change</label><label for="__tabbed_2_2">Behavior post change</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.eval["lambda x: x";&lt;] 7
+'rank
+[0]  .pykx.eval["lambda x: x";&lt;] 7</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.eval["lambda x: x";&lt;] 7
+7</code></pre>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Wraps which have a return type assigned using <code>&lt;</code> or <code>&gt;</code> are now considered wraps and can be unwrapped:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Behavior prior to change</label><label for="__tabbed_3_2">Behavior post change</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.util.isw .pykx.eval["lambda x: x"][&lt;]
+0b
+q).pykx.unwrap  .pykx.eval["lambda x: x"][&lt;]
+{$[type[x]in 104 105 112h;util.foreignToq unwrap x;x]}.[code[foreign]]`.pykx.util.parseArgsenlist</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.util.isw .pykx.eval["lambda x: x"][&lt;]
+1b
+q).pykx.unwrap  .pykx.eval["lambda x: x"][&lt;]
+foreign</code></pre>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p><code>.pykx.qcallable</code> and <code>.pykx.pycallable</code> can now convert wraps which already have return types assigned:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Behavior prior to change</label><label for="__tabbed_4_2">Behavior post change</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.qcallable[.pykx.eval["lambda x: x"][&lt;]]`
+'Could not convert provided function to callable with q return
+q).pykx.print .pykx.pycallable[.pykx.eval["lambda x: x"][&gt;]]
+'Could not convert provided function to callable with Python return</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.qcallable[.pykx.eval["lambda x: x"][&lt;]]`test
+`test
+q).pykx.print .pykx.wrap .pykx.pycallable[.pykx.eval["lambda x: x"][&gt;]]`test
+test</code></pre>
+</div>
+</div>
+</div>
+</li>
+</ul>
+<h2 id="pykx-230">PyKX 2.3.0</h2>
+<h4 id="release-date_5">Release Date</h4>
+<p>2024-01-22</p>
+<h3 id="fixes-and-improvements_5">Fixes and Improvements</h3>
+<ul>
+<li>
+<p>A bug was fixed when using <code>.pykx.console</code>, it is now possible to access python variables set using the console with <code>.pykx.(eval|pyexec|pyeval)</code> functions.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Behavior prior to change</label><label for="__tabbed_5_2">Behavior post change</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q) .pykx.console[]
+&gt;&gt;&gt; a = 10
+&gt;&gt;&gt; quit()
+q) .pykx.eval["a"]`
+'NameError("name 'a' is not defined")
+  [1]  /.../q/pykx.q:968: .pykx.eval:{wrap pyeval x}</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q) .pykx.console[]
+&gt;&gt;&gt; a = 10
+&gt;&gt;&gt; quit()
+q) .pykx.eval["a"]`
+10</code></pre>
+</div>
+</div>
+</div>
+</li>
+</ul>
+<h2 id="pykx-222">PyKX 2.2.2</h2>
+<h4 id="release-date_6">Release Date</h4>
+<p>2023-12-07</p>
+<h3 id="fixes-and-improvements_6">Fixes and Improvements</h3>
+<ul>
+<li>When loaded in a q process loading <code>pykx.q</code> would not allow <code>Ctrl+C</code> (SIGINT) interruption.</li>
+</ul>
+<h2 id="pykx-221">PyKX 2.2.1</h2>
+<h4 id="release-date_7">Release Date</h4>
+<p>2023-11-30</p>
+<h3 id="fixes-and-improvements_7">Fixes and Improvements</h3>
+<ul>
+<li><code>.pykx.print</code> was using <code>repr</code> representation for some objects. Now consistently calls <code>print</code>.</li>
+<li><code>.pykx.safeReimport</code> now resets environment variables correctly before throwing any error raised by the function supplied to it.</li>
+<li>
+<p>Wrapped Python objects being supplied as arguments to functions were being converted according to <code>.pykx.util.defaultConv</code>. Now are left untouched:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Behavior prior to change</label><label for="__tabbed_6_2">Behavior post change</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q)\l pykx.q
+q)np:.pykx.import `numpy;
+q)r:np[`:random.rand;1;2];
+q).pykx.print r
+array([[0.03720163, 0.72012121]])
+q).pykx.print .pykx.eval["lambda x: x"] r
+array([array([0.03720163, 0.72012121])], dtype=object)
+q).pykx.setdefault"py"
+q).pykx.print .pykx.eval["lambda x: x"] r
+[[0.037201634310417564, 0.7201212148535847]]</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.print r
+array([[0.59110368, 0.52612429]])
+q).pykx.print .pykx.eval["lambda x: x"] r
+array([[0.59110368, 0.52612429]])
+q).pykx.setdefault"py"
+q).pykx.print .pykx.eval["lambda x: x"] r
+array([[0.59110368, 0.52612429]])</code></pre>
+</div>
+</div>
+</div>
+<ul>
+<li>q hsym will convert correctly to <code>pathlib.PosixPath</code> rather than <code>str</code>:</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Behavior prior to change</label><label for="__tabbed_7_2">Behavior post change</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.eval["lambda x: print(type(x))"] `:/path/to/somewhere;
+&lt;class 'str'&gt;</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.eval["lambda x: print(type(x))"] `:/path/to/somewhere;
+&lt;class 'pathlib.PosixPath'&gt;</code></pre>
+</div>
+</div>
+</div>
+</li>
+</ul>
+<h2 id="pykx-220">PyKX 2.2.0</h2>
+<h4 id="release-date_8">Release Date</h4>
+<p>2023-11-09</p>
+<h3 id="additions">Additions</h3>
+<ul>
+<li>Addition of <code>PYKX_EXECUTABLE</code> environment/configuration variable to allow control of which Python executable is used under q.</li>
+</ul>
+<h3 id="fixes-and-improvements_8">Fixes and Improvements</h3>
+<ul>
+<li>
+<p>Failure to access and load PyKX resulting in an <code>os</code> error now returns Python backtrace outlining the underlying Python error allowing for easier debugging</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Behavior prior to change</label><label for="__tabbed_8_2">Behavior post change</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q)\l pykx.q
+'os
+  [4]  \python3 -c "import pykx; print(pykx.config.pykx_dir)" 2&gt;/dev/null
+       ^</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q)\l pykx.q
+Traceback (most recent call last):
+  File "&lt;string&gt;", line 1, in &lt;module&gt;
+  File "/usr/local/anaconda3/lib/python3.8/site-packages/pykx/__init__.py", line 27, in &lt;module&gt;
+    from . import core
+  File "pykx/core.pyx", line 6, in init pykx.core
+    from .util import num_available_cores
+  File "/usr/local/anaconda3/lib/python3.8/site-packages/pykx/util.py", line 8, in &lt;module&gt;
+    import pandas as pd
+  File "/usr/local/anaconda3/lib/python3.8/site-packages/pandas/__init__.py", line 16, in &lt;module&gt;
+    raise ImportError(
+ImportError: Unable to import required dependencies:
+numpy: cannot import name 'SystemRandom' from 'random' (/Users/projects/pykx/src/pykx/random.py)
+Traceback (most recent call last):
+  File "&lt;string&gt;", line 1, in &lt;module&gt;
+  File "/usr/local/anaconda3/lib/python3.8/site-packages/pykx/__init__.py", line 27, in &lt;module&gt;
+    from . import core
+  File "pykx/core.pyx", line 6, in init pykx.core
+    from .util import num_available_cores
+  File "/usr/local/anaconda3/lib/python3.8/site-packages/pykx/util.py", line 8, in &lt;module&gt;
+    import pandas as pd
+  File "/usr/local/anaconda3/lib/python3.8/site-packages/pandas/__init__.py", line 16, in &lt;module&gt;
+    raise ImportError(
+ImportError: Unable to import required dependencies:
+numpy: cannot import name 'SystemRandom' from 'random' (/Users/projects/pykx/src/pykx/random.py)
+'os
+  [4]  \python3 -c "import pykx; print('PYKX_DIR: ' + str(pykx.config.pykx_dir))"</code></pre>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Fixed <code>type</code> error if converting dictionaries or keyed tables with conversion set to <code>default</code></p>
+</li>
+<li>On load now sets <code>PYKX_SKIP_UNDERQ</code> rather than deprecated <code>SKIP_UNDERQ</code></li>
+<li><code>safeReimport</code> now additionally unsets/resets: <code>PYKX_DEFAULT_CONVERSION</code>, <code>PYKX_SKIP_UNDERQ</code>, <code>PYKX_EXECUTABLE</code>, <code>PYKX_DIR</code></li>
+</ul>
+<h2 id="pykx-210">PyKX 2.1.0</h2>
+<h4 id="release-date_9">Release Date</h4>
+<p>2023-10-09</p>
+<h3 id="fixes-and-improvements_9">Fixes and Improvements</h3>
+<ul>
+<li>
+<p>Update to default conversion logic for q objects passed to PyKX functions to more closely match embedPy based conversion expectations.For version &lt;=2.0 conversions of KX lists would produce N Dimensional Numpy arrays of singular type. This results in issues when applying to many analytic libraries which rely on lists of lists rather than singular N Dimensional arrays. Additionally q tables and keyed tables would be converted to Numpy recarrays, these are now converted to Pandas DataFrames. To maintain previous behavior please set the following environment variable <code>PYKX_DEFAULT_CONVERSION="np"</code>.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Behaviour prior to change</label><label for="__tabbed_9_2">Behaviour post change</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.eval["lambda x:print(type(x))"](10?1f;10?1f)
+&lt;class 'numpy ndarray'&gt;
+q).pykx.eval["lambda x:print(type(x))"]([]10?1f;10?1f)
+&lt;class 'numpy.recarray'&gt;</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.eval["lambda x:print(type(x))"](10?1f;10?1f)
+&lt;class 'list'&gt;
+q).pykx.eval["lambda x:print(type(x))"]([]10?1f;10?1f)
+&lt;class 'pandas.core.frame.DataFrame'&gt;</code></pre>
+</div>
+</div>
+</div>
+</li>
+</ul>
+<h2 id="pykx-200">PyKX 2.0.0</h2>
+<h4 id="release-date_10">Release Date</h4>
+<p>2023-09-18</p>
+<h3 id="additions_1">Additions</h3>
+<ul>
+<li>Addition of <code>.pykx.qcallable</code> and <code>.pykx.pycallable</code> functions which allow wrapping of a foreign Python callable function returning the result as q or Python foreign respectively.</li>
+<li>Addition of <code>.pykx.version</code> allowing users to programmatically access their version from a q process.</li>
+<li>Addition of <code>.pykx.debug</code> namespace containing copies of useful process initialization information specific to usage within a q environment</li>
+<li>Addition of function <code>.pykx.debugInfo</code> which returns a string representation of useful information when debugging issues with the the use of PyKX within the q environment</li>
+<li>
+<p>Added the ability for users to print the return of a <code>conversion</code> object</p>
+<pre class="highlight"><code class="language-q">q).pykx.print .pykx.topd ([]5?1f;5?1f)
+          x        x1
+0  0.613745  0.493183
+1  0.529481  0.578520
+2  0.691610  0.083889
+3  0.229662  0.195991
+4  0.691953  0.375638</code></pre>
+</li>
+</ul>
+<h3 id="fixes-and-improvements_10">Fixes and Improvements</h3>
+<ul>
+<li>Application of object setting on a Python list returns generic null rather than wrapped foreign object.</li>
+<li>Use of environment variables relating to <code>PyKX under q</code> must use <code>"true"</code> as accepted value, previously any value set for such environment variables would be supported.</li>
+<li>Fixed an issue where invocation of <code>.pykx.print</code> would not return results to stdout.</li>
+<li>
+<p>Fixed an issue where <code>hsym</code>/<code>Path</code> style objects could not be passed to Python functions</p>
+<pre class="highlight"><code class="language-q">q).pykx.eval["lambda x: x"][`:test]`
+`:test  </code></pre>
+</li>
+<li>
+<p>Resolution to memory leak incurred during invocation of <code>.pykx.*eval</code> functions relating to return of Python foreign objects to q.</p>
+</li>
+<li>
+<p>Fixed an issue where segmentation faults could occur for various function if non Python backed foreign objects are passed in place of Python backed foreign</p>
+<pre class="highlight"><code class="language-q">q).pykx.toq .pykx.util.load[(`foreign_to_q;1)]
+'Provided foreign object is not a Python object</code></pre>
+</li>
+<li>
+<p>Fixed an issue where segmentation faults could occur through repeated invocation of <code>.pykx.pyexec</code></p>
+<pre class="highlight"><code class="language-q">q)do[1000;.pykx.pyexec"1+1"]</code></pre>
+</li>
+<li>
+<p>Removed the ability when using PyKX under q to allow users set reserved Python keywords to other values</p>
+</li>
+</ul>
+
+
+
+
+              
+            </article>
+            
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="changelog.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: PyKX" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              PyKX
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../roadmap.html" class="md-footer__link md-footer__link--next" aria-label="Next: Roadmap" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Roadmap
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2024 Kx Systems, Inc. KX and kdb+ are registered trademarks of Kx Systems, Inc., a subsidiary of FD Technologies plc.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs Insiders
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link", "header.autohide", "navigation.tabs", "navigation.footer", "content.code.annotate", "content.action.edit", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c028271.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dcd4d203.min.js"></script>
+      
+        <script src="https://code.kx.com/scripts/prism.js"></script>
+      
+        <script src="https://code.kx.com/scripts/extra.js"></script>
+      
+        <script src="https://code.kx.com/scripts/mathjax.js"></script>
+      
+        <script src="https://code.kx.com/scripts/polyfill.min.js"></script>
+      
+        <script src="https://code.kx.com/scripts/tex-mmmdtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      
+        <script src="https://use.fontawesome.com/3dbf29ed12.js"></script>
+      
+        <script src="../&period;&period;/&period;&period;/pykx/scripts/versions.js"></script>
+      
+    
+  </body>
+</html>

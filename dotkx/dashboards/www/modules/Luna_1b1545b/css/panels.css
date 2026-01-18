@@ -1,0 +1,168 @@
+/**
+  PANELS CSS
+**/
+#panels {
+  position: absolute;
+  top: 40px;
+  height: calc(100% - 40px);
+}
+
+.panel article {
+  margin: 2%;
+}
+.panel article header {
+  font-size: 1.2rem;
+  line-height: 110%;
+  font-weight: 200;
+  margin: 0.8rem 0rem 0.8rem 0rem;
+}
+
+.secondary {
+  background: rgba(15, 17, 17, 0.9);
+}
+
+/**
+  PANEL ANIMATION
+ */
+.panel-enter {
+  opacity: 0;
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.panel-appear {
+  opacity: 0.5;
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.panel-appear.panel-appear-active {
+  opacity: 1;
+  -moz-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  -webkit-transform: translateX(0%);
+  -o-transform: translateX(0%);
+  transform: translateX(0%);
+  transition: all 150ms ease;
+}
+
+.panel-enter.panel-enter-active {
+  opacity: 1;
+  -moz-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  -webkit-transform: translateX(0%);
+  -o-transform: translateX(0%);
+  transform: translateX(0%);
+  transition: all 150ms ease;
+}
+
+.panel-leave {
+  opacity: 1;
+}
+
+.panel-leave.panel-leave-active {
+  opacity: 0;
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  pointer-events: none;
+  transition: all 150ms ease;
+}
+
+.secondary-panel {
+  background: #0f1111;
+}
+
+a.close-button {
+  text-align: right;
+  cursor: pointer;
+  margin-bottom: -10px;
+  height: 10px;
+}
+
+a.close-button .popup {
+  color: black;
+}
+
+.slide-out {
+  opacity: 0;
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* item list */
+.clickable-rows td {
+  cursor: pointer;
+}
+
+table.scrolltable {
+  display: block;
+  height: 30em;
+}
+
+/* sorting */
+.table-cell-sort-icon {
+  margin-left: 4px;
+}
+
+.table-cell-sort-icon .fa-sort {
+  opacity: 0.3;
+}
+
+/* paging */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+}
+
+.loading-overlay .spinner {
+  top: 50%;
+  margin-top: -50px;
+}
+
+.paging {
+  text-align: right;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.paging-button {
+  color: #e6f4d7;
+  background: #1c2626;
+  padding: 8px;
+  margin: 0 0 0 0.25rem;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+}
+
+.paging-button:hover {
+  background: #2c3a3a;
+}
+
+.paging-button-disabled,
+.paging-button-disabled:hover {
+  background: transparent;
+  opacity: 0.5;
+  cursor: inherit;
+}
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhbmVscy5zY3NzIiwidmFyaWFibGVzLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0E7QUFBQTtBQUFBO0FBTUE7RUFDRTtFQUNBO0VBQ0E7OztBQUtBO0VBQ0UsUUFYa0I7O0FBWWxCO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7OztBQUtOO0VBQ0U7OztBQUdGO0FBQUE7QUFBQTtBQUlBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOzs7QUFHRjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOzs7QUFFRjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOzs7QUFFRjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOzs7QUFHRjtFQUNFOzs7QUFHRjtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7OztBQUdGO0VBQ0UsWUN2RmdCOzs7QUQwRmxCO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7OztBQUdGO0VBQ0U7OztBQUdGO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7OztBQUdGO0FBQ0E7RUFDRTs7O0FBRUY7RUFDRTtFQUNBOzs7QUFHRjtBQUNBO0VBQ0U7OztBQUVGO0VBQ0U7OztBQUdGO0FBQ0E7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7OztBQUVGO0VBQ0U7RUFDQTs7O0FBRUY7RUFDRTtFQUNBOzs7QUFFRjtFQUNFLE9DbkplO0VEb0pmLFlDakpVO0VEa0pWO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7OztBQUVGO0VBQ0UsWUMxSlc7OztBRDRKYjtBQUFBO0VBRUU7RUFDQTtFQUNBIiwiZmlsZSI6InBhbmVscy5jc3MifQ== */

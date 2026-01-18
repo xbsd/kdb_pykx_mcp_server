@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+body {
+	font-family: Segoe UI, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+}
+
+#download {
+	margin:10px 0;
+}
+
+
+
+.download-row {
+    border: 1px solid #484848;
+    font-weight: normal;
+	text-align:left;
+	line-height:25px;
+	background-color: #f0f0f0;
+}
+
+#toast {
+	display: inline-block;
+}
+
+.dark {
+	color: #ffffff;
+}
+
+.light .download-row {
+    background: #c0c0c0 50% 50% repeat-x;
+	color: black;
+}
+.light .even {
+	background-color: rgb(255,255,255);
+	fill: rgb(255,255,255); 
+	fill-rule: nonzero;
+}
+.light .odd {
+    background-color: rgb(244, 244, 244);
+	fill: rgb(0,0,0); 
+	fill-rule: nonzero;
+}
+
+.dark .download-row {
+    background: #424242 50% 50% repeat-x;
+}
+.dark .even {
+	background-color: rgb(40, 40, 40);
+}
+.dark .odd {
+    background-color: rgb(48, 48, 48);
+}
+.hidden {
+	display: none;
+}
+
+.btn {
+	border: 1px solid #aeaeae;
+    border-radius: 2px;
+    background: #f0f0f0;
+    font-weight: normal;
+    color: #333333;
+	padding: 0.4em 1em;
+	margin-bottom: 10px;
+}
+.dark .btn {
+	border: 1px solid #484848;
+    background: #424242;
+	color: #ffffff;
+}
+</style>
+</head>
+<body>
+ 
+ <div class="KxUploads">
+  <!-- <button onClick="uploadFile" class="btn btn-raised">Upload</button> -->
+  <label for="upload" class="btn btn-raised">Upload</label>
+  <input class="hidden" id="upload" type="file" onchange="uploadFile(event)" />
+  <div id="toast"></div>
+  <div id="download"></div>
+ 
+ </div>
+  
+  <script>
+      var downloadDOM = document.getElementById('download');
+      var toastDOM = document.getElementById('toast');
+	  const queryString = window.location.search;
+	  const urlParams = new URLSearchParams(queryString);
+	  const theme = urlParams.get('theme')
+	  const fillColor = theme === "dark" ? "#ffffff" : "#000000";
+	  
+	  document.getElementsByClassName("KxUploads")[0].classList.add(theme);
+      showUploadedFiles();
+
+      function uploadFile(event){
+        let target = event.target || event.srcElement || event.currentTarget;
+        let file = target.files[0];
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/upload/'+file.name, true);
+        xhr.setRequestHeader('Content-Type', 'application/octate-stream');
+        xhr.onreadystatechange = function(){
+          event = null;
+          if(xhr.readyState === 4) {
+            if(xhr.status === 200){
+              showToastMessage(xhr.responseText, 'success');
+              showUploadedFiles();
+            }else{
+              showToastMessage(xhr.responseText, 'error');
+            }
+          }
+        }
+        xhr.send(file);
+        event.target.value = "";
+      }
+	  
+	  function humanFileSize(bytes, si=true, dp=1) {
+		const thresh = si ? 1000 : 1024;
+
+		if (Math.abs(bytes) < thresh) {
+			return bytes + ' B';
+		}
+
+		const units = si 
+			? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'] 
+			: ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+		let u = -1;
+		const r = 10**dp;
+
+		do {
+			bytes /= thresh;
+			++u;
+		} while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+
+
+		return bytes.toFixed(dp) + ' ' + units[u];
+	  }
+	  
+	  function dateStringFormat(dt) {
+	  
+		return dt.replace("Z", "").replace("T", " ");
+	  }
+      
+      function showUploadedFiles(){
+        let xhr = new XMLHttpRequest();
+		
+        xhr.open('GET', '/list', true);
+        xhr.onreadystatechange = function(){
+          if(xhr.readyState === 4){
+            if(xhr.status === 200){
+              let listOfFile = JSON.parse(xhr.responseText);
+              let listOfFileHTML = "<table style='width:100%'><tr class='download-row'><th>File</th><th>Size</th><th>Last Modified</th><th style='text-align:center'>Status</th></tr>"
+              for(var i=0; i<listOfFile.length; i++){
+			    let rowType = i % 2 === 0 ? "even": "odd";
+				const str = decodeURI(listOfFile[i].fileName);
+                listOfFileHTML = listOfFileHTML + "<tr class='"+rowType+"'><td>" + str + "</td><td>"  + humanFileSize(listOfFile[i].fileSize) + "</td><td>"+ dateStringFormat(listOfFile[i].fileLastModified) +"<td style='text-align:center'> <a href='/downloads/" + listOfFile[i].fileName +"'><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' width='15' height='15' viewBox='0 0 15 15' xml:space='preserve'><g transform='matrix(0.6 0 0 0.6 7.5 7.5)' ><g><g transform='matrix(0.05 0 0 0.05 0.3 0.3)'  ><path style='' vector-effect='non-scaling-stroke' fill="+fillColor+" transform=' translate(-256, -256)' d='M 216 0 L 296 0 C 309.3 0 320 10.7 320 24 L 320 192 L 407.7 192 C 425.5 192 434.4 213.5 421.8 226.1 L 269.7 378.3 C 262.2 385.8 249.89999999999998 385.8 242.39999999999998 378.3 L 90.1 226.1 C 77.5 213.5 86.39999999999999 192 104.19999999999999 192 L 192 192 L 192 24 C 192 10.7 202.7 0 216 0 z M 512 376 L 512 488 C 512 501.3 501.3 512 488 512 L 24 512 C 10.7 512 0 501.3 0 488 L 0 376 C 0 362.7 10.7 352 24 352 L 170.7 352 L 219.7 401 C 239.79999999999998 421.1 272.2 421.1 292.29999999999995 401 L 341.29999999999995 352 L 488 352 C 501.3 352 512 362.7 512 376 z M 388 464 C 388 453 379 444 368 444 C 357 444 348 453 348 464 C 348 475 357 484 368 484 C 379 484 388 475 388 464 z M 452 464 C 452 453 443 444 432 444 C 421 444 412 453 412 464 C 412 475 421 484 432 484 C 443 484 452 475 452 464 z' stroke-linecap='round' /></g></g></g></svg></a></td></tr>"
+              }
+			  listOfFileHTML = listOfFileHTML + "</table>";
+              downloadDOM.innerHTML = listOfFileHTML;
+            }else{
+      
+            }
+          }
+        }
+        xhr.send();
+      }
+
+      function showToastMessage(msg, type){
+        console.log('inside showtoast mesage', msg, type)
+        toastDOM.innerText = msg;
+        if(type === 'error'){
+          toastDOM.classList.add('toast-visible-error');
+          setTimeout(function() {toastDOM.classList.remove('toast-visible-error')}, 3000);
+        }else{
+          console.log('toastdom', toastDOM)
+          toastDOM.classList.add('toast-visible-success');        
+          setTimeout(function() {toastDOM.classList.remove('toast-visible-success')}, 3000);
+        }
+      }
+  </script>
+</body>
+</html>
+

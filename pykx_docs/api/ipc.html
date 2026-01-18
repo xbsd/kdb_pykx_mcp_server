@@ -1,0 +1,6747 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="PyKX Documentation">
+      
+      
+        <meta name="author" content="KX">
+      
+      
+        <link rel="canonical" href="https://code.kx.com/pykx/api/ipc.html">
+      
+      
+        
+      
+      <link rel="icon" href="https://code.kx.com/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.2.7+insiders-4.11.0">
+    
+    
+      
+        <title>IPC - PyKX</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5216e7b8.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+      
+    
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/assets/stylesheets/main.b941530a.min.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/2021.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/prism.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/hide-footer-nav.css">
+    
+      <link rel="stylesheet" href="../stylesheets/mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/dashboards.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/dashboards/stylesheets/dashboards.css">
+    
+      <link rel="stylesheet" href="../stylesheets/swagger.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PG938LS');</script>
+<!-- End Google Tag Manager -->
+<!-- Delighted Survey tool -->
+<script type="text/javascript">
+	!function(e,t,r,n){if(!e[n]){for(var a=e[n]=[],i=["survey","reset","config","init","set","get","event","identify","track","page","screen","group","alias"],s=0;s<i.length;s++){var c=i[s];a[c]=a[c]||function(e){return function(){var t=Array.prototype.slice.call(arguments);a.push([e,t])}}(c)}a.SNIPPET_VERSION="1.0.1";var o=t.createElement("script");o.type="text/javascript",o.async=!0,o.src="https://d2yyd1h5u9mauk.cloudfront.net/integrations/web/v1/library/"+r+"/"+n+".js";var p=t.getElementsByTagName("script")[0];p.parentNode.insertBefore(o,p)}}(window,document,"QKBtsIp633c7g2I2","delightedThumbsP"); 
+   
+   delightedThumbsP.survey({
+	properties: { // extra context (optional)
+	product: "PyKX"
+	}
+	});
+   </script>
+<!-- End Delighted Survey tool -->
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="kx-light" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ipc" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header"  onload="loadVersions()">
+    <!--<link rel="stylesheet" href="https://code.kx.com/home/assets/stylesheets/main.b941530a.min.css">-->
+    <!--<link rel="stylesheet" href="https://code.kx.com/home/assets/stylesheets/vendor/mermaid.733f213f.min.css">-->
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://code.kx.com/" title="code.kx.com" class="md-header__button md-logo" aria-label="PyKX" data-md-component="logo">
+      <img src="https://code.kx.com/img/kx.svg" alt="logo" style="width:1.2rem; height:1.2rem">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic" style="font-weight:500">
+            <span class="md-ellipsis" >
+            PyKX
+          </span>
+          <script>
+            var currVersion = '2.5'
+          </script>
+          <style>
+            .md-version:focus-within .md-version__list, .md-version:hover .md-version__list {
+              max-height: 6rem;
+              opacity: 1;
+              transition: max-height 0ms,opacity .25s;
+            }
+          </style>
+              <div class="md-version">
+                <button class="md-version__current" aria-label="Select version">2.5</button>
+                <ul class="md-version__list" style="margin-top: 20%;">
+                  <div id="versionList"></div>
+                </ul>
+              </div>
+              <div id="latestFlag"></div>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              IPC
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="kx-light" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kxsystems/pykx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+<style>
+    @media (max-width: 430px) {
+      .md-typeset span{display:none;}
+    }
+  /* Button used to open the chat form - fixed at the bottom of the page */
+  .open-button {
+    background-color: var(--md-typeset-a-color);
+    border: none;
+    border-radius: 10px;
+    bottom: 23px;
+    box-sizing: border-box;
+    color: var(--md-default-bg-color);
+    cursor: pointer;
+    font-size: 13px;
+    opacity: 0.8;
+    padding: 10px 10px;
+    position: fixed;
+    right: 28px;
+    width: 160px;
+    z-index: 3;
+  }
+</style>
+<body>
+  <button class="open-button md-typeset" onclick="window.location.href='https://community.kx.com/t5/forums/postpage/choose-node/true/interaction-style/forum/override-styles/true/board-id/kxinsights'"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29 7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160-93.3 160-208 160z"></path></svg></span>&nbsp;Ask a question</button>
+  </body>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/" class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/q" class="md-tabs__link">
+        
+  
+  kdb+ and q
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/core" class="md-tabs__link">
+        
+  
+  kdb Insights SDK
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/platform/" class="md-tabs__link">
+        
+  
+  kdb Insights Enterprise
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/kdbai/" class="md-tabs__link">
+        
+  
+  KDB.AI
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+      
+    
+  
+  
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../index.html" class="md-tabs__link md-tabs__link--active">
+          
+  
+    
+  
+  PyKX
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/api/index.html" class="md-tabs__link">
+        
+  
+  APIs
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/licensing/licensing/" class="md-tabs__link">
+        
+  
+  Licensing
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/home/support/" class="md-tabs__link">
+        
+  
+  Help
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="PyKX" class="md-nav__button md-logo" aria-label="PyKX" data-md-component="logo">
+      <img src="https://code.kx.com/img/kx.svg" alt="logo" style="width:1.2rem; height:1.2rem">
+    </a>
+    PyKX
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kxsystems/pykx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/q" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb+ and q
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/core" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb Insights SDK
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/platform/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb Insights Enterprise
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/kdbai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    KDB.AI
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          
+  
+  <span class="md-ellipsis">
+    PyKX
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PyKX" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          PyKX
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Documentation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/what_is_pykx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is PyKX?
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/installing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/quickstart.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart guide
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/PyKX%20Introduction%20Notebook.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Introduction Notebook
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/q_magic_command.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jupyter q Magic Command Notebook
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/configuration.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_3" type="checkbox" id="__nav_6_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_3">
+          
+  
+  <span class="md-ellipsis">
+    Fundamentals
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fundamentals" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Fundamentals
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/creating.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generating PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/evaluating.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interacting with PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/querying.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying data
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/indexing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Indexing PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/conversion_considerations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conversion considerations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/text.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Representation in PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/nulls_and_infinities.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handling nulls and infinities
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_4" type="checkbox" id="__nav_6_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_4">
+          
+  
+  <span class="md-ellipsis">
+    Advanced usage and performance considerations
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Advanced usage and performance considerations" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced usage and performance considerations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/ipc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Communicating via IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/database.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database interactions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/context_interface.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using q functions in a Pythonic way
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/modes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modes of operation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/numpy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NumPy integration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/serialization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization and de-serialization
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/performance.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance considerations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/limitations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface limitations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/attributes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Attributes
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/pandas_breakdown.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas Like API Coverage
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_1" type="checkbox" id="__nav_6_4_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_1">
+          
+  
+  <span class="md-ellipsis">
+    Code execution
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code execution" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          Code execution
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-execution/q.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX native functions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-execution/embedded_q.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX execution classes
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-execution/ctx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Context interface
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-execution/console.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX console
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_2" type="checkbox" id="__nav_6_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_2">
+          
+  
+  <span class="md-ellipsis">
+    Data types and conversions
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data types and conversions" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Data types and conversions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-q-data/toq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Convert Pythonic data to PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-q-data/wrappers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX type wrappers
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-q-data/type_conversions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX to Pythonic data type mapping
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-q-data/register.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Registering Custom Conversions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/Pandas_API.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas API
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="random.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random data generation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="query.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="compress.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption APIs
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="db.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Interactions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="remote.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote Python Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="ipc.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pykx.ipc" class="md-nav__link">
+    ipc
+  </a>
+  
+    <nav class="md-nav" aria-label="ipc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.MessageType" class="md-nav__link">
+    MessageType
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture" class="md-nav__link">
+    QFuture
+  </a>
+  
+    <nav class="md-nav" aria-label="QFuture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.__await__" class="md-nav__link">
+    __await__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.set_result" class="md-nav__link">
+    set_result()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.set_exception" class="md-nav__link">
+    set_exception()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.result" class="md-nav__link">
+    result()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.done" class="md-nav__link">
+    done()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.cancelled" class="md-nav__link">
+    cancelled()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.cancel" class="md-nav__link">
+    cancel()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.exception" class="md-nav__link">
+    exception()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.add_done_callback" class="md-nav__link">
+    add_done_callback()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.remove_done_callback" class="md-nav__link">
+    remove_done_callback()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.get_loop" class="md-nav__link">
+    get_loop()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QConnection" class="md-nav__link">
+    QConnection
+  </a>
+  
+    <nav class="md-nav" aria-label="QConnection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QConnection.file_execute" class="md-nav__link">
+    file_execute()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SyncQConnection" class="md-nav__link">
+    SyncQConnection
+  </a>
+  
+    <nav class="md-nav" aria-label="SyncQConnection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SyncQConnection.__call__" class="md-nav__link">
+    __call__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SyncQConnection.close" class="md-nav__link">
+    close()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SyncQConnection.fileno" class="md-nav__link">
+    fileno()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.AsyncQConnection" class="md-nav__link">
+    AsyncQConnection
+  </a>
+  
+    <nav class="md-nav" aria-label="AsyncQConnection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.AsyncQConnection._initobj" class="md-nav__link">
+    _initobj()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.AsyncQConnection.__call__" class="md-nav__link">
+    __call__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.AsyncQConnection.close" class="md-nav__link">
+    close()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.AsyncQConnection.fileno" class="md-nav__link">
+    fileno()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.RawQConnection" class="md-nav__link">
+    RawQConnection
+  </a>
+  
+    <nav class="md-nav" aria-label="RawQConnection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.RawQConnection._initobj" class="md-nav__link">
+    _initobj()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.RawQConnection.__call__" class="md-nav__link">
+    __call__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.RawQConnection.poll_send" class="md-nav__link">
+    poll_send()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.RawQConnection.poll_recv_async" class="md-nav__link">
+    poll_recv_async()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.RawQConnection.poll_recv" class="md-nav__link">
+    poll_recv()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.RawQConnection.close" class="md-nav__link">
+    close()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SecureQConnection" class="md-nav__link">
+    SecureQConnection
+  </a>
+  
+    <nav class="md-nav" aria-label="SecureQConnection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SecureQConnection.__call__" class="md-nav__link">
+    __call__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SecureQConnection.close" class="md-nav__link">
+    close()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SecureQConnection.fileno" class="md-nav__link">
+    fileno()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="exceptions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Exceptions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="schema.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schema generation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="streamlit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streamlit Integration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Command Wrappers
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="util.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_16" type="checkbox" id="__nav_6_4_16" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_16">
+          
+  
+  <span class="md-ellipsis">
+    File loading and saving
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="File loading and saving" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_16">
+          <span class="md-nav__icon md-icon"></span>
+          File loading and saving
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-save-load/write.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Writing data to disk
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-save-load/read.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reading data from disk
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reimporting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reimporter module
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="serialize.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          
+  
+  <span class="md-ellipsis">
+    Beta Features
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Beta Features" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Beta Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/db-management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/compress-encypt.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/remote-functions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote Function Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/threading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multithreading
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/streamlit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streamlit
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          
+  
+  <span class="md-ellipsis">
+    Python within q
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python within q" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Python within q
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-under-q/intro.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-under-q/api.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-under-q/upgrade.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade from embedPy
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-under-q/known_issues.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Known Issues
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_7" type="checkbox" id="__nav_6_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_7">
+          
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_7">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/subscriber/readme.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Subscriber
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/compress_and_encrypt/readme.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/db-management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Creation and Management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/ipc/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/charting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Charting Data with PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/server/server.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX as a Server
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/threaded_execution/threading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multithreaded Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_8" type="checkbox" id="__nav_6_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_8">
+          
+  
+  <span class="md-ellipsis">
+    Extras
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Extras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_8">
+          <span class="md-nav__icon md-icon"></span>
+          Extras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/comparisons.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Comparisons against other Python/q interfaces
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/known_issues.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Known issues
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_9" type="checkbox" id="__nav_6_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_9">
+          
+  
+  <span class="md-ellipsis">
+    Release notes
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Release notes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_9">
+          <span class="md-nav__icon md-icon"></span>
+          Release notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/changelog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/underq-changelog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX under q
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../blogs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blogs, Articles and Videos
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frequently Asked Questions (FAQ)
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../support.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributors.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributors
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/api/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    APIs
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/licensing/licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licensing
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/home/support/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Help
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pykx.ipc" class="md-nav__link">
+    ipc
+  </a>
+  
+    <nav class="md-nav" aria-label="ipc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.MessageType" class="md-nav__link">
+    MessageType
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture" class="md-nav__link">
+    QFuture
+  </a>
+  
+    <nav class="md-nav" aria-label="QFuture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.__await__" class="md-nav__link">
+    __await__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.set_result" class="md-nav__link">
+    set_result()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.set_exception" class="md-nav__link">
+    set_exception()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.result" class="md-nav__link">
+    result()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.done" class="md-nav__link">
+    done()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.cancelled" class="md-nav__link">
+    cancelled()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.cancel" class="md-nav__link">
+    cancel()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.exception" class="md-nav__link">
+    exception()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.add_done_callback" class="md-nav__link">
+    add_done_callback()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.remove_done_callback" class="md-nav__link">
+    remove_done_callback()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QFuture.get_loop" class="md-nav__link">
+    get_loop()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QConnection" class="md-nav__link">
+    QConnection
+  </a>
+  
+    <nav class="md-nav" aria-label="QConnection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.QConnection.file_execute" class="md-nav__link">
+    file_execute()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SyncQConnection" class="md-nav__link">
+    SyncQConnection
+  </a>
+  
+    <nav class="md-nav" aria-label="SyncQConnection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SyncQConnection.__call__" class="md-nav__link">
+    __call__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SyncQConnection.close" class="md-nav__link">
+    close()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SyncQConnection.fileno" class="md-nav__link">
+    fileno()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.AsyncQConnection" class="md-nav__link">
+    AsyncQConnection
+  </a>
+  
+    <nav class="md-nav" aria-label="AsyncQConnection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.AsyncQConnection._initobj" class="md-nav__link">
+    _initobj()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.AsyncQConnection.__call__" class="md-nav__link">
+    __call__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.AsyncQConnection.close" class="md-nav__link">
+    close()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.AsyncQConnection.fileno" class="md-nav__link">
+    fileno()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.RawQConnection" class="md-nav__link">
+    RawQConnection
+  </a>
+  
+    <nav class="md-nav" aria-label="RawQConnection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.RawQConnection._initobj" class="md-nav__link">
+    _initobj()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.RawQConnection.__call__" class="md-nav__link">
+    __call__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.RawQConnection.poll_send" class="md-nav__link">
+    poll_send()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.RawQConnection.poll_recv_async" class="md-nav__link">
+    poll_recv_async()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.RawQConnection.poll_recv" class="md-nav__link">
+    poll_recv()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.RawQConnection.close" class="md-nav__link">
+    close()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SecureQConnection" class="md-nav__link">
+    SecureQConnection
+  </a>
+  
+    <nav class="md-nav" aria-label="SecureQConnection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SecureQConnection.__call__" class="md-nav__link">
+    __call__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SecureQConnection.close" class="md-nav__link">
+    close()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.ipc.SecureQConnection.fileno" class="md-nav__link">
+    fileno()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/kxsystems/pykx/edit/main/docs/api/ipc.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="ipc">IPC</h1>
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h2 id="pykx.ipc" class="doc doc-heading">
+        <code>pykx.ipc</code>
+
+
+
+</h2>
+
+    <div class="doc doc-contents first">
+
+      <p>PyKX q IPC interface.</p>
+<p>The IPC communication module provided here works differently than may be expected for users
+familiar with the KX IPC interfaces provided for Java and C#. Unlike these interfaces it does not
+directly convert the encoded data received over the q IPC protocol to an analogous type in Python,
+but rather stores the object within q memory space as a <code>pykx.K</code> object for deferred conversion.</p>
+<p>This has major benefits with regards to the flexibility of the interface. In particular, the
+<a class="autorefs autorefs-internal" href="pykx-q-data/wrappers.html#pykx.wrappers.K"><code>pykx.K</code></a> conversion methods (i.e. <code>py</code>, <code>np</code>, <code>pd</code>, and <code>pa</code>), use the same logic as they
+do when converting <code>pykx.K</code> objects that were created by an embedded q instance.</p>
+<p>The IPC interface works when running with or without a q license. Refer to
+<a href="../user-guide/advanced/modes.html">the modes of operation documentation</a> for more details.</p>
+<p>The IPC Interface is split between two classes <code>pykx.AsyncQConnection</code> and <code>pykx.SyncQConnection</code>.
+Both of which extend the base <code>QConnection</code> class, instantiating a <code>QConnection</code> directly remains
+possible for backward compatibility but will now return an instance of <code>pykx.SyncQConnection</code>. There
+is also the <code>pykx.RawQConnection</code> class that is a superset of the <code>pykx.AsyncQConnection</code> class that
+has extra functionality around manually polling the send an receive message queues.</p>
+<p>For more examples of usage of the IPC interface you can look at the
+<a href="../getting-started/PyKX%20Introduction%20Notebook.html#ipc-communication"><code>interface overview</code></a>.</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.ipc.MessageType" class="doc doc-heading">
+          <code>MessageType</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-external" title="enum.Enum" href="https://docs.python.org/3/library/enum.html#enum.Enum">Enum</a></code></p>
+
+
+      <p>The message types available to q.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.ipc.QFuture" class="doc doc-heading">
+          <code>QFuture</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">QFuture(q_connection, timeout, debug, poll_recv=None)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio">asyncio</a>.<a class="autorefs autorefs-external" title="asyncio.Future" href="https://docs.python.org/3/library/asyncio-future.html#asyncio.Future">Future</a></code></p>
+
+
+      <p>A Future object to be returned by calls to q from an instance of <code>pykx.AsyncQConnection</code>.</p>
+<p>This object can be awaited to receive the resulting value.</p>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Awaiting an instance of this class to receive the return value of an <code>AsyncQConnection</code> call.</p>
+<pre class="highlight"><code class="language-python">async with pykx.AsyncQConnection('localhost', 5001) as q:
+    q_future = q('til 10') # returns a QFuture object
+    q_result = await q_future</code></pre>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.QFuture.__await__" class="doc doc-heading">
+__await__
+
+
+</h4>
+<pre class="highlight"><code class="language-python">__await__()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Await the result of the <code>QFuture</code>.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
+          </td>
+          <td><p>The result of the <code>QFuture</code>.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.FutureCancelled" href="exceptions.html#pykx.exceptions.FutureCancelled">FutureCancelled</a></code>
+          </td>
+          <td><p>This QFuture instance has been cancelled and cannot be awaited.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#BaseException">BaseException</a></code>
+          </td>
+          <td><p>If the future has an exception set it will be raised upon awaiting it.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.QFuture.set_result" class="doc doc-heading">
+set_result
+
+
+</h4>
+<pre class="highlight"><code class="language-python">set_result(val)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Set the result of the <code>QFuture</code> and mark it as done.</p>
+<p>If there are functions in the callback list they will be called using this <code>QFuture</code>
+instance as the only parameter after the result is set.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>val</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
+          </td>
+          <td><p>The value to set as the result of the <code>QFuture</code>.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.QFuture.set_exception" class="doc doc-heading">
+set_exception
+
+
+</h4>
+<pre class="highlight"><code class="language-python">set_exception(err)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Set the exception of the <code>QFuture</code> and mark it as done.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>err</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a></code>
+          </td>
+          <td><p>The exception to set as the exception of the <code>QFuture</code>.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.QFuture.result" class="doc doc-heading">
+result
+
+
+</h4>
+<pre class="highlight"><code class="language-python">result()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Get the result of the <code>QFuture</code>.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
+          </td>
+          <td><p>The result of the <code>QFuture</code>.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.FutureCancelled" href="exceptions.html#pykx.exceptions.FutureCancelled">FutureCancelled</a></code>
+          </td>
+          <td><p>This QFuture instance has been cancelled and cannot be awaited.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.NoResults" href="exceptions.html#pykx.exceptions.NoResults">NoResults</a></code>
+          </td>
+          <td><p>The result is not ready.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.QFuture.done" class="doc doc-heading">
+done
+
+
+</h4>
+<pre class="highlight"><code class="language-python">done()</code></pre>
+
+    <div class="doc doc-contents ">
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p><code>True</code> if the <code>QFuture</code> is done or if it has been cancelled.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.QFuture.cancelled" class="doc doc-heading">
+cancelled
+
+
+</h4>
+<pre class="highlight"><code class="language-python">cancelled()</code></pre>
+
+    <div class="doc doc-contents ">
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p><code>True</code> if the <code>QFuture</code> has been cancelled.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.QFuture.cancel" class="doc doc-heading">
+cancel
+
+
+</h4>
+<pre class="highlight"><code class="language-python">cancel(msg='')</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Cancel the <code>QFuture</code>.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>msg</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>An optional message to append to the end of the <code>pykx.FutureCancelled</code> exception.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.QFuture.exception" class="doc doc-heading">
+exception
+
+
+</h4>
+<pre class="highlight"><code class="language-python">exception()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Get the exception of the <code>QFuture</code>.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>None</code>
+          </td>
+          <td><p>The excpetion of the <code>QFuture</code> object.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.QFuture.add_done_callback" class="doc doc-heading">
+add_done_callback
+
+
+</h4>
+<pre class="highlight"><code class="language-python">add_done_callback(callback)</code></pre>
+
+    <div class="doc doc-contents ">
+
+
+<details class="note">
+  <summary>The callback should expect one parameter that is the current instance of this class.</summary>
+  <p>The functions are called when the result of the future is set and therefore can use the
+result and modify it.</p>
+</details>      <p>Add a callback function to be ran when the <code>QFuture</code> is done.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>callback</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Callable" href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a></code>
+          </td>
+          <td><p>The callback function to be called when the result is set.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.QFuture.remove_done_callback" class="doc doc-heading">
+remove_done_callback
+
+
+</h4>
+<pre class="highlight"><code class="language-python">remove_done_callback(callback)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Remove a callback from the list of callbacks contained within the class.</p>
+<p>All matching callbacks will be removed.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>callback</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Callable" href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a></code>
+          </td>
+          <td><p>The callback function to be removed from the list of callback functions to
+call.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>The number of functions removed.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.QFuture.get_loop" class="doc doc-heading">
+get_loop
+
+
+</h4>
+<pre class="highlight"><code class="language-python">get_loop()</code></pre>
+
+    <div class="doc doc-contents ">
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.PyKXException" href="exceptions.html#pykx.exceptions.PyKXException">PyKXException</a></code>
+          </td>
+          <td><p>QFutures do not rely on an event loop to drive them, and therefore do not
+have one.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.ipc.QConnection" class="doc doc-heading">
+          <code>QConnection</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">QConnection(
+    host="localhost",
+    port=None,
+    *args,
+    username="",
+    password="",
+    timeout=0.0,
+    large_messages=True,
+    tls=False,
+    unix=False,
+    wait=True,
+    lock=None,
+    no_ctx=False,
+    reconnection_attempts=-1
+)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.Q" href="pykx-execution/embedded_q.html#pykx.Q">Q</a></code></p>
+
+
+
+
+
+<details class="note">
+  <summary>Creating an instance of this class returns an instance of <code>pykx.SyncQConnection</code>.</summary>
+  <p>Directly instantiating an instance of <code>pykx.SyncQConnection</code> is recommended, but
+this behavior will remain for backwards compatibility.</p>
+</details>      <p>Interface with a q process using the q IPC protocol.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>host</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>The host name to which a connection is to be established.</p></td>
+          <td>
+                <code>&#39;localhost&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>port</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>The port to which a connection is to be established.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>username</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>Username for q connection authorization.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>password</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>Password for q connection authorization.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>timeout</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+          </td>
+          <td><p>Timeout for blocking socket operations in seconds. If set to <code>0</code>, the socket
+will be non-blocking.</p></td>
+          <td>
+                <code>0.0</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>large_messages</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether support for messages &gt;2GB should be enabled.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>tls</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether TLS should be used.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>unix</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether a Unix domain socket should be used instead of TCP. If set to <code>True</code>, the
+host parameter is ignored. Does not work on Windows.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>wait</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether the q server should send a response to the query (which this connection
+will wait to receive). Can be overridden on a per-call basis. If <code>True</code>, Python will
+wait for the q server to execute the query, and respond with the results. If
+<code>False</code>, the q server will respond immediately to every query with generic null
+(<code>::</code>), then execute them at some point in the future.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>no_ctx</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>This parameter determines whether or not the context interface will be disabled.
+disabling the context interface will stop extra q queries being sent but will
+disable the extra features around the context interface.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>reconnection_attempts</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>This parameter specifies how many attempts will be made to
+reconnect to the server if the connection is lost. The query will be resent if the
+reconnection is successful. The default is -1 which will not attempt to reconnect, 0
+will continuosly attempt to reconnect to the server with no stop and an exponential
+backoff between successive attempts. Any positive integer will specify the maximum
+number of tries to reconnect before throwing an error if a connection can not be
+made.</p></td>
+          <td>
+                <code>-1</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="note">
+  <summary>The <code>username</code> and <code>password</code> parameters are not required.</summary>
+  <p>The <code>username</code> and <code>password</code> parameters are only required if the q server requires
+authorization. Refer to <a href="https://code.kx.com/q/kb/ssl/">ssl documentation</a> for more
+information.</p>
+</details>
+<details class="note">
+  <summary>The <code>timeout</code> argument may not always be enforced when making successive queries.</summary>
+  <p>When making successive queries if one query times out the next query will wait until a
+response has been received from the previous query before starting the timer for its own
+timeout. This can be avoided by using a separate <code>QConnection</code> instance for each query.</p>
+</details>      
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.PyKXException" href="exceptions.html#pykx.exceptions.PyKXException">PyKXException</a></code>
+          </td>
+          <td><p>Using both tls and unix is not possible with a QConnection.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.QConnection.file_execute" class="doc doc-heading">
+file_execute
+
+
+</h4>
+<pre class="highlight"><code class="language-python">file_execute(file_path, *, return_all=False)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Functionality for the execution of the content of a local file on a remote server</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>file_path</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>Path to the file which is to be executed on a remote server</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>return_all</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Return the execution result from all lines within the executed script</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.PyKXException" href="exceptions.html#pykx.exceptions.PyKXException">PyKXException</a></code>
+          </td>
+          <td><p>Will raise error associated with failure to execute the code on
+the server associated with the given file.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Connect to a q process on localhost and execute a file based on relative path.</p>
+<pre class="highlight"><code class="language-python">conn = pykx.QConnection('localhost', 5000)
+conn.file_execute('file.q')</code></pre>
+<p>Connect to a q process using an asynchronous QConnection at IP address 127.0.0.1,
+    on port 5000 and execute a file based on absolute path.</p>
+<pre class="highlight"><code class="language-python">conn = pykx.QConnection('127.0.0.1', 5000, wait=False)
+conn.file_execute('/User/path/to/file.q')</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.ipc.SyncQConnection" class="doc doc-heading">
+          <code>SyncQConnection</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">SyncQConnection(
+    host="localhost",
+    port=None,
+    *args,
+    username="",
+    password="",
+    timeout=0.0,
+    large_messages=True,
+    tls=False,
+    unix=False,
+    wait=True,
+    lock=None,
+    no_ctx=False,
+    reconnection_attempts=-1
+)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.ipc.QConnection" href="#pykx.ipc.QConnection">QConnection</a></code></p>
+
+
+
+
+      <p>Interface with a q process using the q IPC protocol.</p>
+<p>Instances of this class represent an open connection to a q process, which can be sent
+messages synchronously or asynchronously by calling it as a function.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>host</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>The host name to which a connection is to be established.</p></td>
+          <td>
+                <code>&#39;localhost&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>port</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>The port to which a connection is to be established.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>username</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>Username for q connection authorization.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>password</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>Password for q connection authorization.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>timeout</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+          </td>
+          <td><p>Timeout for blocking socket operations in seconds. If set to <code>0</code>, the socket
+will be non-blocking.</p></td>
+          <td>
+                <code>0.0</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>large_messages</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether support for messages &gt;2GB should be enabled.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>tls</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether TLS should be used.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>unix</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether a Unix domain socket should be used instead of TCP. If set to <code>True</code>, the
+host parameter is ignored. Does not work on Windows.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>wait</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether the q server should send a response to the query (which this connection
+will wait to receive). Can be overridden on a per-call basis. If <code>True</code>, Python will
+wait for the q server to execute the query, and respond with the results. If
+<code>False</code>, the q server will respond immediately to every query with generic null
+(<code>::</code>), then execute them at some point in the future.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>no_ctx</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>This parameter determines whether or not the context interface will be disabled.
+disabling the context interface will stop extra q queries being sent but will
+disable the extra features around the context interface.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>reconnection_attempts</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>This parameter specifies how many attempts will be made to
+reconnect to the server if the connection is lost. The query will be resent if the
+reconnection is successful. The default is -1 which will not attempt to reconnect, 0
+will continuosly attempt to reconnect to the server with no stop and an exponential
+backoff between successive attempts. Any positive integer will specify the maximum
+number of tries to reconnect before throwing an error if a connection can not be
+made.</p></td>
+          <td>
+                <code>-1</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="note">
+  <summary>The <code>username</code> and <code>password</code> parameters are not required.</summary>
+  <p>The <code>username</code> and <code>password</code> parameters are only required if the q server requires
+authorization. Refer to <a href="https://code.kx.com/q/kb/ssl/">ssl documentation</a> for more
+information.</p>
+</details>
+<details class="note">
+  <summary>The <code>timeout</code> argument may not always be enforced when making successive queries.</summary>
+  <p>When making successive queries if one query times out the next query will wait until a
+response has been received from the previous query before starting the timer for its own
+timeout. This can be avoided by using a separate <code>SyncQConnection</code> instance for each
+query.</p>
+</details>      
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.PyKXException" href="exceptions.html#pykx.exceptions.PyKXException">PyKXException</a></code>
+          </td>
+          <td><p>Using both tls and unix is not possible with a QConnection.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Connect to a q process on localhost with a required username and password.</p>
+<pre class="highlight"><code class="language-python">pykx.SyncQConnection('localhost', 5001, 'username', 'password')</code></pre>
+<p>Connect to a q process at IP address 127.0.0.0, on port 5000 with a timeout of 2 seconds
+and TLS enabled.</p>
+<pre class="highlight"><code class="language-python">pykx.SyncQConnection('127.0.0.1', 5001, timeout=2.0, tls=True)</code></pre>
+<p>Connect to a q process via a Unix domain socket on port 5001</p>
+<pre class="highlight"><code class="language-python">pykx.SyncQConnection(port=5001, unix=True)</code></pre>
+<p>Automatically reconnect to a q server after a disconnect.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; conn = kx.SyncQConnection(port=5001, reconnection_attempts=0)
+&gt;&gt;&gt; conn('til 10')
+pykx.LongVector(pykx.q('0 1 2 3 4 5 6 7 8 9'))
+# server connection is lost here
+&gt;&gt;&gt; conn('til 10')
+WARNING: Connection lost attempting to reconnect.
+Failed to reconnect, trying again in 0.5 seconds.
+Connection successfully reestablished.
+pykx.LongVector(pykx.q('0 1 2 3 4 5 6 7 8 9'))</code></pre>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.SyncQConnection.__call__" class="doc doc-heading">
+__call__
+
+
+</h4>
+<pre class="highlight"><code class="language-python">__call__(query, *args, wait=None, debug=False, skip_debug=False)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Evaluate a query on the connected q process over IPC.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>query</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>, <a class="autorefs autorefs-internal" title="pykx.wrappers.CharVector" href="pykx-q-data/wrappers.html#pykx.wrappers.CharVector">CharVector</a>]</code>
+          </td>
+          <td><p>A q expression to be evaluated.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>*args</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
+          </td>
+          <td><p>Arguments to the q query. Each argument will be converted into a <code>pykx.K</code> object.
+Up to 8 arguments can be provided, as that is the maximum supported by q.</p></td>
+          <td>
+                <code>()</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>wait</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a>]</code>
+          </td>
+          <td><p>Whether the q server should execute the query before responding. If <code>True</code>,
+Python will wait for the q server to execute the query, and respond with the
+results. If <code>False</code>, the q server will respond immediately to the query with
+generic null (<code>::</code>), then execute them at some point in the future. Defaults to
+whatever the <code>wait</code> keyword argument was for the <code>SyncQConnection</code> instance (i.e.
+this keyword argument overrides the instance-level default).</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError">RuntimeError</a></code>
+          </td>
+          <td><p>A closed IPC connection was used.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.QError" href="exceptions.html#pykx.exceptions.QError">QError</a></code>
+          </td>
+          <td><p>Query timed out, may be raised if the time taken to make or receive a query goes
+over the timeout limit.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#TypeError">TypeError</a></code>
+          </td>
+          <td><p>Too many arguments were provided - q queries cannot have more than 8
+parameters.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></code>
+          </td>
+          <td><p>Attempted to send a Python function over IPC.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <pre class="highlight"><code class="language-python">q = pykx.SyncQConnection(host='localhost', port=5002)</code></pre>
+<p>Call an anonymous function with 2 parameters</p>
+<pre class="highlight"><code class="language-python">q('{y+til x}', 10, 5)</code></pre>
+<p>Execute a q query with no parameters</p>
+<pre class="highlight"><code class="language-python">q('til 10')</code></pre>
+<p>Call an anonymous function with 3 parameters and don't wait for a response</p>
+<pre class="highlight"><code class="language-python">q('{x set y+til z}', 'async_query', 10, 5, wait=False)</code></pre>
+<p>Call an anonymous function with 3 parameters and don't wait for a response by default</p>
+<pre class="highlight"><code class="language-python">q = pykx.SyncQConnection(host='localhost', port=5002, wait=False)
+# Because `wait=False`, all calls on this q instance are not responded to by default:
+q('{x set y+til z}', 'async_query', 10, 5)
+# But we can issue calls and wait for results by overriding the `wait` option on a per-call
+# basis:
+q('{x set y+til z}', 'async_query', 10, 5, wait=True)</code></pre>
+<p>Call a PyKX Operator function with supplied parameters</p>
+<pre class="highlight"><code class="language-python">q(kx.q.sum, [1, 2, 3])</code></pre>
+<p>Call a PyKX Keyword function with supplied paramters</p>
+<pre class="highlight"><code class="language-python">q(kx.q.floor, [5.2, 10.4])</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.SyncQConnection.close" class="doc doc-heading">
+close
+
+
+</h4>
+<pre class="highlight"><code class="language-python">close()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Close the connection.</p>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Open and subsequently close a connection to a q process on localhost:</p>
+<pre class="highlight"><code class="language-python">q = pykx.SyncQConnection('localhost', 5001)
+q.close()</code></pre>
+<p>Using this class with a with-statement should be preferred:</p>
+<pre class="highlight"><code class="language-python">with pykx.SyncQConnection('localhost', 5001) as q:
+    # do stuff with q
+    pass
+# q is closed automatically</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.SyncQConnection.fileno" class="doc doc-heading">
+fileno
+
+
+</h4>
+<pre class="highlight"><code class="language-python">fileno()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>The file descriptor or handle of the connection.</p>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.ipc.AsyncQConnection" class="doc doc-heading">
+          <code>AsyncQConnection</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">AsyncQConnection(
+    host="localhost",
+    port=None,
+    *args,
+    username="",
+    password="",
+    timeout=0.0,
+    large_messages=True,
+    tls=False,
+    unix=False,
+    wait=True,
+    lock=None,
+    event_loop=None,
+    no_ctx=False,
+    reconnection_attempts=-1
+)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.ipc.QConnection" href="#pykx.ipc.QConnection">QConnection</a></code></p>
+
+
+
+
+      <p>Interface with a q process using the q IPC protocol.</p>
+<p>Instances of this class represent an open connection to a q process, which can be sent
+messages asynchronously by calling it as a function.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>host</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>The host name to which a connection is to be established.</p></td>
+          <td>
+                <code>&#39;localhost&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>port</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>The port to which a connection is to be established.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>username</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>Username for q connection authorization.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>password</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>Password for q connection authorization.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>timeout</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+          </td>
+          <td><p>Timeout for blocking socket operations in seconds. If set to <code>0</code>, the socket
+will be non-blocking.</p></td>
+          <td>
+                <code>0.0</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>large_messages</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether support for messages &gt;2GB should be enabled.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>tls</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether TLS should be used.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>unix</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether a Unix domain socket should be used instead of TCP. If set to <code>True</code>, the
+host parameter is ignored. Does not work on Windows.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>wait</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether the q server should send a response to the query (which this connection
+will wait to receive). Can be overridden on a per-call basis. If <code>True</code>, Python will
+wait for the q server to execute the query, and respond with the results. If
+<code>False</code>, the q server will respond immediately to every query with generic null
+(<code>::</code>), then execute them at some point in the future.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>event_loop</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio">asyncio</a>.<a class="autorefs autorefs-external" title="asyncio.AbstractEventLoop" href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.AbstractEventLoop">AbstractEventLoop</a>]</code>
+          </td>
+          <td><p>If running an event loop that supports the <code>create_task()</code> method then
+you can provide the event loop here and the returned future object will be an
+instance of the loops future type. This will allow the current event loop to manage
+awaiting <code>QFuture</code> objects as well as any other async tasks that may be running.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>no_ctx</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>This parameter determines whether or not the context interface will be disabled.
+disabling the context interface will stop extra q queries being sent but will
+disable the extra features around the context interface.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>reconnection_attempts</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>This parameter specifies how many attempts will be made to
+reconnect to the server if the connection is lost. The query will not be resent if
+the reconnection is successful. The default is -1 which will not attempt to
+reconnect, 0 will continuosly attempt to reconnect to the server with no stop and an
+exponential backoff between successive attempts. Any positive integer will specify
+the maximum number of tries to reconnect before throwing an error if a connection
+can not be made.</p></td>
+          <td>
+                <code>-1</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="note">
+  <summary>The <code>username</code> and <code>password</code> parameters are not required.</summary>
+  <p>The <code>username</code> and <code>password</code> parameters are only required if the q server requires
+authorization. Refer to <a href="https://code.kx.com/q/kb/ssl/">ssl documentation</a> for more
+information.</p>
+</details>
+<details class="note">
+  <summary>The <code>timeout</code> argument may not always be enforced when making successive queries.</summary>
+  <p>When making successive queries if one query times out the next query will wait until a
+response has been received from the previous query before starting the timer for its own
+timeout. This can be avoided by using a separate <code>QConnection</code> instance for each query.</p>
+</details>
+<details class="warning">
+  <summary>AsyncQConnections will not resend queries that have not completed on reconnection.</summary>
+  <p>When using the <code>reconnection_attempts</code> key word argument any queries that were not
+complete before the connection was lost will have to be manually sent again after the
+automatic reconnection.</p>
+</details>      
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.PyKXException" href="exceptions.html#pykx.exceptions.PyKXException">PyKXException</a></code>
+          </td>
+          <td><p>Using both tls and unix is not possible with a QConnection.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Connect to a q process on localhost with a required username and password.</p>
+<pre class="highlight"><code class="language-python">await pykx.AsyncQConnection('localhost', 5001, 'username', 'password')</code></pre>
+<p>Connect to a q process at IP address 127.0.0.0, on port 5000 with a timeout of 2 seconds
+and TLS enabled.</p>
+<pre class="highlight"><code class="language-python">await pykx.AsyncQConnection('127.0.0.1', 5001, timeout=2.0, tls=True)</code></pre>
+<p>Connect to a q process via a Unix domain socket on port 5001</p>
+<pre class="highlight"><code class="language-python">await pykx.AsyncQConnection(port=5001, unix=True)</code></pre>
+<p>Automatically reconnect to a q server after a disconnect.</p>
+<pre class="highlight"><code class="language-python">async def main():
+    conn = await kx.AsyncQConnection(
+        port=5001,
+        event_loop=asyncio.get_event_loop(),
+        reconnection_attempts=0
+    )
+    print(await conn('til 10'))
+    # Connection lost here
+    # All unfinished futures are cancelled on connection loss
+    print(await conn('til 10')) # First call only causes a reconnection but wont send the query and returns none
+    print(await conn('til 10')) # Second one completes
+
+    print(await conn('til 10'))
+asyncio.run(main())
+
+# Outputs
+0 1 2 3 4 5 6 7 8 9
+WARNING: Connection lost attempting to reconnect.
+Connection successfully reestablished.
+Connection was lost no result
+None
+0 1 2 3 4 5 6 7 8 9</code></pre>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.AsyncQConnection._initobj" class="doc doc-heading">
+_initobj
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<pre class="highlight"><code class="language-python">_initobj()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Crutch used for <code>__await__</code> after spawning.</p>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.AsyncQConnection.__call__" class="doc doc-heading">
+__call__
+
+
+</h4>
+<pre class="highlight"><code class="language-python">__call__(query, *args, wait=True, reuse=True, debug=False)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Evaluate a query on the connected q process over IPC.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>query</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>, <a class="autorefs autorefs-internal" title="pykx.wrappers.CharVector" href="pykx-q-data/wrappers.html#pykx.wrappers.CharVector">CharVector</a>]</code>
+          </td>
+          <td><p>A q expression to be evaluated.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>*args</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
+          </td>
+          <td><p>Arguments to the q query. Each argument will be converted into a <code>pykx.K</code> object.
+Up to 8 arguments can be provided, as that is the maximum supported by q.</p></td>
+          <td>
+                <code>()</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>wait</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether the q server should execute the query before responding. If <code>True</code>,
+Python will wait for the q server to execute the query, and respond with the
+results. If <code>False</code>, the q server will respond immediately to the query with
+generic null (<code>::</code>), then execute them at some point in the future. Defaults to
+whatever the <code>wait</code> keyword argument was for the <code>ASyncQConnection</code> instance (i.e.
+this keyword argument overrides the instance-level default).</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>reuse</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether the AsyncQConnection instance should be reused for subsequent queries,
+if using q queries that respond in a deferred/asynchronous manner this should be set
+to <code>False</code> so the query can be made in a dedicated <code>AsyncQConnection</code> instance.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.ipc.QFuture" href="#pykx.ipc.QFuture">QFuture</a></code>
+          </td>
+          <td><p>A QFuture object that can be awaited on to get the result of the query.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError">RuntimeError</a></code>
+          </td>
+          <td><p>A closed IPC connection was used.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.QError" href="exceptions.html#pykx.exceptions.QError">QError</a></code>
+          </td>
+          <td><p>Query timed out, may be raised if the time taken to make or receive a query goes
+over the timeout limit.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#TypeError">TypeError</a></code>
+          </td>
+          <td><p>Too many arguments were provided - q queries cannot have more than 8
+parameters.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></code>
+          </td>
+          <td><p>Attempted to send a Python function over IPC.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <pre class="highlight"><code class="language-python">q = await pykx.AsyncQConnection(host='localhost', port=5002)</code></pre>
+<p>Call an anonymous function with 2 parameters</p>
+<pre class="highlight"><code class="language-python">await q('{y+til x}', 10, 5)</code></pre>
+<p>Execute a q query with no parameters</p>
+<pre class="highlight"><code class="language-python">await q('til 10')</code></pre>
+<p>Call an anonymous function with 3 parameters and don't wait for a response</p>
+<pre class="highlight"><code class="language-python">await q('{x set y+til z}', 'async_query', 10, 5, wait=False)</code></pre>
+<p>Call an anonymous function with 3 parameters and don't wait for a response by default</p>
+<pre class="highlight"><code class="language-python">q = await pykx.AsyncQConnection(host='localhost', port=5002, wait=False)
+# Because `wait=False`, all calls on this q instance are not responded to by default:
+await q('{x set y+til z}', 'async_query', 10, 5)
+# But we can issue calls and wait for results by overriding the `wait` option on a per-call
+# basis:
+await q('{x set y+til z}', 'async_query', 10, 5, wait=True)</code></pre>
+<p>Call a PyKX Operator function with supplied parameters</p>
+<pre class="highlight"><code class="language-python">await q(kx.q.sum, [1, 2, 3])</code></pre>
+<p>Call a PyKX Keyword function with supplied paramters</p>
+<pre class="highlight"><code class="language-python">await q(kx.q.floor, [5.2, 10.4])</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.AsyncQConnection.close" class="doc doc-heading">
+close
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<pre class="highlight"><code class="language-python">close()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Close the connection.</p>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Open and subsequently close a connection to a q process on localhost:</p>
+<pre class="highlight"><code class="language-python">q = await pykx.AsyncQConnection('localhost', 5001)
+await q.close()</code></pre>
+<p>Using this class with a with-statement should be preferred:</p>
+<pre class="highlight"><code class="language-python">async with pykx.AsyncQConnection('localhost', 5001) as q:
+    # do stuff with q
+    pass
+# q is closed automatically</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.AsyncQConnection.fileno" class="doc doc-heading">
+fileno
+
+
+</h4>
+<pre class="highlight"><code class="language-python">fileno()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>The file descriptor or handle of the connection.</p>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.ipc.RawQConnection" class="doc doc-heading">
+          <code>RawQConnection</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">RawQConnection(
+    host="localhost",
+    port=None,
+    *args,
+    username="",
+    password="",
+    timeout=0.0,
+    large_messages=True,
+    tls=False,
+    unix=False,
+    wait=True,
+    event_loop=None,
+    no_ctx=False,
+    as_server=False,
+    conn_gc_time=0.0
+)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.ipc.QConnection" href="#pykx.ipc.QConnection">QConnection</a></code></p>
+
+
+
+
+      <p>Interface with a q process using the q IPC protocol.</p>
+<p>Instances of this class represent an open connection to a q process, which can be sent
+messages asynchronously by calling it as a function, the send and receive selector queues
+can also, be polled directly using this class.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>host</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>The host name to which a connection is to be established.</p></td>
+          <td>
+                <code>&#39;localhost&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>port</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>The port to which a connection is to be established.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>username</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>Username for q connection authorization.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>password</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>Password for q connection authorization.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>timeout</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+          </td>
+          <td><p>Timeout for blocking socket operations in seconds. If set to <code>0</code>, the socket
+will be non-blocking.</p></td>
+          <td>
+                <code>0.0</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>large_messages</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether support for messages &gt;2GB should be enabled.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>tls</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether TLS should be used.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>unix</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether a Unix domain socket should be used instead of TCP. If set to <code>True</code>, the
+host parameter is ignored. Does not work on Windows.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>wait</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether the q server should send a response to the query (which this connection
+will wait to receive). Can be overridden on a per-call basis. If <code>True</code>, Python will
+wait for the q server to execute the query, and respond with the results. If
+<code>False</code>, the q server will respond immediately to every query with generic null
+(<code>::</code>), then execute them at some point in the future.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>event_loop</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/asyncio.html#module-asyncio">asyncio</a>.<a class="autorefs autorefs-external" title="asyncio.AbstractEventLoop" href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.AbstractEventLoop">AbstractEventLoop</a>]</code>
+          </td>
+          <td><p>If running an event loop that supports the <code>create_task()</code> method then
+you can provide the event loop here and the returned future object will be an
+instance of the loops future type. This will allow the current event loop to manage
+awaiting <code>QFuture</code> objects as well as any other async tasks that may be running.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>no_ctx</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>This parameter determines whether or not the context interface will be disabled.
+disabling the context interface will stop extra q queries being sent but will
+disable the extra features around the context interface.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>as_server</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>If this parameter is set to True the QConnection will act as a <code>q</code> server,
+that other processes can connect to, and will not create a connection. this
+functionality is licensed only.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>conn_gc_time</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+          </td>
+          <td><p>When running as a server this will determine the number of seconds between
+going through the list of opened connections and closing any that the clients have
+closed. If not set the default of <code>0.0</code> will cause any old connections to never be
+closed unless <code>self.clean_open_connections()</code> is manually called.</p></td>
+          <td>
+                <code>0.0</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="note">
+  <summary>The <code>username</code> and <code>password</code> parameters are not required.</summary>
+  <p>The <code>username</code> and <code>password</code> parameters are only required if the q server requires
+authorization. Refer to <a href="https://code.kx.com/q/kb/ssl/">ssl documentation</a> for more
+information.</p>
+</details>
+<details class="note">
+  <summary>The <code>timeout</code> argument may not always be enforced when making successive queries.</summary>
+  <p>When making successive queries if one query times out the next query will wait until a
+response has been received from the previous query before starting the timer for its own
+timeout. This can be avoided by using a separate <code>QConnection</code> instance for each query.</p>
+</details>
+<details class="note">
+  <summary>The overhead of calling <code>clean_open_connections</code> is large.</summary>
+  <p>When running as a server you should ensure that <code>clean_open_connections</code> is called
+fairly infrequently as the overhead of clearing all the dead connections can be quite
+large. It is recommended to have a large delay on successive clears or manage it
+manually.</p>
+</details>      
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.PyKXException" href="exceptions.html#pykx.exceptions.PyKXException">PyKXException</a></code>
+          </td>
+          <td><p>Using both tls and unix is not possible with a QConnection.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Connect to a q process on localhost with a required username and password.</p>
+<pre class="highlight"><code class="language-python">await pykx.RawQConnection('localhost', 5001, 'username', 'password')</code></pre>
+<p>Connect to a q process at IP address 127.0.0.0, on port 5000 with a timeout of 2 seconds
+and TLS enabled.</p>
+<pre class="highlight"><code class="language-python">await pykx.RawQConnection('127.0.0.1', 5001, timeout=2.0, tls=True)</code></pre>
+<p>Connect to a q process via a Unix domain socket on port 5001</p>
+<pre class="highlight"><code class="language-python">await pykx.RawQConnection(port=5001, unix=True)</code></pre>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.RawQConnection._initobj" class="doc doc-heading">
+_initobj
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<pre class="highlight"><code class="language-python">_initobj()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Crutch used for <code>__await__</code> after spawning.</p>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.RawQConnection.__call__" class="doc doc-heading">
+__call__
+
+
+</h4>
+<pre class="highlight"><code class="language-python">__call__(query, *args, wait=True, debug=False)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Evaluate a query on the connected q process over IPC.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>query</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>, <a class="autorefs autorefs-internal" title="pykx.wrappers.CharVector" href="pykx-q-data/wrappers.html#pykx.wrappers.CharVector">CharVector</a>]</code>
+          </td>
+          <td><p>A q expression to be evaluated.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>*args</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
+          </td>
+          <td><p>Arguments to the q query. Each argument will be converted into a <code>pykx.K</code> object.
+Up to 8 arguments can be provided, as that is the maximum supported by q.</p></td>
+          <td>
+                <code>()</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>wait</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether the q server should execute the query before responding. If <code>True</code>,
+Python will wait for the q server to execute the query, and respond with the
+results. If <code>False</code>, the q server will respond immediately to the query with
+generic null (<code>::</code>), then execute them at some point in the future. Defaults to
+whatever the <code>wait</code> keyword argument was for the <code>ASyncQConnection</code> instance (i.e.
+this keyword argument overrides the instance-level default).</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>reuse</code></td>
+          <td>
+          </td>
+          <td><p>Whether the AsyncQConnection instance should be reused for subsequent queries,
+if using q queries that respond in a deferred/asynchronous manner this should be set
+to <code>False</code> so the query can be made in a dedicated <code>AsyncQConnection</code> instance.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.ipc.QFuture" href="#pykx.ipc.QFuture">QFuture</a></code>
+          </td>
+          <td><p>A QFuture object that can be awaited on to get the result of the query.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError">RuntimeError</a></code>
+          </td>
+          <td><p>A closed IPC connection was used.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.QError" href="exceptions.html#pykx.exceptions.QError">QError</a></code>
+          </td>
+          <td><p>Query timed out, may be raised if the time taken to make or receive a query goes
+over the timeout limit.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#TypeError">TypeError</a></code>
+          </td>
+          <td><p>Too many arguments were provided - q queries cannot have more than 8
+parameters.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></code>
+          </td>
+          <td><p>Attempted to send a Python function over IPC.</p></td>
+        </tr>
+    </tbody>
+  </table>
+      <p>Note: When querying <code>KX Insights</code> the <code>no_ctx=True</code> keyword argument must be used.</p>
+
+<p><strong>Examples:</strong></p>
+    
+      <pre class="highlight"><code class="language-python">q = await pykx.RawQConnection(host='localhost', port=5002)</code></pre>
+<p>Call an anonymous function with 2 parameters</p>
+<pre class="highlight"><code class="language-python">await q('{y+til x}', 10, 5)</code></pre>
+<p>Execute a q query with no parameters</p>
+<pre class="highlight"><code class="language-python">await q('til 10')</code></pre>
+<p>Call an anonymous function with 3 parameters and don't wait for a response</p>
+<pre class="highlight"><code class="language-python">await q('{x set y+til z}', 'async_query', 10, 5, wait=False)</code></pre>
+<p>Call an anonymous function with 3 parameters and don't wait for a response by default</p>
+<pre class="highlight"><code class="language-python">q = await pykx.RawQConnection(host='localhost', port=5002, wait=False)
+# Because `wait=False`, all calls on this q instance are not responded to by default:
+await q('{x set y+til z}', 'async_query', 10, 5)
+# But we can issue calls and wait for results by overriding the `wait` option on a per-call
+# basis:
+await q('{x set y+til z}', 'async_query', 10, 5, wait=True)</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.RawQConnection.poll_send" class="doc doc-heading">
+poll_send
+
+
+</h4>
+<pre class="highlight"><code class="language-python">poll_send(amount=1)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Send queued queries to the process connected to over IPC.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>amount</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>The number of send requests to handle, defaults to one, if 0 is used then all
+currently waiting queries will be sent.</p></td>
+          <td>
+                <code>1</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.QError" href="exceptions.html#pykx.exceptions.QError">QError</a></code>
+          </td>
+          <td><p>Query timed out, may be raised if the time taken to make or receive a query goes
+over the timeout limit.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <pre class="highlight"><code class="language-python">q = await pykx.RawQConnection(host='localhost', port=5002)</code></pre>
+<p>Send a single queued message.</p>
+<pre class="highlight"><code class="language-python">q_fut = q('til 10') # not sent yet
+q.poll_send() # 1 message is sent</code></pre>
+<p>Send two queued messages.</p>
+<pre class="highlight"><code class="language-python">q_fut = q('til 10') # not sent yet
+q_fut2 = q('til 10') # not sent yet
+q.poll_send(2) # 2 messages are sent</code></pre>
+<p>Send all queued messages.</p>
+<pre class="highlight"><code class="language-python">q_fut = q('til 10') # not sent yet
+q_fut2 = q('til 10') # not sent yet
+q.poll_send(0) # 2 messages are sent</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.RawQConnection.poll_recv_async" class="doc doc-heading">
+poll_recv_async
+
+
+</h4>
+<pre class="highlight"><code class="language-python">poll_recv_async()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Asynchronously receive a query from the process connected to over IPC.</p>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.QError" href="exceptions.html#pykx.exceptions.QError">QError</a></code>
+          </td>
+          <td><p>Query timed out, may be raised if the time taken to make or receive a query goes
+over the timeout limit.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Receive a single queued message.</p>
+<pre class="highlight"><code class="language-python">q = await pykx.RawQConnection(host='localhost', port=5002)
+q_fut = q('til 10') # not sent yet
+q.poll_send() # message is sent
+await q.poll_recv_async() # message response is received</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.RawQConnection.poll_recv" class="doc doc-heading">
+poll_recv
+
+
+</h4>
+<pre class="highlight"><code class="language-python">poll_recv(amount=1)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Recieve queries from the process connected to over IPC.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>amount</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>The number of receive requests to handle, defaults to one, if 0 is used then
+all currently waiting responses will be received.</p></td>
+          <td>
+                <code>1</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.QError" href="exceptions.html#pykx.exceptions.QError">QError</a></code>
+          </td>
+          <td><p>Query timed out, may be raised if the time taken to make or receive a query goes
+over the timeout limit.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <pre class="highlight"><code class="language-python">q = await pykx.RawQConnection(host='localhost', port=5002)</code></pre>
+<p>Receive a single queued message.</p>
+<pre class="highlight"><code class="language-python">q_fut = q('til 10') # not sent yet
+q.poll_send() # message is sent
+q.poll_recv() # message response is received</code></pre>
+<p>Receive two queued messages.</p>
+<pre class="highlight"><code class="language-python">q_fut = q('til 10') # not sent yet
+q_fut2 = q('til 10') # not sent yet
+q.poll_send(2) # messages are sent
+q.poll_recv(2) # message responses are received</code></pre>
+<p>Receive all queued messages.</p>
+<pre class="highlight"><code class="language-python">q_fut = q('til 10') # not sent yet
+q_fut2 = q('til 10') # not sent yet
+q.poll_send(0) # all messages are sent
+q.poll_recv(0) # all message responses are received</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.RawQConnection.close" class="doc doc-heading">
+close
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<pre class="highlight"><code class="language-python">close()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Close the connection.</p>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Open and subsequently close a connection to a q process on localhost:</p>
+<pre class="highlight"><code class="language-python">q = await pykx.RawQConnection('localhost', 5001)
+await q.close()</code></pre>
+<p>Using this class with a with-statement should be preferred:</p>
+<pre class="highlight"><code class="language-python">async with pykx.RawQConnection('localhost', 5001) as q:
+    # do stuff with q
+    pass
+# q is closed automatically</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.ipc.SecureQConnection" class="doc doc-heading">
+          <code>SecureQConnection</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">SecureQConnection(
+    host="localhost",
+    port=None,
+    *args,
+    username="",
+    password="",
+    timeout=0.0,
+    large_messages=True,
+    tls=False,
+    unix=False,
+    wait=True,
+    lock=None,
+    no_ctx=False,
+    reconnection_attempts=-1
+)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.ipc.QConnection" href="#pykx.ipc.QConnection">QConnection</a></code></p>
+
+
+
+
+      <p>Interface with a q process using the q IPC protocol.</p>
+<p>Instances of this class represent an open connection to a q process, which can be sent
+messages synchronously or asynchronously by calling it as a function. This class is
+automatically created when using TLS to encrypt your queries.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>host</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>The host name to which a connection is to be established.</p></td>
+          <td>
+                <code>&#39;localhost&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>port</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>The port to which a connection is to be established.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>username</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>Username for q connection authorization.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>password</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>]</code>
+          </td>
+          <td><p>Password for q connection authorization.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>timeout</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+          </td>
+          <td><p>Timeout for blocking socket operations in seconds. If set to <code>0</code>, the socket
+will be non-blocking.</p></td>
+          <td>
+                <code>0.0</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>large_messages</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether support for messages &gt;2GB should be enabled.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>tls</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether TLS should be used.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>unix</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether a Unix domain socket should be used instead of TCP. If set to <code>True</code>, the
+host parameter is ignored. Does not work on Windows.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>wait</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether the q server should send a response to the query (which this connection
+will wait to receive). Can be overridden on a per-call basis. If <code>True</code>, Python will
+wait for the q server to execute the query, and respond with the results. If
+<code>False</code>, the q server will respond immediately to every query with generic null
+(<code>::</code>), then execute them at some point in the future.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>no_ctx</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>This parameter determines whether or not the context interface will be disabled.
+disabling the context interface will stop extra q queries being sent but will
+disable the extra features around the context interface.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>reconnection_attempts</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>This parameter specifies how many attempts will be made to
+reconnect to the server if the connection is lost. The query will be resent if the
+reconnection is successful. The default is -1 which will not attempt to reconnect, 0
+will continuosly attempt to reconnect to the server with no stop and an exponential
+backoff between successive attempts. Any positive integer will specify the maximum
+number of tries to reconnect before throwing an error if a connection can not be
+made.</p></td>
+          <td>
+                <code>-1</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="note">
+  <summary>The <code>username</code> and <code>password</code> parameters are not required.</summary>
+  <p>The <code>username</code> and <code>password</code> parameters are only required if the q server requires
+authorization. Refer to <a href="https://code.kx.com/q/kb/ssl/">ssl documentation</a> for more
+information.</p>
+</details>
+<details class="note">
+  <summary>The <code>timeout</code> argument may not always be enforced when making successive queries.</summary>
+  <p>When making successive queries if one query times out the next query will wait until a
+response has been received from the previous query before starting the timer for its own
+timeout. This can be avoided by using a separate <code>SecureQConnection</code> instance for each
+query.</p>
+</details>      
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.PyKXException" href="exceptions.html#pykx.exceptions.PyKXException">PyKXException</a></code>
+          </td>
+          <td><p>Using both tls and unix is not possible with a QConnection.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Connect to a q process at IP address 127.0.0.0, on port 5000 with a timeout of 2 seconds
+and TLS enabled.</p>
+<pre class="highlight"><code class="language-python">pykx.SecureQConnection('127.0.0.1', 5001, timeout=2.0, tls=True)</code></pre>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.SecureQConnection.__call__" class="doc doc-heading">
+__call__
+
+
+</h4>
+<pre class="highlight"><code class="language-python">__call__(query, *args, wait=None, debug=False)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Evaluate a query on the connected q process over IPC.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>query</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a>, <a class="autorefs autorefs-internal" title="pykx.wrappers.CharVector" href="pykx-q-data/wrappers.html#pykx.wrappers.CharVector">CharVector</a>, <a class="autorefs autorefs-internal" title="pykx.wrappers.K" href="pykx-q-data/wrappers.html#pykx.wrappers.K">K</a>]</code>
+          </td>
+          <td><p>A q expression to be evaluated.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>*args</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
+          </td>
+          <td><p>Arguments to the q query. Each argument will be converted into a <code>pykx.K</code> object.
+Up to 8 arguments can be provided, as that is the maximum supported by q.</p></td>
+          <td>
+                <code>()</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>wait</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a>]</code>
+          </td>
+          <td><p>Whether the q server should execute the query before responding. If <code>True</code>,
+Python will wait for the q server to execute the query, and respond with the
+results. If <code>False</code>, the q server will respond immediately to the query with
+generic null (<code>::</code>), then execute them at some point in the future. Defaults to
+whatever the <code>wait</code> keyword argument was for the <code>SecureQConnection</code> instance (i.e.
+this keyword argument overrides the instance-level default).</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError">RuntimeError</a></code>
+          </td>
+          <td><p>A closed IPC connection was used.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.QError" href="exceptions.html#pykx.exceptions.QError">QError</a></code>
+          </td>
+          <td><p>Query timed out, may be raised if the time taken to make or receive a query goes
+over the timeout limit.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#TypeError">TypeError</a></code>
+          </td>
+          <td><p>Too many arguments were provided - q queries cannot have more than 8
+parameters.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></code>
+          </td>
+          <td><p>Attempted to send a Python function over IPC.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <pre class="highlight"><code class="language-python">q = pykx.SecureQConnection(host='localhost', port=5002, tls=True)</code></pre>
+<p>Call an anonymous function with 2 parameters</p>
+<pre class="highlight"><code class="language-python">q('{y+til x}', 10, 5)</code></pre>
+<p>Execute a q query with no parameters</p>
+<pre class="highlight"><code class="language-python">q('til 10')</code></pre>
+<p>Call an anonymous function with 3 parameters and don't wait for a response</p>
+<pre class="highlight"><code class="language-python">q('{x set y+til z}', 'async_query', 10, 5, wait=False)</code></pre>
+<p>Call an anonymous function with 3 parameters and don't wait for a response by default</p>
+<pre class="highlight"><code class="language-python">q = pykx.SecureQConnection(host='localhost', port=5002, wait=False, tls=True)
+# Because `wait=False`, all calls on this q instance are not responded to by default:
+q('{x set y+til z}', 'async_query', 10, 5)
+# But we can issue calls and wait for results by overriding the `wait` option on a per-call
+# basis:
+q('{x set y+til z}', 'async_query', 10, 5, wait=True)</code></pre>
+<p>Call a PyKX Operator function with supplied parameters</p>
+<pre class="highlight"><code class="language-python">q(kx.q.sum, [1, 2, 3])</code></pre>
+<p>Call a PyKX Keyword function with supplied paramters</p>
+<pre class="highlight"><code class="language-python">q(kx.q.floor, [5.2, 10.4])</code></pre>
+<p>Automatically reconnect to a q server after a disconnect.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; conn = kx.SecureQConnection(port=5001, reconnection_attempts=0)
+&gt;&gt;&gt; conn('til 10')
+pykx.LongVector(pykx.q('0 1 2 3 4 5 6 7 8 9'))
+&gt;&gt;&gt; conn('til 10')
+WARNING: Connection lost attempting to reconnect.
+Failed to reconnect, trying again in 0.5 seconds.
+Connection successfully reestablished.
+pykx.LongVector(pykx.q('0 1 2 3 4 5 6 7 8 9'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.SecureQConnection.close" class="doc doc-heading">
+close
+
+
+</h4>
+<pre class="highlight"><code class="language-python">close()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Close the connection.</p>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Open and subsequently close a connection to a q process on localhost:</p>
+<pre class="highlight"><code class="language-python">q = pykx.SecureQConnection('localhost', 5001, tls=True)
+q.close()</code></pre>
+<p>Using this class with a with-statement should be preferred:</p>
+<pre class="highlight"><code class="language-python">with pykx.SecureQConnection('localhost', 5001, tls=True) as q:
+    # do stuff with q
+    pass
+# q is closed automatically</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.ipc.SecureQConnection.fileno" class="doc doc-heading">
+fileno
+
+
+</h4>
+<pre class="highlight"><code class="language-python">fileno()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>The file descriptor or handle of the connection.</p>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+              
+            </article>
+            
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="remote.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Remote Python Execution" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Remote Python Execution
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="exceptions.html" class="md-footer__link md-footer__link--next" aria-label="Next: PyKX Exceptions" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              PyKX Exceptions
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2024 Kx Systems, Inc. KX and kdb+ are registered trademarks of Kx Systems, Inc., a subsidiary of FD Technologies plc.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs Insiders
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link", "header.autohide", "navigation.tabs", "navigation.footer", "content.code.annotate", "content.action.edit", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c028271.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dcd4d203.min.js"></script>
+      
+        <script src="https://code.kx.com/scripts/prism.js"></script>
+      
+        <script src="https://code.kx.com/scripts/extra.js"></script>
+      
+        <script src="https://code.kx.com/scripts/mathjax.js"></script>
+      
+        <script src="https://code.kx.com/scripts/polyfill.min.js"></script>
+      
+        <script src="https://code.kx.com/scripts/tex-mmmdtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      
+        <script src="https://use.fontawesome.com/3dbf29ed12.js"></script>
+      
+        <script src="../&period;&period;/&period;&period;/pykx/scripts/versions.js"></script>
+      
+    
+  </body>
+</html>

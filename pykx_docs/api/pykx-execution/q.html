@@ -1,0 +1,7480 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="PyKX Documentation">
+      
+      
+        <meta name="author" content="KX">
+      
+      
+        <link rel="canonical" href="https://code.kx.com/pykx/api/pykx-execution/q.html">
+      
+      
+        
+      
+      <link rel="icon" href="https://code.kx.com/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.2.7+insiders-4.11.0">
+    
+    
+      
+        <title>PyKX native functions - PyKX</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.5216e7b8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+      
+    
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/assets/stylesheets/main.b941530a.min.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/2021.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/prism.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/hide-footer-nav.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/dashboards.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/dashboards/stylesheets/dashboards.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/swagger.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PG938LS');</script>
+<!-- End Google Tag Manager -->
+<!-- Delighted Survey tool -->
+<script type="text/javascript">
+	!function(e,t,r,n){if(!e[n]){for(var a=e[n]=[],i=["survey","reset","config","init","set","get","event","identify","track","page","screen","group","alias"],s=0;s<i.length;s++){var c=i[s];a[c]=a[c]||function(e){return function(){var t=Array.prototype.slice.call(arguments);a.push([e,t])}}(c)}a.SNIPPET_VERSION="1.0.1";var o=t.createElement("script");o.type="text/javascript",o.async=!0,o.src="https://d2yyd1h5u9mauk.cloudfront.net/integrations/web/v1/library/"+r+"/"+n+".js";var p=t.getElementsByTagName("script")[0];p.parentNode.insertBefore(o,p)}}(window,document,"QKBtsIp633c7g2I2","delightedThumbsP"); 
+   
+   delightedThumbsP.survey({
+	properties: { // extra context (optional)
+	product: "PyKX"
+	}
+	});
+   </script>
+<!-- End Delighted Survey tool -->
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="kx-light" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pykx-native-function-reference-card" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header"  onload="loadVersions()">
+    <!--<link rel="stylesheet" href="https://code.kx.com/home/assets/stylesheets/main.b941530a.min.css">-->
+    <!--<link rel="stylesheet" href="https://code.kx.com/home/assets/stylesheets/vendor/mermaid.733f213f.min.css">-->
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://code.kx.com/" title="code.kx.com" class="md-header__button md-logo" aria-label="PyKX" data-md-component="logo">
+      <img src="https://code.kx.com/img/kx.svg" alt="logo" style="width:1.2rem; height:1.2rem">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic" style="font-weight:500">
+            <span class="md-ellipsis" >
+            PyKX
+          </span>
+          <script>
+            var currVersion = '2.5'
+          </script>
+          <style>
+            .md-version:focus-within .md-version__list, .md-version:hover .md-version__list {
+              max-height: 6rem;
+              opacity: 1;
+              transition: max-height 0ms,opacity .25s;
+            }
+          </style>
+              <div class="md-version">
+                <button class="md-version__current" aria-label="Select version">2.5</button>
+                <ul class="md-version__list" style="margin-top: 20%;">
+                  <div id="versionList"></div>
+                </ul>
+              </div>
+              <div id="latestFlag"></div>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PyKX native functions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="kx-light" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kxsystems/pykx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+<style>
+    @media (max-width: 430px) {
+      .md-typeset span{display:none;}
+    }
+  /* Button used to open the chat form - fixed at the bottom of the page */
+  .open-button {
+    background-color: var(--md-typeset-a-color);
+    border: none;
+    border-radius: 10px;
+    bottom: 23px;
+    box-sizing: border-box;
+    color: var(--md-default-bg-color);
+    cursor: pointer;
+    font-size: 13px;
+    opacity: 0.8;
+    padding: 10px 10px;
+    position: fixed;
+    right: 28px;
+    width: 160px;
+    z-index: 3;
+  }
+</style>
+<body>
+  <button class="open-button md-typeset" onclick="window.location.href='https://community.kx.com/t5/forums/postpage/choose-node/true/interaction-style/forum/override-styles/true/board-id/kxinsights'"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29 7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160-93.3 160-208 160z"></path></svg></span>&nbsp;Ask a question</button>
+  </body>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/" class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/q" class="md-tabs__link">
+        
+  
+  kdb+ and q
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/core" class="md-tabs__link">
+        
+  
+  kdb Insights SDK
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/platform/" class="md-tabs__link">
+        
+  
+  kdb Insights Enterprise
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/kdbai/" class="md-tabs__link">
+        
+  
+  KDB.AI
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+      
+    
+  
+  
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../index.html" class="md-tabs__link md-tabs__link--active">
+          
+  
+    
+  
+  PyKX
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/api/index.html" class="md-tabs__link">
+        
+  
+  APIs
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/licensing/licensing/" class="md-tabs__link">
+        
+  
+  Licensing
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/home/support/" class="md-tabs__link">
+        
+  
+  Help
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PyKX" class="md-nav__button md-logo" aria-label="PyKX" data-md-component="logo">
+      <img src="https://code.kx.com/img/kx.svg" alt="logo" style="width:1.2rem; height:1.2rem">
+    </a>
+    PyKX
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kxsystems/pykx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/q" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb+ and q
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/core" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb Insights SDK
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/platform/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb Insights Enterprise
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/kdbai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    KDB.AI
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          
+  
+  <span class="md-ellipsis">
+    PyKX
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PyKX" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          PyKX
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Documentation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/what_is_pykx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is PyKX?
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quickstart.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart guide
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/PyKX%20Introduction%20Notebook.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Introduction Notebook
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/q_magic_command.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jupyter q Magic Command Notebook
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/configuration.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_3" type="checkbox" id="__nav_6_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_3">
+          
+  
+  <span class="md-ellipsis">
+    Fundamentals
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fundamentals" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Fundamentals
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/creating.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generating PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/evaluating.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interacting with PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/querying.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying data
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/indexing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Indexing PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/conversion_considerations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conversion considerations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/text.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Representation in PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/nulls_and_infinities.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handling nulls and infinities
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_4" type="checkbox" id="__nav_6_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_4">
+          
+  
+  <span class="md-ellipsis">
+    Advanced usage and performance considerations
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Advanced usage and performance considerations" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced usage and performance considerations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/ipc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Communicating via IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/database.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database interactions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/context_interface.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using q functions in a Pythonic way
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/modes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modes of operation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/numpy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NumPy integration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/serialization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization and de-serialization
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/performance.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance considerations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/limitations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface limitations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/attributes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Attributes
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/pandas_breakdown.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas Like API Coverage
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_1" type="checkbox" id="__nav_6_4_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_1">
+          
+  
+  <span class="md-ellipsis">
+    Code execution
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code execution" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          Code execution
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    PyKX native functions
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="q.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    PyKX native functions
+  </span>
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#by-category" class="md-nav__link">
+    By Category
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    Environment
+  </a>
+  
+    <nav class="md-nav" aria-label="Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getenv" class="md-nav__link">
+    getenv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gtime" class="md-nav__link">
+    gtime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ltime" class="md-nav__link">
+    ltime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setenv" class="md-nav__link">
+    setenv
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpret" class="md-nav__link">
+    Interpret
+  </a>
+  
+    <nav class="md-nav" aria-label="Interpret">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eval" class="md-nav__link">
+    eval
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse" class="md-nav__link">
+    parse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reval" class="md-nav__link">
+    reval
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show" class="md-nav__link">
+    show
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system" class="md-nav__link">
+    system
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value" class="md-nav__link">
+    value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#io" class="md-nav__link">
+    IO
+  </a>
+  
+    <nav class="md-nav" aria-label="IO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dsave" class="md-nav__link">
+    dsave
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get" class="md-nav__link">
+    get
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hclose" class="md-nav__link">
+    hclose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hcount" class="md-nav__link">
+    hcount
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hdel" class="md-nav__link">
+    hdel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hopen" class="md-nav__link">
+    hopen
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hsym" class="md-nav__link">
+    hsym
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load" class="md-nav__link">
+    load
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read0" class="md-nav__link">
+    read0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read1" class="md-nav__link">
+    read1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rload" class="md-nav__link">
+    rload
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rsave" class="md-nav__link">
+    rsave
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save" class="md-nav__link">
+    save
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set" class="md-nav__link">
+    set
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iterate" class="md-nav__link">
+    Iterate
+  </a>
+  
+    <nav class="md-nav" aria-label="Iterate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#each" class="md-nav__link">
+    each
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#over" class="md-nav__link">
+    over
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#peach" class="md-nav__link">
+    peach
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prior" class="md-nav__link">
+    prior
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scan" class="md-nav__link">
+    scan
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#join" class="md-nav__link">
+    Join
+  </a>
+  
+    <nav class="md-nav" aria-label="Join">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aj" class="md-nav__link">
+    aj
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aj0" class="md-nav__link">
+    aj0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ajf" class="md-nav__link">
+    ajf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ajf0" class="md-nav__link">
+    ajf0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asof" class="md-nav__link">
+    asof
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ej" class="md-nav__link">
+    ej
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ij" class="md-nav__link">
+    ij
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ijf" class="md-nav__link">
+    ijf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lj" class="md-nav__link">
+    lj
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ljf" class="md-nav__link">
+    ljf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pj" class="md-nav__link">
+    pj
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uj" class="md-nav__link">
+    uj
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ujf" class="md-nav__link">
+    ujf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wj" class="md-nav__link">
+    wj
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wj1" class="md-nav__link">
+    wj1
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    List
+  </a>
+  
+    <nav class="md-nav" aria-label="List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#count" class="md-nav__link">
+    count
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross" class="md-nav__link">
+    cross
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cut" class="md-nav__link">
+    cut
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enlist" class="md-nav__link">
+    enlist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fills" class="md-nav__link">
+    fills
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first" class="md-nav__link">
+    first
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flip" class="md-nav__link">
+    flip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group" class="md-nav__link">
+    group
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inter" class="md-nav__link">
+    inter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#last" class="md-nav__link">
+    last
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcount" class="md-nav__link">
+    mcount
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next" class="md-nav__link">
+    next
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prev" class="md-nav__link">
+    prev
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raze" class="md-nav__link">
+    raze
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reverse" class="md-nav__link">
+    reverse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rotate" class="md-nav__link">
+    rotate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sublist" class="md-nav__link">
+    sublist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sv" class="md-nav__link">
+    sv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#til" class="md-nav__link">
+    til
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#union" class="md-nav__link">
+    union
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs" class="md-nav__link">
+    vs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where" class="md-nav__link">
+    where
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xprev" class="md-nav__link">
+    xprev
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logic" class="md-nav__link">
+    Logic
+  </a>
+  
+    <nav class="md-nav" aria-label="Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#all" class="md-nav__link">
+    all
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#any" class="md-nav__link">
+    any
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#math" class="md-nav__link">
+    Math
+  </a>
+  
+    <nav class="md-nav" aria-label="Math">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abs" class="md-nav__link">
+    abs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acos" class="md-nav__link">
+    acos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asin" class="md-nav__link">
+    asin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atan" class="md-nav__link">
+    atan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#avg" class="md-nav__link">
+    avg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#avgs" class="md-nav__link">
+    avgs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ceiling" class="md-nav__link">
+    ceiling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cor" class="md-nav__link">
+    cor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cos" class="md-nav__link">
+    cos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cov" class="md-nav__link">
+    cov
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deltas" class="md-nav__link">
+    deltas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev" class="md-nav__link">
+    dev
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#div" class="md-nav__link">
+    div
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ema" class="md-nav__link">
+    ema
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exp" class="md-nav__link">
+    exp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#floor" class="md-nav__link">
+    floor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inv" class="md-nav__link">
+    inv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log" class="md-nav__link">
+    log
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lsq" class="md-nav__link">
+    lsq
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mavg" class="md-nav__link">
+    mavg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max" class="md-nav__link">
+    max
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maxs" class="md-nav__link">
+    maxs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mdev" class="md-nav__link">
+    mdev
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#med" class="md-nav__link">
+    med
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#min" class="md-nav__link">
+    min
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mins" class="md-nav__link">
+    mins
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mmax" class="md-nav__link">
+    mmax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mmin" class="md-nav__link">
+    mmin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mmu" class="md-nav__link">
+    mmu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mod" class="md-nav__link">
+    mod
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#msum" class="md-nav__link">
+    msum
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neg" class="md-nav__link">
+    neg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prd" class="md-nav__link">
+    prd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prds" class="md-nav__link">
+    prds
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rand" class="md-nav__link">
+    rand
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ratios" class="md-nav__link">
+    ratios
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reciprocal" class="md-nav__link">
+    reciprocal
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scov" class="md-nav__link">
+    scov
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdev" class="md-nav__link">
+    sdev
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signum" class="md-nav__link">
+    signum
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sin" class="md-nav__link">
+    sin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sqrt" class="md-nav__link">
+    sqrt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sum" class="md-nav__link">
+    sum
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sums" class="md-nav__link">
+    sums
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svar" class="md-nav__link">
+    svar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tan" class="md-nav__link">
+    tan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#var" class="md-nav__link">
+    var
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wavg" class="md-nav__link">
+    wavg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#within" class="md-nav__link">
+    within
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wsum" class="md-nav__link">
+    wsum
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xexp" class="md-nav__link">
+    xexp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xlog" class="md-nav__link">
+    xlog
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta" class="md-nav__link">
+    Meta
+  </a>
+  
+    <nav class="md-nav" aria-label="Meta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attr" class="md-nav__link">
+    attr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#null" class="md-nav__link">
+    null
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    tables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type" class="md-nav__link">
+    type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view" class="md-nav__link">
+    view
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#views" class="md-nav__link">
+    views
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#queries" class="md-nav__link">
+    Queries
+  </a>
+  
+    <nav class="md-nav" aria-label="Queries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fby" class="md-nav__link">
+    fby
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sort" class="md-nav__link">
+    Sort
+  </a>
+  
+    <nav class="md-nav" aria-label="Sort">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asc" class="md-nav__link">
+    asc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bin" class="md-nav__link">
+    bin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binr" class="md-nav__link">
+    binr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desc" class="md-nav__link">
+    desc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#differ" class="md-nav__link">
+    differ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distinct" class="md-nav__link">
+    distinct
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iasc" class="md-nav__link">
+    iasc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idesc" class="md-nav__link">
+    idesc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rank" class="md-nav__link">
+    rank
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xbar" class="md-nav__link">
+    xbar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xrank" class="md-nav__link">
+    xrank
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table" class="md-nav__link">
+    Table
+  </a>
+  
+    <nav class="md-nav" aria-label="Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cols" class="md-nav__link">
+    cols
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csv" class="md-nav__link">
+    csv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fkeys" class="md-nav__link">
+    fkeys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insert" class="md-nav__link">
+    insert
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key" class="md-nav__link">
+    key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keys" class="md-nav__link">
+    keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta_1" class="md-nav__link">
+    meta
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ungroup" class="md-nav__link">
+    ungroup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upsert" class="md-nav__link">
+    upsert
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xasc" class="md-nav__link">
+    xasc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xcol" class="md-nav__link">
+    xcol
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xcols" class="md-nav__link">
+    xcols
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xdesc" class="md-nav__link">
+    xdesc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xgroup" class="md-nav__link">
+    xgroup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xkey" class="md-nav__link">
+    xkey
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text" class="md-nav__link">
+    Text
+  </a>
+  
+    <nav class="md-nav" aria-label="Text">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#like" class="md-nav__link">
+    like
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lower" class="md-nav__link">
+    lower
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ltrim" class="md-nav__link">
+    ltrim
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#md5" class="md-nav__link">
+    md5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtrim" class="md-nav__link">
+    rtrim
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ss" class="md-nav__link">
+    ss
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssr" class="md-nav__link">
+    ssr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string" class="md-nav__link">
+    string
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trim" class="md-nav__link">
+    trim
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upper" class="md-nav__link">
+    upper
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="embedded_q.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX execution classes
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ctx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Context interface
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="console.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX console
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_2" type="checkbox" id="__nav_6_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_2">
+          
+  
+  <span class="md-ellipsis">
+    Data types and conversions
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data types and conversions" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Data types and conversions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-q-data/toq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Convert Pythonic data to PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-q-data/wrappers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX type wrappers
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-q-data/type_conversions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX to Pythonic data type mapping
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-q-data/register.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Registering Custom Conversions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/Pandas_API.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas API
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../random.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random data generation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../query.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compress.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption APIs
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../db.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Interactions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../remote.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote Python Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exceptions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Exceptions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schema.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schema generation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streamlit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streamlit Integration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Command Wrappers
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../util.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_16" type="checkbox" id="__nav_6_4_16" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_16">
+          
+  
+  <span class="md-ellipsis">
+    File loading and saving
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="File loading and saving" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_16">
+          <span class="md-nav__icon md-icon"></span>
+          File loading and saving
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-save-load/write.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Writing data to disk
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-save-load/read.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reading data from disk
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reimporting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reimporter module
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serialize.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          
+  
+  <span class="md-ellipsis">
+    Beta Features
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Beta Features" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Beta Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/db-management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/compress-encypt.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/remote-functions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote Function Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/threading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multithreading
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/streamlit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streamlit
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          
+  
+  <span class="md-ellipsis">
+    Python within q
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python within q" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Python within q
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pykx-under-q/intro.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pykx-under-q/api.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pykx-under-q/upgrade.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade from embedPy
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pykx-under-q/known_issues.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Known Issues
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_7" type="checkbox" id="__nav_6_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_7">
+          
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_7">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/subscriber/readme.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Subscriber
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/compress_and_encrypt/readme.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/db-management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Creation and Management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/ipc/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/charting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Charting Data with PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/server/server.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX as a Server
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/threaded_execution/threading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multithreaded Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_8" type="checkbox" id="__nav_6_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_8">
+          
+  
+  <span class="md-ellipsis">
+    Extras
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Extras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_8">
+          <span class="md-nav__icon md-icon"></span>
+          Extras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extras/comparisons.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Comparisons against other Python/q interfaces
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extras/known_issues.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Known issues
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_9" type="checkbox" id="__nav_6_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_9">
+          
+  
+  <span class="md-ellipsis">
+    Release notes
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Release notes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_9">
+          <span class="md-nav__icon md-icon"></span>
+          Release notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-notes/changelog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-notes/underq-changelog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX under q
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blogs, Articles and Videos
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frequently Asked Questions (FAQ)
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributors.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributors
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/api/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    APIs
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/licensing/licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licensing
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/home/support/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Help
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#by-category" class="md-nav__link">
+    By Category
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    Environment
+  </a>
+  
+    <nav class="md-nav" aria-label="Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getenv" class="md-nav__link">
+    getenv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gtime" class="md-nav__link">
+    gtime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ltime" class="md-nav__link">
+    ltime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setenv" class="md-nav__link">
+    setenv
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpret" class="md-nav__link">
+    Interpret
+  </a>
+  
+    <nav class="md-nav" aria-label="Interpret">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eval" class="md-nav__link">
+    eval
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse" class="md-nav__link">
+    parse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reval" class="md-nav__link">
+    reval
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show" class="md-nav__link">
+    show
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system" class="md-nav__link">
+    system
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value" class="md-nav__link">
+    value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#io" class="md-nav__link">
+    IO
+  </a>
+  
+    <nav class="md-nav" aria-label="IO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dsave" class="md-nav__link">
+    dsave
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get" class="md-nav__link">
+    get
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hclose" class="md-nav__link">
+    hclose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hcount" class="md-nav__link">
+    hcount
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hdel" class="md-nav__link">
+    hdel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hopen" class="md-nav__link">
+    hopen
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hsym" class="md-nav__link">
+    hsym
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load" class="md-nav__link">
+    load
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read0" class="md-nav__link">
+    read0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read1" class="md-nav__link">
+    read1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rload" class="md-nav__link">
+    rload
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rsave" class="md-nav__link">
+    rsave
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save" class="md-nav__link">
+    save
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set" class="md-nav__link">
+    set
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iterate" class="md-nav__link">
+    Iterate
+  </a>
+  
+    <nav class="md-nav" aria-label="Iterate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#each" class="md-nav__link">
+    each
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#over" class="md-nav__link">
+    over
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#peach" class="md-nav__link">
+    peach
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prior" class="md-nav__link">
+    prior
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scan" class="md-nav__link">
+    scan
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#join" class="md-nav__link">
+    Join
+  </a>
+  
+    <nav class="md-nav" aria-label="Join">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aj" class="md-nav__link">
+    aj
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aj0" class="md-nav__link">
+    aj0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ajf" class="md-nav__link">
+    ajf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ajf0" class="md-nav__link">
+    ajf0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asof" class="md-nav__link">
+    asof
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ej" class="md-nav__link">
+    ej
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ij" class="md-nav__link">
+    ij
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ijf" class="md-nav__link">
+    ijf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lj" class="md-nav__link">
+    lj
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ljf" class="md-nav__link">
+    ljf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pj" class="md-nav__link">
+    pj
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uj" class="md-nav__link">
+    uj
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ujf" class="md-nav__link">
+    ujf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wj" class="md-nav__link">
+    wj
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wj1" class="md-nav__link">
+    wj1
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    List
+  </a>
+  
+    <nav class="md-nav" aria-label="List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#count" class="md-nav__link">
+    count
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross" class="md-nav__link">
+    cross
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cut" class="md-nav__link">
+    cut
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enlist" class="md-nav__link">
+    enlist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fills" class="md-nav__link">
+    fills
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first" class="md-nav__link">
+    first
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flip" class="md-nav__link">
+    flip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group" class="md-nav__link">
+    group
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inter" class="md-nav__link">
+    inter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#last" class="md-nav__link">
+    last
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcount" class="md-nav__link">
+    mcount
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next" class="md-nav__link">
+    next
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prev" class="md-nav__link">
+    prev
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raze" class="md-nav__link">
+    raze
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reverse" class="md-nav__link">
+    reverse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rotate" class="md-nav__link">
+    rotate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sublist" class="md-nav__link">
+    sublist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sv" class="md-nav__link">
+    sv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#til" class="md-nav__link">
+    til
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#union" class="md-nav__link">
+    union
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs" class="md-nav__link">
+    vs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where" class="md-nav__link">
+    where
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xprev" class="md-nav__link">
+    xprev
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logic" class="md-nav__link">
+    Logic
+  </a>
+  
+    <nav class="md-nav" aria-label="Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#all" class="md-nav__link">
+    all
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#any" class="md-nav__link">
+    any
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#math" class="md-nav__link">
+    Math
+  </a>
+  
+    <nav class="md-nav" aria-label="Math">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abs" class="md-nav__link">
+    abs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acos" class="md-nav__link">
+    acos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asin" class="md-nav__link">
+    asin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atan" class="md-nav__link">
+    atan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#avg" class="md-nav__link">
+    avg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#avgs" class="md-nav__link">
+    avgs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ceiling" class="md-nav__link">
+    ceiling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cor" class="md-nav__link">
+    cor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cos" class="md-nav__link">
+    cos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cov" class="md-nav__link">
+    cov
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deltas" class="md-nav__link">
+    deltas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev" class="md-nav__link">
+    dev
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#div" class="md-nav__link">
+    div
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ema" class="md-nav__link">
+    ema
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exp" class="md-nav__link">
+    exp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#floor" class="md-nav__link">
+    floor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inv" class="md-nav__link">
+    inv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log" class="md-nav__link">
+    log
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lsq" class="md-nav__link">
+    lsq
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mavg" class="md-nav__link">
+    mavg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max" class="md-nav__link">
+    max
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maxs" class="md-nav__link">
+    maxs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mdev" class="md-nav__link">
+    mdev
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#med" class="md-nav__link">
+    med
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#min" class="md-nav__link">
+    min
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mins" class="md-nav__link">
+    mins
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mmax" class="md-nav__link">
+    mmax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mmin" class="md-nav__link">
+    mmin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mmu" class="md-nav__link">
+    mmu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mod" class="md-nav__link">
+    mod
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#msum" class="md-nav__link">
+    msum
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neg" class="md-nav__link">
+    neg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prd" class="md-nav__link">
+    prd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prds" class="md-nav__link">
+    prds
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rand" class="md-nav__link">
+    rand
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ratios" class="md-nav__link">
+    ratios
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reciprocal" class="md-nav__link">
+    reciprocal
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scov" class="md-nav__link">
+    scov
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdev" class="md-nav__link">
+    sdev
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signum" class="md-nav__link">
+    signum
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sin" class="md-nav__link">
+    sin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sqrt" class="md-nav__link">
+    sqrt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sum" class="md-nav__link">
+    sum
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sums" class="md-nav__link">
+    sums
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svar" class="md-nav__link">
+    svar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tan" class="md-nav__link">
+    tan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#var" class="md-nav__link">
+    var
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wavg" class="md-nav__link">
+    wavg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#within" class="md-nav__link">
+    within
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wsum" class="md-nav__link">
+    wsum
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xexp" class="md-nav__link">
+    xexp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xlog" class="md-nav__link">
+    xlog
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta" class="md-nav__link">
+    Meta
+  </a>
+  
+    <nav class="md-nav" aria-label="Meta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attr" class="md-nav__link">
+    attr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#null" class="md-nav__link">
+    null
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    tables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type" class="md-nav__link">
+    type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view" class="md-nav__link">
+    view
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#views" class="md-nav__link">
+    views
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#queries" class="md-nav__link">
+    Queries
+  </a>
+  
+    <nav class="md-nav" aria-label="Queries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fby" class="md-nav__link">
+    fby
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sort" class="md-nav__link">
+    Sort
+  </a>
+  
+    <nav class="md-nav" aria-label="Sort">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asc" class="md-nav__link">
+    asc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bin" class="md-nav__link">
+    bin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binr" class="md-nav__link">
+    binr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desc" class="md-nav__link">
+    desc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#differ" class="md-nav__link">
+    differ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distinct" class="md-nav__link">
+    distinct
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iasc" class="md-nav__link">
+    iasc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idesc" class="md-nav__link">
+    idesc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rank" class="md-nav__link">
+    rank
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xbar" class="md-nav__link">
+    xbar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xrank" class="md-nav__link">
+    xrank
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table" class="md-nav__link">
+    Table
+  </a>
+  
+    <nav class="md-nav" aria-label="Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cols" class="md-nav__link">
+    cols
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csv" class="md-nav__link">
+    csv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fkeys" class="md-nav__link">
+    fkeys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insert" class="md-nav__link">
+    insert
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key" class="md-nav__link">
+    key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keys" class="md-nav__link">
+    keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta_1" class="md-nav__link">
+    meta
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ungroup" class="md-nav__link">
+    ungroup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upsert" class="md-nav__link">
+    upsert
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xasc" class="md-nav__link">
+    xasc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xcol" class="md-nav__link">
+    xcol
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xcols" class="md-nav__link">
+    xcols
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xdesc" class="md-nav__link">
+    xdesc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xgroup" class="md-nav__link">
+    xgroup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xkey" class="md-nav__link">
+    xkey
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text" class="md-nav__link">
+    Text
+  </a>
+  
+    <nav class="md-nav" aria-label="Text">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#like" class="md-nav__link">
+    like
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lower" class="md-nav__link">
+    lower
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ltrim" class="md-nav__link">
+    ltrim
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#md5" class="md-nav__link">
+    md5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtrim" class="md-nav__link">
+    rtrim
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ss" class="md-nav__link">
+    ss
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssr" class="md-nav__link">
+    ssr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string" class="md-nav__link">
+    string
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trim" class="md-nav__link">
+    trim
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upper" class="md-nav__link">
+    upper
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/kxsystems/pykx/edit/main/docs/api/pykx-execution/q.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="pykx-native-function-reference-card">PyKX native function reference card</h1>
+<p>This page documents the functions found in the q global namespace that are available in PyKX as attributes of <code>pykx.q</code>, or as attributes of <code>pykx.QConnection</code> instances. Refer to <a href="https://code.kx.com/q/ref/#by-category">the q reference card in the q docs</a> for more details about using these functions in q. This page documents how one might use them from Python via PyKX.</p>
+<p>All of these functions take and return q objects, which are wrapped in PyKX as <code>pykx.K</code> objects. Arguments of other types will have <code>pykx.K</code> called on them to convert them into q objects. Refer to <a href="../pykx-q-data/wrappers.html">the PyKX wrappers documentation</a> for more information about <code>pykx.K</code> objects.</p>
+<h2 id="by-category">By Category</h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Elements</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#environment">Environment</a></td>
+<td><a href="#getenv"><code>getenv</code></a>, <a href="#gtime"><code>gtime</code></a>, <a href="#ltime"><code>ltime</code></a>, <a href="#setenv"><code>setenv</code></a></td>
+</tr>
+<tr>
+<td><a href="#interpret">Interpret</a></td>
+<td><a href="#eval"><code>eval</code></a>, <a href="#parse"><code>parse</code></a>, <a href="#reval"><code>reval</code></a>, <a href="#show"><code>show</code></a>, <a href="#system"><code>system</code></a>, <a href="#value"><code>value</code></a></td>
+</tr>
+<tr>
+<td><a href="#io">IO</a></td>
+<td><a href="#dsave"><code>dsave</code></a>, <a href="#get"><code>get</code></a>, <a href="#hclose"><code>hclose</code></a>, <a href="#hcount"><code>hcount</code></a>, <a href="#hdel"><code>hdel</code></a>, <a href="#hopen"><code>hopen</code></a>, <a href="#hsym"><code>hsym</code></a>, <a href="#load"><code>load</code></a>, <a href="#read0"><code>read0</code></a>, <a href="#read1"><code>read1</code></a>, <a href="#rload"><code>rload</code></a>, <a href="#rsave"><code>rsave</code></a>, <a href="#save"><code>save</code></a>, <a href="#set"><code>set</code></a></td>
+</tr>
+<tr>
+<td><a href="#iterate">Iterate</a></td>
+<td><a href="#each"><code>each</code></a>, <a href="#over"><code>over</code></a>, <a href="#peach"><code>peach</code></a>, <a href="#prior"><code>prior</code></a>, <a href="#scan"><code>scan</code></a></td>
+</tr>
+<tr>
+<td><a href="#join">Join</a></td>
+<td><a href="#aj"><code>aj</code></a>, <a href="#aj0"><code>aj0</code></a>, <a href="#ajf"><code>ajf</code></a>, <a href="#ajf0"><code>ajf0</code></a>, <a href="#asof"><code>asof</code></a>, <a href="#ej"><code>ej</code></a>, <a href="#ij"><code>ij</code></a>, <a href="#ijf"><code>ijf</code></a>, <a href="#lj"><code>lj</code></a>, <a href="#ljf"><code>ljf</code></a>, <a href="#pj"><code>pj</code></a>, <a href="#uj"><code>uj</code></a>, <a href="#ujf"><code>ujf</code></a>, <a href="#wj"><code>wj</code></a>, <a href="#wj1"><code>wj1</code></a></td>
+</tr>
+<tr>
+<td><a href="#list">List</a></td>
+<td><a href="#count"><code>count</code></a>, <a href="#cross"><code>cross</code></a>, <a href="#cut"><code>cut</code></a>, <a href="#enlist"><code>enlist</code></a>, <a href="#fills"><code>fills</code></a>, <a href="#first"><code>first</code></a>, <a href="#flip"><code>flip</code></a>, <a href="#group"><code>group</code></a>, <a href="#inter"><code>inter</code></a>, <a href="#last"><code>last</code></a>, <a href="#mcount"><code>mcount</code></a>, <a href="#next"><code>next</code></a>, <a href="#prev"><code>prev</code></a>, <a href="#raze"><code>raze</code></a>, <a href="#reverse"><code>reverse</code></a>, <a href="#rotate"><code>rotate</code></a>, <a href="#sublist"><code>sublist</code></a>, <a href="#sv"><code>sv</code></a>, <a href="#til"><code>til</code></a>, <a href="#union"><code>union</code></a>, <a href="#vs"><code>vs</code></a>, <a href="#where"><code>where</code></a>, <a href="#xprev"><code>xprev</code></a></td>
+</tr>
+<tr>
+<td><a href="#logic">Logic</a></td>
+<td><a href="#all"><code>all</code></a>, <a href="#any"><code>any</code></a></td>
+</tr>
+<tr>
+<td><a href="#math">Math</a></td>
+<td><a href="#abs"><code>abs</code></a>, <a href="#acos"><code>acos</code></a>, <a href="#asin"><code>asin</code></a>, <a href="#atan"><code>atan</code></a>, <a href="#avg"><code>avg</code></a>, <a href="#avgs"><code>avgs</code></a>, <a href="#ceiling"><code>ceiling</code></a>, <a href="#cor"><code>cor</code></a>, <a href="#cos"><code>cos</code></a>, <a href="#cov"><code>cov</code></a>, <a href="#deltas"><code>deltas</code></a>, <a href="#dev"><code>dev</code></a>, <a href="#div"><code>div</code></a>, <a href="#ema"><code>ema</code></a>, <a href="#exp"><code>exp</code></a>, <a href="#floor"><code>floor</code></a>, <a href="#inv"><code>inv</code></a>, <a href="#log"><code>log</code></a>, <a href="#lsq"><code>lsq</code></a>, <a href="#mavg"><code>mavg</code></a>, <a href="#max"><code>max</code></a>, <a href="#maxs"><code>maxs</code></a>, <a href="#mdev"><code>mdev</code></a>, <a href="#med"><code>med</code></a>, <a href="#min"><code>min</code></a>, <a href="#mins"><code>mins</code></a>, <a href="#mmax"><code>mmax</code></a>, <a href="#mmin"><code>mmin</code></a>, <a href="#mmu"><code>mmu</code></a>, <a href="#mod"><code>mod</code></a>, <a href="#msum"><code>msum</code></a>, <a href="#neg"><code>neg</code></a>, <a href="#prd"><code>prd</code></a>, <a href="#prds"><code>prds</code></a>, <a href="#rand"><code>rand</code></a>, <a href="#ratios"><code>ratios</code></a>, <a href="#reciprocal"><code>reciprocal</code></a>, <a href="#scov"><code>scov</code></a>, <a href="#sdev"><code>sdev</code></a>, <a href="#signum"><code>signum</code></a>, <a href="#sin"><code>sin</code></a>, <a href="#sqrt"><code>sqrt</code></a>, <a href="#sum"><code>sum</code></a>, <a href="#sums"><code>sums</code></a>, <a href="#svar"><code>svar</code></a>, <a href="#tan"><code>tan</code></a>, <a href="#var"><code>var</code></a>, <a href="#wavg"><code>wavg</code></a>, <a href="#within"><code>within</code></a>, <a href="#wsum"><code>wsum</code></a>, <a href="#xexp"><code>xexp</code></a>, <a href="#xlog"><code>xlog</code></a></td>
+</tr>
+<tr>
+<td><a href="#meta">Meta</a></td>
+<td><a href="#attr"><code>attr</code></a>, <a href="#null"><code>null</code></a>, <a href="#tables"><code>tables</code></a>, <a href="#type"><code>type</code></a>, <a href="#view"><code>view</code></a>, <a href="#views"><code>views</code></a></td>
+</tr>
+<tr>
+<td><a href="#queries">Query</a></td>
+<td><a href="#fby"><code>fby</code></a></td>
+</tr>
+<tr>
+<td><a href="#sort">Sort</a></td>
+<td><a href="#asc"><code>asc</code></a>, <a href="#bin"><code>bin</code></a>, <a href="#binr"><code>binr</code></a>, <a href="#desc"><code>desc</code></a>, <a href="#differ"><code>differ</code></a>, <a href="#distinct"><code>distinct</code></a>, <a href="#iasc"><code>iasc</code></a>, <a href="#idesc"><code>idesc</code></a>, <a href="#rank"><code>rank</code></a>, <a href="#xbar"><code>xbar</code></a>, <a href="#xrank"><code>xrank</code></a></td>
+</tr>
+<tr>
+<td><a href="#table">Table</a></td>
+<td><a href="#cols"><code>cols</code></a>, <a href="#csv"><code>csv</code></a>, <a href="#fkeys"><code>fkeys</code></a>, <a href="#insert"><code>insert</code></a>, <a href="#key"><code>key</code></a>, <a href="#keys"><code>keys</code></a>, <a href="#meta"><code>meta</code></a>, <a href="#ungroup"><code>ungroup</code></a>, <a href="#upsert"><code>upsert</code></a>, <a href="#xasc"><code>xasc</code></a>, <a href="#xcol"><code>xcol</code></a>, <a href="#xcols"><code>xcols</code></a>, <a href="#xdesc"><code>xdesc</code></a>, <a href="#xgroup"><code>xgroup</code></a>, <a href="#xkey"><code>xkey</code></a></td>
+</tr>
+<tr>
+<td><a href="#text">Text</a></td>
+<td><a href="#like"><code>like</code></a>, <a href="#lower"><code>lower</code></a>, <a href="#ltrim"><code>ltrim</code></a>, <a href="#md5"><code>md5</code></a>, <a href="#rtrim"><code>rtrim</code></a>, <a href="#ss"><code>ss</code></a>, <a href="#ssr"><code>ssr</code></a>, <a href="#string"><code>string</code></a>, <a href="#trim"><code>trim</code></a>, <a href="#upper"><code>upper</code></a></td>
+</tr>
+</tbody>
+</table>
+<p>Not all functions listed on <a href="https://code.kx.com/q/ref/#by-category">the q reference card</a> are available as attributes of <code>pykx.q</code>, or as attributes of <code>pykx.QConnection</code> instances. These include elements such as <code>select</code>, <code>exec</code>, <code>update</code>, and <code>delete</code> which are not actually q functions, but rather part of the q language itself (i.e. handled by the parser), and functions whose names would result in syntax errors in Python, such as <code>not</code> and <code>or</code>.</p>
+<p>Because arbitrary q code can be executed using PyKX (except in unlicensed mode, in which none of these functions are available), these limitations can be circumvented as necessary by running q code instead of using <a href="ctx.html">the context interface</a>. For example, <code>pykx.q('not')</code> can be used instead of <code>pykx.q.not</code>. Consider using <a href="../query.html">the qSQL query documentation</a> as an alternative to writing qSQL queries as q code.</p>
+<h2 id="environment">Environment</h2>
+<h3 id="getenv"><a href="https://code.kx.com/q/ref/getenv/">getenv</a></h3>
+<p>Get the value of an environment variable.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.getenv('EDITOR')
+pykx.CharVector(q('"nvim"'))</code></pre>
+<h3 id="gtime"><a href="https://code.kx.com/q/ref/gtime/">gtime</a></h3>
+<p>UTC equivalent of local timestamp.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import datetime
+&gt;&gt;&gt; pykx.q.gtime(datetime.datetime.fromisoformat('2022-05-22T12:23:45.123'))
+pykx.TimestampAtom(q('2022.05.22D16:23:45.123000000'))</code></pre>
+<h3 id="ltime"><a href="https://code.kx.com/q/ref/gtime/#ltime">ltime</a></h3>
+<p>Local equivalent of UTC timestamp.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import datetime
+&gt;&gt;&gt; pykx.q.ltime(datetime.datetime.fromisoformat('2022-05-22T12:23:45.123'))
+pykx.TimestampAtom(q('2022.05.22D08:23:45.123000000'))
+</code></pre>
+<h3 id="setenv"><a href="https://code.kx.com/q/ref/getenv/#setenv">setenv</a></h3>
+<p>Set the value of an environment variable.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.setenv('RTMP', b'/home/user/temp')
+&gt;&gt;&gt; pykx.q.getenv('RTMP')
+pykx.CharVector(q('"/home/user/temp"'))</code></pre>
+<h2 id="interpret">Interpret</h2>
+<h3 id="eval"><a href="https://code.kx.com/q/ref/eval/">eval</a></h3>
+<p>Evaluate parse trees.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.eval([pykx.q('+'), 2, 3])
+pykx.LongAtom(q('5'))</code></pre>
+<h3 id="parse"><a href="https://code.kx.com/q/ref/parse/">parse</a></h3>
+<p>Parse a char vector into a parse tree, which can be evaluated with <a href="#eval"><code>pykx.q.eval</code></a>.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.parse(b'{x * x}')
+pykx.Lambda(q('{x * x}'))
+&gt;&gt;&gt; pykx.q.parse(b'2 + 3')
+pykx.List(pykx.q('
++
+2
+3
+'))</code></pre>
+<h3 id="reval"><a href="https://code.kx.com/q/ref/eval/#reval">reval</a></h3>
+<p>Restricted evaluation of a parse tree.</p>
+<p>Behaves similar to <a href="#eval"><code>eval</code></a> except the evaluation is blocked from modifying values or global state.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.reval(pykx.q.parse(b'til 10'))
+pykx.LongVector(q('0 1 2 3 4 5 6 7 8 9'))</code></pre>
+<h3 id="show"><a href="https://code.kx.com/q/ref/show/">show</a></h3>
+<p>Print the string representation of the given q object.</p>
+<p>Note: <code>show</code> bypasses typical Python output redirection.
+    The q function <code>show</code> prints directly to file descriptor 1, so typical Python output redirection methods, e.g. <a href="https://docs.python.org/3/library/contextlib.html#contextlib.redirect_stdout"><code>contextlib.redirect_stdout</code></a>, will not affect it.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.show(range(5))
+0
+1
+2
+3
+4
+pykx.Identity(q('::'))</code></pre>
+<h3 id="system"><a href="https://code.kx.com/q/ref/system/">system</a></h3>
+<p>Execute a system command.</p>
+<p>Where x is a string representing a <a href="https://code.kx.com/q/basics/syscmds/">system command</a> and any parameters to it, executes the command and returns any result.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.system(b'pwd')
+pykx.List(q('"/home/user"'))</code></pre>
+<h3 id="value"><a href="https://code.kx.com/q/ref/value/">value</a></h3>
+<p>Returns the value of x.</p>
+<table>
+<thead>
+<tr>
+<th>Input Type</th>
+<th>Output Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dictionary</td>
+<td>value of the dictionary</td>
+</tr>
+<tr>
+<td>symbol atom</td>
+<td>value of the variable it names</td>
+</tr>
+<tr>
+<td>enumeration</td>
+<td>corresponding symbol vector</td>
+</tr>
+<tr>
+<td>string</td>
+<td>result of evaluating it in current context</td>
+</tr>
+<tr>
+<td>list</td>
+<td>result of evaluating list as a parse tree</td>
+</tr>
+<tr>
+<td>projection</td>
+<td>list: function followed by argument/s</td>
+</tr>
+<tr>
+<td>composition</td>
+<td>list of composed values</td>
+</tr>
+<tr>
+<td>derived function</td>
+<td>argument of the iterator</td>
+</tr>
+<tr>
+<td>operator</td>
+<td>internal code</td>
+</tr>
+<tr>
+<td>view</td>
+<td>list of metadata</td>
+</tr>
+<tr>
+<td>lambda</td>
+<td>structure</td>
+</tr>
+<tr>
+<td>file symbol</td>
+<td>content of datafile</td>
+</tr>
+</tbody>
+</table>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.value(pykx.q('`q`w`e!(1 2; 3 4; 5 6)'))
+pykx.List(q('
+1 2
+3 4
+5 6
+'))</code></pre>
+<h2 id="io">IO</h2>
+<h3 id="dsave"><a href="https://code.kx.com/q/ref/dsave/">dsave</a></h3>
+<p>Write global tables to disk as splayed, enumerated, indexed q tables.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; from pathlib import Path
+&gt;&gt;&gt; pykx.q['t'] = kx.Table(data={'x': [1, 2, 3], 'y': [10, 20, 30]})
+&gt;&gt;&gt; pykx.q.dsave(Path('v'), 't')
+pykx.SymbolAtom(q('`t'))</code></pre>
+<h3 id="get"><a href="https://code.kx.com/q/ref/get/">get</a></h3>
+<p>Read or memory-map a variable or q data file.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q['a'] = 10
+&gt;&gt;&gt; pykx.q.get('a')
+pykx.LongAtom(q('10'))</code></pre>
+<h3 id="hclose"><a href="https://code.kx.com/q/ref/hopen/#hclose">hclose</a></h3>
+<p>Where x is a connection handle, closes the connection, and destroys the handle.
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.hclose(pykx.q('3i'))</code></pre></p>
+<h3 id="hcount"><a href="https://code.kx.com/q/ref/hcount/">hcount</a></h3>
+<p>Size of a file in bytes.
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.hcount('example.txt')
+pykx.LongAtom(q('11'))</code></pre></p>
+<h3 id="hdel"><a href="https://code.kx.com/q/ref/hdel/">hdel</a></h3>
+<p>Where <code>x</code> is a <a href="#hsym">file symbol atom</a>, deletes the file or folder (if empty), and returns <code>x</code>.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.hdel('example.txt')</code></pre>
+<h3 id="hopen"><a href="https://code.kx.com/q/ref/hopen/">hopen</a></h3>
+<p>Open a connection to a file or process.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.hopen('example.txt')
+pykx.IntAtom(q('3i'))</code></pre>
+<h3 id="hsym"><a href="https://code.kx.com/q/ref/hsym/">hsym</a></h3>
+<p>Convert symbols to handle symbols, which can be used for I/O as file descriptors or handles.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.hsym('10.43.23.197')
+pykx.SymbolAtom(q('`:10.43.23.197'))</code></pre>
+<h3 id="load"><a href="https://code.kx.com/q/ref/load/">load</a></h3>
+<p>Load binary data from a file.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q['t'] = pykx.Table([[1, 10], [2, 20], [3, 30]], columns=['x', 'y'])
+&gt;&gt;&gt; pykx.q('t')
+pykx.Table(pykx.q('
+x y
+----
+1 10
+2 20
+3 30
+'))
+&gt;&gt;&gt; pykx.q.save('t') # Save t to disk
+pykx.SymbolAtom(pykx.q('`:t'))
+&gt;&gt;&gt; pykx.q('delete t from `.') # Delete t from memory
+pykx.SymbolAtom(pykx.q('`.'))
+&gt;&gt;&gt; pykx.q('t') # t is not longer defined
+Traceback (most recent call last):
+pykx.exceptions.QError: t
+&gt;&gt;&gt; pykx.q.load('t') # Load t from disk
+pykx.SymbolAtom(pykx.q('`t'))
+&gt;&gt;&gt; pykx.q('t')
+pykx.Table(pykx.q('
+x y
+----
+1 10
+2 20
+3 30
+'))</code></pre>
+<h3 id="read0"><a href="https://code.kx.com/q/ref/read0/">read0</a></h3>
+<p>Read text from a file or process handle.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.read0('example.txt')
+pykx.List(q('
+"Hello"
+"World"
+'))</code></pre>
+<h3 id="read1"><a href="https://code.kx.com/q/ref/read1/">read1</a></h3>
+<p>Read bytes from a file or named pipe.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.read1('example.txt')
+pykx.ByteVector(q('0x48656c6c6f0a576f726c64'))</code></pre>
+<h3 id="rload"><a href="https://code.kx.com/q/ref/load/#rload">rload</a></h3>
+<p>Load a splayed table from a directory.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.rload('t')
+&gt;&gt;&gt; pykx.q('t')
+pykx.Table(q('
+x y
+----
+1 10
+2 20
+3 30
+'))</code></pre>
+<h3 id="rsave"><a href="https://code.kx.com/q/ref/save/#rsave">rsave</a></h3>
+<p>Write a table splayed to a directory.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q['t'] = pykx.Table([[1, 10], [2, 20], [3, 30]])
+&gt;&gt;&gt; pykx.q.rsave('t')
+pykx.SymbolAtom(q('`:t/'))</code></pre>
+<h3 id="save"><a href="https://code.kx.com/q/ref/save/">save</a></h3>
+<p>Write global data to file or splayed to a directory.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q['t'] = pykx.Table([[1, 10], [2, 20], [3, 30]])
+&gt;&gt;&gt; pykx.q.save('t')
+pykx.SymbolAtom(q('`:t'))</code></pre>
+<h3 id="set"><a href="https://code.kx.com/q/ref/get/#set">set</a></h3>
+<p>Assign a value to a global variable.</p>
+<p>Persist an object as a file or directory.</p>
+<table>
+<thead>
+<tr>
+<th>Types</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pykx.q.set(nam, y)</td>
+<td>set global <code>nam</code> to <code>y</code></td>
+</tr>
+<tr>
+<td>pykx.q.set(fil, y)</td>
+<td>write <code>y</code> to a file</td>
+</tr>
+<tr>
+<td>pykx.q.set(dir, y)</td>
+<td>splay <code>y</code> to a directory</td>
+</tr>
+<tr>
+<td>pykx.q.set([fil, lbs, alg, lvl], y)</td>
+<td>write <code>y</code> to a file, compressed</td>
+</tr>
+<tr>
+<td>pykx.q.set([dir, lbs, alg, lvl], y)</td>
+<td>splay <code>y</code> to a directory, compressed</td>
+</tr>
+<tr>
+<td>pykx.q.set([dir, dic], y)</td>
+<td>splay <code>y</code> to a directory, compressed</td>
+</tr>
+</tbody>
+</table>
+<p>Where</p>
+<table>
+<thead>
+<tr>
+<th>Abbreviation</th>
+<th>K type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alg</td>
+<td>integer atom</td>
+<td>compression algorithm</td>
+</tr>
+<tr>
+<td>dic</td>
+<td>dictionary</td>
+<td>compression specifications</td>
+</tr>
+<tr>
+<td>dir</td>
+<td>filesymbol</td>
+<td>directory in the filesystem</td>
+</tr>
+<tr>
+<td>fil</td>
+<td>filesymbol</td>
+<td>file in the filesystem</td>
+</tr>
+<tr>
+<td>lbs</td>
+<td>integer atom</td>
+<td>logical block size</td>
+</tr>
+<tr>
+<td>lvl</td>
+<td>integer atom</td>
+<td>compression level</td>
+</tr>
+<tr>
+<td>nam</td>
+<td>symbol atom</td>
+<td>valid q name</td>
+</tr>
+<tr>
+<td>t</td>
+<td>table</td>
+<td></td>
+</tr>
+<tr>
+<td>y</td>
+<td>(any)</td>
+<td>any q object</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://code.kx.com/q/kb/file-compression/#parameters">Compression parameters alg, lbs, and lvl</a></p>
+<p><a href="https://code.kx.com/q/ref/get/#compression">Compression specification dictionary</a></p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.set('a', 42)
+pykx.SymbolAtom(q('`a'))
+&gt;&gt;&gt; pykx.q('a')
+pykx.LongAtom(q('42'))</code></pre>
+<h2 id="iterate">Iterate</h2>
+<h3 id="each"><a href="https://code.kx.com/q/ref/each/">each</a></h3>
+<p>Iterate over list and apply a function to each element.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.each(pykx.q.count, [b'Tis', b'but', b'a', b'scratch'])
+pykx.LongVector(q('3 3 1 7'))
+&gt;&gt;&gt; pykx.q.each(pykx.q.sums, [[2, 3, 4], [[5, 6], [7, 8]], [9, 10, 11, 12]])
+pykx.List(q('
+2 5 9
+((5;6);12 14)
+9 19 30 42
+'))</code></pre>
+<h3 id="over"><a href="https://code.kx.com/q/ref/over/">over</a></h3>
+<p>The keywords over and <a href="#scan"><code>scan</code></a> are covers for the accumulating iterators, Over and Scan. It is good style to use over and scan with unary and binary values.</p>
+<p>Just as with Over and Scan, over and scan share the same syntax and perform the same computation; but while scan returns the result of each evaluation, over returns only the last.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.over(pykx.q('*'), [1, 2, 3, 4, 5])
+pykx.LongAtom(q('120'))</code></pre>
+<h3 id="peach"><a href="https://code.kx.com/q/ref/each/">peach</a></h3>
+<p><a href="#each"><code>each</code></a> and peach perform the same computation and return the same result, but peach will parallelize the work across available threads.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.peach(pykx.q.count, [b'Tis', b'but', b'a', b'scratch'])
+pykx.LongVector(q('3 3 1 7'))
+&gt;&gt;&gt; pykx.q.peach(pykx.q.sums, [[2, 3, 4], [[5, 6], [7, 8]], [9, 10, 11, 12]])
+pykx.List(q('
+2 5 9
+((5;6);12 14)
+9 19 30 42
+'))</code></pre>
+<h3 id="prior"><a href="https://code.kx.com/q/ref/prior/">prior</a></h3>
+<p>Applies a function to each item of <code>x</code> and the item preceding it, and returns a result of the same length.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.prior(pykx.q('+'), [1, 2, 3, 4, 5])
+pykx.LongVector(pykx.q('1 3 5 7 9'))
+&gt;&gt;&gt; pykx.q.prior(lambda x, y: x + y, pykx.LongVector([1, 2, 3, 4, 5]))
+pykx.LongVector(pykx.q('0N 3 5 7 9'))</code></pre>
+<h3 id="scan"><a href="https://code.kx.com/q/ref/over/">scan</a></h3>
+<p>The keywords <a href="#over">over</a> and scan are covers for the accumulating iterators, Over and Scan. It is good style to use over and scan with unary and binary values.</p>
+<p>Just as with Over and Scan, over and scan share the same syntax and perform the same computation; but while scan returns the result of each evaluation, over returns only the last.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.scan(pykx.q('+'), [1, 2, 3, 4, 5])
+pykx.LongVector(q('1 3 6 10 15'))</code></pre>
+<h2 id="join">Join</h2>
+<h3 id="aj"><a href="https://code.kx.com/q/ref/aj/">aj</a></h3>
+<p>Performs an as-of join across temporal columns in tables. Returns a table with records from the left-join of the first table and the second table. For each record in the first table, it is matched with the second table over the columns specified in the first input parameter and if there is a match  the most recent match will be joined to the record.</p>
+<p>The resulting time column is the value of the boundry used in the first table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; df1 = pd.DataFrame({
+...    'time': np.array([36061, 36063, 36064], dtype='timedelta64[s]'),
+...    'sym': ['msft', 'ibm', 'ge'], 'qty': [100, 200, 150]
+... })
+&gt;&gt;&gt; df2 = pd.DataFrame({
+...     'time': np.array([36060, 36060, 36060, 36062], dtype='timedelta64[s]'),
+...     'sym': ['ibm', 'msft', 'msft', 'ibm'], 'qty': [100, 99, 101, 98]
+... })
+&gt;&gt;&gt; pykx.q.aj(pykx.SymbolVector(['sym', 'time']), df1, df2)
+pykx.Table(q('
+time                 sym  qty
+-----------------------------
+0D10:01:01.000000000 msft 101
+0D10:01:03.000000000 ibm  98
+0D10:01:04.000000000 ge   150
+'))</code></pre>
+<h3 id="aj0"><a href="https://code.kx.com/q/ref/aj/">aj0</a></h3>
+<p>Performs an as-of join across temporal columns in tables. Returns a table with records from the left-join of the first table and the second table. For each record in the first table, it is matched with the second table over the columns specified in the first input parameter and if there is a match  the most recent match will be joined to the record.</p>
+<p>The resulting time column is the actual time of the last value in the second table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; df1 = pd.DataFrame({
+...     'time': np.array([36061, 36063, 36064], dtype='timedelta64[s]'),
+...     'sym': ['msft', 'ibm', 'ge'], 'qty': [100, 200, 150]
+... })
+&gt;&gt;&gt; df2 = pd.DataFrame({
+...     'time': np.array([36060, 36060, 36060, 36062], dtype='timedelta64[s]'),
+...     'sym': ['ibm', 'msft', 'msft', 'ibm'], 'qty': [100, 99, 101, 98]
+... })
+&gt;&gt;&gt; pykx.q.aj0(pykx.SymbolVector(['sym', 'time']), df1, df2)
+pykx.Table(q('
+time                 sym  qty
+-----------------------------
+0D10:01:00.000000000 msft 101
+0D10:01:02.000000000 ibm  98
+0D10:01:04.000000000 ge   150
+'))</code></pre>
+<h3 id="ajf"><a href="https://code.kx.com/q/ref/aj/">ajf</a></h3>
+<p>Performs an as-of join across temporal columns in tables with null values being filled. Returns a table with records from the left-join of the first table and the second table. For each record in the first table, it is matched with the second table over the columns specified in the first input parameter and if there is a match  the most recent match will be joined to the record.</p>
+<p>The resulting time column is the value of the boundary used in the first table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; df1 = pd.DataFrame({
+...     'time': np.array([1, 1], dtype='timedelta64[s]'),
+...     'sym': ['a', 'b'],
+...     'p': pykx.LongVector([0, 1]),
+...     'n': ['r', 's']
+... })
+&gt;&gt;&gt; df2 = pd.DataFrame({
+...     'time': np.array([1, 1], dtype='timedelta64[s]'),
+...     'sym':['a', 'b'],
+...     'p': pykx.q('1 0N')
+... })
+&gt;&gt;&gt; pykx.q.ajf(pykx.SymbolVector(['sym', 'time']), df1, df2)
+pykx.Table(q('
+time                 sym p n
+----------------------------
+0D00:00:01.000000000 a   1 r
+0D00:00:01.000000000 b   1 s
+'))</code></pre>
+<h3 id="ajf0"><a href="https://code.kx.com/q/ref/aj/">ajf0</a></h3>
+<p>Performs an as-of join across temporal columns in tables with null values being filled. Returns a table with records from the left-join of the first table and the second table. For each record in the first table, it is matched with the second table over the columns specified in the first input parameter and if there is a match  the most recent match will be joined to the record.</p>
+<p>The resulting time column is the actual time of the last value in the second table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; df1 = pd.DataFrame({
+...     'time': np.array([1, 1], dtype='timedelta64[s]'),
+...     'sym':['a', 'b'],
+...     'p': pykx.LongVector([0, 1]),
+...     'n': ['r', 's']
+... })
+&gt;&gt;&gt; df2 = pd.DataFrame({
+...     'time': np.array([1, 1], dtype='timedelta64[s]'),
+...     'sym': ['a', 'b'],
+...     'p': pykx.q('1 0N')
+... })
+&gt;&gt;&gt; pykx.q.ajf0(pykx.SymbolVector(['sym', 'time']), df1, df2)
+pykx.Table(q('
+time                 sym p n
+----------------------------
+0D00:00:01.000000000 a   1 r
+0D00:00:01.000000000 b   1 s
+'))</code></pre>
+<h3 id="asof"><a href="https://code.kx.com/q/ref/asof/">asof</a></h3>
+<p>Performs an as-of join across temporal columns in tables. The last column the second table must be temporal and correspond to a column in the first table argument. The return is the data from the first table is the last time that is less than or equal to the time in the second table per key. The time column will be removed from the output.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; df1 = pd.DataFrame({
+...     'time': np.array([1, 2, 3, 4], dtype='timedelta64[s]'),
+...     'sym': ['a', 'a', 'b', 'b'], 'p': pykx.LongVector([2, 4, 6, 8])})
+&gt;&gt;&gt; df2 = pd.DataFrame({'sym':['b'], 'time': np.array([3], dtype='timedelta64[s]')})
+&gt;&gt;&gt; pykx.q.asof(df1, df2)
+pykx.Table(q('
+p
+-
+6
+'))</code></pre>
+<h3 id="ej"><a href="https://code.kx.com/q/ref/ej/">ej</a></h3>
+<p>Equi join. The result has one combined record for each row in the second table that matches the first table on the columns specified in the first function parameter.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; df1 = pd.DataFrame({'sym':['a', 'a', 'b', 'a', 'c', 'b', 'c', 'a'], 'p': pykx.LongVector([2, 4, 6, 8, 1, 3, 5, 7])})
+&gt;&gt;&gt; df2 = pd.DataFrame({'sym':['a', 'b'], 'w': ['alpha', 'beta']})
+&gt;&gt;&gt; pykx.q.ej('sym', df1, df2)
+pykx.Table(q('
+sym p w
+-----------
+a   2 alpha
+a   4 alpha
+b   6 beta
+a   8 alpha
+b   3 beta
+a   7 alpha
+'))</code></pre>
+<h3 id="ij"><a href="https://code.kx.com/q/ref/ij/">ij</a></h3>
+<p>Inner join. The result has one combined record for each row in the first table that matches the second table on the columns specified in the first function parameter.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; df1 = pd.DataFrame({'sym':['IBM', 'FDP', 'FDP', 'FDP', 'IBM', 'MSFT'], 'p': pykx.LongVector([7, 8, 6, 5, 2, 5])})
+&gt;&gt;&gt; df2 = pd.DataFrame({'sym':['IBM', 'MSFT'], 'ex': ['N', 'CME'], 'MC': pykx.LongVector([1000, 250])})
+&gt;&gt;&gt; df2 = pykx.q.xkey('sym', df2)
+&gt;&gt;&gt; pykx.Table(df1)
+pykx.Table(q('
+sym  p
+------
+IBM  7
+FDP  8
+FDP  6
+FDP  5
+IBM  2
+MSFT 5
+'))
+&gt;&gt;&gt; df2
+pykx.KeyedTable(q('
+sym | ex  MC
+----| --------
+IBM | N   1000
+MSFT| CME 250
+'))
+&gt;&gt;&gt; pykx.q.ij(df1, df2)
+pykx.Table(q('
+sym  p ex  MC
+---------------
+IBM  7 N   1000
+IBM  2 N   1000
+MSFT 5 CME 250
+'))</code></pre>
+<h3 id="ijf"><a href="https://code.kx.com/q/ref/ij/">ijf</a></h3>
+<p>Inner join nulls filled. The result has one combined record for each row in the first table that matches the second table on the columns specified in the first function parameter.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; df1 = pd.DataFrame({'sym':['IBM', 'FDP', 'FDP', 'FDP', 'IBM', 'MSFT'], 'p': pykx.LongVector([7, 8, 6, 5, 2, 5])})
+&gt;&gt;&gt; df2 = pd.DataFrame({'sym':['IBM', 'MSFT'], 'ex': ['N', 'CME'], 'MC': pykx.LongVector([1000, 250])})
+&gt;&gt;&gt; b = pykx.q.xkey('sym', df2)
+&gt;&gt;&gt; pykx.Table(df1)
+pykx.Table(q('
+sym  p
+------
+IBM  7
+FDP  8
+FDP  6
+FDP  5
+IBM  2
+MSFT 5
+'))
+&gt;&gt;&gt; df2
+pykx.KeyedTable(q('
+sym | ex  MC
+----| --------
+IBM | N   1000
+MSFT| CME 250
+'))
+&gt;&gt;&gt; pykx.q.ijf(df1, df2)
+pykx.Table(q('
+sym  p ex  MC
+---------------
+IBM  7 N   1000
+IBM  2 N   1000
+MSFT 5 CME 250
+'))</code></pre>
+<h3 id="lj"><a href="https://code.kx.com/q/ref/lj/">lj</a></h3>
+<p>Left join. For each record in the first table, the result has one record with the columns of second table joined to columns of the first using the primary keys of the second table, if no value is present in the second table the record will contain null values in the place of the columns of the second table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; df1 = pd.DataFrame({'sym':['IBM', 'FDP', 'FDP', 'FDP', 'IBM', 'MSFT'], 'p': pykx.LongVector([7, 8, 6, 5, 2, 5])})
+&gt;&gt;&gt; df2 = pd.DataFrame({'sym':['IBM', 'MSFT'], 'ex': ['N', 'CME'], 'MC': pykx.LongVector([1000, 250])})
+&gt;&gt;&gt; b = pykx.q.xkey('sym', df2)
+&gt;&gt;&gt; pykx.Table(df2)
+pykx.Table(q('
+sym  p
+------
+IBM  7
+FDP  8
+FDP  6
+FDP  5
+IBM  2
+MSFT 5
+'))
+&gt;&gt;&gt; df1
+pykx.KeyedTable(q('
+sym | ex  MC
+----| --------
+IBM | N   1000
+MSFT| CME 250
+'))
+&gt;&gt;&gt; pykx.q.lj(df1, df2)
+pykx.Table(q('
+sym  p ex  MC
+---------------
+IBM  7 N   1000
+FDP  8
+FDP  6
+FDP  5
+IBM  2 N   1000
+MSFT 5 CME 250
+'))</code></pre>
+<h3 id="ljf"><a href="https://code.kx.com/q/ref/lj/">ljf</a></h3>
+<p>Left join nulls filled. For each record in the first table, the result has one record with the columns of second table joined to columns of the first using the primary keys of the second table, if no value is present in the second table the record will contain null values in the place of the columns of the second table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; df1 = pd.DataFrame({'sym':['IBM', 'FDP', 'FDP', 'FDP', 'IBM', 'MSFT'], 'p': pykx.LongVector([7, 8, 6, 5, 2, 5])})
+&gt;&gt;&gt; df2 = pd.DataFrame({'sym':['IBM', 'MSFT'], 'ex': ['N', 'CME'], 'MC': pykx.LongVector([1000, 250])})
+&gt;&gt;&gt; b = pykx.q.xkey('sym', df2)
+&gt;&gt;&gt; pykx.Table(df1)
+pykx.Table(q('
+sym  p
+------
+IBM  7
+FDP  8
+FDP  6
+FDP  5
+IBM  2
+MSFT 5
+'))
+&gt;&gt;&gt; df1
+pykx.KeyedTable(q('
+sym | ex  MC
+----| --------
+IBM | N   1000
+MSFT| CME 250
+'))
+&gt;&gt;&gt; pykx.q.ljf(df1, df2)
+pykx.Table(q('
+sym  p ex  MC
+---------------
+IBM  7 N   1000
+FDP  8
+FDP  6
+FDP  5
+IBM  2 N   1000
+MSFT 5 CME 250
+'))</code></pre>
+<h3 id="pj"><a href="https://code.kx.com/q/ref/pj/">pj</a></h3>
+<p>Plus join. For each record in the first table, the result has one record with the columns of second table joined to columns of the first using the primary keys of the second table, if a value is present it is added to the columns of the first table, if no value is present the columns are left unchanged and new columns are set to 0.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; df1 = pd.DataFrame({'a': pykx.LongVector([1, 2, 3]), 'b':['x', 'y', 'z'], 'c': pykx.LongVector([10, 20, 30])})
+&gt;&gt;&gt; pykx.Table(df1)
+pykx.Table(q('
+a b c
+------
+1 x 10
+2 y 20
+3 z 30
+'))
+&gt;&gt;&gt; df2 = pd.DataFrame({
+...     'a': pykx.LongVector([1, 3]),
+...     'b':['x', 'z'],
+...     'c': pykx.LongVector([1, 2]),
+...     'd': pykx.LongVector([10, 20])
+... })
+&gt;&gt;&gt; df2 = pykx.q.xkey(pykx.SymbolVector(['a', 'b']), df2)
+pykx.KeyedTable(q('
+a b| c d
+---| ----
+1 x| 1 10
+3 z| 2 20
+'))
+&gt;&gt;&gt; pykx.q.pj(df1, df2)
+pykx.Table(q('
+a b c  d
+---------
+1 x 11 10
+2 y 20 0
+3 z 32 20
+'))</code></pre>
+<h3 id="uj"><a href="https://code.kx.com/q/ref/uj/">uj</a></h3>
+<p>Union join. Where the first table and the second table are both keyed or both unkeyed tables, returns the union of the columns, filled with nulls where necessary. If the tables have matching key columns then the records in the second table will be used to update the first table, if the tables are not keyed then the records from the second table will be joined onto the end of the first table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; df1 = pd.DataFrame({'sym':['IBM', 'FDP', 'FDP', 'FDP', 'IBM', 'MSFT'], 'p': pykx.LongVector([7, 8, 6, 5, 2, 5])})
+&gt;&gt;&gt; df2 = pd.DataFrame({'sym':['IBM', 'MSFT'], 'ex': ['N', 'CME'], 'MC': pykx.LongVector([1000, 250])})
+&gt;&gt;&gt; df1
+    sym  p
+0   IBM  7
+1   FDP  8
+2   FDP  6
+3   FDP  5
+4   IBM  2
+5  MSFT  5
+&gt;&gt;&gt; df2
+    sym   ex    MC
+0   IBM    N  1000
+1  MSFT  CME   250
+&gt;&gt;&gt; pykx.q.uj(df1, df2)
+pykx.Table(q('
+sym  p ex  MC
+---------------
+IBM  7
+FDP  8
+FDP  6
+FDP  5
+IBM  2
+MSFT 5
+IBM    N   1000
+MSFT   CME 250
+'))</code></pre>
+<h3 id="ujf"><a href="https://code.kx.com/q/ref/uj/">ujf</a></h3>
+<p>Union join nulls filled. Where the first table and the second table are both keyed or both unkeyed tables, returns the union of the columns, filled with nulls where necessary. If the tables have matching key columns then the records in the second table will be used to update the first table, if the tables are not keyed then the records from the second table will be joined onto the end of the first table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; df1 = pd.DataFrame({'sym':['IBM', 'FDP', 'FDP', 'FDP', 'IBM', 'MSFT'], 'p': pykx.LongVector([7, 8, 6, 5, 2, 5])})
+&gt;&gt;&gt; df2 = pd.DataFrame({'sym':['IBM', 'MSFT'], 'ex': ['N', 'CME'], 'MC': pykx.LongVector([1000, 250])})
+&gt;&gt;&gt; df1
+    sym  p
+0   IBM  7
+1   FDP  8
+2   FDP  6
+3   FDP  5
+4   IBM  2
+5  MSFT  5
+&gt;&gt;&gt; df2
+    sym   ex    MC
+0   IBM    N  1000
+1  MSFT  CME   250
+&gt;&gt;&gt; pykx.q.ujf(df1, df2)
+pykx.Table(q('
+sym  p ex  MC
+---------------
+IBM  7
+FDP  8
+FDP  6
+FDP  5
+IBM  2
+MSFT 5
+IBM    N   1000
+MSFT   CME 250
+'))</code></pre>
+<h3 id="wj"><a href="https://code.kx.com/q/ref/wj/">wj</a></h3>
+<p>Window join. Returns for each record in the table, a record with additional columns <code>c0</code> and <code>c1</code>, which contain the results of the aggregation functions applied to values over the matching intervals defined in the first parameter of the function.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; pykx.q('t: ([]sym:3#`ibm;time:10:01:01 10:01:04 10:01:08;price:100 101 105)')
+pykx.Table(pykx.q('
+sym time     price
+------------------
+ibm 10:01:01 100
+ibm 10:01:04 101
+ibm 10:01:08 105
+'))
+&gt;&gt;&gt; df_t = pd.DataFrame({
+        'sym': ['ibm', 'ibm', 'ibm'],
+        'time': np.array([36061, 36064, 36068], dtype='timedelta64[s]'),
+        'price': pykx.LongVector([100, 101, 105])
+    })
+   sym            time  price
+0  ibm 0 days 10:01:01    100
+1  ibm 0 days 10:01:04    101
+2  ibm 0 days 10:01:08    105
+&gt;&gt;&gt; pykx.q('q:([]sym:`ibm; time:10:01:01+til 9; ask: (101 103 103 104 104 107 108 107 108); bid: (98 99 102 103 103 104 106 106 107))')
+pykx.Table(pykx.q('
+sym time     ask bid
+--------------------
+ibm 10:01:01 101 98
+ibm 10:01:02 103 99
+ibm 10:01:03 103 102
+ibm 10:01:04 104 103
+ibm 10:01:05 104 103
+ibm 10:01:06 107 104
+ibm 10:01:07 108 106
+ibm 10:01:08 107 106
+ibm 10:01:09 108 107
+'))
+&gt;&gt;&gt; f = pykx.SymbolVector(['sym', 'time'])
+&gt;&gt;&gt; w = pykx.q('-2 1+\:t.time')
+&gt;&gt;&gt; pykx.q.wj(w, f, df_t, pykx.q('(q;(max;`ask);(min;`bid))'))
+pykx.Table(pykx.q('
+sym time     price ask bid
+--------------------------
+ibm 10:01:01 100   103 98
+ibm 10:01:04 101   104 99
+ibm 10:01:08 105   108 104
+'))</code></pre>
+<h3 id="wj1"><a href="https://code.kx.com/q/ref/wj/">wj1</a></h3>
+<p>Window join. Returns for each record in the table, a record with additional columns <code>c0</code> and <code>c1</code>, which contain the results of the aggregation functions applied to values over the matching intervals defined in the first parameter of the function.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; pykx.q('t: ([]sym:3#`ibm;time:10:01:01 10:01:04 10:01:08;price:100 101 105)')
+pykx.Table(pykx.q('
+sym time     price
+------------------
+ibm 10:01:01 100
+ibm 10:01:04 101
+ibm 10:01:08 105
+'))
+&gt;&gt;&gt; df_t = pd.DataFrame({
+...     'sym': ['ibm', 'ibm', 'ibm'],
+...     'time': np.array([36061, 36064, 36068], dtype='timedelta64[s]'),
+...     'price': pykx.LongVector([100, 101, 105])
+... })
+   sym            time  price
+0  ibm 0 days 10:01:01    100
+1  ibm 0 days 10:01:04    101
+2  ibm 0 days 10:01:08    105
+&gt;&gt;&gt; pykx.q('q:([]sym:`ibm; time:10:01:01+til 9; ask: (101 103 103 104 104 107 108 107 108); bid: (98 99 102 103 103 104 106 106 107))')
+pykx.Table(pykx.q('
+sym time     ask bid
+--------------------
+ibm 10:01:01 101 98
+ibm 10:01:02 103 99
+ibm 10:01:03 103 102
+ibm 10:01:04 104 103
+ibm 10:01:05 104 103
+ibm 10:01:06 107 104
+ibm 10:01:07 108 106
+ibm 10:01:08 107 106
+ibm 10:01:09 108 107
+'))
+&gt;&gt;&gt; f = pykx.SymbolVector(['sym', 'time'])
+&gt;&gt;&gt; w = pykx.q('-2 1+\:t.time')
+&gt;&gt;&gt; pykx.q.wj(w, f, df_t, pykx.q('(q;(max;`ask);(min;`bid))'))
+pykx.Table(pykx.q('
+sym time     price ask bid
+--------------------------
+ibm 10:01:01 100   103 98
+ibm 10:01:04 101   104 99
+ibm 10:01:08 105   108 104
+'))</code></pre>
+<h2 id="list">List</h2>
+<h3 id="count"><a href="https://code.kx.com/q/ref/count/">count</a></h3>
+<p>Count the items of a list or dictionary.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.count([1, 2, 3])
+pykx.LongAtom(q('3'))</code></pre>
+<h3 id="cross"><a href="https://code.kx.com/q/ref/cross/">cross</a></h3>
+<p>Returns all possible combinations of x and y.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.cross([1, 2, 3], [4, 5, 6])
+pykx.List(q('
+1 4
+1 5
+1 6
+2 4
+2 5
+2 6
+3 4
+3 5
+3 6
+'))</code></pre>
+<h3 id="cut"><a href="https://code.kx.com/q/ref/cut/">cut</a></h3>
+<p>Cut a list or table into sub-arrays.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.cut(3, range(10))
+pykx.List(q('
+0 1 2
+3 4 5
+6 7 8
+,9
+'))</code></pre>
+<h3 id="enlist"><a href="https://code.kx.com/q/ref/enlist/">enlist</a></h3>
+<p>Returns a list with its arguments as items.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.enlist(1, 2, 3, 4)
+pykx.LongVector(q('1 2 3 4'))</code></pre>
+<h3 id="fills"><a href="https://code.kx.com/q/ref/fills/">fills</a></h3>
+<p>Replace nulls with preceding non-nulls.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; a = pykx.q('0N 1 2 0N 0N 2 3 4 5 0N 4')
+&gt;&gt;&gt; pykx.q.fills(a)
+pykx.LongVector(q('0N 1 2 2 2 2 3 4 5 5 4'))</code></pre>
+<h3 id="first"><a href="https://code.kx.com/q/ref/first/">first</a></h3>
+<p>First item of a list
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.first([1, 2, 3, 4, 5])
+pykx.LongAtom(q('1'))</code></pre></p>
+<h3 id="flip"><a href="https://code.kx.com/q/ref/flip/">flip</a></h3>
+<p>Returns x transposed, where x may be a list of lists, a dictionary or a table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.flip([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]])
+pykx.List(q('
+1 6
+2 7
+3 8
+4 9
+5 10
+'))</code></pre>
+<h3 id="group"><a href="https://code.kx.com/q/ref/group/">group</a></h3>
+<p>Returns a dictionary in which the keys are the distinct items of x, and the values the indexes where the distinct items occur.</p>
+<p>The order of the keys is the order in which they appear in x.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.group(b'mississippi')
+pykx.Dictionary(q('
+m| ,0
+i| 1 4 7 10
+s| 2 3 5 6
+p| 8 9
+'))</code></pre>
+<h3 id="inter"><a href="https://code.kx.com/q/ref/inter/">inter</a></h3>
+<p>Intersection of two lists or dictionaries.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.inter([1, 2, 3], [2, 3, 4])
+pykx.LongVector(q('2 3'))</code></pre>
+<h3 id="last"><a href="https://code.kx.com/q/ref/first/#last">last</a></h3>
+<p>Last item of a list</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.last([1, 2, 3])
+pykx.LongAtom(q('3'))</code></pre>
+<h3 id="mcount"><a href="https://code.kx.com/q/ref/count/#mcount">mcount</a></h3>
+<p>Returns the x-item moving counts of the non-null items of y. The first x items of the result are the counts so far, and thereafter the result is the moving count.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.mcount(3, pykx.q('1 2 3 4 5 0N 6 7 8'))
+pykx.IntVector(q('1 2 3 3 3 2 2 2 3i'))</code></pre>
+<h3 id="next"><a href="https://code.kx.com/q/ref/next/">next</a></h3>
+<p>Next items in a list.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.next([1, 2, 3, 4])
+pykx.LongVector(q('2 3 4 0N'))</code></pre>
+<h3 id="prev"><a href="https://code.kx.com/q/ref/next/#prev">prev</a></h3>
+<p>Immediately preceding items in a list.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.prev([1, 2, 3, 4])
+pykx.LongVector(q('0N 1 2 3'))</code></pre>
+<h3 id="raze"><a href="https://code.kx.com/q/ref/raze/">raze</a></h3>
+<p>Return the items of x joined, collapsing one level of nesting.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.raze([[1, 2], [3, 4]])
+pykx.LongVector(q('1 2 3 4'))</code></pre>
+<h3 id="reverse"><a href="https://code.kx.com/q/ref/reverse/">reverse</a></h3>
+<p>Reverse the order of items of a list or dictionary.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.reverse([1, 2, 3, 4, 5])
+pykx.List(q('
+5
+4
+3
+2
+1
+'))</code></pre>
+<h3 id="rotate"><a href="https://code.kx.com/q/ref/rotate/">rotate</a></h3>
+<p>Shift the items of a list to the left or right.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.rotate(2, [1, 2, 3, 4, 5])
+pykx.LongVector(q('3 4 5 1 2'))</code></pre>
+<h3 id="sublist"><a href="https://code.kx.com/q/ref/sublist/">sublist</a></h3>
+<p>Select a sublist of a list.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.sublist(2, [1, 2, 3, 4, 5])
+pykx.LongVector(q('1 2'))</code></pre>
+<h3 id="sv"><a href="https://code.kx.com/q/ref/sv/">sv</a></h3>
+<p>"Scalar from vector"</p>
+<ul>
+<li>join strings, symbols, or filepath elements</li>
+<li>decode a vector to an atom</li>
+</ul>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.sv(10, [1, 2, 3, 4])
+pykx.LongAtom(q('1234'))</code></pre>
+<h3 id="til"><a href="https://code.kx.com/q/ref/til/">til</a></h3>
+<p>First x natural numbers.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.til(10)
+pykx.LongVector(q('0 1 2 3 4 5 6 7 8 9'))</code></pre>
+<h3 id="union"><a href="https://code.kx.com/q/ref/union/">union</a></h3>
+<p>Union of two lists.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.union([1, 2, 3, 3, 5], [2, 4, 6, 8])
+pykx.LongVector(q('1 2 3 5 4 6 8'))</code></pre>
+<h3 id="vs"><a href="https://code.kx.com/q/ref/vs/">vs</a></h3>
+<p>"Vector from scalar"</p>
+<ul>
+<li>partition a symbol, string, or bytestream</li>
+<li>encode a vector from an atom, or a matrix from a vector</li>
+</ul>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.vs(b',', b'one,two,three')
+pykx.List(q('
+"one"
+"two"
+"three"
+'))</code></pre>
+<h3 id="where"><a href="https://code.kx.com/q/ref/where/">where</a></h3>
+<p>Copies of indexes of a list or keys of a dictionary.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.where(pykx.BooleanVector([True, False, True, True, False]))
+pykx.LongVector(q('0 2 3'))
+&gt;&gt;&gt; pykx.q.where(pykx.q('1 0 0 1 0 1 1'))
+pykx.LongVector(q('0 3 5 6'))</code></pre>
+<h3 id="xprev"><a href="https://code.kx.com/q/ref/next/#xprev">xprev</a></h3>
+<p>Nearby items in a list.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.xprev(2, [1, 2, 3, 4, 5, 6])
+pykx.LongVector(q('0N 0N 1 2 3 4'))</code></pre>
+<p>There is no <code>xnext</code> function, but <code>xprev</code> with a negative number as its first argument can achieve this.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.xprev(-2, [1, 2, 3, 4, 5, 6])
+pykx.LongVector(q('3 4 5 6 0N 0N'))</code></pre>
+<h2 id="logic">Logic</h2>
+<h3 id="all"><a href="https://code.kx.com/q/ref/all-any/#all/">all</a></h3>
+<p>Everything is true.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.all([True, True, True, True])
+pykx.BooleanAtom(q('1b'))
+&gt;&gt;&gt; pykx.q.all([True, True, False, True])
+pykx.BooleanAtom(q('0b'))</code></pre>
+<h3 id="any"><a href="https://code.kx.com/q/ref/all-any/#any">any</a></h3>
+<p>Something is true.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.any([False, False, True, False])
+pykx.BooleanAtom(q('1b'))
+&gt;&gt;&gt; pykx.q.any([False, False])
+pykx.BooleanAtom(q('0b'))</code></pre>
+<h2 id="math">Math</h2>
+<h3 id="abs"><a href="https://code.kx.com/q/ref/abs/">abs</a></h3>
+<p>Where x is a numeric or temporal, returns the absolute value of x. Null is returned if x is null.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.abs(-5)
+pykx.LongAtom(q('5'))</code></pre>
+<h3 id="acos"><a href="https://code.kx.com/q/ref/cos/">acos</a></h3>
+<p>The arccosine of x; that is, the value whose cosine is x. The result is in radians and lies between 0 and π.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.acos(0.5)
+pykx.FloatAtom(q('1.047198'))</code></pre>
+<h3 id="asin"><a href="https://code.kx.com/q/ref/sin/">asin</a></h3>
+<p>The arcsine of x; that is, the value whose sine is x. The result is in radians and lies between -π / 2 and π / 2. (The range is approximate due to rounding errors). Null is returned if the argument is not between -1 and 1.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.asin(0.5)
+pykx.FloatAtom(q('0.5235988'))</code></pre>
+<h3 id="atan"><a href="https://code.kx.com/q/ref/tan/">atan</a></h3>
+<p>The arctangent of x; that is, the value whose tangent is x. The result is in radians and lies between -π / 2 and π / 2.
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.atan(0.5)
+pykx.FloatAtom(q('0.4636476'))</code></pre></p>
+<h3 id="avg"><a href="https://code.kx.com/q/ref/avg/#avg">avg</a></h3>
+<p>Arithmetic mean.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.avg([1, 2, 3, 4, 7])
+pykx.FloatAtom(q('3.4'))</code></pre>
+<h3 id="avgs"><a href="https://code.kx.com/q/ref/avg/#avgs">avgs</a></h3>
+<p>Running mean.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.avgs([1, 2, 3, 4, 7])
+pykx.FloatVector(q('1 1.5 2 2.5 3.4'))</code></pre>
+<h3 id="ceiling"><a href="https://code.kx.com/q/ref/ceiling/">ceiling</a></h3>
+<p>Round up.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.ceiling([-2.7, -1.1, 0, 1.1, 2.7])
+pykx.LongVector(q('-2 -1 0 2 3'))</code></pre>
+<h3 id="cor"><a href="https://code.kx.com/q/ref/cor/">cor</a></h3>
+<p>Correlation.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.cor(pykx.LongVector([29, 10, 54]), pykx.LongVector([1, 3, 9]))
+pykx.FloatAtom(q('0.7727746'))</code></pre>
+<h3 id="cos"><a href="https://code.kx.com/q/ref/cos/">cos</a></h3>
+<p>The cosine of x, taken to be in radians. The result is between -1 and 1, or null if the argument is null or infinity.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.cos(0.2)
+pykx.FloatAtom(q('0.9800666'))</code></pre>
+<h3 id="cov"><a href="https://code.kx.com/q/ref/cov/">cov</a></h3>
+<p>Where x and y are conforming numeric lists returns their covariance as a floating-point number. Applies to all numeric data types and signals an error with temporal types, char and sym.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.cov(pykx.LongVector([29, 10, 54]), pykx.LongVector([1, 3, 9]))
+pykx.FloatAtom(q('47.33333'))</code></pre>
+<h3 id="deltas"><a href="https://code.kx.com/q/ref/deltas/">deltas</a></h3>
+<p>Where x is a numeric or temporal vector, returns differences between consecutive pairs of its items.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.deltas(pykx.LongVector([1, 4, 9, 16]))
+pykx.LongVector(q('1 3 5 7'))</code></pre>
+<h3 id="dev"><a href="https://code.kx.com/q/ref/dev/">dev</a></h3>
+<p>Standard deviation.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.dev(pykx.LongVector([10, 343, 232, 55]))
+pykx.FloatAtom(q('134.3484'))</code></pre>
+<h3 id="div"><a href="https://code.kx.com/q/ref/div/">div</a></h3>
+<p>Integer division.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.div(7, 3)
+pykx.LongAtom(q('2'))</code></pre>
+<h3 id="ema"><a href="https://code.kx.com/q/ref/ema/">ema</a></h3>
+<p>The cosine of x, taken to be in radians. The result is between -1 and 1, or null if the argument is null or infinity.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.ema(0.5, [1, 2, 3, 4, 5])
+pykx.FloatVector(q('1 1.5 2.25 3.125 4.0625'))</code></pre>
+<h3 id="exp"><a href="https://code.kx.com/q/ref/exp/">exp</a></h3>
+<p>Raise <em>e</em> to a power.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.exp(1)
+pykx.FloatAtom(q('2.718282'))</code></pre>
+<h3 id="floor"><a href="https://code.kx.com/q/ref/floor/">floor</a></h3>
+<p>Round down.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.floor([-2.7, -1.1, 0, 1.1, 2.7])
+pykx.LongVector(q('-3 -2 0 1 2'))</code></pre>
+<h3 id="inv"><a href="https://code.kx.com/q/ref/inv/">inv</a></h3>
+<p>Matrix inverse.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; a = pykx.q('3 3# 2 4 8 3 5 6 0 7 1f')
+pykx.List(q('
+2 4 8
+3 5 6
+0 7 1
+'))
+&gt;&gt;&gt; pykx.q.inv(a)
+pykx.List(q('
+-0.4512195  0.6341463  -0.195122
+-0.03658537 0.02439024 0.1463415
+0.2560976   -0.1707317 -0.02439024
+'))</code></pre>
+<h3 id="log"><a href="https://code.kx.com/q/ref/log/">log</a></h3>
+<p>Natural logarithm.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.log([1, 2, 3])
+pykx.FloatVector(q('0 0.6931472 1.098612'))</code></pre>
+<h3 id="lsq"><a href="https://code.kx.com/q/ref/lsq/">lsq</a></h3>
+<p>Least squares, matrix divide.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; a = pykx.q('1f+3 4#til 12')
+pykx.List(q('
+1 2  3  4
+5 6  7  8
+9 10 11 12
+'))
+&gt;&gt;&gt; b = pykx.q('4 4#2 7 -2 5 5 3 6 1 -2 5 2 7 5 0 3 4f')
+pykx.List(q('
+2  7 -2 5
+5  3 6  1
+-2 5 2  7
+5  0 3  4
+'))
+&gt;&gt;&gt; pykx.q.lsq(a, b)
+pykx.List(q('
+-0.1233333 0.16      0.4766667 0.28
+0.07666667 0.6933333 0.6766667 0.5466667
+0.2766667  1.226667  0.8766667 0.8133333
+'))</code></pre>
+<h3 id="mavg"><a href="https://code.kx.com/q/ref/avg/#mavg">mavg</a></h3>
+<p>Moving averages.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.mavg(3, [1, 2, 3, 5, 7, 10])
+pykx.FloatVector(q('1 1.5 2 3.333333 5 7.333333'))</code></pre>
+<h3 id="max"><a href="https://code.kx.com/q/ref/max/">max</a></h3>
+<p>Maximum.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.max([0, 7, 2, 4 , 1, 3])
+pykx.LongAtom(q('7'))</code></pre>
+<h3 id="maxs"><a href="https://code.kx.com/q/ref/max/#maxs">maxs</a></h3>
+<p>Maximums.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.maxs([1, 2, 5, 4, 7, 1, 2])
+pykx.LongVector(q('1 2 5 5 7 7 7'))</code></pre>
+<h3 id="mdev"><a href="https://code.kx.com/q/ref/dev/#mdev">mdev</a></h3>
+<p>Moving deviations.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.mdev(3, [1, 2, 5, 4, 7, 1, 2])
+pykx.FloatVector(q('0 0.5 1.699673 1.247219 1.247219 2.44949 2.624669'))</code></pre>
+<h3 id="med"><a href="https://code.kx.com/q/ref/med/">med</a></h3>
+<p>Median.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.med([1, 2, 3, 4, 4, 1, 2, 4, 5])
+pykx.FloatAtom(q('3f'))</code></pre>
+<h3 id="min"><a href="https://code.kx.com/q/ref/min/">min</a></h3>
+<p>Minimum.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.min([7, 5, 2, 4, 6, 5, 1, 4])
+pykx.LongAtom(q('1'))</code></pre>
+<h3 id="mins"><a href="https://code.kx.com/q/ref/min/#mins">mins</a></h3>
+<p>Minimums.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.mins([7, 5, 2, 4, 6, 5, 1, 4])
+pykx.LongVector(q('7 5 2 2 2 2 1 1'))</code></pre>
+<h3 id="mmax"><a href="https://code.kx.com/q/ref/max/#mmax">mmax</a></h3>
+<p>Moving maximums.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.mmax(4, [7, 5, 2, 4, 6, 5, 1, 4])
+pykx.LongVector(q('7 7 7 7 6 6 6 6'))</code></pre>
+<h3 id="mmin"><a href="https://code.kx.com/q/ref/min/#mmin">mmin</a></h3>
+<p>Moving minimums.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.mmin(4, pykx.LongVector([7, 5, 2, 4, 6, 5, 1, 4]))
+pykx.LongVector(q('7 5 2 2 2 2 1 1'))</code></pre>
+<h3 id="mmu"><a href="https://code.kx.com/q/ref/mmu/">mmu</a></h3>
+<p>Matrix multiply, dot product.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; a = pykx.q('2 4#2 4 8 3 5 6 0 7f')
+&gt;&gt;&gt; a
+pykx.List(q('
+2 4 8 3
+5 6 0 7
+'))
+&gt;&gt;&gt; b = pykx.q('4 3#"f"$til 12')
+&gt;&gt;&gt; b
+pykx.List(q('
+0 1  2
+3 4  5
+6 7  8
+9 10 11
+'))
+&gt;&gt;&gt; pykx.q.mmu(a, b)
+pykx.List(q('
+87 104 121
+81 99  117
+'))</code></pre>
+<h3 id="mod"><a href="https://code.kx.com/q/ref/mod/">mod</a></h3>
+<p>Modulus.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.mod([1, 2, 3, 4, 5, 6, 7], 4)
+pykx.LongVector(q('1 2 3 0 1 2 3'))</code></pre>
+<h3 id="msum"><a href="https://code.kx.com/q/ref/sum/#msum">msum</a></h3>
+<p>Moving sums.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.msum(3, [1, 2, 3, 4, 5, 6, 7])
+pykx.LongVector(q('1 3 6 9 12 15 18'))</code></pre>
+<h3 id="neg"><a href="https://code.kx.com/q/ref/neg/">neg</a></h3>
+<p>Negate.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.neg([2, 0, -1, 3, -5])
+pykx.LongVector(q('-2 0 1 -3 5'))</code></pre>
+<h3 id="prd"><a href="https://code.kx.com/q/ref/prd/">prd</a></h3>
+<p>Product.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.prd([1, 2, 3, 4, 5])
+pykx.LongAtom(q('120'))</code></pre>
+<h3 id="prds"><a href="https://code.kx.com/q/ref/prd/#prds">prds</a></h3>
+<p>Cumulative products.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.prds([1, 2, 3, 4, 5])
+pykx.LongVector(q('1 2 6 24 120'))</code></pre>
+<h3 id="rand"><a href="https://code.kx.com/q/ref/rand/">rand</a></h3>
+<p>Pick randomly.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.rand([1, 2, 3, 4, 5])
+pykx.LongAtom(q('2'))</code></pre>
+<h3 id="ratios"><a href="https://code.kx.com/q/ref/ratios/">ratios</a></h3>
+<p>Ratios between items.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.ratios([1, 2, 3, 4, 5])
+pykx.FloatVector(q('0n 2 1.5 1.333333 1.25'))</code></pre>
+<h3 id="reciprocal"><a href="https://code.kx.com/q/ref/reciprocal/">reciprocal</a></h3>
+<p>Reciprocal of a number.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.reciprocal([1, 0, 3])
+pykx.FloatVector(q('1 0w 0.3333333'))</code></pre>
+<h3 id="scov"><a href="https://code.kx.com/q/ref/cov/#scov">scov</a></h3>
+<p>Sample covariance.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.scov(pykx.LongVector([2, 3, 5, 7]), pykx.LongVector([4, 3, 0, 2]))
+pykx.FloatAtom(q('-2.416667'))</code></pre>
+<h3 id="sdev"><a href="https://code.kx.com/q/ref/dev/#sdev">sdev</a></h3>
+<p>Sample standard deviation.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.sdev(pykx.LongVector([10, 343, 232, 55]))
+pykx.FloatAtom(q('155.1322'))</code></pre>
+<h3 id="signum"><a href="https://code.kx.com/q/ref/signum/">signum</a></h3>
+<p>Where x (or its underlying value for temporals) is</p>
+<ul>
+<li>null or negative, returns <code>-1i</code></li>
+<li>zero, returns <code>0i</code></li>
+<li>positive, returns <code>1i</code></li>
+</ul>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.signum([-2, 0, 1, 3])
+pykx.IntVector(q('-1 0 1 1i'))</code></pre>
+<h3 id="sin"><a href="https://code.kx.com/q/ref/sin/">sin</a></h3>
+<p>Sine.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.sin(0.5)
+pykx.FloatAtom(q('0.4794255'))</code></pre>
+<h3 id="sqrt"><a href="https://code.kx.com/q/ref/sqrt/">sqrt</a></h3>
+<p>Square root.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.sqrt([-1, 0, 25, 50])
+pykx.FloatVector(q('0n 0 5 7.071068'))</code></pre>
+<h3 id="sum"><a href="https://code.kx.com/q/ref/sum/">sum</a></h3>
+<p>Total.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.sum(pykx.LongVector([2, 3, 5, 7]))
+pykx.LongAtom(q('17'))</code></pre>
+<h3 id="sums"><a href="https://code.kx.com/q/ref/sum/#sums">sums</a></h3>
+<p>Cumulative total.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.sums(pykx.LongVector([2, 3, 5, 7]))
+pykx.LongVector(q('2 5 10 17'))</code></pre>
+<h3 id="svar"><a href="https://code.kx.com/q/ref/var/#svar">svar</a></h3>
+<p>Sample variance.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.svar(pykx.LongVector([2, 3, 5, 7]))
+pykx.FloatAtom(q('4.916667'))</code></pre>
+<h3 id="tan"><a href="https://code.kx.com/q/ref/tan/">tan</a></h3>
+<p>Tangent.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.tan(0.5)
+pykx.FloatAtom(q('0.5463025'))</code></pre>
+<h3 id="var"><a href="https://code.kx.com/q/ref/var/">var</a></h3>
+<p>Variance.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.var(pykx.LongVector([2, 3, 5, 7]))
+pykx.FloatAtom(q('3.6875'))</code></pre>
+<h3 id="wavg"><a href="https://code.kx.com/q/ref/avg/#wavg">wavg</a></h3>
+<p>Weighted average.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.wavg([2, 3, 4], [1, 2 ,4])
+pykx.FloatAtom(q('2.666667'))</code></pre>
+<h3 id="within"><a href="https://code.kx.com/q/ref/within/">within</a></h3>
+<p>Check bounds.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.within([1, 3, 10, 6, 4], [2, 6])
+pykx.BooleanVector(q('01011b'))</code></pre>
+<h3 id="wsum"><a href="https://code.kx.com/q/ref/sum/#wsum">wsum</a></h3>
+<p>Weighted sum.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.wsum([2, 3, 4], [1, 2, 4]) # equivalent to 2 * 1 + 3 * 2 + 4 * 4
+pykx.LongAtom(q('24'))</code></pre>
+<h3 id="xexp"><a href="https://code.kx.com/q/ref/exp/#xepx">xexp</a></h3>
+<p>Raise x to a power.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.xexp(2, 8)
+pykx.FloatAtom(q('256f'))</code></pre>
+<h3 id="xlog"><a href="https://code.kx.com/q/ref/log/#xlog">xlog</a></h3>
+<p>Logarithm base x.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.xlog(2, 8)
+pykx.FloatAtom(q('3f'))</code></pre>
+<h2 id="meta">Meta</h2>
+<h3 id="attr"><a href="https://code.kx.com/q/ref/attr/">attr</a></h3>
+<p><a href="../../user-guide/advanced/attributes.html">Attributes</a> of an object, returns a Symbol Atom or Vector.</p>
+<p>The possible attributes are:</p>
+<table>
+<thead>
+<tr>
+<th>code</th>
+<th>attribute</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s</td>
+<td>sorted</td>
+</tr>
+<tr>
+<td>u</td>
+<td>unique (hash table)</td>
+</tr>
+<tr>
+<td>p</td>
+<td>partitioned (grouped)</td>
+</tr>
+<tr>
+<td>g</td>
+<td>true index (dynamic attribute): enables constant time update and access for real-time tables</td>
+</tr>
+</tbody>
+</table>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.attr([1,2,3])
+pykx.SymbolAtom(q('`'))
+&gt;&gt;&gt; pykx.q.attr(pykx.q('asc 1 2 3'))
+pykx.SymbolAtom(q('`s'))</code></pre>
+<h3 id="null"><a href="https://code.kx.com/q/ref/null/">null</a></h3>
+<p>Is null.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.null(1)
+pykx.BooleanAtom(q('0b'))
+&gt;&gt;&gt; pykx.q.null(float('NaN'))
+pykx.BooleanAtom(q('1b'))
+&gt;&gt;&gt; pykx.q.null(None)
+pykx.BooleanAtom(q('1b'))</code></pre>
+<h3 id="tables"><a href="https://code.kx.com/q/ref/tables/">tables</a></h3>
+<p>List of tables in a namespace.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q('exampleTable: ([] a: til 10; b: 10?10)')
+pykx.Identity(pykx.q('::'))
+&gt;&gt;&gt; pykx.q('exampleTable: ([] a: til 10; b: 10?10)')
+pykx.Table(q('
+a b
+---
+0 8
+1 1
+2 9
+3 5
+4 4
+5 6
+6 6
+7 1
+8 8
+9 5
+'))
+&gt;&gt;&gt; pykx.q.tables('.')
+pykx.SymbolVector(q(',`exampleTable'))</code></pre>
+<h3 id="type"><a href="https://code.kx.com/q/ref/type/">type</a></h3>
+<p>Underlying <a href="https://code.kx.com/q/ref/#datatypes">k type</a> of an <a href="../pykx-q-data/wrappers.html">object</a>.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.type(1)
+pykx.ShortAtom(q('-7h'))
+&gt;&gt;&gt; pykx.q.type([1, 2, 3])
+pykx.ShortAtom(q('0h'))
+&gt;&gt;&gt; pykx.q.type(pykx.LongVector([1, 2, 3]))
+pykx.ShortAtom(q('7h'))</code></pre>
+<h3 id="view"><a href="https://code.kx.com/q/ref/view/">view</a></h3>
+<p>Expression defining a view.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q('v::2+a*3')
+&gt;&gt;&gt; pykx.q('a:5')
+&gt;&gt;&gt; pykx.q('v')
+pykx.LongAtom(q('17'))
+&gt;&gt;&gt; pykx.q.view('v')
+pykx.CharVector(q('"2+a*3"'))</code></pre>
+<h3 id="views"><a href="https://code.kx.com/q/ref/view/#views">views</a></h3>
+<p>List views defined in the default namespace.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q('v::2+a*3')
+&gt;&gt;&gt; pykx.q('a:5')
+&gt;&gt;&gt; pykx.q('v')
+pykx.LongAtom(q('17'))
+&gt;&gt;&gt; pykx.q.views()
+pykx.SymbolVector(q(',`v'))</code></pre>
+<h2 id="queries">Queries</h2>
+<h3 id="fby"><a href="https://code.kx.com/q/ref/fby/">fby</a></h3>
+<p>Apply an aggregate to groups.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; d = pykx.q('data: 10?10')
+pykx.LongVector(pykx.q('4 9 2 7 0 1 9 2 1 8'))
+&gt;&gt;&gt; group = pykx.SymbolVector(['a', 'b', 'a', 'b', 'c', 'd', 'c', 'd', 'd', 'c'])
+pykx.SymbolVector(pykx.q('`a`b`a`b`c`d`c`d`d`c'))
+&gt;&gt;&gt; &gt;&gt;&gt; pykx.q.fby(pykx.q('(sum; data)'), group)
+pykx.LongVector(pykx.q('6 16 6 16 17 4 17 4 4 17'))</code></pre>
+<h2 id="sort">Sort</h2>
+<h3 id="asc"><a href="https://code.kx.com/q/ref/asc/">asc</a></h3>
+<p>Ascending sort.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.asc([4, 2, 5, 1, 0])
+pykx.LongVector(q('`s#0 1 2 4 5'))</code></pre>
+<h3 id="bin"><a href="https://code.kx.com/q/ref/bin/">bin</a></h3>
+<p>Binary search.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.bin([0, 2, 4, 6, 8, 10], 5)
+pykx.LongAtom(q('2'))
+&gt;&gt;&gt; pykx.q.bin([0, 2, 4, 6, 8, 10], [-10, 0, 4, 5, 6, 20])
+pykx.LongVector(q('-1 0 2 2 3 5'))</code></pre>
+<h3 id="binr"><a href="https://code.kx.com/q/ref/bin/#binr">binr</a></h3>
+<p>Binary search right.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.binr([0, 2, 4, 6, 8, 10], 5)
+pykx.LongAtom(q('3'))
+&gt;&gt;&gt; pykx.q.binr([0, 2, 4, 6, 8, 10], [-10, 0, 4, 5, 6, 20])
+pykx.LongVector(q('0 0 2 3 3 6'))</code></pre>
+<h3 id="desc"><a href="https://code.kx.com/q/ref/desc/">desc</a></h3>
+<p>Descending sort.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.desc([4, 2, 5, 1, 0])
+pykx.LongVector(q('5 4 2 1 0'))</code></pre>
+<h3 id="differ"><a href="https://code.kx.com/q/ref/differ/">differ</a></h3>
+<p>Find where list items change value.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.differ([1, 1, 2, 3, 4, 4])
+pykx.BooleanVector(q('101110b'))</code></pre>
+<h3 id="distinct"><a href="https://code.kx.com/q/ref/distinct/">distinct</a></h3>
+<p>Unique items of a list.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.distinct([1, 3, 1, 4, 5, 1, 2, 3])
+pykx.LongVector(q('1 3 4 5 2'))</code></pre>
+<h3 id="iasc"><a href="https://code.kx.com/q/ref/asc/#iasc">iasc</a></h3>
+<p>Ascending grade.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.iasc([4, 2, 5, 1, 0])
+pykx.LongVector(q('4 3 1 0 2'))</code></pre>
+<h3 id="idesc"><a href="https://code.kx.com/q/ref/desc/#idesc">idesc</a></h3>
+<p>Descending grade.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.idesc([4, 2, 5, 1, 0])
+pykx.LongVector(q('2 0 1 3 4'))</code></pre>
+<h3 id="rank"><a href="https://code.kx.com/q/ref/rank/">rank</a></h3>
+<p>Position in the sorted list.</p>
+<p>Where x is a list or dictionary, returns for each item in x the index of where it would occur in the sorted list or dictionary.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.rank([4, 2, 5, 1, 0])
+pykx.LongVector(q('3 2 4 1 0'))
+&gt;&gt;&gt; pykx.q.rank({'c': 3, 'a': 4, 'b': 1})
+pykx.LongVector(q('2 0 1'))</code></pre>
+<h3 id="xbar"><a href="https://code.kx.com/q/ref/xbar/">xbar</a></h3>
+<p>Round y down to the nearest multiple of x.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.xbar(5, 3)
+pykx.LongAtom(q('0'))
+&gt;&gt;&gt; pykx.q.xbar(5, 5)
+pykx.LongAtom(q('5'))
+&gt;&gt;&gt; pykx.q.xbar(5, 7)
+pykx.LongAtom(q('5'))
+&gt;&gt;&gt; pykx.q.xbar(3, range(16))
+pykx.LongVector(q('0 0 0 3 3 3 6 6 6 9 9 9 12 12 12 15'))</code></pre>
+<h3 id="xrank"><a href="https://code.kx.com/q/ref/xrank/">xrank</a></h3>
+<p>Group by value.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.xrank(3, range(6))
+pykx.LongVector(q('0 0 1 1 2 2'))
+&gt;&gt;&gt; pykx.q.xrank(4, range(9))
+pykx.LongVector(q('0 0 0 1 1 2 2 3 3'))</code></pre>
+<h2 id="table">Table</h2>
+<h3 id="cols"><a href="https://code.kx.com/q/ref/cols/#cols">cols</a></h3>
+<p>Column names of a table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; df = pd.DataFrame({
+...     'time': numpy.array([1, 2, 3, 4], dtype='timedelta64[s]'),
+...     'sym':['a', 'a', 'b', 'b'],
+...     'p': pykx.LongVector([2, 4, 6, 8])
+...  })
+&gt;&gt;&gt; pykx.q.cols(df)
+pykx.SymbolVector(q('`time`sym`p'))</code></pre>
+<h3 id="csv"><a href="https://code.kx.com/q/ref/csv/">csv</a></h3>
+<p>CSV delimiter.</p>
+<p>A synonym for "," for use in preparing text for CSV files, or reading them.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.csv
+pykx.CharAtom(q('","'))</code></pre>
+<h3 id="fkeys"><a href="https://code.kx.com/q/ref/fkeys/">fkeys</a></h3>
+<p>Foreign-key columns of a table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q('f:([x:1 2 3]y:10 20 30)')
+pykx.Identity(q('::'))
+&gt;&gt;&gt; pykx.q('t: ([]a:`f$2 2 2; b: 0; c: `f$1 1 1)')
+pykx.Identity(q('::'))
+&gt;&gt;&gt; pykx.q.fkeys('t')
+pykx.Dictionary(q('
+a| f
+c| f
+'))</code></pre>
+<h3 id="insert"><a href="https://code.kx.com/q/ref/insert/">insert</a></h3>
+<p>Insert or append records to a table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q('t: ([] a: `a`b`c; b: til 3)')
+&gt;&gt;&gt; pykx.q('t')
+pykx.Table(q('
+a b
+---
+a 0
+b 1
+c 2
+'))
+&gt;&gt;&gt; pykx.q.insert('t', ['d', 3])
+&gt;&gt;&gt; pykx.q('t')
+pykx.Table(q('
+a b
+---
+a 0
+b 1
+c 2
+d 3
+'))</code></pre>
+<h3 id="key"><a href="https://code.kx.com/q/ref/key/">key</a></h3>
+<p>Where x is a dictionary (or the name of one), returns its keys.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.key({'a': 1, 'b': 2})
+pykx.SymbolVector(q('`a`b'))</code></pre>
+<h3 id="keys"><a href="https://code.kx.com/q/ref/keys/">keys</a></h3>
+<p>Get the names of the key columns of a table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q['v'] = pykx.KeyedTable(data={'x': [4, 5, 6]}, index=[1, 2, 3])
+&gt;&gt;&gt; pykx.q('v')
+pykx.KeyedTable(pykx.q('
+idx| x
+---| -
+1  | 4
+2  | 5
+3  | 6
+'))
+&gt;&gt;&gt; pykx.q.keys('v')
+pykx.SymbolVector(q(',`idx'))</code></pre>
+<h3 id="meta_1"><a href="https://code.kx.com/q/ref/meta/">meta</a></h3>
+<p>Metadata for a table.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c</td>
+<td>column name</td>
+</tr>
+<tr>
+<td>t</td>
+<td><a href="https://code.kx.com/q/ref/#datatypes">data type</a></td>
+</tr>
+<tr>
+<td>f</td>
+<td>foreign key (enums)</td>
+</tr>
+<tr>
+<td>a</td>
+<td><a href="#attr">attribute</a></td>
+</tr>
+</tbody>
+</table>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; df = pd.DataFrame({
+...     'time': np.array([1, 2, 3, 4], dtype='timedelta64[s]'),
+...     'sym': ['a', 'a', 'b', 'b'],
+...     'p': pykx.LongVector([2, 4, 6, 8])
+... })
+&gt;&gt;&gt; pykx.q.meta(df)
+pykx.KeyedTable(q('
+c   | t f a
+----| -----
+time| n
+sym | s
+p   | j
+'))</code></pre>
+<h3 id="ungroup"><a href="https://code.kx.com/q/ref/ungroup/">ungroup</a></h3>
+<p>Where x is a table, in which some cells are lists, but for any row, all lists are of the same length, returns the normalized table, with one row for each item of a lists.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; a = pykx.Table([['a', [2, 3], 10], ['b', [5, 6, 7], 20], ['c', [11], 30]], columns=['s', 'x', 'q'])
+&gt;&gt;&gt; a
+pykx.Table(pykx.q('
+s x       q 
+------------
+a (2;3)   10
+b (5;6;7) 20
+c ,11     30
+'))
+&gt;&gt;&gt; pykx.q.ungroup(a)
+pykx.Table(q('
+s x  q
+-------
+a 2  10
+a 3  10
+b 5  20
+b 6  20
+b 7  20
+c 11 30
+'))</code></pre>
+<h3 id="upsert"><a href="https://code.kx.com/q/ref/upsert/">upsert</a></h3>
+<p>Add new records to a table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; df = pd.DataFrame({'sym':['a', 'a', 'b', 'b'], 'p': pykx.LongVector([2, 4, 6, 8])})
+&gt;&gt;&gt; pykx.Table(df)
+pykx.Table(q('
+sym p
+-----
+a   2
+a   4
+b   6
+b   8
+'))
+&gt;&gt;&gt; pykx.q.upsert(df, ['c', 10])
+&gt;&gt;&gt; pykx.Table(q('
+sym p
+------
+a   2
+a   4
+b   6
+b   8
+c   10
+'))</code></pre>
+<h3 id="xasc"><a href="https://code.kx.com/q/ref/asc/#xasc">xasc</a></h3>
+<p>Sort a table in ascending order of specified columns.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; df = pd.DataFrame({'sym':['a', 'a', 'b', 'b', 'c', 'c'], 'p': pykx.LongVector([10, 4, 6, 2, 0, 8])})
+&gt;&gt;&gt; pykx.Table(df)
+pykx.Table(q('
+sym p
+------
+a   10
+a   4
+b   6
+b   2
+c   0
+c   8
+'))
+&gt;&gt;&gt; pykx.q.xasc('p', df)
+pykx.Table(q('
+sym p
+------
+c   0
+b   2
+a   4
+b   6
+c   8
+a   10
+'))</code></pre>
+<h3 id="xcol"><a href="https://code.kx.com/q/ref/cols/#xcol">xcol</a></h3>
+<p>Rename table columns.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; df = pd.DataFrame({'sym':['a', 'a', 'b', 'b', 'c', 'c'], 'p': pykx.LongVector([10, 4, 6, 2, 0, 8])})
+&gt;&gt;&gt; pykx.Table(df)
+pykx.Table(q('
+sym p
+------
+a   10
+a   4
+b   6
+b   2
+c   0
+c   8
+'))
+&gt;&gt;&gt; pykx.q.xcol(pykx.SymbolVector(['Sym', 'Qty']), df)
+pykx.Table(q('
+Sym Qty
+-------
+a   10
+a   4
+b   6
+b   2
+c   0
+c   8
+'))
+&gt;&gt;&gt; pykx.q.xcol({'p': 'Qty'}, df)
+pykx.Table(q('
+sym Qty
+-------
+a   10
+a   4
+b   6
+b   2
+c   0
+c   8
+'))</code></pre>
+<h3 id="xcols"><a href="https://code.kx.com/q/ref/cols/#xcols">xcols</a></h3>
+<p>Reorder table columns.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; df = pd.DataFrame({
+...     'time': np.array([1, 2, 3, 4], dtype='timedelta64[s]'),
+...     'sym':['a', 'a', 'b', 'b'],
+...     'p': pykx.LongVector([2, 4, 6, 8])
+... })
+&gt;&gt;&gt; pykx.Table(df)
+pykx.Table(q('
+time                 sym p
+--------------------------
+0D00:00:01.000000000 a   2
+0D00:00:02.000000000 a   4
+0D00:00:03.000000000 b   6
+0D00:00:04.000000000 b   8
+'))
+&gt;&gt;&gt; pykx.q.xcols(pykx.SymbolVector(['p', 'sym', 'time']), df)
+pykx.Table(q('
+p sym time
+--------------------------
+2 a   0D00:00:01.000000000
+4 a   0D00:00:02.000000000
+6 b   0D00:00:03.000000000
+8 b   0D00:00:04.000000000
+'))</code></pre>
+<h3 id="xdesc"><a href="https://code.kx.com/q/ref/desc/#xdesc">xdesc</a></h3>
+<p>Sorts a table in descending order of specified columns. The sort is by the first column specified, then by the second column within the first, and so on.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; df = pd.DataFrame({'sym':['a', 'a', 'b', 'b', 'c', 'c'], 'p': pykx.LongVector([10, 4, 6, 2, 0, 8])})
+&gt;&gt;&gt; pykx.Table(df)
+pykx.Table(q('
+sym p
+------
+a   10
+a   4
+b   6
+b   2
+c   0
+c   8
+'))
+&gt;&gt;&gt; pykx.q.xdesc('p', df)
+pykx.Table(q('
+sym p
+------
+a   10
+c   8
+b   6
+a   4
+b   2
+c   0
+'))</code></pre>
+<h3 id="xgroup"><a href="https://code.kx.com/q/ref/xgroup/">xgroup</a></h3>
+<p>Groups a table by values in selected columns.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; df = pd.DataFrame({'sym':['a', 'a', 'b', 'b', 'c', 'c'], 'p': pykx.LongVector([10, 4, 6, 2, 0, 8])})
+&gt;&gt;&gt; pykx.Table(df)
+pykx.Table(q('
+sym p
+------
+a   10
+a   4
+b   6
+b   2
+c   0
+c   8
+'))
+&gt;&gt;&gt; pykx.q.xgroup('sym', df)
+pykx.KeyedTable(q('
+sym| p
+---| ----
+a  | 10 4
+b  | 6  2
+c  | 0  8
+'))</code></pre>
+<h3 id="xkey"><a href="https://code.kx.com/q/ref/keys/#xkey">xkey</a></h3>
+<p>Set specified columns as primary keys of a table.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; df = pd.DataFrame({'sym':['a', 'a', 'b', 'b', 'c', 'c'], 'p': pykx.LongVector([10, 4, 6, 2, 0, 8])})
+&gt;&gt;&gt; pykx.Table(df)
+pykx.Table(q('
+sym p
+------
+a   10
+a   4
+b   6
+b   2
+c   0
+c   8
+'))
+&gt;&gt;&gt; pykx.q.xkey('p', df)
+pykx.KeyedTable(q('
+p | sym
+--| ---
+10| a
+4 | a
+6 | b
+2 | b
+0 | c
+8 | c
+'))</code></pre>
+<h2 id="text">Text</h2>
+<h3 id="like"><a href="https://code.kx.com/q/ref/like/">like</a></h3>
+<p>Whether text matches a pattern.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.like('quick', b'qu?ck')
+pykx.BooleanAtom(q('1b'))
+&gt;&gt;&gt; pykx.q.like('brown', b'br[ao]wn')
+pykx.BooleanAtom(q('1b'))
+&gt;&gt;&gt; pykx.q.like('quick', b'quickish')
+pykx.BooleanAtom(q('0b'))</code></pre>
+<h3 id="lower"><a href="https://code.kx.com/q/ref/lower/">lower</a></h3>
+<p>Shift case to lower case.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.lower('HELLO')
+pykx.SymbolAtom(q('`hello'))
+&gt;&gt;&gt; pykx.q.lower(b'HELLO')
+pykx.CharVector(q('"hello"'))</code></pre>
+<h3 id="ltrim"><a href="https://code.kx.com/q/ref/trim/#ltrim">ltrim</a></h3>
+<p>Remove leading nulls from a list.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.ltrim(b'    pykx    ')
+pykx.CharVector(q('"pykx    "'))</code></pre>
+<h3 id="md5"><a href="https://code.kx.com/q/ref/md5/">md5</a></h3>
+<p>Message digest hash.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.md5(b'pykx')
+pykx.ByteVector(q('0xfba0532951f022133f8e8b14b6ddfced'))</code></pre>
+<h3 id="rtrim"><a href="https://code.kx.com/q/ref/trim/#rtrim">rtrim</a></h3>
+<p>Remove trailing nulls from a list.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.rtrim(b'    pykx    ')
+pykx.CharVector(q('"    pykx"'))</code></pre>
+<h3 id="ss"><a href="https://code.kx.com/q/ref/ss/">ss</a></h3>
+<p>String search.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.ss(b'a cat and a dog', b'a')
+pykx.LongVector(q('0 3 6 10'))</code></pre>
+<h3 id="ssr"><a href="https://code.kx.com/q/ref/ss/#ssr">ssr</a></h3>
+<p>String search and replace.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.ssr(b'toronto ontario', b'ont', b'x')
+pykx.CharVector(q('"torxo xario"'))</code></pre>
+<h3 id="string"><a href="https://code.kx.com/q/ref/string/">string</a></h3>
+<p>Cast to string.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.string(2)
+pykx.CharVector(q(',"2"'))
+&gt;&gt;&gt; pykx.q.string([1, 2, 3, 4, 5])
+pykx.List(q('
+,"1"
+,"2"
+,"3"
+,"4"
+,"5"
+'))</code></pre>
+<h3 id="trim"><a href="https://code.kx.com/q/ref/trim/">trim</a></h3>
+<p>Remove leading and trailing nulls from a list.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.trim(b'    pykx    ')
+pykx.CharVector(q('"pykx"'))</code></pre>
+<h3 id="upper"><a href="https://code.kx.com/q/ref/lower/#upper">upper</a></h3>
+<p>Shift case to upper case.</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; pykx.q.upper('hello')
+pykx.SymbolAtom(q('`HELLO'))
+&gt;&gt;&gt; pykx.q.upper(b'hello')
+pykx.CharVector(q('"HELLO"'))</code></pre>
+
+
+
+
+              
+            </article>
+            
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../user-guide/advanced/pandas_breakdown.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Pandas Like API Coverage" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Pandas Like API Coverage
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="embedded_q.html" class="md-footer__link md-footer__link--next" aria-label="Next: PyKX execution classes" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              PyKX execution classes
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2024 Kx Systems, Inc. KX and kdb+ are registered trademarks of Kx Systems, Inc., a subsidiary of FD Technologies plc.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs Insiders
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.tabs.link", "header.autohide", "navigation.tabs", "navigation.footer", "content.code.annotate", "content.action.edit", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c028271.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.dcd4d203.min.js"></script>
+      
+        <script src="https://code.kx.com/scripts/prism.js"></script>
+      
+        <script src="https://code.kx.com/scripts/extra.js"></script>
+      
+        <script src="https://code.kx.com/scripts/mathjax.js"></script>
+      
+        <script src="https://code.kx.com/scripts/polyfill.min.js"></script>
+      
+        <script src="https://code.kx.com/scripts/tex-mmmdtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      
+        <script src="https://use.fontawesome.com/3dbf29ed12.js"></script>
+      
+        <script src="../../&period;&period;/&period;&period;/pykx/scripts/versions.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1634 @@
+{
+  "id": "e9c38322-9660-b54b-d072-cd3c9af241c1",
+  "name": "Stream Test",
+  "creationDate": "Fri, 17 Apr 2020 23:59:35 GMT",
+  "lastUpdateDate": "Tue, 04 Mar 2025 22:01:59 GMT",
+  "thumb": null,
+  "screenDetails": [
+    {
+      "label": "Screen 1",
+      "value": "6a759544-3d6d-e769-3977-7d75652710b4"
+    }
+  ],
+  "screens": [
+    {
+      "id": "6a759544-3d6d-e769-3977-7d75652710b4",
+      "name": "Screen 1",
+      "thumb": null,
+      "widgets": [
+        {
+          "id": "1f6660d2-d9f4-e23a-c577-44f4c3160958",
+          "layout": {
+            "row": 0,
+            "column": 0,
+            "rowSpan": 24,
+            "colSpan": 36
+          },
+          "component": {
+            "id": "d6719ad6-da39-07b2-3b12-a9c6a06d24a2",
+            "key": "Tabs",
+            "options": {
+              "version": "4.7.7",
+              "dropdownPossibleValues": [
+                {
+                  "Id": 0,
+                  "Name": "Test Signal"
+                },
+                {
+                  "Id": 1,
+                  "Name": "Test Cat"
+                }
+              ],
+              "Selection": {
+                "target_tab": 0,
+                "unloadInactive": true,
+                "SetViewStateOnSelect": {
+                  "ViewState": "",
+                  "Value": ""
+                },
+                "expandOnPdf": false
+              },
+              "Basics": {
+                "ComponentName": "tabs",
+                "Name": ""
+              },
+              "Items": [
+                {
+                  "Name": "Test Signal",
+                  "Tooltip": "",
+                  "HideTab": false,
+                  "Id": "b71c4408-5015-810f-220e-eaf32637299",
+                  "HideTabPdf": false
+                },
+                {
+                  "Name": "Test Cat",
+                  "Tooltip": "",
+                  "HideTab": false,
+                  "Id": "97c043e3-9ab6-9b41-f5ba-16ad12b12c27",
+                  "HideTabPdf": false
+                }
+              ],
+              "Style": {
+                "advanced": "",
+                "cssClasses": ""
+              },
+              "Alignment": {
+                "paddingLeft": 0,
+                "paddingRight": 0,
+                "paddingTop": 0,
+                "paddingBottom": 0,
+                "innerPaddingLeft": 0,
+                "innerPaddingRight": 0,
+                "innerPaddingTop": 0,
+                "innerPaddingBottom": 0,
+                "titlePaddingLeft": 0,
+                "titlePaddingRight": 0,
+                "titlePaddingTop": 7,
+                "titlePaddingBottom": 7
+              },
+              "format": {
+                "titleFontSize": 16,
+                "titleHorizontal": "Center",
+                "titleFontBold": false,
+                "titleShadow": false,
+                "titleTransparentBackground": false,
+                "tileBorderWidth": 0,
+                "tileBorderRounding": 0,
+                "tileBorderColor": "#000000",
+                "tileBackgroundColor": "#000000",
+                "tileTransparentBackground": true,
+                "tileShadow": false
+              }
+            },
+            "containerId": null,
+            "components": [
+              {
+                "id": "119120fc-eff6-7107-2ade-f1d211a9e6e0",
+                "key": "ChartGL",
+                "options": {
+                  "version": "v2.5.0",
+                  "Style": {
+                    "advanced": "",
+                    "cssClasses": ""
+                  },
+                  "Layers": [
+                    {
+                      "_Id": "L1",
+                      "_Type": "Line",
+                      "possibleXColumns": [
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "possibleYColumns": [
+                        "*",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "Data": {
+                        "_dashboardsType": "data",
+                        "value": "wave"
+                      },
+                      "XAxis": "time",
+                      "YAxis": "*",
+                      "Legend": true,
+                      "Actions": [],
+                      "Name": "Layer 1",
+                      "XAxisId": "X-Axis 1",
+                      "YAxisId": "Y-Axis 1",
+                      "possibleXAxes": [
+                        "X-Axis 1"
+                      ],
+                      "possibleYAxes": [
+                        "Y-Axis 1"
+                      ],
+                      "Enabled": true,
+                      "Opacity": 80,
+                      "ScaleOnZoom": true,
+                      "RadiusData": "Fixed Size",
+                      "possibleColorColumns": [
+                        "None",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "ColorData": "None",
+                      "Palette": [
+                        {
+                          "type": "#ff0000"
+                        },
+                        {
+                          "type": "#ffd500"
+                        },
+                        {
+                          "type": "#e6ff00"
+                        },
+                        {
+                          "type": "#00ff2f"
+                        },
+                        {
+                          "type": "#00a6ff"
+                        },
+                        {
+                          "type": "#6200ff"
+                        },
+                        {
+                          "type": "#e2c7c0"
+                        },
+                        {
+                          "type": "#9acad6"
+                        },
+                        {
+                          "type": "#1995a3"
+                        },
+                        {
+                          "type": "#484d6e"
+                        }
+                      ],
+                      "LegendGroup": "None",
+                      "Line": {
+                        "FillPalette": [
+                          {
+                            "type": "#0061FF"
+                          },
+                          {
+                            "type": "#F23A66"
+                          },
+                          {
+                            "type": "#009BAB"
+                          },
+                          {
+                            "type": "#7647CC"
+                          },
+                          {
+                            "type": "#FFC300"
+                          },
+                          {
+                            "type": "#9FA3A6"
+                          },
+                          {
+                            "type": "#003A99"
+                          },
+                          {
+                            "type": "#A90B31"
+                          },
+                          {
+                            "type": "#005D67"
+                          },
+                          {
+                            "type": "#452481"
+                          }
+                        ],
+                        "Fill": "No Fill",
+                        "SpanGaps": false,
+                        "Interpolation": {
+                          "Interpolation": "Linear",
+                          "SteppedLine": "After",
+                          "SegmentLength": 20
+                        },
+                        "LineThickness": 1,
+                        "LineStyle": "None"
+                      },
+                      "Labels": {
+                        "Enabled": false,
+                        "Align": "center",
+                        "Color": "#000000",
+                        "Font": {
+                          "Bold": false,
+                          "Size": 12
+                        },
+                        "Frequency": 1,
+                        "Offset": 0,
+                        "Rotation": 0,
+                        "Template": "{{x}}, {{toFixed y 2}}",
+                        "MaxLabels": 10
+                      },
+                      "ShowCurrentTick": false,
+                      "CacheStreamingData": false,
+                      "Bubbles": {
+                        "RadiusScaling": 0,
+                        "RadiusData": "Fixed Size",
+                        "ScaleOnZoom": true,
+                        "Icon": "",
+                        "Opacity": 80
+                      },
+                      "possibleActiosColumns": [
+                        "None",
+                        "<thisX>",
+                        "<thisY>",
+                        "<thisName>"
+                      ],
+                      "XAxisMulti": "",
+                      "possibleLayers": [
+                        "No Fill",
+                        "Origin"
+                      ],
+                      "possibleMultiColumns": [
+                        "",
+                        "*",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "possibleActionsColumns": [
+                        "None",
+                        "<thisX>",
+                        "<thisY>",
+                        "<thisName>",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "possibleRadiusData": [
+                        "Fixed Size",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ]
+                    }
+                  ],
+                  "Overlay": {
+                    "UseCustomTooltip": false,
+                    "CustomTooltip": "<table><thead><tr><th>{{this.0.xAxis}}</th><th></th></tr></thead><tbody>{{#each this}}<tr><td width=\"{{width}}\"><i class=\"{{icon}}\" style=\"color:{{color}}; {{image}};\"></i> {{name}}: </td><td>{{yAxis}}</td></tr>{{/each}}</tbody></table>",
+                    "ShowCrosshairs": false,
+                    "ShowAllPoints": false,
+                    "GroupByLayer": false,
+                    "ShowCoordinates": true,
+                    "SnapToPoint": true,
+                    "ShowAllLayers": true
+                  },
+                  "Alignment": {
+                    "paddingLeft": 0,
+                    "paddingRight": 0,
+                    "paddingTop": 0,
+                    "paddingBottom": 0,
+                    "innerPaddingLeft": 0,
+                    "innerPaddingRight": 0,
+                    "innerPaddingTop": 0,
+                    "innerPaddingBottom": 0,
+                    "titlePaddingLeft": 0,
+                    "titlePaddingRight": 0,
+                    "titlePaddingTop": 7,
+                    "titlePaddingBottom": 7
+                  },
+                  "format": {
+                    "widgetTitle": "",
+                    "titleFontSize": 16,
+                    "titleHorizontal": "Center",
+                    "titleFontBold": false,
+                    "titleShadow": false,
+                    "titleTransparentBackground": false,
+                    "tileBorderWidth": 0,
+                    "tileBorderRounding": 0,
+                    "tileBorderColor": "#000000",
+                    "tileBackgroundColor": "#06072e",
+                    "tileTransparentBackground": false,
+                    "tileShadow": false
+                  },
+                  "Palette": [
+                    {
+                      "type": "#ff0000"
+                    },
+                    {
+                      "type": "#ffd500"
+                    },
+                    {
+                      "type": "#e6ff00"
+                    },
+                    {
+                      "type": "#00ff2f"
+                    },
+                    {
+                      "type": "#00a6ff"
+                    },
+                    {
+                      "type": "#6200ff"
+                    },
+                    {
+                      "type": "#e2c7c0"
+                    },
+                    {
+                      "type": "#9acad6"
+                    },
+                    {
+                      "type": "#1995a3"
+                    },
+                    {
+                      "type": "#484d6e"
+                    }
+                  ],
+                  "Basics": {
+                    "Hover": "",
+                    "Selected": "",
+                    "SelectFirstPoint": false,
+                    "RangeSelection": false,
+                    "Zoom": true,
+                    "Duration": 400,
+                    "Easing": "easeOutQuart",
+                    "TrackLoadTime": false,
+                    "LoadTime": "",
+                    "Name": ""
+                  },
+                  "Xaxes": [
+                    {
+                      "Type": "Linear",
+                      "Width": 0,
+                      "Ticks": 10,
+                      "Title": {
+                        "Display": false,
+                        "LabelString": "",
+                        "FontSize": 16
+                      },
+                      "Range": {
+                        "UseMinMax": false,
+                        "Min": 0,
+                        "Max": 1,
+                        "SelectionMin": "",
+                        "SelectionMax": "",
+                        "ResetToNull": true
+                      },
+                      "Format": {
+                        "Display": true,
+                        "Format": "Number",
+                        "Precision": 2,
+                        "FontSize": 12,
+                        "Prefix": "",
+                        "Suffix": "",
+                        "HideTrailingZeroes": false,
+                        "DateFormat": "YYYY-MM-DD",
+                        "BeginAtZero": false,
+                        "Rotation": 0
+                      },
+                      "Position": "Bottom",
+                      "Stacked": false,
+                      "Color": ""
+                    }
+                  ],
+                  "Yaxes": [
+                    {
+                      "Type": "Linear",
+                      "Width": 0,
+                      "Ticks": 10,
+                      "Title": {
+                        "Display": false,
+                        "LabelString": "",
+                        "FontSize": 16
+                      },
+                      "Range": {
+                        "UseMinMax": true,
+                        "Min": "-2",
+                        "Max": "2",
+                        "SelectionMin": "",
+                        "SelectionMax": "",
+                        "ResetToNull": true
+                      },
+                      "Format": {
+                        "Display": true,
+                        "Format": "Number",
+                        "Precision": 2,
+                        "FontSize": 12,
+                        "Prefix": "",
+                        "Suffix": "",
+                        "HideTrailingZeroes": false,
+                        "DateFormat": "YYYY-MM-DD",
+                        "BeginAtZero": false,
+                        "Rotation": 0
+                      },
+                      "Position": "Left",
+                      "Stacked": false,
+                      "Color": ""
+                    }
+                  ],
+                  "Legend": {
+                    "LegendGroups": [],
+                    "Position": "Top",
+                    "CustomLegend": "\n<ul class=\"chartgl-legend\">\n  {{#each this}}\n    {{!-- legend color --}}\n    <li>\n      {{#if icon}}\n        <i style=\"height:{{width}}px;color:{{color}};margin-top:2.5px;margin-right:5px;{{image}}\"class=\"fa {{icon}}\"></i>\n      {{else}}  \n        {{#if bullColor}}\n          <span style=\"margin-right:5px;\">  \n            <i style=\"font-size: 16px;color:{{color}};margin-top:0;\" class=\"fa fa-ellipsis-v\"></i>\n            <i style=\"font-size: 8px;margin-left:-5px;color:{{bullColor}};margin-top:3px;position: absolute;\"class=\"fa fa-square\"></i>\n          </span>\n        {{else}}\n          {{#if isHeatmap}}\n            <svg style=\"background:{{color}}; border-radius:2px;width:{{width}}px; height:{{width}}px;margin-top:2px;margin-right:5px;{{image}}\"class=\"fa fa-square\"></svg>\n          {{else}}\n            <i style=\"height:{{width}}px;color:{{color}};margin-top:2.5px;margin-right:5px;{{image}}\"class=\"fa fa-square\"></i>\n            {{/if}}\n        {{/if}}\n      {{/if}}\n\n      {{!-- legend text --}}\n      <span style=\"color:{{fontColor}}; text-decoration:{{strike}}\" id=\"{{text}}\">{{text}}</span>\n    </li>\n  {{/each}}\n</ul>",
+                    "UseCustomLegend": false
+                  },
+                  "FileExport": {
+                    "FileName": [],
+                    "ShowExportCsvButton": false,
+                    "ShowExportExcelButton": false,
+                    "ShowExportPngButton": false,
+                    "UseChartFormat": false,
+                    "Actions": [],
+                    "PngButton": "Export Png"
+                  },
+                  "Annotations": {
+                    "ShowAnnotateControl": false,
+                    "Annotations": ""
+                  },
+                  "possiblePalettes": [
+                    " ",
+                    ".palette_default",
+                    ".palette_gradient",
+                    ".palette_pastel",
+                    ".palette_colorblind"
+                  ],
+                  "possiblePositions": [
+                    "Top",
+                    "Bottom",
+                    "Left",
+                    "Right"
+                  ]
+                },
+                "containerId": "b71c4408-5015-810f-220e-eaf32637299",
+                "components": [],
+                "widgets": [],
+                "definitionId": "669",
+                "hasOnSettingsChange": true
+              },
+              {
+                "id": "9f6c2092-4f07-a533-da7b-a1e6e81304e8",
+                "key": "ChartGL",
+                "options": {
+                  "version": "v2.5.0",
+                  "Style": {
+                    "advanced": "",
+                    "cssClasses": ""
+                  },
+                  "Layers": [
+                    {
+                      "possibleActionsColumns": [
+                        "None",
+                        "<thisX>",
+                        "<thisY>",
+                        "<thisName>",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "possibleColorColumns": [
+                        "None",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "possibleRadiusData": [
+                        "Fixed Size",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "possibleLayers": [
+                        "No Fill",
+                        "Origin"
+                      ],
+                      "possibleXColumns": [
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "possibleYColumns": [
+                        "*",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "possibleMultiColumns": [
+                        "",
+                        "*",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "Data": {
+                        "_dashboardsType": "data",
+                        "value": "mountains"
+                      },
+                      "Palette": [
+                        {
+                          "type": "#ff0000"
+                        },
+                        {
+                          "type": "#ffd500"
+                        },
+                        {
+                          "type": "#e6ff00"
+                        },
+                        {
+                          "type": "#00ff2f"
+                        },
+                        {
+                          "type": "#00a6ff"
+                        },
+                        {
+                          "type": "#6200ff"
+                        },
+                        {
+                          "type": "#e2c7c0"
+                        },
+                        {
+                          "type": "#9acad6"
+                        },
+                        {
+                          "type": "#1995a3"
+                        },
+                        {
+                          "type": "#484d6e"
+                        }
+                      ],
+                      "Actions": [],
+                      "_Id": "L1",
+                      "_Type": "Line",
+                      "possibleXAxes": [
+                        "X-Axis 1"
+                      ],
+                      "possibleYAxes": [
+                        "Y-Axis 1"
+                      ],
+                      "Name": "Layer 1",
+                      "XAxisId": "X-Axis 1",
+                      "YAxisId": "Y-Axis 1",
+                      "Opacity": 80,
+                      "LegendGroup": "None",
+                      "ColorData": "None",
+                      "ShowCurrentTick": false,
+                      "CacheStreamingData": false,
+                      "Legend": true,
+                      "Enabled": true,
+                      "Labels": {
+                        "Align": "center",
+                        "Color": "#000000",
+                        "Enabled": false,
+                        "Font": {
+                          "Bold": false,
+                          "Size": 12
+                        },
+                        "Frequency": 1,
+                        "Offset": 0,
+                        "Rotation": 0,
+                        "MaxLabels": 10,
+                        "Template": "{{x}}, {{toFixed y 2}}"
+                      },
+                      "XAxis": "time",
+                      "YAxis": "*",
+                      "XAxisMulti": "",
+                      "Line": {
+                        "LineThickness": 1,
+                        "LineStyle": "None",
+                        "Fill": "No Fill",
+                        "SpanGaps": false,
+                        "Interpolation": {
+                          "Interpolation": "Linear",
+                          "SteppedLine": "After",
+                          "SegmentLength": 20
+                        },
+                        "FillPalette": [
+                          {
+                            "type": "#0061FF"
+                          },
+                          {
+                            "type": "#F23A66"
+                          },
+                          {
+                            "type": "#009BAB"
+                          },
+                          {
+                            "type": "#7647CC"
+                          },
+                          {
+                            "type": "#FFC300"
+                          },
+                          {
+                            "type": "#9FA3A6"
+                          },
+                          {
+                            "type": "#003A99"
+                          },
+                          {
+                            "type": "#A90B31"
+                          },
+                          {
+                            "type": "#005D67"
+                          },
+                          {
+                            "type": "#452481"
+                          }
+                        ]
+                      },
+                      "Bubbles": {
+                        "Opacity": 80,
+                        "RadiusData": "Fixed Size",
+                        "RadiusScaling": 0,
+                        "ScaleOnZoom": true,
+                        "Icon": ""
+                      }
+                    },
+                    {
+                      "possibleActionsColumns": [
+                        "None",
+                        "<thisX>",
+                        "<thisY>",
+                        "<thisName>",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "possibleColorColumns": [
+                        "None",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "possibleRadiusData": [
+                        "Fixed Size",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "possibleXColumns": [
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "possibleYColumns": [
+                        "*",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "possibleMultiColumns": [
+                        "",
+                        "*",
+                        "time",
+                        "r",
+                        "o",
+                        "y",
+                        "g",
+                        "b",
+                        "p"
+                      ],
+                      "Data": {
+                        "_dashboardsType": "data",
+                        "value": "rainbow"
+                      },
+                      "PaletteTheme": " ",
+                      "Palette": [
+                        {
+                          "type": "#ff0000"
+                        },
+                        {
+                          "type": "#ffd500"
+                        },
+                        {
+                          "type": "#e6ff00"
+                        },
+                        {
+                          "type": "#00ff2f"
+                        },
+                        {
+                          "type": "#00a6ff"
+                        },
+                        {
+                          "type": "#6200ff"
+                        },
+                        {
+                          "type": "#e2c7c0"
+                        },
+                        {
+                          "type": "#9acad6"
+                        },
+                        {
+                          "type": "#1995a3"
+                        },
+                        {
+                          "type": "#484d6e"
+                        }
+                      ],
+                      "Actions": [],
+                      "_Id": "L0",
+                      "_Type": "Bubble",
+                      "possibleXAxes": [
+                        "X-Axis 1"
+                      ],
+                      "possibleYAxes": [
+                        "Y-Axis 1"
+                      ],
+                      "Name": "Layer 2",
+                      "XAxisId": "X-Axis 1",
+                      "YAxisId": "Y-Axis 1",
+                      "Opacity": 80,
+                      "LegendGroup": "None",
+                      "ColorData": "None",
+                      "ShowCurrentTick": false,
+                      "CacheStreamingData": false,
+                      "Legend": true,
+                      "Enabled": true,
+                      "Labels": {
+                        "Align": "center",
+                        "Color": "#000000",
+                        "Enabled": false,
+                        "Font": {
+                          "Bold": false,
+                          "Size": 12
+                        },
+                        "Frequency": 1,
+                        "Offset": 0,
+                        "Rotation": 0,
+                        "MaxLabels": 10,
+                        "Template": "{{x}}, {{toFixed y 2}}"
+                      },
+                      "XAxis": "time",
+                      "YAxis": "*",
+                      "XAxisMulti": "",
+                      "Bubbles": {
+                        "RadiusData": "Fixed Size",
+                        "RadiusScaling": 15,
+                        "ScaleOnZoom": true,
+                        "Icon": ""
+                      }
+                    },
+                    {
+                      "possibleActionsColumns": [
+                        "None",
+                        "<thisX>",
+                        "<thisY>",
+                        "<thisName>",
+                        "sym",
+                        "time",
+                        "y"
+                      ],
+                      "possibleColorColumns": [
+                        "None",
+                        "sym",
+                        "time",
+                        "y"
+                      ],
+                      "possibleRadiusData": [
+                        "Fixed Size",
+                        "sym",
+                        "time",
+                        "y"
+                      ],
+                      "possibleXColumns": [
+                        "sym",
+                        "time",
+                        "y"
+                      ],
+                      "possibleYColumns": [
+                        "*",
+                        "sym",
+                        "time",
+                        "y"
+                      ],
+                      "possibleMultiColumns": [
+                        "",
+                        "*",
+                        "sym",
+                        "time",
+                        "y"
+                      ],
+                      "Data": {
+                        "_dashboardsType": "data",
+                        "value": "cat"
+                      },
+                      "PaletteTheme": " ",
+                      "Palette": [
+                        {
+                          "type": "#ff0000"
+                        },
+                        {
+                          "type": "#ffd500"
+                        },
+                        {
+                          "type": "#e6ff00"
+                        },
+                        {
+                          "type": "#00ff2f"
+                        },
+                        {
+                          "type": "#00a6ff"
+                        },
+                        {
+                          "type": "#6200ff"
+                        },
+                        {
+                          "type": "#e2c7c0"
+                        },
+                        {
+                          "type": "#9acad6"
+                        },
+                        {
+                          "type": "#1995a3"
+                        },
+                        {
+                          "type": "#484d6e"
+                        }
+                      ],
+                      "Actions": [],
+                      "_Id": "L2",
+                      "_Type": "Bubble",
+                      "possibleXAxes": [
+                        "X-Axis 1"
+                      ],
+                      "possibleYAxes": [
+                        "Y-Axis 1"
+                      ],
+                      "Name": "Layer 3",
+                      "XAxisId": "X-Axis 1",
+                      "YAxisId": "Y-Axis 1",
+                      "Color": "#e0e0e0",
+                      "Opacity": 100,
+                      "LegendGroup": "None",
+                      "ColorData": "None",
+                      "ShowCurrentTick": false,
+                      "CacheStreamingData": false,
+                      "Legend": true,
+                      "Enabled": true,
+                      "Labels": {
+                        "Align": "center",
+                        "Color": "#000000",
+                        "Enabled": false,
+                        "Font": {
+                          "Bold": false,
+                          "Size": 12
+                        },
+                        "Frequency": 1,
+                        "Offset": 0,
+                        "Rotation": 0,
+                        "MaxLabels": 10,
+                        "Template": "{{x}}, {{toFixed y 2}}"
+                      },
+                      "XAxis": "time",
+                      "YAxis": "y",
+                      "XAxisMulti": "",
+                      "Bubbles": {
+                        "RadiusData": "Fixed Size",
+                        "RadiusScaling": 120,
+                        "ScaleOnZoom": true,
+                        "Icon": {
+                          "_dashboardsType": "viewstate",
+                          "value": "cat"
+                        }
+                      }
+                    }
+                  ],
+                  "Overlay": {
+                    "UseCustomTooltip": false,
+                    "CustomTooltip": "<table><thead><tr><th>{{this.0.xAxis}}</th><th></th></tr></thead><tbody>{{#each this}}<tr><td width=\"{{width}}\"><i class=\"{{icon}}\" style=\"color:{{color}}; {{image}};\"></i> {{name}}: </td><td>{{yAxis}}</td></tr>{{/each}}</tbody></table>",
+                    "ShowCrosshairs": false,
+                    "ShowAllPoints": false,
+                    "GroupByLayer": false,
+                    "ShowCoordinates": true,
+                    "SnapToPoint": true,
+                    "ShowAllLayers": true
+                  },
+                  "Alignment": {
+                    "paddingLeft": 0,
+                    "paddingRight": 0,
+                    "paddingTop": 0,
+                    "paddingBottom": 0,
+                    "innerPaddingLeft": 0,
+                    "innerPaddingRight": 0,
+                    "innerPaddingTop": 0,
+                    "innerPaddingBottom": 0,
+                    "titlePaddingLeft": 0,
+                    "titlePaddingRight": 0,
+                    "titlePaddingTop": 7,
+                    "titlePaddingBottom": 7
+                  },
+                  "format": {
+                    "widgetTitle": "",
+                    "titleFontSize": 16,
+                    "titleHorizontal": "Center",
+                    "titleFontBold": false,
+                    "titleShadow": false,
+                    "titleTransparentBackground": false,
+                    "tileBorderWidth": 0,
+                    "tileBorderRounding": 0,
+                    "tileBorderColor": "#000000",
+                    "tileBackgroundColor": "#06072e",
+                    "tileTransparentBackground": false,
+                    "tileShadow": false
+                  },
+                  "Palette": [
+                    {
+                      "type": "#ff0000"
+                    },
+                    {
+                      "type": "#ffd500"
+                    },
+                    {
+                      "type": "#e6ff00"
+                    },
+                    {
+                      "type": "#00ff2f"
+                    },
+                    {
+                      "type": "#00a6ff"
+                    },
+                    {
+                      "type": "#6200ff"
+                    },
+                    {
+                      "type": "#e2c7c0"
+                    },
+                    {
+                      "type": "#9acad6"
+                    },
+                    {
+                      "type": "#1995a3"
+                    },
+                    {
+                      "type": "#484d6e"
+                    }
+                  ],
+                  "Basics": {
+                    "Hover": "",
+                    "Selected": "",
+                    "SelectFirstPoint": false,
+                    "RangeSelection": false,
+                    "Zoom": true,
+                    "Duration": 400,
+                    "Easing": "easeOutQuart",
+                    "TrackLoadTime": false,
+                    "LoadTime": "",
+                    "Name": ""
+                  },
+                  "Xaxes": [
+                    {
+                      "Type": "Linear",
+                      "Width": 0,
+                      "Ticks": 10,
+                      "Title": {
+                        "Display": false,
+                        "LabelString": "",
+                        "FontSize": 16
+                      },
+                      "Range": {
+                        "UseMinMax": false,
+                        "Min": 0,
+                        "Max": 1,
+                        "SelectionMin": "",
+                        "SelectionMax": "",
+                        "ResetToNull": true
+                      },
+                      "Format": {
+                        "Display": true,
+                        "Format": "Number",
+                        "Precision": 2,
+                        "FontSize": 12,
+                        "Prefix": "",
+                        "Suffix": "",
+                        "HideTrailingZeroes": false,
+                        "DateFormat": "YYYY-MM-DD",
+                        "BeginAtZero": false,
+                        "Rotation": 0
+                      },
+                      "Position": "Bottom",
+                      "Stacked": false,
+                      "Color": ""
+                    }
+                  ],
+                  "Yaxes": [
+                    {
+                      "Type": "Linear",
+                      "Width": 0,
+                      "Ticks": 10,
+                      "Title": {
+                        "Display": false,
+                        "LabelString": "",
+                        "FontSize": 16
+                      },
+                      "Range": {
+                        "UseMinMax": true,
+                        "Min": "-2",
+                        "Max": "2",
+                        "SelectionMin": "",
+                        "SelectionMax": "",
+                        "ResetToNull": true
+                      },
+                      "Format": {
+                        "Display": true,
+                        "Format": "Number",
+                        "Precision": 2,
+                        "FontSize": 12,
+                        "Prefix": "",
+                        "Suffix": "",
+                        "HideTrailingZeroes": false,
+                        "DateFormat": "YYYY-MM-DD",
+                        "BeginAtZero": false,
+                        "Rotation": 0
+                      },
+                      "Position": "Left",
+                      "Stacked": false,
+                      "Color": ""
+                    }
+                  ],
+                  "Legend": {
+                    "LegendGroups": [],
+                    "Position": "Top",
+                    "CustomLegend": "\n<ul class=\"chartgl-legend\">\n  {{#each this}}\n    {{!-- legend color --}}\n    <li>\n      {{#if icon}}\n        <i style=\"height:{{width}}px;color:{{color}};margin-top:2.5px;margin-right:5px;{{image}}\"class=\"fa {{icon}}\"></i>\n      {{else}}  \n        {{#if bullColor}}\n          <span style=\"margin-right:5px;\">  \n            <i style=\"font-size: 16px;color:{{color}};margin-top:0;\" class=\"fa fa-ellipsis-v\"></i>\n            <i style=\"font-size: 8px;margin-left:-5px;color:{{bullColor}};margin-top:3px;position: absolute;\"class=\"fa fa-square\"></i>\n          </span>\n        {{else}}\n          {{#if isHeatmap}}\n            <svg style=\"background:{{color}}; border-radius:2px;width:{{width}}px; height:{{width}}px;margin-top:2px;margin-right:5px;{{image}}\"class=\"fa fa-square\"></svg>\n          {{else}}\n            <i style=\"height:{{width}}px;color:{{color}};margin-top:2.5px;margin-right:5px;{{image}}\"class=\"fa fa-square\"></i>\n            {{/if}}\n        {{/if}}\n      {{/if}}\n\n      {{!-- legend text --}}\n      <span style=\"color:{{fontColor}}; text-decoration:{{strike}}\" id=\"{{text}}\">{{text}}</span>\n    </li>\n  {{/each}}\n</ul>",
+                    "UseCustomLegend": false
+                  },
+                  "FileExport": {
+                    "FileName": [],
+                    "ShowExportCsvButton": false,
+                    "ShowExportExcelButton": false,
+                    "ShowExportPngButton": false,
+                    "UseChartFormat": false,
+                    "Actions": [],
+                    "PngButton": "Export Png"
+                  },
+                  "Annotations": {
+                    "ShowAnnotateControl": false,
+                    "Annotations": ""
+                  },
+                  "possiblePalettes": [
+                    " ",
+                    ".palette_default",
+                    ".palette_gradient",
+                    ".palette_pastel",
+                    ".palette_colorblind"
+                  ],
+                  "possiblePositions": [
+                    "Top",
+                    "Bottom",
+                    "Left",
+                    "Right"
+                  ]
+                },
+                "containerId": "97c043e3-9ab6-9b41-f5ba-16ad12b12c27",
+                "components": [],
+                "widgets": [],
+                "definitionId": "669",
+                "hasOnSettingsChange": true
+              }
+            ],
+            "widgets": [],
+            "definitionId": "26",
+            "hasOnSettingsChange": true
+          }
+        }
+      ],
+      "relativeHeight": true,
+      "rowCount": 24,
+      "rowHeight": 25,
+      "colCount": 36,
+      "floatable": false,
+      "isDefault": true
+    }
+  ],
+  "popups": [],
+  "tags": [],
+  "dashboardTheme": "Dark",
+  "themeSwitchable": true,
+  "saveTimestamp": null,
+  "relativeHeight": true,
+  "rowCount": 24,
+  "rowHeight": 25,
+  "colCount": 36,
+  "floatable": false,
+  "viewState": {
+    "selected": {
+      "_viewType": true,
+      "_default": "0",
+      "_type": "symbol"
+    },
+    ".settings": {
+      "component_27230": {
+        "version": 0,
+        "GroupingConfiguration": []
+      },
+      "component_27273": {
+        "version": 0,
+        "GroupingConfiguration": []
+      },
+      "component_27317": {
+        "version": 0,
+        "GroupingConfiguration": []
+      },
+      "component_27361": {
+        "version": 0,
+        "GroupingConfiguration": []
+      },
+      "component_427": {
+        "version": 0,
+        "GroupingConfiguration": []
+      },
+      "component_470": {
+        "version": 0,
+        "GroupingConfiguration": []
+      },
+      "component_514": {
+        "version": 0,
+        "GroupingConfiguration": []
+      },
+      "component_558": {
+        "version": 0,
+        "GroupingConfiguration": []
+      },
+      "d6719ad6-da39-07b2-3b12-a9c6a06d24a2": {
+        "version": 0,
+        "Selection_target_tab": 0
+      }
+    },
+    "cat": {
+      "_viewType": true,
+      "_default": "data:image/png;base64,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",
+      "_type": "symbol"
+    },
+    "_settings": {
+      "dashboardUser": {
+        "_viewType": true,
+        "_type": "symbol",
+        "_default": ""
+      },
+      "dashboardTimezone": {
+        "_viewType": true,
+        "_type": "symbol",
+        "_default": ""
+      },
+      "dashboardUrl": {
+        "_viewType": true,
+        "_type": "string",
+        "_default": ""
+      },
+      "dashboardTitle": {
+        "_viewType": true,
+        "_type": "symbol",
+        "_default": ""
+      },
+      "dashboardStartTimestamp": {
+        "_viewType": true,
+        "_type": "timestamp",
+        "_default": "",
+        "_rolling": true
+      },
+      "dashboardAvailableMemoryThreshold": {
+        "_viewType": true,
+        "_type": "int",
+        "_default": 0
+      }
+    }
+  },
+  "data": {
+    "New node": {
+      "_pagingType": "NONE",
+      "_autoExecute": true,
+      "_autoExec": true,
+      "_columns": [
+        "time",
+        "sym",
+        "src",
+        "bidSize",
+        "bid",
+        "ask",
+        "askSize"
+      ],
+      "_dataType": "builder",
+      "_dataSource": "kdb",
+      "_connection": "html5evalcongroup",
+      "_mappings": {
+        "key": "sym",
+        "mappings": {},
+        "value": "sym"
+      },
+      "_maxRows": 2000,
+      "_subscriptionType": "static",
+      "_subscriptionInterval": 3,
+      "_layout": [
+        {
+          "isExpanded": true,
+          "weight": 2.746705710102489
+        },
+        {
+          "isExpanded": false,
+          "weight": 1
+        },
+        {
+          "isExpanded": false,
+          "weight": 1
+        },
+        {
+          "isExpanded": true,
+          "weight": 0
+        },
+        {
+          "isExpanded": true,
+          "weight": 1.253294289897511
+        }
+      ],
+      "_selectedAnalytic": ".queryBuilder.processGraph",
+      "_analyticParams": [
+        {
+          "id": "nid",
+          "name": "nid",
+          "index": 0,
+          "type": "symbol",
+          "value": "filter0"
+        },
+        {
+          "id": "graph",
+          "name": "graph",
+          "index": 1,
+          "type": "string",
+          "value": "0100000068010000630b00020000006e6f64657300656467657300000002000000630b0003000000726573756c740064617461300066696c7465723000000003000000630b000200000074797065006461746100000002000000f5726573756c7400fa00000080630b000200000074797065006461746100000002000000f564617461000a000800000064667851756f7465630b000200000074797065006461746100000002000000f566696c74657200630b000300000073656c6563740077686572650064697374696e637400000003000000630b00000000000b00000000000000020000006605630b000400000073726300636f6d70617269736f6e0076616c756500646174615479706500000004000000f562696400f56772656174657200f7000000000000f03ffbf7ffff00630b000200000066696c7465723000726573756c7400000002000000000001000000f5646174613000000001000000f566696c7465723000"
+        }
+      ],
+      "_subscriptionKey": "",
+      "_isStreamingSubscription": false,
+      "_graphJSON": "{\"nodes\":{\"result\":{\"id\":\"result\",\"group\":\"result\"},\"data0\":{\"id\":\"data0\",\"group\":\"data\",\"data\":\"dfxQuote\"},\"filter0\":{\"id\":\"filter0\",\"group\":\"filter\",\"data\":{\"select\":{},\"where\":{\"operator\":\"AND\",\"children\":[{\"propertyName\":\"bid\",\"propertyType\":9,\"operator\":\"greater\",\"value\":\"<%selected%>\",\"active\":true,\"type\":\"normal\"}]},\"distinct\":false}}},\"edges\":{\"data0\":[\"filter0\"],\"filter0\":[\"result\"],\"groupBy0\":[],\"update0\":[]}}",
+      "_selectedNode": "filter0",
+      "_pageSize": 2000,
+      "_serverPaging": false
+    },
+    "cat": {
+      "_pagingType": "NONE",
+      "_autoExecute": true,
+      "_autoExec": true,
+      "_columns": [
+        "sym",
+        "timestamp",
+        "y"
+      ],
+      "_dataType": "analytic",
+      "_dataSource": "kdb",
+      "_connection": "html5evalcongroup",
+      "_mappings": {
+        "key": "sym",
+        "mappings": {},
+        "value": "timestamp"
+      },
+      "_maxRows": 2000,
+      "_subscriptionType": "streaming",
+      "_subscriptionInterval": 3,
+      "_layout": [
+        {
+          "isExpanded": true,
+          "weight": 2
+        },
+        {
+          "isExpanded": false,
+          "weight": 1
+        },
+        {
+          "isExpanded": false,
+          "weight": 1
+        },
+        {
+          "isExpanded": true,
+          "weight": 0
+        },
+        {
+          "isExpanded": false,
+          "weight": 2
+        }
+      ],
+      "_selectedAnalytic": "cat",
+      "_analyticParams": [
+        {
+          "id": "x",
+          "name": "x",
+          "type": "symbol",
+          "required": false,
+          "value": "",
+          "isViewState": false
+        }
+      ],
+      "_subscriptionKey": "sym",
+      "_isStreamingSubscription": false,
+      "_hasUpdateQuery": false,
+      "_updateQueryString": "",
+      "_updateType": "query"
+    },
+    "mountains": {
+      "_pagingType": "NONE",
+      "_autoExecute": true,
+      "_autoExec": true,
+      "_columns": [
+        "time",
+        "r",
+        "o",
+        "y",
+        "g",
+        "b",
+        "p"
+      ],
+      "_dataType": "analytic",
+      "_dataSource": "kdb",
+      "_connection": "html5evalcongroup",
+      "_mappings": {
+        "key": "time",
+        "mappings": {},
+        "value": "r"
+      },
+      "_maxRows": "800",
+      "_subscriptionType": "streaming",
+      "_subscriptionInterval": 3,
+      "_layout": [
+        {
+          "isExpanded": true,
+          "weight": 2
+        },
+        {
+          "isExpanded": false,
+          "weight": 1
+        },
+        {
+          "isExpanded": false,
+          "weight": 1
+        },
+        {
+          "isExpanded": true,
+          "weight": 0
+        },
+        {
+          "isExpanded": true,
+          "weight": 2
+        }
+      ],
+      "_selectedAnalytic": "peaks",
+      "_analyticParams": [
+        {
+          "id": "x",
+          "name": "x",
+          "type": "symbol",
+          "required": false,
+          "value": "",
+          "isViewState": false
+        }
+      ],
+      "_subscriptionKey": "time",
+      "_isStreamingSubscription": false,
+      "_hasUpdateQuery": false,
+      "_updateQueryString": "",
+      "_updateType": "query"
+    },
+    "rainbow": {
+      "_pagingType": "NONE",
+      "_autoExecute": true,
+      "_autoExec": true,
+      "_columns": [
+        "time",
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f"
+      ],
+      "_dataType": "analytic",
+      "_dataSource": "kdb",
+      "_connection": "html5evalcongroup",
+      "_mappings": {
+        "key": "time",
+        "mappings": {},
+        "value": "a"
+      },
+      "_maxRows": "682",
+      "_subscriptionType": "streaming",
+      "_subscriptionInterval": 3,
+      "_layout": [
+        {
+          "isExpanded": true,
+          "weight": 2
+        },
+        {
+          "isExpanded": false,
+          "weight": 1
+        },
+        {
+          "isExpanded": false,
+          "weight": 1
+        },
+        {
+          "isExpanded": true,
+          "weight": 0
+        },
+        {
+          "isExpanded": false,
+          "weight": 2
+        }
+      ],
+      "_selectedAnalytic": "rainbow",
+      "_analyticParams": [
+        {
+          "id": "x",
+          "name": "x",
+          "type": "symbol",
+          "required": false,
+          "value": "",
+          "isViewState": false
+        }
+      ],
+      "_subscriptionKey": "time",
+      "_isStreamingSubscription": false,
+      "_hasUpdateQuery": false,
+      "_updateQueryString": "",
+      "_updateType": "query"
+    },
+    "wave": {
+      "_pagingType": "NONE",
+      "_autoExecute": true,
+      "_autoExec": true,
+      "_columns": [
+        "time",
+        "r",
+        "o",
+        "y",
+        "g",
+        "b",
+        "p"
+      ],
+      "_dataType": "analytic",
+      "_dataSource": "kdb",
+      "_connection": "html5evalcongroup",
+      "_mappings": {
+        "key": "time",
+        "mappings": {},
+        "value": "r"
+      },
+      "_maxRows": 2000,
+      "_subscriptionType": "streaming",
+      "_subscriptionInterval": 3,
+      "_layout": [
+        {
+          "isExpanded": true,
+          "weight": 2
+        },
+        {
+          "isExpanded": false,
+          "weight": 1
+        },
+        {
+          "isExpanded": false,
+          "weight": 1
+        },
+        {
+          "isExpanded": true,
+          "weight": 0
+        },
+        {
+          "isExpanded": false,
+          "weight": 2
+        }
+      ],
+      "_selectedAnalytic": "waves",
+      "_analyticParams": [
+        {
+          "id": "x",
+          "name": "x",
+          "type": "symbol",
+          "required": false,
+          "value": "",
+          "isViewState": false
+        }
+      ],
+      "_subscriptionKey": "time",
+      "_isStreamingSubscription": false,
+      "_hasUpdateQuery": false,
+      "_updateQueryString": "",
+      "_updateType": "query"
+    }
+  },
+  "worksheetPadding": 10,
+  "widgetsSpacing": 0,
+  "borderColor": "000000",
+  "borderBackground": "000000",
+  "transparentBackground": true,
+  "borderWidth": 0,
+  "borderRounding": 0,
+  "borderSpacing": 0,
+  "borderShadow": false,
+  "saveViewerState": "enabled",
+  "hostnameAccess": "",
+  "hidePdfGlobalVS": false,
+  "hash": "e9c38322-9660-b54b-d072-cd3c9af241c1",
+  "enableShareDashboard": false,
+  "notifications": {
+    "Notifications": {
+      "_Version": "4.2.0s2",
+      "Enabled": true,
+      "InBrowserNotifications": false,
+      "Position": "Bottom Right",
+      "MaxVisibleCount": 3,
+      "FadeOut": 5,
+      "Icon": "fa-bell-o",
+      "Sound": "beep",
+      "SoundVolume": 100,
+      "Grouping": false,
+      "GroupingInterval": 1,
+      "triggers": []
+    }
+  },
+  "showLoadingIndicators": true,
+  "unsavedViewerPrompt": false,
+  "advancedCss": "\r\n#appdiv .app-div > .tabs-div {\n    background: none;\n    border: none;\n    padding: 0;\n}\n#appdiv .app-div > .tabs-div > .ui-tabs-nav {\n    background: #282828;\n    margin: 0;\n    padding: 0;\n    border: none;\n    height: 37px;\n}\n#appdiv .app-div.Light  > .tabs-div > .ui-tabs-nav {\n    background: #f8f8f8;\n    margin: 0;\n    padding: 0;\n    border: none;\n    height: 37px;\n}\n\n\n#appdiv .app-div > .tabs-div > .ui-tabs-nav li {\n    border: none;\n    background: none;\n}\n#appdiv .app-div > .tabs-div > .ui-tabs-nav li a {\n    font-size: 13px;\n    box-sizing: border-box;\n    height: 36px;\n    padding: 9px 28px 0;\n    border-bottom: 2px solid transparent;\n    outline: 0;\n}\n#appdiv .app-div > .tabs-div > .ui-tabs-nav li.ui-state-active a {\n    border-bottom-color: #25A9E0;\n}\n#appdiv .app-div > .tabs-div > .ui-tabs-panel {\n    padding: 0;\n    top: 37px;\n}",
+  "cssClasses": "",
+  "version": "v2.3.0",
+  "enableSaveViewState": true,
+  "viewStateBinding": false,
+  "wasChanged": false,
+  "action": "replace"
+}

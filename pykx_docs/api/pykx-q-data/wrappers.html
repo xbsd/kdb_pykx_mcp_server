@@ -1,0 +1,9977 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="PyKX Documentation">
+      
+      
+        <meta name="author" content="KX">
+      
+      
+        <link rel="canonical" href="https://code.kx.com/pykx/api/pykx-q-data/wrappers.html">
+      
+      
+        
+      
+      <link rel="icon" href="https://code.kx.com/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.2.7+insiders-4.11.0">
+    
+    
+      
+        <title>PyKX type wrappers - PyKX</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.5216e7b8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+      
+    
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/assets/stylesheets/main.b941530a.min.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/2021.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/prism.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/hide-footer-nav.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/dashboards.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/dashboards/stylesheets/dashboards.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/swagger.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PG938LS');</script>
+<!-- End Google Tag Manager -->
+<!-- Delighted Survey tool -->
+<script type="text/javascript">
+	!function(e,t,r,n){if(!e[n]){for(var a=e[n]=[],i=["survey","reset","config","init","set","get","event","identify","track","page","screen","group","alias"],s=0;s<i.length;s++){var c=i[s];a[c]=a[c]||function(e){return function(){var t=Array.prototype.slice.call(arguments);a.push([e,t])}}(c)}a.SNIPPET_VERSION="1.0.1";var o=t.createElement("script");o.type="text/javascript",o.async=!0,o.src="https://d2yyd1h5u9mauk.cloudfront.net/integrations/web/v1/library/"+r+"/"+n+".js";var p=t.getElementsByTagName("script")[0];p.parentNode.insertBefore(o,p)}}(window,document,"QKBtsIp633c7g2I2","delightedThumbsP"); 
+   
+   delightedThumbsP.survey({
+	properties: { // extra context (optional)
+	product: "PyKX"
+	}
+	});
+   </script>
+<!-- End Delighted Survey tool -->
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="kx-light" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pykx-type-wrappers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header"  onload="loadVersions()">
+    <!--<link rel="stylesheet" href="https://code.kx.com/home/assets/stylesheets/main.b941530a.min.css">-->
+    <!--<link rel="stylesheet" href="https://code.kx.com/home/assets/stylesheets/vendor/mermaid.733f213f.min.css">-->
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://code.kx.com/" title="code.kx.com" class="md-header__button md-logo" aria-label="PyKX" data-md-component="logo">
+      <img src="https://code.kx.com/img/kx.svg" alt="logo" style="width:1.2rem; height:1.2rem">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic" style="font-weight:500">
+            <span class="md-ellipsis" >
+            PyKX
+          </span>
+          <script>
+            var currVersion = '2.5'
+          </script>
+          <style>
+            .md-version:focus-within .md-version__list, .md-version:hover .md-version__list {
+              max-height: 6rem;
+              opacity: 1;
+              transition: max-height 0ms,opacity .25s;
+            }
+          </style>
+              <div class="md-version">
+                <button class="md-version__current" aria-label="Select version">2.5</button>
+                <ul class="md-version__list" style="margin-top: 20%;">
+                  <div id="versionList"></div>
+                </ul>
+              </div>
+              <div id="latestFlag"></div>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PyKX type wrappers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="kx-light" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kxsystems/pykx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+<style>
+    @media (max-width: 430px) {
+      .md-typeset span{display:none;}
+    }
+  /* Button used to open the chat form - fixed at the bottom of the page */
+  .open-button {
+    background-color: var(--md-typeset-a-color);
+    border: none;
+    border-radius: 10px;
+    bottom: 23px;
+    box-sizing: border-box;
+    color: var(--md-default-bg-color);
+    cursor: pointer;
+    font-size: 13px;
+    opacity: 0.8;
+    padding: 10px 10px;
+    position: fixed;
+    right: 28px;
+    width: 160px;
+    z-index: 3;
+  }
+</style>
+<body>
+  <button class="open-button md-typeset" onclick="window.location.href='https://community.kx.com/t5/forums/postpage/choose-node/true/interaction-style/forum/override-styles/true/board-id/kxinsights'"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29 7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160-93.3 160-208 160z"></path></svg></span>&nbsp;Ask a question</button>
+  </body>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/" class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/q" class="md-tabs__link">
+        
+  
+  kdb+ and q
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/core" class="md-tabs__link">
+        
+  
+  kdb Insights SDK
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/platform/" class="md-tabs__link">
+        
+  
+  kdb Insights Enterprise
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/kdbai/" class="md-tabs__link">
+        
+  
+  KDB.AI
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+      
+    
+  
+  
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../index.html" class="md-tabs__link md-tabs__link--active">
+          
+  
+    
+  
+  PyKX
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/api/index.html" class="md-tabs__link">
+        
+  
+  APIs
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/licensing/licensing/" class="md-tabs__link">
+        
+  
+  Licensing
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/home/support/" class="md-tabs__link">
+        
+  
+  Help
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PyKX" class="md-nav__button md-logo" aria-label="PyKX" data-md-component="logo">
+      <img src="https://code.kx.com/img/kx.svg" alt="logo" style="width:1.2rem; height:1.2rem">
+    </a>
+    PyKX
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kxsystems/pykx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/q" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb+ and q
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/core" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb Insights SDK
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/platform/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb Insights Enterprise
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/kdbai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    KDB.AI
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          
+  
+  <span class="md-ellipsis">
+    PyKX
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PyKX" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          PyKX
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Documentation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/what_is_pykx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is PyKX?
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quickstart.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart guide
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/PyKX%20Introduction%20Notebook.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Introduction Notebook
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/q_magic_command.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jupyter q Magic Command Notebook
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/configuration.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_3" type="checkbox" id="__nav_6_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_3">
+          
+  
+  <span class="md-ellipsis">
+    Fundamentals
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fundamentals" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Fundamentals
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/creating.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generating PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/evaluating.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interacting with PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/querying.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying data
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/indexing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Indexing PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/conversion_considerations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conversion considerations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/text.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Representation in PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/nulls_and_infinities.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handling nulls and infinities
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_4" type="checkbox" id="__nav_6_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_4">
+          
+  
+  <span class="md-ellipsis">
+    Advanced usage and performance considerations
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Advanced usage and performance considerations" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced usage and performance considerations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/ipc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Communicating via IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/database.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database interactions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/context_interface.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using q functions in a Pythonic way
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/modes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modes of operation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/numpy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NumPy integration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/serialization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization and de-serialization
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/performance.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance considerations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/limitations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface limitations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/attributes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Attributes
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/pandas_breakdown.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas Like API Coverage
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_1" type="checkbox" id="__nav_6_4_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_1">
+          
+  
+  <span class="md-ellipsis">
+    Code execution
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code execution" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          Code execution
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-execution/q.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX native functions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-execution/embedded_q.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX execution classes
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-execution/ctx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Context interface
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-execution/console.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX console
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_2" type="checkbox" id="__nav_6_4_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_2">
+          
+  
+  <span class="md-ellipsis">
+    Data types and conversions
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data types and conversions" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Data types and conversions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="toq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Convert Pythonic data to PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    PyKX type wrappers
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="wrappers.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    PyKX type wrappers
+  </span>
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pykx.wrappers" class="md-nav__link">
+    wrappers
+  </a>
+  
+    <nav class="md-nav" aria-label="wrappers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers--wrapper-type-hierarchy" class="md-nav__link">
+    Wrapper type hierarchy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.K" class="md-nav__link">
+    K
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Atom" class="md-nav__link">
+    Atom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.EnumAtom" class="md-nav__link">
+    EnumAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TemporalAtom" class="md-nav__link">
+    TemporalAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TemporalSpanAtom" class="md-nav__link">
+    TemporalSpanAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TemporalFixedAtom" class="md-nav__link">
+    TemporalFixedAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TimeAtom" class="md-nav__link">
+    TimeAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SecondAtom" class="md-nav__link">
+    SecondAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.MinuteAtom" class="md-nav__link">
+    MinuteAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TimespanAtom" class="md-nav__link">
+    TimespanAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.DatetimeAtom" class="md-nav__link">
+    DatetimeAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.DateAtom" class="md-nav__link">
+    DateAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.MonthAtom" class="md-nav__link">
+    MonthAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TimestampAtom" class="md-nav__link">
+    TimestampAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SymbolAtom" class="md-nav__link">
+    SymbolAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.CharAtom" class="md-nav__link">
+    CharAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.NumericAtom" class="md-nav__link">
+    NumericAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.NonIntegralNumericAtom" class="md-nav__link">
+    NonIntegralNumericAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.FloatAtom" class="md-nav__link">
+    FloatAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.RealAtom" class="md-nav__link">
+    RealAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.IntegralNumericAtom" class="md-nav__link">
+    IntegralNumericAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.LongAtom" class="md-nav__link">
+    LongAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.IntAtom" class="md-nav__link">
+    IntAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.ShortAtom" class="md-nav__link">
+    ShortAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.ByteAtom" class="md-nav__link">
+    ByteAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.GUIDAtom" class="md-nav__link">
+    GUIDAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.BooleanAtom" class="md-nav__link">
+    BooleanAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Collection" class="md-nav__link">
+    Collection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Vector" class="md-nav__link">
+    Vector
+  </a>
+  
+    <nav class="md-nav" aria-label="Vector">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Vector.append" class="md-nav__link">
+    append()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Vector.extend" class="md-nav__link">
+    extend()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.List" class="md-nav__link">
+    List
+  </a>
+  
+    <nav class="md-nav" aria-label="List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.List.np" class="md-nav__link">
+    np()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.NumericVector" class="md-nav__link">
+    NumericVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.IntegralNumericVector" class="md-nav__link">
+    IntegralNumericVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.BooleanVector" class="md-nav__link">
+    BooleanVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.GUIDVector" class="md-nav__link">
+    GUIDVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.ByteVector" class="md-nav__link">
+    ByteVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.ShortVector" class="md-nav__link">
+    ShortVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.IntVector" class="md-nav__link">
+    IntVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.LongVector" class="md-nav__link">
+    LongVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.NonIntegralNumericVector" class="md-nav__link">
+    NonIntegralNumericVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.RealVector" class="md-nav__link">
+    RealVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.FloatVector" class="md-nav__link">
+    FloatVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.CharVector" class="md-nav__link">
+    CharVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SymbolVector" class="md-nav__link">
+    SymbolVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TemporalVector" class="md-nav__link">
+    TemporalVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TemporalFixedVector" class="md-nav__link">
+    TemporalFixedVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TemporalSpanVector" class="md-nav__link">
+    TemporalSpanVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TimestampVector" class="md-nav__link">
+    TimestampVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.MonthVector" class="md-nav__link">
+    MonthVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.DateVector" class="md-nav__link">
+    DateVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.DatetimeVector" class="md-nav__link">
+    DatetimeVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TimespanVector" class="md-nav__link">
+    TimespanVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.MinuteVector" class="md-nav__link">
+    MinuteVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SecondVector" class="md-nav__link">
+    SecondVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TimeVector" class="md-nav__link">
+    TimeVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.EnumVector" class="md-nav__link">
+    EnumVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Anymap" class="md-nav__link">
+    Anymap
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Mapping" class="md-nav__link">
+    Mapping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Table" class="md-nav__link">
+    Table
+  </a>
+  
+    <nav class="md-nav" aria-label="Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Table.insert" class="md-nav__link">
+    insert()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Table.upsert" class="md-nav__link">
+    upsert()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Table.xbar" class="md-nav__link">
+    xbar()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Table.window_join" class="md-nav__link">
+    window_join()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SplayedTable" class="md-nav__link">
+    SplayedTable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.PartitionedTable" class="md-nav__link">
+    PartitionedTable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Dictionary" class="md-nav__link">
+    Dictionary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.KeyedTable" class="md-nav__link">
+    KeyedTable
+  </a>
+  
+    <nav class="md-nav" aria-label="KeyedTable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.KeyedTable.insert" class="md-nav__link">
+    insert()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.KeyedTable.upsert" class="md-nav__link">
+    upsert()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Function" class="md-nav__link">
+    Function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Lambda" class="md-nav__link">
+    Lambda
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.UnaryPrimitive" class="md-nav__link">
+    UnaryPrimitive
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Identity" class="md-nav__link">
+    Identity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.ProjectionNull" class="md-nav__link">
+    ProjectionNull
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Operator" class="md-nav__link">
+    Operator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Iterator" class="md-nav__link">
+    Iterator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Projection" class="md-nav__link">
+    Projection
+  </a>
+  
+    <nav class="md-nav" aria-label="Projection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Projection.params" class="md-nav__link">
+    params()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Projection.args" class="md-nav__link">
+    args()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Projection.func" class="md-nav__link">
+    func()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Composition" class="md-nav__link">
+    Composition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.AppliedIterator" class="md-nav__link">
+    AppliedIterator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Each" class="md-nav__link">
+    Each
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Over" class="md-nav__link">
+    Over
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Scan" class="md-nav__link">
+    Scan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.EachPrior" class="md-nav__link">
+    EachPrior
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.EachRight" class="md-nav__link">
+    EachRight
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.EachLeft" class="md-nav__link">
+    EachLeft
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Foreign" class="md-nav__link">
+    Foreign
+  </a>
+  
+    <nav class="md-nav" aria-label="Foreign">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Foreign.py" class="md-nav__link">
+    py()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SymbolicFunction" class="md-nav__link">
+    SymbolicFunction
+  </a>
+  
+    <nav class="md-nav" aria-label="SymbolicFunction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SymbolicFunction.sym" class="md-nav__link">
+    sym()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SymbolicFunction.func" class="md-nav__link">
+    func()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SymbolicFunction.with_execution_ctx" class="md-nav__link">
+    with_execution_ctx()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="type_conversions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX to Pythonic data type mapping
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="register.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Registering Custom Conversions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/Pandas_API.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas API
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../random.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random data generation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../query.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compress.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption APIs
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../db.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Interactions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../remote.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote Python Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exceptions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Exceptions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schema.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schema generation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streamlit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streamlit Integration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Command Wrappers
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../util.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_16" type="checkbox" id="__nav_6_4_16" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_16">
+          
+  
+  <span class="md-ellipsis">
+    File loading and saving
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="File loading and saving" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_16">
+          <span class="md-nav__icon md-icon"></span>
+          File loading and saving
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-save-load/write.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Writing data to disk
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-save-load/read.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reading data from disk
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reimporting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reimporter module
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serialize.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          
+  
+  <span class="md-ellipsis">
+    Beta Features
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Beta Features" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Beta Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/db-management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/compress-encypt.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/remote-functions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote Function Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/threading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multithreading
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/streamlit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streamlit
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          
+  
+  <span class="md-ellipsis">
+    Python within q
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python within q" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Python within q
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pykx-under-q/intro.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pykx-under-q/api.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pykx-under-q/upgrade.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade from embedPy
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pykx-under-q/known_issues.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Known Issues
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_7" type="checkbox" id="__nav_6_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_7">
+          
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_7">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/subscriber/readme.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Subscriber
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/compress_and_encrypt/readme.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/db-management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Creation and Management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/ipc/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/charting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Charting Data with PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/server/server.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX as a Server
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/threaded_execution/threading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multithreaded Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_8" type="checkbox" id="__nav_6_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_8">
+          
+  
+  <span class="md-ellipsis">
+    Extras
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Extras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_8">
+          <span class="md-nav__icon md-icon"></span>
+          Extras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extras/comparisons.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Comparisons against other Python/q interfaces
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extras/known_issues.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Known issues
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_9" type="checkbox" id="__nav_6_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_9">
+          
+  
+  <span class="md-ellipsis">
+    Release notes
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Release notes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_9">
+          <span class="md-nav__icon md-icon"></span>
+          Release notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-notes/changelog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-notes/underq-changelog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX under q
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blogs, Articles and Videos
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frequently Asked Questions (FAQ)
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributors.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributors
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/api/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    APIs
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/licensing/licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licensing
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/home/support/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Help
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pykx.wrappers" class="md-nav__link">
+    wrappers
+  </a>
+  
+    <nav class="md-nav" aria-label="wrappers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers--wrapper-type-hierarchy" class="md-nav__link">
+    Wrapper type hierarchy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.K" class="md-nav__link">
+    K
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Atom" class="md-nav__link">
+    Atom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.EnumAtom" class="md-nav__link">
+    EnumAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TemporalAtom" class="md-nav__link">
+    TemporalAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TemporalSpanAtom" class="md-nav__link">
+    TemporalSpanAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TemporalFixedAtom" class="md-nav__link">
+    TemporalFixedAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TimeAtom" class="md-nav__link">
+    TimeAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SecondAtom" class="md-nav__link">
+    SecondAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.MinuteAtom" class="md-nav__link">
+    MinuteAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TimespanAtom" class="md-nav__link">
+    TimespanAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.DatetimeAtom" class="md-nav__link">
+    DatetimeAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.DateAtom" class="md-nav__link">
+    DateAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.MonthAtom" class="md-nav__link">
+    MonthAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TimestampAtom" class="md-nav__link">
+    TimestampAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SymbolAtom" class="md-nav__link">
+    SymbolAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.CharAtom" class="md-nav__link">
+    CharAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.NumericAtom" class="md-nav__link">
+    NumericAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.NonIntegralNumericAtom" class="md-nav__link">
+    NonIntegralNumericAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.FloatAtom" class="md-nav__link">
+    FloatAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.RealAtom" class="md-nav__link">
+    RealAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.IntegralNumericAtom" class="md-nav__link">
+    IntegralNumericAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.LongAtom" class="md-nav__link">
+    LongAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.IntAtom" class="md-nav__link">
+    IntAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.ShortAtom" class="md-nav__link">
+    ShortAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.ByteAtom" class="md-nav__link">
+    ByteAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.GUIDAtom" class="md-nav__link">
+    GUIDAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.BooleanAtom" class="md-nav__link">
+    BooleanAtom
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Collection" class="md-nav__link">
+    Collection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Vector" class="md-nav__link">
+    Vector
+  </a>
+  
+    <nav class="md-nav" aria-label="Vector">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Vector.append" class="md-nav__link">
+    append()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Vector.extend" class="md-nav__link">
+    extend()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.List" class="md-nav__link">
+    List
+  </a>
+  
+    <nav class="md-nav" aria-label="List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.List.np" class="md-nav__link">
+    np()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.NumericVector" class="md-nav__link">
+    NumericVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.IntegralNumericVector" class="md-nav__link">
+    IntegralNumericVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.BooleanVector" class="md-nav__link">
+    BooleanVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.GUIDVector" class="md-nav__link">
+    GUIDVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.ByteVector" class="md-nav__link">
+    ByteVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.ShortVector" class="md-nav__link">
+    ShortVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.IntVector" class="md-nav__link">
+    IntVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.LongVector" class="md-nav__link">
+    LongVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.NonIntegralNumericVector" class="md-nav__link">
+    NonIntegralNumericVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.RealVector" class="md-nav__link">
+    RealVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.FloatVector" class="md-nav__link">
+    FloatVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.CharVector" class="md-nav__link">
+    CharVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SymbolVector" class="md-nav__link">
+    SymbolVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TemporalVector" class="md-nav__link">
+    TemporalVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TemporalFixedVector" class="md-nav__link">
+    TemporalFixedVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TemporalSpanVector" class="md-nav__link">
+    TemporalSpanVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TimestampVector" class="md-nav__link">
+    TimestampVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.MonthVector" class="md-nav__link">
+    MonthVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.DateVector" class="md-nav__link">
+    DateVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.DatetimeVector" class="md-nav__link">
+    DatetimeVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TimespanVector" class="md-nav__link">
+    TimespanVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.MinuteVector" class="md-nav__link">
+    MinuteVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SecondVector" class="md-nav__link">
+    SecondVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.TimeVector" class="md-nav__link">
+    TimeVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.EnumVector" class="md-nav__link">
+    EnumVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Anymap" class="md-nav__link">
+    Anymap
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Mapping" class="md-nav__link">
+    Mapping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Table" class="md-nav__link">
+    Table
+  </a>
+  
+    <nav class="md-nav" aria-label="Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Table.insert" class="md-nav__link">
+    insert()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Table.upsert" class="md-nav__link">
+    upsert()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Table.xbar" class="md-nav__link">
+    xbar()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Table.window_join" class="md-nav__link">
+    window_join()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SplayedTable" class="md-nav__link">
+    SplayedTable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.PartitionedTable" class="md-nav__link">
+    PartitionedTable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Dictionary" class="md-nav__link">
+    Dictionary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.KeyedTable" class="md-nav__link">
+    KeyedTable
+  </a>
+  
+    <nav class="md-nav" aria-label="KeyedTable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.KeyedTable.insert" class="md-nav__link">
+    insert()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.KeyedTable.upsert" class="md-nav__link">
+    upsert()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Function" class="md-nav__link">
+    Function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Lambda" class="md-nav__link">
+    Lambda
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.UnaryPrimitive" class="md-nav__link">
+    UnaryPrimitive
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Identity" class="md-nav__link">
+    Identity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.ProjectionNull" class="md-nav__link">
+    ProjectionNull
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Operator" class="md-nav__link">
+    Operator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Iterator" class="md-nav__link">
+    Iterator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Projection" class="md-nav__link">
+    Projection
+  </a>
+  
+    <nav class="md-nav" aria-label="Projection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Projection.params" class="md-nav__link">
+    params()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Projection.args" class="md-nav__link">
+    args()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Projection.func" class="md-nav__link">
+    func()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Composition" class="md-nav__link">
+    Composition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.AppliedIterator" class="md-nav__link">
+    AppliedIterator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Each" class="md-nav__link">
+    Each
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Over" class="md-nav__link">
+    Over
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Scan" class="md-nav__link">
+    Scan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.EachPrior" class="md-nav__link">
+    EachPrior
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.EachRight" class="md-nav__link">
+    EachRight
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.EachLeft" class="md-nav__link">
+    EachLeft
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Foreign" class="md-nav__link">
+    Foreign
+  </a>
+  
+    <nav class="md-nav" aria-label="Foreign">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.Foreign.py" class="md-nav__link">
+    py()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SymbolicFunction" class="md-nav__link">
+    SymbolicFunction
+  </a>
+  
+    <nav class="md-nav" aria-label="SymbolicFunction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SymbolicFunction.sym" class="md-nav__link">
+    sym()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SymbolicFunction.func" class="md-nav__link">
+    func()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.wrappers.SymbolicFunction.with_execution_ctx" class="md-nav__link">
+    with_execution_ctx()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/kxsystems/pykx/edit/main/docs/api/pykx-q-data/wrappers.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="pykx-type-wrappers">PyKX type wrappers</h1>
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h2 id="pykx.wrappers" class="doc doc-heading">
+        <code>pykx.wrappers</code>
+
+
+
+</h2>
+
+    <div class="doc doc-contents first">
+
+      <p>Wrappers for q data structures, with conversion functions to Python/Numpy/Pandas/Arrow.</p>
+<p>Under PyKX, q has its own memory space in which it stores q data structures in the same way it is
+stored within a regular q process. PyKX provides Pythonic wrappers around these objects in q
+memory.</p>
+<p>In general, these wrappers consist of a pointer to a location in q memory, and a collection
+of methods to operate on/with that data.</p>
+<p>Memory in q is managed by reference counting, and so wrapper objects (i.e. <a class="autorefs autorefs-internal" href="#pykx.wrappers.K"><code>pykx.K</code></a>
+objects) hold a reference to the underlying object in q memory, and release it when the Python
+wrapper is deallocated.</p>
+<p>A benefit of this approach to interacting with q data is that all conversions are deferred until
+explicitly performed via one of the conversion methods:</p>
+<ul>
+<li><code>.py</code> for Python</li>
+<li><code>.np</code> for Numpy</li>
+<li><code>.pd</code> for Pandas</li>
+<li><code>.pa</code> for PyArrow</li>
+</ul>
+<p>Example:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; t = kx.q('([] x: 1 2 3; y: `a`b`c)') # Create a table in q memory
+&gt;&gt;&gt; x = t['x'] # Index into it in q
+&gt;&gt;&gt; x
+pykx.LongVector(pykx.q('1 2 3'))
+&gt;&gt;&gt; x.np() # Convert the vector to Numpy
+array([1, 2, 3])
+&gt;&gt;&gt; t.pd() # Convert the table to Pandas
+   x  y
+0  1  a
+1  2  b
+2  3  c
+&gt;&gt;&gt; t.pa() # Convert the table to PyArrow
+pyarrow.Table
+x: int64
+y: string
+----
+x: [[1,2,3]]
+y: [["a","b","c"]]
+&gt;&gt;&gt; t.py() # Convert the table to Python
+{'x': [1, 2, 3], 'y': ['a', 'b', 'c']}</code></pre>
+<p>Conversions from q to Python avoid copying data where possible, but that is not always possible.
+Furthermore, conversions can result in loss of data about type information - not a loss of the
+data itself, but of the type information that informs how it will be interpreted.</p>
+<p>For example, if we had a q second atom <code>pykx.SecondAtom('04:08:16')</code>, and we converted it to Python
+using its <code>.py</code> method, we would get <code>datetime.timedelta(seconds=14896)</code>. If we convert that back
+to q using the <code>pykx.K</code> constructor, we get <code>pykx.TimespanAtom(pykx.q('0D04:08:16.000000000'))</code>.</p>
+<p>We started with a <code>pykx.SecondAtom</code>, but after converting to Python and then back to q, we get a
+<code>pykx.TimestampAtom</code>. This is because that is what <code>datetime.timedelta</code> converts to by default, but
+the net effect is that we lost type information about the q data.</p>
+<p>This round-trip-lossiness can be prevented in 2 ways:</p>
+<ol>
+<li>If possible, avoid converting the <code>pykx.K</code> object to a Python/Numpy/Pandas/PyArrow type in the
+   first place. No information can be lost during a conversion if no conversion occurs. It is
+   frequently the case that no conversion actually needs to occur. As an example, instead of
+   converting an entire <code>pykx.Table</code> into a Pandas dataframe, only to use a few columns from it,
+   one can index into the <code>pykx.Table</code> directly to get the desired columns, thereby avoiding the
+   conversion of the entire table.</li>
+<li>Conversions from Python to q can be controlled by specifying the desired type. Using <code>pykx.K</code> as
+   a constructor forces it to chose what q type the data should be converted to (using the same
+   mechanism as <a class="autorefs autorefs-internal" href="toq.html#pykx.toq"><code>pykx.toq</code></a>), but by using the class of the desired q type directly,
+   e.g. [<code>pykx.SecondAtom</code>][], one can override the defaults.</li>
+</ol>
+<p>So to avoid the loss of type information from the previous example, we could run
+<code>pykx.SecondAtom(datetime.timedelta(seconds=14896))</code> instead of
+<code>pykx.K(datetime.timedelta(seconds=14896))</code>.</p>
+<h4 id="pykx.wrappers--wrapper-type-hierarchy">Wrapper type hierarchy</h4>
+<p>The classes in the diagram are all attributes of <code>pykx</code>. They should be accessed as <code>pykx.K</code>,
+<code>pykx.LongVector</code>, <code>pykx.Table</code>, etc.</p>
+<pre class="mermaid"><code>graph LR
+  K --&gt; Atom
+  K --&gt; Collection
+  Atom --&gt; GUIDAtom
+  Atom --&gt; NumericAtom
+  NumericAtom --&gt; IntegralNumericAtom
+  IntegralNumericAtom --&gt; BooleanAtom
+  IntegralNumericAtom --&gt; ByteAtom
+  IntegralNumericAtom --&gt; ShortAtom
+  IntegralNumericAtom --&gt; IntAtom
+  IntegralNumericAtom --&gt; LongAtom
+  NumericAtom --&gt; NonIntegralNumericAtom
+  NonIntegralNumericAtom --&gt; RealAtom
+  NonIntegralNumericAtom --&gt; FloatAtom
+  Atom --&gt; CharAtom
+  Atom --&gt; SymbolAtom
+  Atom --&gt; TemporalAtom
+  TemporalAtom --&gt; TemporalFixedAtom
+  TemporalFixedAtom --&gt; TimestampAtom
+  TemporalFixedAtom --&gt; MonthAtom
+  TemporalFixedAtom --&gt; DateAtom
+  TemporalFixedAtom --&gt; DatetimeAtom
+  TemporalAtom --&gt; TemporalSpanAtom
+  TemporalSpanAtom --&gt; TimespanAtom
+  TemporalSpanAtom --&gt; MinuteAtom
+  TemporalSpanAtom --&gt; SecondAtom
+  TemporalSpanAtom --&gt; TimeAtom
+  Atom --&gt; EnumAtom
+  Atom --&gt; Function
+  Function --&gt; Lambda
+  Function --&gt; UnaryPrimitive
+  UnaryPrimitive --&gt; Identity
+  Identity --&gt; ProjectionNull
+  Function --&gt; Operator
+  Function --&gt; Iterator
+  Function --&gt; Projection
+  Function --&gt; Composition
+  Function --&gt; AppliedIterator
+  AppliedIterator --&gt; Each
+  AppliedIterator --&gt; Over
+  AppliedIterator --&gt; Scan
+  AppliedIterator --&gt; EachPrior
+  AppliedIterator --&gt; EachRight
+  AppliedIterator --&gt; EachLeft
+  Function --&gt; Foreign
+  Collection --&gt; Vector
+  Vector --&gt; List
+  Vector --&gt; GUIDVector
+  Vector --&gt; NumericVector
+  NumericVector --&gt; IntegralNumericVector
+  IntegralNumericVector --&gt; BooleanVector
+  IntegralNumericVector --&gt; ByteVector
+  IntegralNumericVector --&gt; ShortVector
+  IntegralNumericVector --&gt; IntVector
+  IntegralNumericVector --&gt; LongVector
+  NumericVector --&gt; NonIntegralNumericVector
+  NonIntegralNumericVector --&gt; RealVector
+  NonIntegralNumericVector --&gt; FloatVector
+  Vector --&gt; CharVector
+  Vector --&gt; SymbolVector
+  Vector --&gt; TemporalVector
+  TemporalVector --&gt; TemporalFixedVector
+  TemporalFixedVector --&gt; TimestampVector
+  TemporalFixedVector --&gt; MonthVector
+  TemporalFixedVector --&gt; DateVector
+  TemporalFixedVector --&gt; DatetimeVector
+  TemporalVector --&gt; TemporalSpanVector
+  TemporalSpanVector --&gt; TimespanVector
+  TemporalSpanVector --&gt; MinuteVector
+  TemporalSpanVector --&gt; SecondVector
+  TemporalSpanVector --&gt; TimeVector
+  Vector --&gt; EnumVector
+  Collection --&gt; Mapping
+  Mapping --&gt; Dictionary
+  Dictionary --&gt; KeyedTable
+  Mapping --&gt; Table
+  Table --&gt; SplayedTable
+  SplayedTable --&gt; PartitionedTable</code></pre>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.K" class="doc doc-heading">
+          <code>K</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">K(x, *, cast=None, **kwargs)</code></pre>
+
+    <div class="doc doc-contents ">
+
+
+      <p>Base type for all q objects.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>x</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
+          </td>
+          <td><p>An object that will be converted into a <code>pykx.K</code> object via [<code>pykx.toq</code>][].</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Atom" class="doc doc-heading">
+          <code>Atom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.K" href="#pykx.wrappers.K">K</a></code></p>
+
+
+
+<details class="see-also">
+  <summary>See Also</summary>
+  <p>[<code>pykx.Collection</code>][]</p>
+</details>      <p>Base type for all q atoms, including singular basic values, and functions.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.EnumAtom" class="doc doc-heading">
+          <code>EnumAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Atom" href="#pykx.wrappers.Atom">Atom</a></code></p>
+
+
+      <p>Wrapper for q enum atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.TemporalAtom" class="doc doc-heading">
+          <code>TemporalAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Atom" href="#pykx.wrappers.Atom">Atom</a></code></p>
+
+
+      <p>Base type for all q temporal atoms.</p>
+
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.TemporalSpanAtom" class="doc doc-heading">
+          <code>TemporalSpanAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalAtom" href="#pykx.wrappers.TemporalAtom">TemporalAtom</a></code></p>
+
+
+      <p>Base type for all q temporal atoms which represent a span of time.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.TemporalFixedAtom" class="doc doc-heading">
+          <code>TemporalFixedAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalAtom" href="#pykx.wrappers.TemporalAtom">TemporalAtom</a></code></p>
+
+
+      <p>Base type for all q temporal atoms which represent a fixed date/time.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.TimeAtom" class="doc doc-heading">
+          <code>TimeAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalSpanAtom" href="#pykx.wrappers.TemporalSpanAtom">TemporalSpanAtom</a></code></p>
+
+
+      <p>Wrapper for q time atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.SecondAtom" class="doc doc-heading">
+          <code>SecondAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalSpanAtom" href="#pykx.wrappers.TemporalSpanAtom">TemporalSpanAtom</a></code></p>
+
+
+      <p>Wrapper for q second atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.MinuteAtom" class="doc doc-heading">
+          <code>MinuteAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalSpanAtom" href="#pykx.wrappers.TemporalSpanAtom">TemporalSpanAtom</a></code></p>
+
+
+      <p>Wrapper for q minute atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.TimespanAtom" class="doc doc-heading">
+          <code>TimespanAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalSpanAtom" href="#pykx.wrappers.TemporalSpanAtom">TemporalSpanAtom</a></code></p>
+
+
+      <p>Wrapper for q timespan atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.DatetimeAtom" class="doc doc-heading">
+          <code>DatetimeAtom</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">DatetimeAtom(*args, **kwargs)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalFixedAtom" href="#pykx.wrappers.TemporalFixedAtom">TemporalFixedAtom</a></code></p>
+
+
+
+<details class="warning">
+  <summary>The q datetime type is deprecated.</summary>
+  <p>PyKX does not provide a rich interface for the q datetime type, as it is deprecated. Avoid
+using it whenever possible.</p>
+</details>      <p>Wrapper for q datetime atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.DateAtom" class="doc doc-heading">
+          <code>DateAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalFixedAtom" href="#pykx.wrappers.TemporalFixedAtom">TemporalFixedAtom</a></code></p>
+
+
+      <p>Wrapper for q date atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.MonthAtom" class="doc doc-heading">
+          <code>MonthAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalFixedAtom" href="#pykx.wrappers.TemporalFixedAtom">TemporalFixedAtom</a></code></p>
+
+
+      <p>Wrapper for q month atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.TimestampAtom" class="doc doc-heading">
+          <code>TimestampAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalFixedAtom" href="#pykx.wrappers.TemporalFixedAtom">TemporalFixedAtom</a></code></p>
+
+
+      <p>Wrapper for q timestamp atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.SymbolAtom" class="doc doc-heading">
+          <code>SymbolAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Atom" href="#pykx.wrappers.Atom">Atom</a></code></p>
+
+
+
+<details class="danger">
+  <summary>Unique symbols are never deallocated!</summary>
+  <p>Reserve symbol data for values that are recurring. Avoid using symbols for data being
+generated over time (e.g. random symbols) as memory usage will continually increase.</p>
+</details>
+<details class="see-also">
+  <summary>See Also</summary>
+  <p>[<code>pykx.CharVector</code>][]</p>
+</details>      <p>Wrapper for q symbol atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.CharAtom" class="doc doc-heading">
+          <code>CharAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Atom" href="#pykx.wrappers.Atom">Atom</a></code></p>
+
+
+      <p>Wrapper for q char (i.e. 8 bit ASCII value) atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.NumericAtom" class="doc doc-heading">
+          <code>NumericAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Atom" href="#pykx.wrappers.Atom">Atom</a></code></p>
+
+
+      <p>Base type for all q numeric atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.NonIntegralNumericAtom" class="doc doc-heading">
+          <code>NonIntegralNumericAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.NumericAtom" href="#pykx.wrappers.NumericAtom">NumericAtom</a></code>, <code><a class="autorefs autorefs-external" title="numbers.Real" href="https://docs.python.org/3/library/numbers.html#numbers.Real">Real</a></code></p>
+
+
+      <p>Base type for all q non-integral numeric atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.FloatAtom" class="doc doc-heading">
+          <code>FloatAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.NonIntegralNumericAtom" href="#pykx.wrappers.NonIntegralNumericAtom">NonIntegralNumericAtom</a></code></p>
+
+
+      <p>Wrapper for q float (i.e. 64 bit float) atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.RealAtom" class="doc doc-heading">
+          <code>RealAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.NonIntegralNumericAtom" href="#pykx.wrappers.NonIntegralNumericAtom">NonIntegralNumericAtom</a></code></p>
+
+
+      <p>Wrapper for q real (i.e. 32 bit float) atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.IntegralNumericAtom" class="doc doc-heading">
+          <code>IntegralNumericAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.NumericAtom" href="#pykx.wrappers.NumericAtom">NumericAtom</a></code>, <code><a class="autorefs autorefs-external" title="numbers.Integral" href="https://docs.python.org/3/library/numbers.html#numbers.Integral">Integral</a></code></p>
+
+
+      <p>Base type for all q integral numeric atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.LongAtom" class="doc doc-heading">
+          <code>LongAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.IntegralNumericAtom" href="#pykx.wrappers.IntegralNumericAtom">IntegralNumericAtom</a></code></p>
+
+
+      <p>Wrapper for q long (i.e. 64 bit signed integer) atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.IntAtom" class="doc doc-heading">
+          <code>IntAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.IntegralNumericAtom" href="#pykx.wrappers.IntegralNumericAtom">IntegralNumericAtom</a></code></p>
+
+
+      <p>Wrapper for q int (i.e. 32 bit signed integer) atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.ShortAtom" class="doc doc-heading">
+          <code>ShortAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.IntegralNumericAtom" href="#pykx.wrappers.IntegralNumericAtom">IntegralNumericAtom</a></code></p>
+
+
+      <p>Wrapper for q short (i.e. 16 bit signed integer) atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.ByteAtom" class="doc doc-heading">
+          <code>ByteAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.IntegralNumericAtom" href="#pykx.wrappers.IntegralNumericAtom">IntegralNumericAtom</a></code></p>
+
+
+      <p>Wrapper for q byte (i.e. 8 bit unsigned integer) atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.GUIDAtom" class="doc doc-heading">
+          <code>GUIDAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Atom" href="#pykx.wrappers.Atom">Atom</a></code></p>
+
+
+      <p>Wrapper for q GUID atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.BooleanAtom" class="doc doc-heading">
+          <code>BooleanAtom</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.IntegralNumericAtom" href="#pykx.wrappers.IntegralNumericAtom">IntegralNumericAtom</a></code></p>
+
+
+      <p>Wrapper for q boolean atoms.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Collection" class="doc doc-heading">
+          <code>Collection</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.K" href="#pykx.wrappers.K">K</a></code></p>
+
+
+
+<details class="see-also">
+  <summary>See Also</summary>
+  <p>[<code>pykx.Collection</code>][]</p>
+</details>      <p>Base type for all q collections (i.e. non-atoms), including vectors, and mappings.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Vector" class="doc doc-heading">
+          <code>Vector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Collection" href="#pykx.wrappers.Collection">Collection</a></code>, <code><a class="autorefs autorefs-external" title="collections.abc" href="https://docs.python.org/3/library/collections.abc.html#module-collections.abc">abc</a>.<a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a></code></p>
+
+
+      <p>Base type for all q vectors, which are ordered collections of a particular type.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.Vector.append" class="doc doc-heading">
+append
+
+
+</h4>
+<pre class="highlight"><code class="language-python">append(data)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Append object to the end of a vector.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>self</code></td>
+          <td>
+          </td>
+          <td><p>PyKX Vector/List object</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>data</code></td>
+          <td>
+          </td>
+          <td><p>Data to be used when appending to a list/vector, when
+appending to a typed list this must be an object with a
+type which converts to an equivalent vector type.
+When appending to a List any type object can be appended.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.PyKXException" href="../exceptions.html#pykx.exceptions.PyKXException">PyKXException</a></code>
+          </td>
+          <td><p>When dealing with typed vectors appending to this vector
+with data of a different type is unsupported and will raise an
+error</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Append to a vector object with an atom</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; qvec = kx.q.til(3)
+&gt;&gt;&gt; qvec
+pykx.LongVector(pykx.q('0 1 2'))
+&gt;&gt;&gt; qvec.append(3)
+&gt;&gt;&gt; qvec
+pykx.LongVector(pykx.q('0 1 2 3'))</code></pre>
+<p>Attempt to append a vector object with an incorrect type:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; qvec = kx.q.til(3)
+&gt;&gt;&gt; qvec.append([1, 2, 3])
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+  File "/usr/local/anaconda3/lib/python3.8/site-packages/pykx/wrappers.py", line 1262, ...
+    raise QError(f'Appending data of type: {type(data)} '
+pykx.exceptions.QError: Appending data of type: &lt;class 'pykx.wrappers.LongVector'&gt; ...</code></pre>
+<p>Append to a list object with an atom and list:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; qlist = kx.toq([1, 2.0])
+&gt;&gt;&gt; qlist
+pykx.List(pykx.q('
+1
+2f
+'))
+&gt;&gt;&gt; qlist.append('a')
+&gt;&gt;&gt; qlist
+pykx.List(pykx.q('
+1
+2f
+`a
+'))
+&gt;&gt;&gt; qlist.append([1, 2])
+&gt;&gt;&gt; qlist
+pykx.List(pykx.q('
+1
+2f
+`a
+1 2
+'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.Vector.extend" class="doc doc-heading">
+extend
+
+
+</h4>
+<pre class="highlight"><code class="language-python">extend(data)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Extend a vector by appending supplied values to the vector.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>self</code></td>
+          <td>
+          </td>
+          <td><p>PyKX Vector/List object</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>data</code></td>
+          <td>
+          </td>
+          <td><p>Data to be used when extending the a list/vector, this can
+be data of any type which can be converted to a PyKX object.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.PyKXException" href="../exceptions.html#pykx.exceptions.PyKXException">PyKXException</a></code>
+          </td>
+          <td><p>When dealing with typed vectors extending this vector
+with data of a different type is unsupported and will raise an
+error</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Extend a vector object with an atom and list</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; qvec = kx.q.til(3)
+&gt;&gt;&gt; qvec
+pykx.LongVector(pykx.q('0 1 2'))
+&gt;&gt;&gt; qvec.extend(3)
+&gt;&gt;&gt; qvec
+pykx.LongVector(pykx.q('0 1 2 3'))
+&gt;&gt;&gt; qvec.extend([4, 5, 6])
+&gt;&gt;&gt; qvec
+pykx.LongVector(pykx.q('0 1 2 3 4 5 6'))</code></pre>
+<p>Attempt to extend a vector object with an incorrect type:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; qvec = kx.q.til(3)
+&gt;&gt;&gt; qvec.extend('a')
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+  File "/usr/local/anaconda3/lib/python3.8/site-packages/pykx/wrappers.py", line 1271, ...
+    raise QError(f'Extending data of type: {type(data)} '
+  pykx.exceptions.QError: Extending data of type: &lt;class 'pykx.wrappers.SymbolAtom'&gt; ...</code></pre>
+<p>Extend a list object with an atom and list:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; qlist = kx.toq([1, 2.0])
+&gt;&gt;&gt; qlist
+pykx.List(pykx.q('
+1
+2f
+'))
+&gt;&gt;&gt; qlist.extend('a')
+&gt;&gt;&gt; qlist
+pykx.List(pykx.q('
+1
+2f
+`a
+'))
+&gt;&gt;&gt; qlist.extend([1, 2])
+&gt;&gt;&gt; qlist
+pykx.List(pykx.q('
+1
+2f
+`a
+1
+2
+'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.List" class="doc doc-heading">
+          <code>List</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Vector" href="#pykx.wrappers.Vector">Vector</a></code></p>
+
+
+
+<details class="note">
+  <summary>The memory layout of a q list is special.</summary>
+  <p>All other vector types (see: subclasses of [<code>pykx.Vector</code>][]) are structured in-memory as a
+K object which contains metadata, followed immediately by the data in the vector. By
+contrast, q lists are a a vector of pointers to K objects, so they are structured in-memory
+as a K object containing metadata, followed immediately by pointers. As a result, the base
+data "contained" by the list is located elsewhere in memory. This has performance and
+ownership implications in q, which carry over to PyKX.</p>
+</details>      <p>Wrapper for q lists, which are vectors of K objects of any type.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.List.np" class="doc doc-heading">
+np
+
+
+</h4>
+<pre class="highlight"><code class="language-python">np(*, raw=False, has_nulls=None)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Provides a Numpy representation of the list.</p>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.NumericVector" class="doc doc-heading">
+          <code>NumericVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Vector" href="#pykx.wrappers.Vector">Vector</a></code></p>
+
+
+      <p>Base type for all q numeric vectors.</p>
+
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.IntegralNumericVector" class="doc doc-heading">
+          <code>IntegralNumericVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.NumericVector" href="#pykx.wrappers.NumericVector">NumericVector</a></code></p>
+
+
+      <p>Base type for all q integral numeric vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.BooleanVector" class="doc doc-heading">
+          <code>BooleanVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.IntegralNumericVector" href="#pykx.wrappers.IntegralNumericVector">IntegralNumericVector</a></code></p>
+
+
+      <p>Wrapper for q boolean vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.GUIDVector" class="doc doc-heading">
+          <code>GUIDVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Vector" href="#pykx.wrappers.Vector">Vector</a></code></p>
+
+
+      <p>Wrapper for q GUID vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.ByteVector" class="doc doc-heading">
+          <code>ByteVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.IntegralNumericVector" href="#pykx.wrappers.IntegralNumericVector">IntegralNumericVector</a></code></p>
+
+
+      <p>Wrapper for q byte (i.e. 8 bit unsigned integer) vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.ShortVector" class="doc doc-heading">
+          <code>ShortVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.IntegralNumericVector" href="#pykx.wrappers.IntegralNumericVector">IntegralNumericVector</a></code></p>
+
+
+      <p>Wrapper for q short (i.e. 16 bit signed integer) vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.IntVector" class="doc doc-heading">
+          <code>IntVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.IntegralNumericVector" href="#pykx.wrappers.IntegralNumericVector">IntegralNumericVector</a></code></p>
+
+
+      <p>Wrapper for q int (i.e. 32 bit signed integer) vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.LongVector" class="doc doc-heading">
+          <code>LongVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.IntegralNumericVector" href="#pykx.wrappers.IntegralNumericVector">IntegralNumericVector</a></code></p>
+
+
+      <p>Wrapper for q long (i.e. 64 bit signed integer) vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.NonIntegralNumericVector" class="doc doc-heading">
+          <code>NonIntegralNumericVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.NumericVector" href="#pykx.wrappers.NumericVector">NumericVector</a></code></p>
+
+
+      <p>Base type for all q non-integral numeric vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.RealVector" class="doc doc-heading">
+          <code>RealVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.NonIntegralNumericVector" href="#pykx.wrappers.NonIntegralNumericVector">NonIntegralNumericVector</a></code></p>
+
+
+      <p>Wrapper for q real (i.e. 32 bit float) vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.FloatVector" class="doc doc-heading">
+          <code>FloatVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.NonIntegralNumericVector" href="#pykx.wrappers.NonIntegralNumericVector">NonIntegralNumericVector</a></code></p>
+
+
+      <p>Wrapper for q float (i.e. 64 bit float) vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.CharVector" class="doc doc-heading">
+          <code>CharVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Vector" href="#pykx.wrappers.Vector">Vector</a></code></p>
+
+
+
+<details class="see-also">
+  <summary>See Also</summary>
+  <p>[<code>pykx.SymbolAtom</code>][]</p>
+</details>      <p>Wrapper for q char (i.e. 8 bit ASCII value) vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.SymbolVector" class="doc doc-heading">
+          <code>SymbolVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Vector" href="#pykx.wrappers.Vector">Vector</a></code></p>
+
+
+
+<details class="danger">
+  <summary>Unique symbols are never deallocated!</summary>
+  <p>Reserve symbol data for values that are recurring. Avoid using symbols for data being
+generated over time (e.g. random symbols) as memory usage will continually increase.</p>
+</details>      <p>Wrapper for q symbol vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.TemporalVector" class="doc doc-heading">
+          <code>TemporalVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Vector" href="#pykx.wrappers.Vector">Vector</a></code></p>
+
+
+      <p>Base type for all q temporal vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.TemporalFixedVector" class="doc doc-heading">
+          <code>TemporalFixedVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalVector" href="#pykx.wrappers.TemporalVector">TemporalVector</a></code></p>
+
+
+      <p>Base type for all q temporal vectors which represent a fixed date/time.</p>
+
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.TemporalSpanVector" class="doc doc-heading">
+          <code>TemporalSpanVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalVector" href="#pykx.wrappers.TemporalVector">TemporalVector</a></code></p>
+
+
+      <p>Base type for all q temporal vectors which represent a span of time.</p>
+
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.TimestampVector" class="doc doc-heading">
+          <code>TimestampVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalFixedVector" href="#pykx.wrappers.TemporalFixedVector">TemporalFixedVector</a></code></p>
+
+
+      <p>Wrapper for q timestamp vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.MonthVector" class="doc doc-heading">
+          <code>MonthVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalFixedVector" href="#pykx.wrappers.TemporalFixedVector">TemporalFixedVector</a></code></p>
+
+
+      <p>Wrapper for q month vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.DateVector" class="doc doc-heading">
+          <code>DateVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalFixedVector" href="#pykx.wrappers.TemporalFixedVector">TemporalFixedVector</a></code></p>
+
+
+      <p>Wrapper for q date vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.DatetimeVector" class="doc doc-heading">
+          <code>DatetimeVector</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">DatetimeVector(*args, **kwargs)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalFixedVector" href="#pykx.wrappers.TemporalFixedVector">TemporalFixedVector</a></code></p>
+
+
+
+<details class="warning">
+  <summary>The q datetime type is deprecated.</summary>
+  <p>PyKX does not provide a rich interface for the q datetime type, as it is depreceated. Avoid
+using it whenever possible.</p>
+</details>      <p>Wrapper for q datetime vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.TimespanVector" class="doc doc-heading">
+          <code>TimespanVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalSpanVector" href="#pykx.wrappers.TemporalSpanVector">TemporalSpanVector</a></code></p>
+
+
+      <p>Wrapper for q timespan vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.MinuteVector" class="doc doc-heading">
+          <code>MinuteVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalSpanVector" href="#pykx.wrappers.TemporalSpanVector">TemporalSpanVector</a></code></p>
+
+
+      <p>Wrapper for q minute vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.SecondVector" class="doc doc-heading">
+          <code>SecondVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalSpanVector" href="#pykx.wrappers.TemporalSpanVector">TemporalSpanVector</a></code></p>
+
+
+      <p>Wrapper for q second vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.TimeVector" class="doc doc-heading">
+          <code>TimeVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.TemporalSpanVector" href="#pykx.wrappers.TemporalSpanVector">TemporalSpanVector</a></code></p>
+
+
+      <p>Wrapper for q time vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.EnumVector" class="doc doc-heading">
+          <code>EnumVector</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Vector" href="#pykx.wrappers.Vector">Vector</a></code></p>
+
+
+      <p>Wrapper for q enum vectors.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Anymap" class="doc doc-heading">
+          <code>Anymap</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.List" href="#pykx.wrappers.List">List</a></code></p>
+
+
+      <p>Wrapper for q mapped lists, also known as "anymaps".</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Mapping" class="doc doc-heading">
+          <code>Mapping</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">Mapping(*args, **kwargs)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Collection" href="#pykx.wrappers.Collection">Collection</a></code>, <code><a class="autorefs autorefs-external" title="collections.abc" href="https://docs.python.org/3/library/collections.abc.html#module-collections.abc">abc</a>.<a class="autorefs autorefs-external" title="collections.abc.Mapping" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping">Mapping</a></code></p>
+
+
+      <p>Base type for all q mappings, including tables, and dictionaries.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Table" class="doc doc-heading">
+          <code>Table</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">Table(*args, **kwargs)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><span title="pykx.pandas_api.PandasAPI">PandasAPI</span></code>, <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Mapping" href="#pykx.wrappers.Mapping">Mapping</a></code></p>
+
+
+
+<details class="see-also">
+  <summary>See Also</summary>
+  <ul>
+<li>[<code>pykx.SplayedTable</code>][]</li>
+<li>[<code>pykx.PartitionedTable</code>][]</li>
+</ul>
+</details>      <p>Wrapper for q tables, including in-memory tables, splayed tables, and partitioned tables.</p>
+<p>Note: Despite the name, <a class="autorefs autorefs-internal" href="#pykx.wrappers.KeyedTable">keyed tables</a> are actually dictionaries.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.Table.insert" class="doc doc-heading">
+insert
+
+
+</h4>
+<pre class="highlight"><code class="language-python">insert(
+    row, match_schema=False, test_insert=False, replace_self=True, inplace=True
+)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Helper function around <code>q</code>'s <code>insert</code> function which inserts a row or multiple rows into
+a q Table object.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>row</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-internal" href="../pykx-execution/q.html#list">list</a>, <a class="autorefs autorefs-internal" title="pykx.wrappers.List" href="#pykx.wrappers.List">List</a>]</code>
+          </td>
+          <td><p>A list of objects to be inserted as a row.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>match_schema</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether the row/rows to be inserted must match the tables current schema.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>test_insert</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Causes the function to modify a small local copy of the table and return
+the modified example, this can only be used with embedded q and will not modify the
+source tables contents.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>replace_self</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p><code>Deprecated</code> please use <code>inplace</code> keyword.
+Causes the underlying Table python object to update itself with the
+resulting Table after the insert.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>inplace</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Causes the underlying Table python object to update itself with the
+resulting Table after the insert.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>The resulting table after the given row has been inserted.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.PyKXException" href="../exceptions.html#pykx.exceptions.PyKXException">PyKXException</a></code>
+          </td>
+          <td><p>If the <code>match_schema</code> parameter is used this function may raise an error
+if the row to be inserted does not match the tables schema. The error message will
+contain information about which columns did not match.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Insert a single row onto a Table, ensuring the new row matches the current tables schema.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; tab.insert([1, 2.0, datetime.datetime(2020, 2, 24)], match_schema=True)</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.Table.upsert" class="doc doc-heading">
+upsert
+
+
+</h4>
+<pre class="highlight"><code class="language-python">upsert(
+    row, match_schema=False, test_insert=False, replace_self=True, inplace=True
+)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Helper function around <code>q</code>'s <code>upsert</code> function which inserts a row or multiple rows into
+a q Table object.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>row</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-internal" href="../pykx-execution/q.html#list">list</a>, <a class="autorefs autorefs-internal" title="pykx.wrappers.List" href="#pykx.wrappers.List">List</a>]</code>
+          </td>
+          <td><p>A list of objects to be inserted as a row.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>match_schema</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether the row/rows to be inserted must match the tables current schema.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>test_insert</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Causes the function to modify a small local copy of the table and return
+the modified example, this can only be used with embedded q and will not modify the
+source tables contents.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>replace_self</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p><code>Deprecated</code> please use <code>inplace</code> keyword.
+Causes the underlying Table python object to update itself with the
+resulting Table after the upsert.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>inplace</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Causes the underlying Table python object to update itself with the
+resulting Table after the upsert.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>The resulting table after the given row has been upserted.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.PyKXException" href="../exceptions.html#pykx.exceptions.PyKXException">PyKXException</a></code>
+          </td>
+          <td><p>If the <code>match_schema</code> parameter is used this function may raise an error
+if the row to be inserted does not match the tables schema. The error message will
+contain information about which columns did not match.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Upsert a single row onto a Table, ensuring the new row matches the current tables schema.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; tab.upsert([1, 2.0, datetime.datetime(2020, 2, 24)], match_schema=True)</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.Table.xbar" class="doc doc-heading">
+xbar
+
+
+</h4>
+<pre class="highlight"><code class="language-python">xbar(values)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Apply <code>xbar</code> round down operations on the column(s) of a table to a specified
+    value</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>values</code></td>
+          <td>
+          </td>
+          <td><p>Provide a dictionary mapping the column to apply rounding to with
+the rounding value as follows <code>{column: value}</code>.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A table with rounding applied to the specified columns.</p></td>
+        </tr>
+    </tbody>
+  </table>
+      <pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; N = 5
+&gt;&gt;&gt; kx.random.seed(42)
+&gt;&gt;&gt; tab = kx.Table(data = {
+...     'x': kx.random.random(N, 100.0),
+...     'y': kx.random.random(N, 10.0)})
+&gt;&gt;&gt; tab
+pykx.Table(pykx.q('
+x        y
+-----------------
+77.42128 8.200469
+70.49724 9.857311
+52.12126 4.629496
+99.96985 8.518719
+1.196618 9.572477
+'))
+&gt;&gt;&gt; tab.xbar({'x': 10})
+pykx.Table(pykx.q('
+x  y
+-----------
+70 8.200469
+70 9.857311
+50 4.629496
+90 8.518719
+0  9.572477
+'))
+&gt;&gt;&gt; tab.xbar({'x': 10, 'y': 2})
+pykx.Table(pykx.q('
+x  y
+----
+70 8
+70 8
+50 4
+90 8
+0  8
+'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.Table.window_join" class="doc doc-heading">
+window_join
+
+
+</h4>
+<pre class="highlight"><code class="language-python">window_join(table, windows, cols, aggs)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Window joins provide the ability to analyse the behaviour of data
+in one table in the neighborhood of another.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>table</code></td>
+          <td>
+          </td>
+          <td><p>A <code>pykx.Table</code> or Python table equivalent containing a <code>['sym' and 'time']</code>
+column (or equivalent) with a <code>parted</code> attribute on <code>'sym'</code>.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>windows</code></td>
+          <td>
+          </td>
+          <td><p>A pair of lists containing times/timestamps denoting the beginning and
+end of the windows</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>cols</code></td>
+          <td>
+          </td>
+          <td><p>The names of the common columns <code>['sym' and 'time']</code> within each table</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>aggs</code></td>
+          <td>
+          </td>
+          <td><p>A dictionary mapping the name of a new derived column to a list
+specifying the function to be applied as the first element and the columns
+which should be passed from the <code>table</code> to this function. These are mapped
+{'new_col0': [f0, 'c0'], 'new_col1': [f1, 'c0', 'c1']}.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>For each record of the original table, a record with additional columns
+denoted by the <code>new_col0</code> entries in the <code>aggs</code> argument are added which is
+the result of applying the function <code>f0</code> with the content of column <code>c0</code> over
+the matching intervals in the <code>table</code>.</p></td>
+        </tr>
+    </tbody>
+  </table>
+      <pre class="highlight"><code class="language-python">&gt;&gt;&gt; trades = kx.Table(data={
+...     'sym': ['ibm', 'ibm', 'ibm'],
+...     'time': kx.q('10:01:01 10:01:04 10:01:08'),
+...     'price': [100, 101, 105]})
+&gt;&gt;&gt; quotes = kx.Table(data={
+...     'sym': 'ibm',
+...     'time': kx.q('10:01:01+til 9'),
+...     'ask': [101, 103, 103, 104, 104, 107, 108, 107, 108],
+...     'bid': [98, 99, 102, 103, 103, 104, 106, 106, 107]})
+&gt;&gt;&gt; windows = kx.q('{-2 1+\:x}', trades['time'])
+&gt;&gt;&gt; trades.window_join(quotes,
+...                    windows,
+...                    ['sym', 'time'],
+...                    {'ask_max': [lambda x: max(x), 'ask'],
+...                     'ask_minus_bid': [lambda x, y: x - y, 'ask', 'bid']})
+pykx.Table(pykx.q('
+sym time     price ask_minus_bid ask_max
+----------------------------------------
+ibm 10:01:01 100   3 4           103
+ibm 10:01:04 101   4 1 1 1       104
+ibm 10:01:08 105   3 2 1 1       108
+'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.SplayedTable" class="doc doc-heading">
+          <code>SplayedTable</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">SplayedTable(*args, **kwargs)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Table" href="#pykx.wrappers.Table">Table</a></code></p>
+
+
+      <p>Wrapper for q splayed tables.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.PartitionedTable" class="doc doc-heading">
+          <code>PartitionedTable</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">PartitionedTable(*args, **kwargs)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.SplayedTable" href="#pykx.wrappers.SplayedTable">SplayedTable</a></code></p>
+
+
+      <p>Wrapper for q partitioned tables.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Dictionary" class="doc doc-heading">
+          <code>Dictionary</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">Dictionary(*args, **kwargs)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Mapping" href="#pykx.wrappers.Mapping">Mapping</a></code></p>
+
+
+      <p>Wrapper for q dictionaries, including regular dictionaries, and keyed tables.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.KeyedTable" class="doc doc-heading">
+          <code>KeyedTable</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">KeyedTable(*args, **kwargs)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Dictionary" href="#pykx.wrappers.Dictionary">Dictionary</a></code>, <code><span title="pykx.pandas_api.PandasAPI">PandasAPI</span></code></p>
+
+
+      <p>Wrapper for q keyed tables, which are a kind of table-like dictionary.</p>
+<p><a href="https://code.kx.com/q4m3/8_Tables/#84-primary-keys-and-keyed-tables">Refer to chapter 8.4 of Q for
+Mortals</a> for more
+information about q keyed tables.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.KeyedTable.insert" class="doc doc-heading">
+insert
+
+
+</h4>
+<pre class="highlight"><code class="language-python">insert(
+    row, match_schema=False, test_insert=False, replace_self=True, inplace=True
+)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Helper function around <code>q</code>'s <code>insert</code> function which inserts a row or multiple rows into
+a q Table object.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>row</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-internal" href="../pykx-execution/q.html#list">list</a>, <a class="autorefs autorefs-internal" title="pykx.wrappers.List" href="#pykx.wrappers.List">List</a>]</code>
+          </td>
+          <td><p>A list of objects to be inserted as a row.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>match_schema</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether the row/rows to be inserted must match the tables current schema.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>test_insert</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Causes the function to modify a small local copy of the table and return
+the modified example, this can only be used with embedded q and will not modify the
+source tables contents.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>replace_self</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p><code>Deprecated</code> please use <code>inplace</code> keyword.
+Causes the underlying Table python object to update itself with the
+resulting Table after the insert.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>inplace</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Causes the underlying Table python object to update itself with the
+resulting Table after the insert.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>The resulting table after the given row has been inserted.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.PyKXException" href="../exceptions.html#pykx.exceptions.PyKXException">PyKXException</a></code>
+          </td>
+          <td><p>If the <code>match_schema</code> parameter is used this function may raise an error
+if the row to be inserted does not match the tables schema. The error message will
+contain information about which columns did not match.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Insert a single row onto a Table, ensuring the new row matches the current tables schema.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; tab.insert([1, 2.0, datetime.datetime(2020, 2, 24)], match_schema=True)</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.KeyedTable.upsert" class="doc doc-heading">
+upsert
+
+
+</h4>
+<pre class="highlight"><code class="language-python">upsert(
+    row, match_schema=False, test_insert=False, replace_self=True, inplace=True
+)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Helper function around <code>q</code>'s <code>upsert</code> function which inserts a row or multiple rows into
+a q Table object.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>row</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-internal" href="../pykx-execution/q.html#list">list</a>, <a class="autorefs autorefs-internal" title="pykx.wrappers.List" href="#pykx.wrappers.List">List</a>]</code>
+          </td>
+          <td><p>A list of objects to be inserted as a row, if the table is within embedded q you
+may also pass in a table object to be upserted.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>match_schema</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether the row/rows to be inserted must match the tables current schema.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>test_insert</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Causes the function to modify a small local copy of the table and return
+the modified example, this can only be used with embedded q and will not modify the
+source tables contents.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>replace_self</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p><code>Deprecated</code> please use <code>inplace</code> keyword.
+Causes the underlying Table python object to update itself with the
+resulting Table after the insert.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>inplace</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Causes the underlying Table python object to update itself with the
+resulting Table after the insert.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>The resulting table after the given row has been upserted.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="pykx.exceptions.PyKXException" href="../exceptions.html#pykx.exceptions.PyKXException">PyKXException</a></code>
+          </td>
+          <td><p>If the <code>match_schema</code> parameter is used this function may raise an error
+if the row to be inserted does not match the tables schema. The error message will
+contain information about which columns did not match.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Upsert a single row onto a Table, ensuring the new row matches the current tables schema.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; tab.upsert([1, 2.0, datetime.datetime(2020, 2, 24)], match_schema=True)</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Function" class="doc doc-heading">
+          <code>Function</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Atom" href="#pykx.wrappers.Atom">Atom</a></code></p>
+
+
+      <p>Base type for all q functions.</p>
+<p><code>Function</code> objects can be called as if they were Python functions. All provided arguments will
+be converted to q using [<code>pykx.toq</code>][], and the execution of the function will happen in q.</p>
+<p><code>...</code> can be used to omit an argument, resulting in a <a class="autorefs autorefs-internal" href="#pykx.wrappers.Projection">function projection</a>.</p>
+<p><a href="https://code.kx.com/q4m3/6_Functions/">Refer to chapter 6 of Q for Mortals</a> for more
+information about q functions.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Lambda" class="doc doc-heading">
+          <code>Lambda</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Function" href="#pykx.wrappers.Function">Function</a></code></p>
+
+
+      <p>Wrapper for q lambda functions.</p>
+<p>Lambda's are the most basic kind of function in q. They can take between 0 and 8 parameters
+(inclusive), which all must be q objects themselves. If the provided parameters are not
+[<code>pykx.K</code>][] objects, they will be converted into them using [<code>pykx.toq</code>][].</p>
+<p>Unlike other [<code>pykx.Function</code>][] subclasses, <code>Lambda</code> objects can be called with keyword
+arguments, using the names of the parameters from q.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.UnaryPrimitive" class="doc doc-heading">
+          <code>UnaryPrimitive</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Function" href="#pykx.wrappers.Function">Function</a></code></p>
+
+
+
+<details class="see-also">
+  <summary>See Also</summary>
+  <p>[<code>pykx.Identity</code>][]</p>
+</details>      <p>Wrapper for q unary primitive functions, including <code>::</code>, and other built-ins.</p>
+<p>Unary primitives are a class of built-in q functions which take exactly one parameter. New ones
+cannot be defined by a user through any normal means.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Identity" class="doc doc-heading">
+          <code>Identity</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.UnaryPrimitive" href="#pykx.wrappers.UnaryPrimitive">UnaryPrimitive</a></code></p>
+
+
+      <p>Wrapper for the q identity function, also known as generic null (<code>::</code>).</p>
+<p>Most types in q have their own null value, but <code>::</code> is used as a generic/untyped null in
+contexts where a non-null q object would otherwise be, e.g. as a null value for a
+<a class="autorefs autorefs-internal" href="#pykx.wrappers.List">generic list</a>, or as a null value in a <a class="autorefs autorefs-internal" href="#pykx.wrappers.Dictionary">dictionary</a>.</p>
+<p><code>::</code> is also the identity function. It takes a single q object as a parameter, which it returns
+unchanged.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.ProjectionNull" class="doc doc-heading">
+          <code>ProjectionNull</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Identity" href="#pykx.wrappers.Identity">Identity</a></code></p>
+
+
+
+<details class="danger">
+  <summary>Projection nulls are unwieldy.</summary>
+  <p>There are very few scenarios in which a typical user needs to work with a projection null
+directly, and doing so can be very error-prone. Instead of using them directly, operate
+on / work with <a class="autorefs autorefs-internal" href="#pykx.wrappers.Projection">projections</a>, which use them implicitly.</p>
+</details>      <p>Wrapper for the q projection null.</p>
+<p>Projection null is a special q object which may initially seem to be
+<a class="autorefs autorefs-internal" href="#pykx.wrappers.Identity">generic null (<code>::</code>)</a>, but is actually a magic value used to create projections.</p>
+<p>When a projection null is provided as an argument to a q function, the result is a
+<a class="autorefs autorefs-internal" href="#pykx.wrappers.Projection">function projection</a>.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Operator" class="doc doc-heading">
+          <code>Operator</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Function" href="#pykx.wrappers.Function">Function</a></code></p>
+
+
+      <p>Wrapper for q operator functions.</p>
+<p>Operators include <code>@</code>, <code>*</code>, <code>+</code>, <code>!</code>, <code>:</code>, <code>^</code>, and many more. They are documented on the q
+reference page: <a href="https://code.kx.com/q/ref/#operators">https://code.kx.com/q/ref/#operators</a></p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Iterator" class="doc doc-heading">
+          <code>Iterator</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Function" href="#pykx.wrappers.Function">Function</a></code></p>
+
+
+      <p>Wrappers for q iterator functions.</p>
+<p>Iterators include the mapping iterators (<code>'</code>, <code>':</code>, <code>/:</code>, and <code>\:</code>), and the accumulating
+iterators (<code>/</code>, and <code>\</code>). They are documented on the q reference page:
+<a href="https://code.kx.com/q/ref/#iterators">https://code.kx.com/q/ref/#iterators</a></p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Projection" class="doc doc-heading">
+          <code>Projection</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Function" href="#pykx.wrappers.Function">Function</a></code></p>
+
+
+      <p>Wrapper for q function projections.</p>
+<p>Similar to [<code>functools.partial</code>][], q functions can have some of their parameters fixed in
+advance, resulting in a new function, which is a projection. When this projection is called,
+the fixed parameters are no longer required, and cannot be provided.</p>
+<p>If the original function had <code>n</code> parameters, and it had <code>m</code> of them provided, the result would
+be a function (projection) that has <code>m</code> parameters.</p>
+<p>In PyKX, the special Python singleton <code>...</code> is used to represent
+[projection null][<code>pykx.ProjectionNull</code>]</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.Projection.params" class="doc doc-heading">
+params
+
+
+</h4>
+<pre class="highlight"><code class="language-python">params()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>The param names from the base function that have not been set.</p>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.Projection.args" class="doc doc-heading">
+args
+
+
+</h4>
+<pre class="highlight"><code class="language-python">args()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>The supplied arguments to the function being projected.</p>
+<p>The arguments in the tuple are ordered as they were applied to the function, with
+<a class="autorefs autorefs-internal" href="#pykx.wrappers.ProjectionNull">projection nulls</a> to fill the empty spaces before and in-between the
+supplied arguments. The tuple may either end with the last supplied argument, or have some
+trailing projection nulls depending on how the projection was created.</p>
+
+<p><strong>Examples:</strong></p>
+    
+      <pre class="highlight"><code class="language-python">&gt;&gt;&gt; f = kx.q('{x+y+z}')
+&gt;&gt;&gt; f.args
+()
+&gt;&gt;&gt; f(..., 2)
+pykx.Projection(pykx.q('{x+y+z}[;2]'))
+&gt;&gt;&gt; f(..., 2).args
+(pykx.ProjectionNull(pykx.q('::')), pykx.LongAtom(pykx.q('2')))
+&gt;&gt;&gt; f(..., 2, ...)
+pykx.Projection(pykx.q('{x+y+z}[;2;]'))
+&gt;&gt;&gt; f(..., 2, ...).args
+(pykx.ProjectionNull(pykx.q('::')), pykx.LongAtom(pykx.q('2')), pykx.ProjectionNull(pykx.q('::')))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.Projection.func" class="doc doc-heading">
+func
+
+
+</h4>
+<pre class="highlight"><code class="language-python">func()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>The original function with no fixed parameters.</p>
+<p>With the original function, a new projection can be created, or it can simply be called
+with every parameter set.</p>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Composition" class="doc doc-heading">
+          <code>Composition</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Function" href="#pykx.wrappers.Function">Function</a></code></p>
+
+
+      <p>Wrapper for q function compositions.</p>
+<p>Functions in q can be directly composed, as opposed to creating a new lambda function that
+applies a chain of functions. Direct composition of functions lends itself to a style which is
+referred to as "point-free" or "tacit" programming.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.AppliedIterator" class="doc doc-heading">
+          <code>AppliedIterator</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Function" href="#pykx.wrappers.Function">Function</a></code></p>
+
+
+      <p>Base type for all q functions that have had an iterator applied to them.</p>
+<p>Iterators, also known as adverbs, are like Python decorators, in that they are functions which
+take a function as their argument, and return a modified version of it. The iterators
+themselves are of the type [<code>pykx.Iterator</code>][], but when applied to a function a new type
+(which is a subclass of <code>AppliedIterator</code>) is created depending on what iterator was used.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Each" class="doc doc-heading">
+          <code>Each</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.AppliedIterator" href="#pykx.wrappers.AppliedIterator">AppliedIterator</a></code></p>
+
+
+      <p>Wrapper for functions with the 'each' iterator applied to them.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Over" class="doc doc-heading">
+          <code>Over</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.AppliedIterator" href="#pykx.wrappers.AppliedIterator">AppliedIterator</a></code></p>
+
+
+      <p>Wrapper for functions with the 'over' iterator applied to them.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Scan" class="doc doc-heading">
+          <code>Scan</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.AppliedIterator" href="#pykx.wrappers.AppliedIterator">AppliedIterator</a></code></p>
+
+
+      <p>Wrapper for functions with the 'scan' iterator applied to them.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.EachPrior" class="doc doc-heading">
+          <code>EachPrior</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.AppliedIterator" href="#pykx.wrappers.AppliedIterator">AppliedIterator</a></code></p>
+
+
+      <p>Wrapper for functions with the 'each-prior' iterator applied to them.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.EachRight" class="doc doc-heading">
+          <code>EachRight</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.AppliedIterator" href="#pykx.wrappers.AppliedIterator">AppliedIterator</a></code></p>
+
+
+      <p>Wrapper for functions with the 'each-right' iterator applied to them.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.EachLeft" class="doc doc-heading">
+          <code>EachLeft</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.AppliedIterator" href="#pykx.wrappers.AppliedIterator">AppliedIterator</a></code></p>
+
+
+      <p>Wrapper for functions with the 'each-left' iterator applied to them.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.Foreign" class="doc doc-heading">
+          <code>Foreign</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Atom" href="#pykx.wrappers.Atom">Atom</a></code></p>
+
+
+      <p>Wrapper for foreign objects, i.e. wrapped pointers to regions outside of q memory.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.Foreign.py" class="doc doc-heading">
+py
+
+
+</h4>
+<pre class="highlight"><code class="language-python">py(stdlib=None, raw=None)</code></pre>
+
+    <div class="doc doc-contents ">
+
+
+<details class="note">
+  <summary>The resulting object is a reference to the same memory location as the initial object.</summary>
+  <p>This can result in unexpected behavior and it is recommended to only modify the
+original python object passed into the <code>Foreign</code></p>
+</details>      <p>Turns the pointer stored within the Foreign back into a Python Object.</p>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="pykx.wrappers.SymbolicFunction" class="doc doc-heading">
+          <code>SymbolicFunction</code>
+
+
+
+</h3>
+<pre class="highlight"><code class="language-python">SymbolicFunction(*args, **kwargs)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="pykx.wrappers.Function" href="#pykx.wrappers.Function">Function</a></code>, <code><a class="autorefs autorefs-internal" title="pykx.wrappers.SymbolAtom" href="#pykx.wrappers.SymbolAtom">SymbolAtom</a></code></p>
+
+
+      <p>Special wrapper type representing a symbol atom that can be used as a function.</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.SymbolicFunction.sym" class="doc doc-heading">
+sym
+
+
+</h4>
+<pre class="highlight"><code class="language-python">sym()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>The symbolic function as a plain symbol.</p>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.SymbolicFunction.func" class="doc doc-heading">
+func
+
+
+</h4>
+<pre class="highlight"><code class="language-python">func()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>The symbolic function as a regular function, obtained by dereferencing the symbol.</p>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h4 id="pykx.wrappers.SymbolicFunction.with_execution_ctx" class="doc doc-heading">
+with_execution_ctx
+
+
+</h4>
+<pre class="highlight"><code class="language-python">with_execution_ctx(execution_ctx)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Get a new symbolic function that will be evaluated within the provided q instance.</p>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+              
+            </article>
+            
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="toq.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Convert Pythonic data to PyKX" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Convert Pythonic data to PyKX
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="type_conversions.html" class="md-footer__link md-footer__link--next" aria-label="Next: PyKX to Pythonic data type mapping" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              PyKX to Pythonic data type mapping
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2024 Kx Systems, Inc. KX and kdb+ are registered trademarks of Kx Systems, Inc., a subsidiary of FD Technologies plc.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs Insiders
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.tabs.link", "header.autohide", "navigation.tabs", "navigation.footer", "content.code.annotate", "content.action.edit", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c028271.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.dcd4d203.min.js"></script>
+      
+        <script src="https://code.kx.com/scripts/prism.js"></script>
+      
+        <script src="https://code.kx.com/scripts/extra.js"></script>
+      
+        <script src="https://code.kx.com/scripts/mathjax.js"></script>
+      
+        <script src="https://code.kx.com/scripts/polyfill.min.js"></script>
+      
+        <script src="https://code.kx.com/scripts/tex-mmmdtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      
+        <script src="https://use.fontawesome.com/3dbf29ed12.js"></script>
+      
+        <script src="../../&period;&period;/&period;&period;/pykx/scripts/versions.js"></script>
+      
+    
+  </body>
+</html>

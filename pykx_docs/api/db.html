@@ -1,0 +1,5304 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="PyKX Documentation">
+      
+      
+        <meta name="author" content="KX">
+      
+      
+        <link rel="canonical" href="https://code.kx.com/pykx/api/db.html">
+      
+      
+        
+      
+      <link rel="icon" href="https://code.kx.com/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.2.7+insiders-4.11.0">
+    
+    
+      
+        <title>Database Interactions - PyKX</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5216e7b8.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+      
+    
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/assets/stylesheets/main.b941530a.min.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/2021.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/prism.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/hide-footer-nav.css">
+    
+      <link rel="stylesheet" href="../stylesheets/mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/dashboards.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/dashboards/stylesheets/dashboards.css">
+    
+      <link rel="stylesheet" href="../stylesheets/swagger.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PG938LS');</script>
+<!-- End Google Tag Manager -->
+<!-- Delighted Survey tool -->
+<script type="text/javascript">
+	!function(e,t,r,n){if(!e[n]){for(var a=e[n]=[],i=["survey","reset","config","init","set","get","event","identify","track","page","screen","group","alias"],s=0;s<i.length;s++){var c=i[s];a[c]=a[c]||function(e){return function(){var t=Array.prototype.slice.call(arguments);a.push([e,t])}}(c)}a.SNIPPET_VERSION="1.0.1";var o=t.createElement("script");o.type="text/javascript",o.async=!0,o.src="https://d2yyd1h5u9mauk.cloudfront.net/integrations/web/v1/library/"+r+"/"+n+".js";var p=t.getElementsByTagName("script")[0];p.parentNode.insertBefore(o,p)}}(window,document,"QKBtsIp633c7g2I2","delightedThumbsP"); 
+   
+   delightedThumbsP.survey({
+	properties: { // extra context (optional)
+	product: "PyKX"
+	}
+	});
+   </script>
+<!-- End Delighted Survey tool -->
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="kx-light" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#database-interaction-and-management-functionality" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header"  onload="loadVersions()">
+    <!--<link rel="stylesheet" href="https://code.kx.com/home/assets/stylesheets/main.b941530a.min.css">-->
+    <!--<link rel="stylesheet" href="https://code.kx.com/home/assets/stylesheets/vendor/mermaid.733f213f.min.css">-->
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://code.kx.com/" title="code.kx.com" class="md-header__button md-logo" aria-label="PyKX" data-md-component="logo">
+      <img src="https://code.kx.com/img/kx.svg" alt="logo" style="width:1.2rem; height:1.2rem">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic" style="font-weight:500">
+            <span class="md-ellipsis" >
+            PyKX
+          </span>
+          <script>
+            var currVersion = '2.5'
+          </script>
+          <style>
+            .md-version:focus-within .md-version__list, .md-version:hover .md-version__list {
+              max-height: 6rem;
+              opacity: 1;
+              transition: max-height 0ms,opacity .25s;
+            }
+          </style>
+              <div class="md-version">
+                <button class="md-version__current" aria-label="Select version">2.5</button>
+                <ul class="md-version__list" style="margin-top: 20%;">
+                  <div id="versionList"></div>
+                </ul>
+              </div>
+              <div id="latestFlag"></div>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Database Interactions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="kx-light" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kxsystems/pykx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+<style>
+    @media (max-width: 430px) {
+      .md-typeset span{display:none;}
+    }
+  /* Button used to open the chat form - fixed at the bottom of the page */
+  .open-button {
+    background-color: var(--md-typeset-a-color);
+    border: none;
+    border-radius: 10px;
+    bottom: 23px;
+    box-sizing: border-box;
+    color: var(--md-default-bg-color);
+    cursor: pointer;
+    font-size: 13px;
+    opacity: 0.8;
+    padding: 10px 10px;
+    position: fixed;
+    right: 28px;
+    width: 160px;
+    z-index: 3;
+  }
+</style>
+<body>
+  <button class="open-button md-typeset" onclick="window.location.href='https://community.kx.com/t5/forums/postpage/choose-node/true/interaction-style/forum/override-styles/true/board-id/kxinsights'"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29 7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160-93.3 160-208 160z"></path></svg></span>&nbsp;Ask a question</button>
+  </body>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/" class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/q" class="md-tabs__link">
+        
+  
+  kdb+ and q
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/core" class="md-tabs__link">
+        
+  
+  kdb Insights SDK
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/platform/" class="md-tabs__link">
+        
+  
+  kdb Insights Enterprise
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/kdbai/" class="md-tabs__link">
+        
+  
+  KDB.AI
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+      
+    
+  
+  
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../index.html" class="md-tabs__link md-tabs__link--active">
+          
+  
+    
+  
+  PyKX
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/api/index.html" class="md-tabs__link">
+        
+  
+  APIs
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/licensing/licensing/" class="md-tabs__link">
+        
+  
+  Licensing
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/home/support/" class="md-tabs__link">
+        
+  
+  Help
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="PyKX" class="md-nav__button md-logo" aria-label="PyKX" data-md-component="logo">
+      <img src="https://code.kx.com/img/kx.svg" alt="logo" style="width:1.2rem; height:1.2rem">
+    </a>
+    PyKX
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kxsystems/pykx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/q" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb+ and q
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/core" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb Insights SDK
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/platform/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb Insights Enterprise
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/kdbai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    KDB.AI
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          
+  
+  <span class="md-ellipsis">
+    PyKX
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PyKX" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          PyKX
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Documentation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/what_is_pykx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is PyKX?
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/installing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/quickstart.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart guide
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/PyKX%20Introduction%20Notebook.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Introduction Notebook
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/q_magic_command.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jupyter q Magic Command Notebook
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/configuration.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_3" type="checkbox" id="__nav_6_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_3">
+          
+  
+  <span class="md-ellipsis">
+    Fundamentals
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fundamentals" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Fundamentals
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/creating.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generating PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/evaluating.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interacting with PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/querying.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying data
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/indexing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Indexing PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/conversion_considerations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conversion considerations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/text.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Representation in PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/nulls_and_infinities.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handling nulls and infinities
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_4" type="checkbox" id="__nav_6_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_4">
+          
+  
+  <span class="md-ellipsis">
+    Advanced usage and performance considerations
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Advanced usage and performance considerations" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced usage and performance considerations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/ipc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Communicating via IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/database.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database interactions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/context_interface.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using q functions in a Pythonic way
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/modes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modes of operation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/numpy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NumPy integration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/serialization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization and de-serialization
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/performance.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance considerations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/limitations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface limitations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/attributes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Attributes
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/pandas_breakdown.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas Like API Coverage
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_1" type="checkbox" id="__nav_6_4_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_1">
+          
+  
+  <span class="md-ellipsis">
+    Code execution
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code execution" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          Code execution
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-execution/q.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX native functions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-execution/embedded_q.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX execution classes
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-execution/ctx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Context interface
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-execution/console.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX console
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_2" type="checkbox" id="__nav_6_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_2">
+          
+  
+  <span class="md-ellipsis">
+    Data types and conversions
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data types and conversions" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Data types and conversions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-q-data/toq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Convert Pythonic data to PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-q-data/wrappers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX type wrappers
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-q-data/type_conversions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX to Pythonic data type mapping
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-q-data/register.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Registering Custom Conversions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/Pandas_API.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas API
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="random.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random data generation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="query.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="compress.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption APIs
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Database Interactions
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="db.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Database Interactions
+  </span>
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pykx.db" class="md-nav__link">
+    pykx.db
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx.db.DB" class="md-nav__link">
+    DB
+  </a>
+  
+    <nav class="md-nav" aria-label="DB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.create" class="md-nav__link">
+    create()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.load" class="md-nav__link">
+    load()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.rename_column" class="md-nav__link">
+    rename_column()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.delete_column" class="md-nav__link">
+    delete_column()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.rename_table" class="md-nav__link">
+    rename_table()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.list_columns" class="md-nav__link">
+    list_columns()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.add_column" class="md-nav__link">
+    add_column()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.find_column" class="md-nav__link">
+    find_column()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.reorder_columns" class="md-nav__link">
+    reorder_columns()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.set_column_attribute" class="md-nav__link">
+    set_column_attribute()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.set_column_type" class="md-nav__link">
+    set_column_type()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.clear_column_attribute" class="md-nav__link">
+    clear_column_attribute()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.copy_column" class="md-nav__link">
+    copy_column()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.apply_function" class="md-nav__link">
+    apply_function()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.fill_database" class="md-nav__link">
+    fill_database()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.partition_count" class="md-nav__link">
+    partition_count()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.subview" class="md-nav__link">
+    subview()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.enumerate" class="md-nav__link">
+    enumerate()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="remote.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote Python Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ipc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="exceptions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Exceptions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="schema.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schema generation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="streamlit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streamlit Integration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Command Wrappers
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="util.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_16" type="checkbox" id="__nav_6_4_16" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_16">
+          
+  
+  <span class="md-ellipsis">
+    File loading and saving
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="File loading and saving" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_16">
+          <span class="md-nav__icon md-icon"></span>
+          File loading and saving
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-save-load/write.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Writing data to disk
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pykx-save-load/read.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reading data from disk
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reimporting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reimporter module
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="serialize.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          
+  
+  <span class="md-ellipsis">
+    Beta Features
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Beta Features" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Beta Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/db-management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/compress-encypt.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/remote-functions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote Function Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/threading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multithreading
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/streamlit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streamlit
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          
+  
+  <span class="md-ellipsis">
+    Python within q
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python within q" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Python within q
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-under-q/intro.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-under-q/api.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-under-q/upgrade.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade from embedPy
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-under-q/known_issues.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Known Issues
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_7" type="checkbox" id="__nav_6_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_7">
+          
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_7">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/subscriber/readme.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Subscriber
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/compress_and_encrypt/readme.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/db-management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Creation and Management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/ipc/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/charting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Charting Data with PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/server/server.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX as a Server
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/threaded_execution/threading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multithreaded Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_8" type="checkbox" id="__nav_6_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_8">
+          
+  
+  <span class="md-ellipsis">
+    Extras
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Extras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_8">
+          <span class="md-nav__icon md-icon"></span>
+          Extras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/comparisons.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Comparisons against other Python/q interfaces
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/known_issues.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Known issues
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_9" type="checkbox" id="__nav_6_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_9">
+          
+  
+  <span class="md-ellipsis">
+    Release notes
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Release notes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_9">
+          <span class="md-nav__icon md-icon"></span>
+          Release notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/changelog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/underq-changelog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX under q
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../blogs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blogs, Articles and Videos
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frequently Asked Questions (FAQ)
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../support.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributors.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributors
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/api/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    APIs
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/licensing/licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licensing
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/home/support/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Help
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pykx.db" class="md-nav__link">
+    pykx.db
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykx.db.DB" class="md-nav__link">
+    DB
+  </a>
+  
+    <nav class="md-nav" aria-label="DB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.create" class="md-nav__link">
+    create()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.load" class="md-nav__link">
+    load()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.rename_column" class="md-nav__link">
+    rename_column()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.delete_column" class="md-nav__link">
+    delete_column()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.rename_table" class="md-nav__link">
+    rename_table()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.list_columns" class="md-nav__link">
+    list_columns()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.add_column" class="md-nav__link">
+    add_column()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.find_column" class="md-nav__link">
+    find_column()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.reorder_columns" class="md-nav__link">
+    reorder_columns()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.set_column_attribute" class="md-nav__link">
+    set_column_attribute()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.set_column_type" class="md-nav__link">
+    set_column_type()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.clear_column_attribute" class="md-nav__link">
+    clear_column_attribute()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.copy_column" class="md-nav__link">
+    copy_column()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.apply_function" class="md-nav__link">
+    apply_function()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.fill_database" class="md-nav__link">
+    fill_database()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.partition_count" class="md-nav__link">
+    partition_count()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.subview" class="md-nav__link">
+    subview()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx.db.DB.enumerate" class="md-nav__link">
+    enumerate()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/kxsystems/pykx/edit/main/docs/api/db.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="database-interaction-and-management-functionality">Database interaction and management functionality</h1>
+
+
+  <div class="doc doc-object doc-module">
+
+<a id="pykx.db"></a>
+    <div class="doc doc-contents first">
+
+      <p>Functionality for the interaction with and management of databases.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning<p>This functionality is provided in its present form as a BETA
+Feature and is subject to change. To enable this functionality
+for testing please following configuration instructions
+<a href="../user-guide/configuration.html">here</a> setting <code>PYKX_BETA_FEATURES='true'</code></p>
+</p>
+</div>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="pykx.db.DB" class="doc doc-heading">
+          <code>DB</code>
+
+
+
+</h2>
+<pre class="highlight"><code class="language-python">DB(*, path=None)</code></pre>
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><span title="pykx.db._TABLES">_TABLES</span></code></p>
+
+
+      <p>Singleton class used for the management of kdb+ Databases</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.create" class="doc doc-heading">
+create
+
+
+</h3>
+<pre class="highlight"><code class="language-python">create(
+    table,
+    table_name,
+    partition,
+    *,
+    by_field=None,
+    sym_enum=None,
+    log=True,
+    compress=None,
+    encrypt=None
+)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Create an on-disk partitioned table within a kdb+ database from a supplied
+    <code>pykx.Table</code> object. Once generated this table will be accessible
+    as an attribute of the <code>DB</code> class or a sub attribute of <code>DB.table</code>.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>table</code></td>
+          <td>
+          </td>
+          <td><p>The <code>pykx.Table</code> object which is to be persisted to disk</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>table_name</code></td>
+          <td>
+          </td>
+          <td><p>The name with which the table will be persisted and accessible
+once loaded and available as a <code>pykx.PartitionedTable</code></p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>partition</code></td>
+          <td>
+          </td>
+          <td><p>The name of the column which is to be used to partition the data if
+supplied as a <code>str</code> or if supplied as non string object this will be used as
+the partition to which all data is persisted</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>by_field</code></td>
+          <td>
+          </td>
+          <td><p>A field of the table to be used as a by column, this column will be
+the second column in the table (the first being the virtual column determined
+by the partitioning column)</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>sym_enum</code></td>
+          <td>
+          </td>
+          <td><p>The name of the symbol enumeration table to be associated with the table</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>log</code></td>
+          <td>
+          </td>
+          <td><p>Print information about status of partitioned datab</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>compress</code></td>
+          <td>
+          </td>
+          <td><p><code>pykx.Compress</code> initialized class denoting the
+compression settings to be used when persisting a partition/partitions</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>encrypt</code></td>
+          <td>
+          </td>
+          <td><p><code>pykx.Encrypt</code> initialized class denoting the encryption setting to be used
+when persisting a partition/partitions</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successful invocation, the database class will be
+updated to contain attributes associated with the available created table</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Generate a partitioned table from a table containing multiple partitions</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB(path = '/tmp/newDB')
+&gt;&gt;&gt; N = 1000
+&gt;&gt;&gt; qtab = kx.Table(data = {
+...     'date': kx.q.asc(kx.random.random(N, kx.q('2020.01 2020.02 2020.03m'))),
+...     'sym': kx.random.random(N, ['AAPL', 'GOOG', 'MSFT']),
+...     'price': kx.random.random(N, 10.0),
+...     'size': kx.random.random(N, 100)
+... })
+&gt;&gt;&gt; db.create(qtab, 'stocks', 'date', by_field = 'sym', sym_enum = 'symbols')
+&gt;&gt;&gt; db.tables
+['stocks']
+&gt;&gt;&gt; db.stocks
+pykx.PartitionedTable(pykx.q('
+month   sym  price     size
+---------------------------
+2020.01 AAPL 7.979004  85
+2020.01 AAPL 5.931866  55
+2020.01 AAPL 5.255477  49
+2020.01 AAPL 8.15255   74
+2020.01 AAPL 4.771067  80
+..
+'))</code></pre>
+<p>Add a table as a partition to an on-disk database, in the example below we are adding
+    a partition to the table generated above</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB(path = '/tmp/newDB')
+&gt;&gt;&gt; N = 333
+&gt;&gt;&gt; qtab = kx.Table(data = {
+...     'sym': kx.random.random(N, ['AAPL', 'GOOG', 'MSFT']),
+...     'price': kx.random.random(N, 10.0),
+...     'size': kx.random.random(N, 100)
+... })
+&gt;&gt;&gt; db.create(qtab, 'stocks', kx.q('2020.04m'), by_field = 'sym', sym_enum = 'symbols')
+&gt;&gt;&gt; db.tables
+['stocks']
+&gt;&gt;&gt; db.stocks
+pykx.PartitionedTable(pykx.q('
+month   sym  price     size
+---------------------------
+2020.01 AAPL 7.979004  85
+2020.01 AAPL 5.931866  55
+2020.01 AAPL 5.255477  49
+2020.01 AAPL 8.15255   74
+2020.01 AAPL 4.771067  80
+..
+'))</code></pre>
+<p>Add a table as a partition to an on-disk database, in the example below we are
+    additionally applying gzip compression to the persisted table</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB(path = '/tmp/newDB')
+&gt;&gt;&gt; N = 333
+&gt;&gt;&gt; qtab = kx.Table(data = {
+...     'sym': kx.random.random(N, ['AAPL', 'GOOG', 'MSFT']),
+...     'price': kx.random.random(N, 10.0),
+...     'size': kx.random.random(N, 100)
+... })
+&gt;&gt;&gt; compress = kx.Compress(kx.CompressionAlgorithm.gzip, level=2)
+&gt;&gt;&gt; db.create(qtab, 'stocks', kx.q('2020.04m'), compress=compress)
+&gt;&gt;&gt; kx.q('{-21!hsym x}', '/tmp/newDB/2020.04/stocks/price')
+pykx.Dictionary(pykx.q('
+compressedLength  | 2064
+uncompressedLength| 2680
+algorithm         | 2i
+logicalBlockSize  | 17i
+zipLevel          | 2i
+'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.load" class="doc doc-heading">
+load
+
+
+</h3>
+<pre class="highlight"><code class="language-python">load(path, *, overwrite=False, encrypt=None)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Load the tables associated with a kdb+ Database, once loaded a table
+    is accessible as an attribute of the <code>DB</code> class or a sub attribute
+    of <code>DB.table</code>. Note that can alternatively be called when providing a path
+    on initialisation of the DB class.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>path</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
+          </td>
+          <td><p>The file system path at which your database is located</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>overwrite</code></td>
+          <td>
+          </td>
+          <td><p>Should loading of the database overwrite any currently
+loaded databases</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successful invocation, the database class will be
+updated to contain attributes associated with available tables</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Load an on-disk database</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testData')
+&gt;&gt;&gt; db.tables
+['testData']
+&gt;&gt;&gt; db.testData
+pykx.PartitionedTable(pykx.q('
+month   sym  time         price    size
+---------------------------------------
+2020.01 FDP  00:00:00.004 90.94738 12
+2020.01 FDP  00:00:00.005 33.81127 15
+2020.01 FDP  00:00:00.027 88.89853 16
+2020.01 FDP  00:00:00.035 78.33244 9
+2020.01 JPM  00:00:00.055 68.65177 1
+..
+'))
+&gt;&gt;&gt; db.table.testData
+pykx.PartitionedTable(pykx.q('
+month   sym  time         price    size
+---------------------------------------
+2020.01 FDP  00:00:00.004 90.94738 12
+2020.01 FDP  00:00:00.005 33.81127 15
+2020.01 FDP  00:00:00.027 88.89853 16
+2020.01 FDP  00:00:00.035 78.33244 9
+2020.01 JPM  00:00:00.055 68.65177 1
+..
+'))</code></pre>
+<p>Load an on-disk database when initialising the class</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB(path = 'testData')
+&gt;&gt;&gt; db.tables
+['testData']
+&gt;&gt;&gt; db.testData
+pykx.PartitionedTable(pykx.q('
+month   sym  time         price    size
+---------------------------------------
+2020.01 FDP  00:00:00.004 90.94738 12
+2020.01 FDP  00:00:00.005 33.81127 15
+2020.01 FDP  00:00:00.027 88.89853 16
+2020.01 FDP  00:00:00.035 78.33244 9
+2020.01 JPM  00:00:00.055 68.65177 1
+..
+'))
+&gt;&gt;&gt; db.table.testData
+pykx.PartitionedTable(pykx.q('
+month   sym  time         price    size
+---------------------------------------
+2020.01 FDP  00:00:00.004 90.94738 12
+2020.01 FDP  00:00:00.005 33.81127 15
+2020.01 FDP  00:00:00.027 88.89853 16
+2020.01 FDP  00:00:00.035 78.33244 9
+2020.01 JPM  00:00:00.055 68.65177 1
+..
+'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.rename_column" class="doc doc-heading">
+rename_column
+
+
+</h3>
+<pre class="highlight"><code class="language-python">rename_column(table, original_name, new_name)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Rename a column within a loaded kdb+ Database</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>table</code></td>
+          <td>
+          </td>
+          <td><p>The name of the table within which a column is to be renamed</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>original_name</code></td>
+          <td>
+          </td>
+          <td><p>Name of the column which is to be renamed</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>new_name</code></td>
+          <td>
+          </td>
+          <td><p>Column name which will be used as the new column name</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successful invocation, the database class will be
+updated and column rename actioned.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Rename the column of a table</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testDB')
+&gt;&gt;&gt; db.tables
+['testTable']
+&gt;&gt;&gt; db.list_columns('testTable')
+['month', 'sym', 'time', 'price', 'size']
+&gt;&gt;&gt; db.rename_column('testTable', 'sym', 'symbol')
+&gt;&gt;&gt; db.testTable
+pykx.PartitionedTable(pykx.q('
+month   symbol  time         price    size
+---------------------------------------
+2020.01 FDP     00:00:00.004 90.94738 12
+2020.01 FDP     00:00:00.005 33.81127 15
+2020.01 FDP     00:00:00.027 88.89853 16
+2020.01 FDP     00:00:00.035 78.33244 9
+2020.01 JPM     00:00:00.055 68.65177 1
+..
+'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.delete_column" class="doc doc-heading">
+delete_column
+
+
+</h3>
+<pre class="highlight"><code class="language-python">delete_column(table, column)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Delete the column of a loaded kdb+ Database</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>table</code></td>
+          <td>
+          </td>
+          <td><p>The name of the table within which a column is to be deleted</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column</code></td>
+          <td>
+          </td>
+          <td><p>Column which is to be deleted from the database</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successful invocation, the database class will be
+updated and specified column deleted</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Delete the column of a table</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testDB')
+&gt;&gt;&gt; db.tables
+['testTable']
+&gt;&gt;&gt; db.list_columns('testTable')
+['month', 'sym', 'time', 'price', 'size']
+&gt;&gt;&gt; db.delete_column('testTable', 'size')
+&gt;&gt;&gt; db.testTable
+pykx.PartitionedTable(pykx.q('
+month   symbol  time         price
+-------------------------------------
+2020.01 FDP     00:00:00.004 90.94738
+2020.01 FDP     00:00:00.005 33.81127
+2020.01 FDP     00:00:00.027 88.89853
+2020.01 FDP     00:00:00.035 78.33244
+2020.01 JPM     00:00:00.055 68.65177
+..
+'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.rename_table" class="doc doc-heading">
+rename_table
+
+
+</h3>
+<pre class="highlight"><code class="language-python">rename_table(original_name, new_name)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Rename a table within a loaded kdb+ Database</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>original_name</code></td>
+          <td>
+          </td>
+          <td><p>The name of the table which is to be renamed</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>new_name</code></td>
+          <td>
+          </td>
+          <td><p>Updated table name</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successful invocation, the database class will be
+updated, original table name deleted from q memory and new table
+accessible</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Rename a database table</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testDB')
+&gt;&gt;&gt; db.tables
+['testTable']
+&gt;&gt;&gt; db.rename_table('testTable', 'updated_table')
+&gt;&gt;&gt; db.tables
+['updated_table']</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.list_columns" class="doc doc-heading">
+list_columns
+
+
+</h3>
+<pre class="highlight"><code class="language-python">list_columns(table)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>List the columns of a table within a loaded kdb+ Database</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>table</code></td>
+          <td>
+          </td>
+          <td><p>The name of the table whose columns are listed</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A list of strings defining the columns of a table</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>List the columns of a table in a database</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testDB')
+&gt;&gt;&gt; db.tables
+['testTable']
+&gt;&gt;&gt; db.list_columns('testTable')
+['month', 'sym', 'time', 'price', 'size']</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.add_column" class="doc doc-heading">
+add_column
+
+
+</h3>
+<pre class="highlight"><code class="language-python">add_column(table, column_name, default_value)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Add a column to a table within a loaded kdb+ Database</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>table</code></td>
+          <td>
+          </td>
+          <td><p>The name of the table to which a column is to be added</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column_name</code></td>
+          <td>
+          </td>
+          <td><p>Name of the column to be added</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>default_value</code></td>
+          <td>
+          </td>
+          <td><p>The default value to be used for all existing partitions</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successful invocation, the database class will be
+updated and the new column available for use/access</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Add a column to a table within a partitioned database</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testDB')
+&gt;&gt;&gt; db.tables
+['testTable']
+&gt;&gt;&gt; db.list_columns('testTable')
+['month', 'sym', 'time', 'price', 'size']
+&gt;&gt;&gt;  db.add_column('testTable', 'test', kx.IntAtom.null)
+&gt;&gt;&gt; db.list_columns('testTable')
+['month', 'sym', 'time', 'price', 'size']</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.find_column" class="doc doc-heading">
+find_column
+
+
+</h3>
+<pre class="highlight"><code class="language-python">find_column(table, column_name)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Functionality for finding a column across partitions within a loaded kdb+ Database</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>table</code></td>
+          <td>
+          </td>
+          <td><p>The name of the table within which columns are to be found</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column_name</code></td>
+          <td>
+          </td>
+          <td><p>The name of the column to be found within a table</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successful invocation printing search status per partition,</p></td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td><p>if a column does not exist in a specified partition an error will be raised</p></td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td><p>and the logs will indicate which columns did not have the specified column.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Find a column that exists</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testDB')
+&gt;&gt;&gt; db.tables
+['testTable']
+&gt;&gt;&gt; db.list_columns('testTable')
+['month', 'sym', 'time', 'price', 'size']
+&gt;&gt;&gt; db.find_column('price')
+2023.11.10 16:48:57 column price (type 0) in `:/usr/pykx/db/2015.01.01/testTable
+2023.11.10 16:48:57 column price (type 0) in `:/usr/pykx/db/2015.01.02/testTable</code></pre>
+<p>Attempt to find a column that does not exist</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testDB')
+&gt;&gt;&gt; db.tables
+['testTable']
+&gt;&gt;&gt; db.list_columns('testTable')
+['month', 'sym', 'time', 'price', 'size']
+&gt;&gt;&gt; db.find_column('side')
+2023.11.10 16:49:02 column side *NOT*FOUND* in `:/usr/pykx/db/2015.01.01/testTable
+2023.11.10 16:49:02 column side *NOT*FOUND* in `:/usr/pykx/db/2015.01.02/testTable
+Traceback (most recent call last):
+...
+pykx.exceptions.QError: Requested column not found in all partitions, see log output above</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.reorder_columns" class="doc doc-heading">
+reorder_columns
+
+
+</h3>
+<pre class="highlight"><code class="language-python">reorder_columns(table, new_order)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Reorder the columns of a persisted kdb+ database</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>table</code></td>
+          <td>
+          </td>
+          <td><p>The name of the table within which columns will be rearranged</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>new_order</code></td>
+          <td>
+          </td>
+          <td><p>The ordering of the columns following update</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successfully updating the columns of the database</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Update the order of columns for a persisted kdb+ database</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testDB')
+&gt;&gt;&gt; db.tables
+['testTable']
+&gt;&gt;&gt; col_list = db.list_columns('testTable')
+&gt;&gt;&gt; col_list
+['month', 'sym', 'time', 'price', 'size']
+&gt;&gt;&gt; col_list.reverse()
+&gt;&gt;&gt; col_list
+['size', 'price', 'time', 'sym', 'month']
+&gt;&gt;&gt; db.reorder_columns('testTable', col_list)
+2023.11.13 17:56:17 reordering columns in `:/usr/pykx/2015.01.01/testTable
+2023.11.13 17:56:17 reordering columns in `:/usr/pykx/2015.01.02/testTable
+['month', 'sym', 'time', 'price', 'size']</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.set_column_attribute" class="doc doc-heading">
+set_column_attribute
+
+
+</h3>
+<pre class="highlight"><code class="language-python">set_column_attribute(table, column_name, new_attribute)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Set an attribute associated with a column for an on-disk database</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>table</code></td>
+          <td>
+          </td>
+          <td><p>The name of the table within which an attribute will be set</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column_name</code></td>
+          <td>
+          </td>
+          <td><p>Name of the column to which the attribute will be applied</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>new_attribute</code></td>
+          <td>
+          </td>
+          <td><p>The attribute which is to be applied, this can be one of
+'sorted'/'u', 'partitioned'/'p', 'unique'/'u' or 'grouped'/'g'.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successfully setting the attribute for a column</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Add an attribute to a column of a persisted database</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testDB')
+&gt;&gt;&gt; db.tables
+['testTable']
+&gt;&gt;&gt; kx.q.meta(db.testTable)
+pykx.KeyedTable(pykx.q('
+c   | t f a
+----| -----
+date| d
+test| j
+p   | f
+sym | s
+'))
+&gt;&gt;&gt; db.set_column_attribute('testTable', 'sym', 'grouped')
+&gt;&gt;&gt; kx.q.meta(db.testTable)
+pykx.KeyedTable(pykx.q('
+c   | t f a
+----| -----
+date| d
+test| j
+p   | f
+sym | s   g
+'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.set_column_type" class="doc doc-heading">
+set_column_type
+
+
+</h3>
+<pre class="highlight"><code class="language-python">set_column_type(table, column_name, new_type)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Convert/set the type of a column to a specified type</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>table</code></td>
+          <td>
+          </td>
+          <td><p>The name of the table within which a column is to be converted</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column_name</code></td>
+          <td>
+          </td>
+          <td><p>Name of the column which is to be converted</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>new_type</code></td>
+          <td>
+          </td>
+          <td><p>PyKX type to which a column is to be converted</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successfully updating the type of the column</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Convert the type of a column within a database table</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testDB')
+&gt;&gt;&gt; db.tables
+['testTable']
+&gt;&gt;&gt; kx.q.meta(db.testTable)
+pykx.KeyedTable(pykx.q('
+c   | t f a
+----| -----
+date| d
+test| j
+p   | f
+sym | s
+'))
+&gt;&gt;&gt; db.set_column_type('testTable', 'test', kx.FloatAtom)
+&gt;&gt;&gt; kx.q.meta(db.testTable)
+pykx.KeyedTable(pykx.q('
+c   | t f a
+----| -----
+date| d
+test| f
+p   | f
+sym | s
+'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.clear_column_attribute" class="doc doc-heading">
+clear_column_attribute
+
+
+</h3>
+<pre class="highlight"><code class="language-python">clear_column_attribute(table, column_name)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Clear an attribute associated with a column of an on-disk database</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>table</code></td>
+          <td>
+          </td>
+          <td><p>The name of the table within which the attribute of a column will be removed</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column_name</code></td>
+          <td>
+          </td>
+          <td><p>Name of the column from which an attribute will be removed</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successful removal of the attribute of a column</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Remove an attribute of a column of a persisted database</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testDB')
+&gt;&gt;&gt; db.tables
+['testTable']
+&gt;&gt;&gt; kx.q.meta(db.testTable)
+pykx.KeyedTable(pykx.q('
+c   | t f a
+----| -----
+date| d
+test| j
+p   | f
+sym | s    g
+'))
+&gt;&gt;&gt; db.clear_column_attribute('testTable', 'sym')
+&gt;&gt;&gt; kx.q.meta(db.testTable)
+pykx.KeyedTable(pykx.q('
+c   | t f a
+----| -----
+date| d
+test| j
+p   | f
+sym | s
+'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.copy_column" class="doc doc-heading">
+copy_column
+
+
+</h3>
+<pre class="highlight"><code class="language-python">copy_column(table, original_column, new_column)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Create a copy of a column within a table</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>table</code></td>
+          <td>
+          </td>
+          <td><p>Name of the table</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>original_column</code></td>
+          <td>
+          </td>
+          <td><p>Name of the column to be copied</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>new_column</code></td>
+          <td>
+          </td>
+          <td><p>Name of the copied column</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successful column copy, reloading the</p></td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td><p>database following column copy</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Copy a column within a kdb+ database</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testDB')
+&gt;&gt;&gt; db.list_columns('testTable')
+['month', 'sym', 'time', 'price', 'size']
+&gt;&gt;&gt; db.copy_column('testTable', 'size', 'dup_size')
+['month', 'sym', 'time', 'price', 'size', 'dup_size']</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.apply_function" class="doc doc-heading">
+apply_function
+
+
+</h3>
+<pre class="highlight"><code class="language-python">apply_function(table, column_name, function)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Apply a function per partition on a column of a persisted kdb+ database</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>table</code></td>
+          <td>
+          </td>
+          <td><p>Name of the table</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>column_name</code></td>
+          <td>
+          </td>
+          <td><p>Name of the column on which the function is to be applied</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>function</code></td>
+          <td>
+          </td>
+          <td><p>Callable function to be applied on a column vector per column</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successful application of a function to the column</p></td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td><p>and the reloading of the database</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Apply a q function to a specified column per partition</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testDB')
+&gt;&gt;&gt; db.testTable
+pykx.PartitionedTable(pykx.q('
+month   symbol  time         price
+-------------------------------------
+2020.01 FDP     00:00:00.004 90.94738
+2020.01 FDP     00:00:00.005 33.81127
+2020.01 FDP     00:00:00.027 88.89853
+2020.01 FDP     00:00:00.035 78.33244
+2020.01 JPM     00:00:00.055 68.65177
+..
+'))
+&gt;&gt;&gt; db.apply_function('testTable', 'price', kx.q('2*'))
+&gt;&gt;&gt; db.testTable
+pykx.PartitionedTable(pykx.q('
+month   symbol  time         price
+-------------------------------------
+2020.01 FDP     00:00:00.004 181.8948
+2020.01 FDP     00:00:00.005 67.62254
+2020.01 FDP     00:00:00.027 177.7971
+2020.01 FDP     00:00:00.035 156.6649
+2020.01 JPM     00:00:00.055 137.3035
+..
+'))</code></pre>
+<p>Apply a Python function to the content of a specified column per partition</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB()
+&gt;&gt;&gt; db.load('testDB')
+&gt;&gt;&gt; db.testTable
+pykx.PartitionedTable(pykx.q('
+month   symbol  time         price
+-------------------------------------
+2020.01 FDP     00:00:00.004 90.94738
+2020.01 FDP     00:00:00.005 33.81127
+2020.01 FDP     00:00:00.027 88.89853
+2020.01 FDP     00:00:00.035 78.33244
+2020.01 JPM     00:00:00.055 68.65177
+..
+'))
+&gt;&gt;&gt; db.apply_function('testTable', 'price', lambda x:2*x.np())
+&gt;&gt;&gt; db.testTable
+pykx.PartitionedTable(pykx.q('
+month   symbol  time         price
+-------------------------------------
+2020.01 FDP     00:00:00.004 181.8948
+2020.01 FDP     00:00:00.005 67.62254
+2020.01 FDP     00:00:00.027 177.7971
+2020.01 FDP     00:00:00.035 156.6649
+2020.01 JPM     00:00:00.055 137.3035
+..
+'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.fill_database" class="doc doc-heading">
+fill_database
+
+
+</h3>
+<pre class="highlight"><code class="language-python">fill_database()</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Fill missing tables from partitions within a database using the
+    most recent partition as a template, this will report the
+    partitions but not the tables which are being filled.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successful filling of missing tables in
+partitioned database</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Fill missing tables from a database</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB(path = 'newDB')
+&gt;&gt;&gt; db.fill_database()
+Successfully filled missing tables to partition: :/usr/newDB/2020.04
+Successfully filled missing tables to partition: :/usr/newDB/2020.03
+Successfully filled missing tables to partition: :/usr/newDB/2020.02
+Successfully filled missing tables to partition: :/usr/newDB/2020.01</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.partition_count" class="doc doc-heading">
+partition_count
+
+
+</h3>
+<pre class="highlight"><code class="language-python">partition_count(*, subview=None)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Count the number of rows per partition for the presently loaded database.
+    Use of the parameter <code>subview</code> can allow users to count only the rows
+    in specifies partitions.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>subview</code></td>
+          <td>
+          </td>
+          <td><p>An optional list of partitions from which to retrieve the per partition
+count</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>pykx.Dictionary</code> object showing the count of data in each table within
+the presently loaded partioned database.</p></td>
+        </tr>
+    </tbody>
+  </table>
+      <div class="admonition warning">
+<p class="admonition-title">Warning<p>Using this function will result in any specified <code>subview</code> of the data being reset,
+if you require the use of a subview for queries please reset using the database
+<code>subview</code> command.</p>
+</p>
+</div>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Copy a column within a kdb+ database</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB(path = 'newDB')
+&gt;&gt;&gt; db.partition_count()
+pykx.Dictionary(pykx.q('
+       | trades quotes
+-------| -------------
+2020.01| 334    0
+2020.02| 324    0
+2020.03| 342    1000
+'))</code></pre>
+<p>Copy a column within a kdb+ database</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB(path = 'newDB')
+&gt;&gt;&gt; db.partition_count(sub_view = kx.q('2020.01 2020.02m'))
+pykx.Dictionary(pykx.q('
+       | trades quotes
+-------| -------------
+2020.01| 334    0
+2020.02| 324    0
+'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.subview" class="doc doc-heading">
+subview
+
+
+</h3>
+<pre class="highlight"><code class="language-python">subview(view=None)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Specify the subview to be used when querying a partitioned table</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>view</code></td>
+          <td>
+          </td>
+          <td><p>A list of partition values which will serve as a filter
+for all queries against any partitioned table within the
+database. If view is supplied as <code>None</code> this will reset
+the query view to all partitions</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A <code>None</code> object on successful setting of the view state</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Set the subview range to include only <code>2020.02</code> and <code>2020.03</code></p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB(path = 'newDB')
+&gt;&gt;&gt; db.subview(kx.q('2020.02 2020.03m')
+&gt;&gt;&gt; kx.q.qsql.select(db.trades, 'month')
+pykx.Table(pykx.q('
+month
+-------
+2020.02
+2020.03
+'))</code></pre>
+<p>Reset the database subview to include a fully specified range</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB(path = 'newDB')
+&gt;&gt;&gt; db.subview()
+&gt;&gt;&gt; kx.q.qsql.select(db.trades, 'month')
+pykx.Table(pykx.q('
+month
+-------
+2020.01
+2020.02
+2020.03
+2020.04
+2020.05
+'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="pykx.db.DB.enumerate" class="doc doc-heading">
+enumerate
+
+
+</h3>
+<pre class="highlight"><code class="language-python">enumerate(table, *, sym_file=None)</code></pre>
+
+    <div class="doc doc-contents ">
+
+      <p>Perform an enumeration on a user specified table against the
+    current sym files associated with the database</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>path</code></td>
+          <td>
+          </td>
+          <td><p>The folder location to which your table will be persisted</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>table</code></td>
+          <td>
+          </td>
+          <td><p>The <code>pykx.Table</code> object which is to be persisted to disk
+and which is to undergo enumeration</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>sym_file</code></td>
+          <td>
+          </td>
+          <td><p>The name of the sym file contained in the folder specified by
+the <code>path</code> parameter against which enumeration will be completed</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>The supplied table with enumeration applied</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    
+      <p>Enumerate the symbol columns of a table without specifying the <code>sym</code> file</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB(path = 'newDB')
+&gt;&gt;&gt; N = 1000
+&gt;&gt;&gt; tab = kx.Table(data = {
+...     'x': kx.random.random(N, ['a', 'b', 'c']),
+...     'x1': kx.random.random(N, 1.0),
+...     'x2': kx.random.random(N, 10)
+... }
+&gt;&gt;&gt; tab = db.enumerate(tab)
+&gt;&gt;&gt; tab['x']
+pykx.EnumVector(pykx.q('`sym$`a`b`a`c`b..'))</code></pre>
+<p>Enumerate the symbol columns of a table specifying the <code>sym</code> file used</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import pykx as kx
+&gt;&gt;&gt; db = kx.DB(path = 'newDB')
+&gt;&gt;&gt; N = 1000
+&gt;&gt;&gt; tab = kx.Table(data = {
+...     'x': kx.random.random(N, ['a', 'b', 'c']),
+...     'x1': kx.random.random(N, 1.0),
+...     'x2': kx.random.random(N, 10)
+... }
+&gt;&gt;&gt; tab = db.enumerate(tab, sym_file = 'mysym')
+&gt;&gt;&gt; tab['x']
+pykx.EnumVector(pykx.q('`mysym$`a`b`a`c`b..'))</code></pre>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+              
+            </article>
+            
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="compress.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Compression and Encryption APIs" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Compression and Encryption APIs
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="remote.html" class="md-footer__link md-footer__link--next" aria-label="Next: Remote Python Execution" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Remote Python Execution
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2024 Kx Systems, Inc. KX and kdb+ are registered trademarks of Kx Systems, Inc., a subsidiary of FD Technologies plc.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs Insiders
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link", "header.autohide", "navigation.tabs", "navigation.footer", "content.code.annotate", "content.action.edit", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c028271.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dcd4d203.min.js"></script>
+      
+        <script src="https://code.kx.com/scripts/prism.js"></script>
+      
+        <script src="https://code.kx.com/scripts/extra.js"></script>
+      
+        <script src="https://code.kx.com/scripts/mathjax.js"></script>
+      
+        <script src="https://code.kx.com/scripts/polyfill.min.js"></script>
+      
+        <script src="https://code.kx.com/scripts/tex-mmmdtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      
+        <script src="https://use.fontawesome.com/3dbf29ed12.js"></script>
+      
+        <script src="../&period;&period;/&period;&period;/pykx/scripts/versions.js"></script>
+      
+    
+  </body>
+</html>

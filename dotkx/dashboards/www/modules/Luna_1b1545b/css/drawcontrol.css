@@ -1,0 +1,76 @@
+.draw-ctrl {
+  position: absolute;
+  top: 45%;
+  right: 0;
+}
+
+.draw-ctrl-btn {
+  display: inherit;
+  width: 30px;
+  height: 30px;
+  border: none;
+  margin: 4px;
+  font-size: 0.9rem;
+  transition: all 150ms ease;
+  color: #e6f4d7;
+  background-color: #1c2626;
+}
+
+.draw-ctrl-btn:hover {
+  background-color: #2c3a3a;
+}
+
+.draw-ctrl-btn.active {
+  background-color: #2c3a3a;
+}
+
+.draw-ctrl-btn.selection {
+  background-color: #e6f4d7;
+  color: #050505;
+}
+
+.draw-btn:before {
+  content: "\f040";
+  font-family: "FontAwesome";
+}
+
+.select-btn:before {
+  content: "\f245";
+  font-family: "FontAwesome";
+}
+
+.zoomIn-btn:before {
+  content: "\f067";
+  font-family: "FontAwesome";
+}
+
+.zoomOut-btn:before {
+  content: "\f068";
+  font-family: "FontAwesome";
+}
+
+.manager-btn:before {
+  content: "\f03a";
+  font-family: "FontAwesome";
+}
+
+.select-btn:before {
+  content: "\f245";
+  font-family: "FontAwesome";
+}
+
+.clear-btn:before {
+  content: "\f12d";
+  font-family: "FontAwesome";
+}
+
+.inspect-btn:before {
+  content: "\f080";
+  font-family: "FontAwesome";
+}
+
+.save-btn:before {
+  content: "\f0c7";
+  font-family: "FontAwesome";
+}
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImRyYXdjb250cm9sLnNjc3MiLCJ2YXJpYWJsZXMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNFO0VBQ0E7RUFDQTs7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBLE9DZGU7RURlZixrQkNaVTs7O0FEZVo7RUFDRSxrQkNqQlc7OztBRG9CYjtFQUNFLGtCQ3JCVzs7O0FEd0JiO0VBQ0Usa0JDM0JlO0VENEJmOzs7QUFHRjtFQUNFO0VBQ0E7OztBQUdGO0VBQ0U7RUFDQTs7O0FBR0Y7RUFDRTtFQUNBOzs7QUFHRjtFQUNFO0VBQ0E7OztBQUdGO0VBQ0U7RUFDQTs7O0FBR0Y7RUFDRTtFQUNBOzs7QUFHRjtFQUNFO0VBQ0E7OztBQUdGO0VBQ0U7RUFDQTs7O0FBR0Y7RUFDRTtFQUNBIiwiZmlsZSI6ImRyYXdjb250cm9sLmNzcyJ9 */

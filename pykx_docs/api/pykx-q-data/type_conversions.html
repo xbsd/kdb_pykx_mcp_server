@@ -1,0 +1,4796 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="PyKX Documentation">
+      
+      
+        <meta name="author" content="KX">
+      
+      
+        <link rel="canonical" href="https://code.kx.com/pykx/api/pykx-q-data/type_conversions.html">
+      
+      
+        
+      
+      <link rel="icon" href="https://code.kx.com/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.2.7+insiders-4.11.0">
+    
+    
+      
+        <title>PyKX to Pythonic data type mapping - PyKX</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.5216e7b8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+      
+    
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/assets/stylesheets/main.b941530a.min.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/2021.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/prism.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/hide-footer-nav.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/dashboards.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/dashboards/stylesheets/dashboards.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/swagger.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PG938LS');</script>
+<!-- End Google Tag Manager -->
+<!-- Delighted Survey tool -->
+<script type="text/javascript">
+	!function(e,t,r,n){if(!e[n]){for(var a=e[n]=[],i=["survey","reset","config","init","set","get","event","identify","track","page","screen","group","alias"],s=0;s<i.length;s++){var c=i[s];a[c]=a[c]||function(e){return function(){var t=Array.prototype.slice.call(arguments);a.push([e,t])}}(c)}a.SNIPPET_VERSION="1.0.1";var o=t.createElement("script");o.type="text/javascript",o.async=!0,o.src="https://d2yyd1h5u9mauk.cloudfront.net/integrations/web/v1/library/"+r+"/"+n+".js";var p=t.getElementsByTagName("script")[0];p.parentNode.insertBefore(o,p)}}(window,document,"QKBtsIp633c7g2I2","delightedThumbsP"); 
+   
+   delightedThumbsP.survey({
+	properties: { // extra context (optional)
+	product: "PyKX"
+	}
+	});
+   </script>
+<!-- End Delighted Survey tool -->
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="kx-light" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pykx-to-pythonic-data-type-mapping" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header"  onload="loadVersions()">
+    <!--<link rel="stylesheet" href="https://code.kx.com/home/assets/stylesheets/main.b941530a.min.css">-->
+    <!--<link rel="stylesheet" href="https://code.kx.com/home/assets/stylesheets/vendor/mermaid.733f213f.min.css">-->
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://code.kx.com/" title="code.kx.com" class="md-header__button md-logo" aria-label="PyKX" data-md-component="logo">
+      <img src="https://code.kx.com/img/kx.svg" alt="logo" style="width:1.2rem; height:1.2rem">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic" style="font-weight:500">
+            <span class="md-ellipsis" >
+            PyKX
+          </span>
+          <script>
+            var currVersion = '2.5'
+          </script>
+          <style>
+            .md-version:focus-within .md-version__list, .md-version:hover .md-version__list {
+              max-height: 6rem;
+              opacity: 1;
+              transition: max-height 0ms,opacity .25s;
+            }
+          </style>
+              <div class="md-version">
+                <button class="md-version__current" aria-label="Select version">2.5</button>
+                <ul class="md-version__list" style="margin-top: 20%;">
+                  <div id="versionList"></div>
+                </ul>
+              </div>
+              <div id="latestFlag"></div>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PyKX to Pythonic data type mapping
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="kx-light" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kxsystems/pykx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+<style>
+    @media (max-width: 430px) {
+      .md-typeset span{display:none;}
+    }
+  /* Button used to open the chat form - fixed at the bottom of the page */
+  .open-button {
+    background-color: var(--md-typeset-a-color);
+    border: none;
+    border-radius: 10px;
+    bottom: 23px;
+    box-sizing: border-box;
+    color: var(--md-default-bg-color);
+    cursor: pointer;
+    font-size: 13px;
+    opacity: 0.8;
+    padding: 10px 10px;
+    position: fixed;
+    right: 28px;
+    width: 160px;
+    z-index: 3;
+  }
+</style>
+<body>
+  <button class="open-button md-typeset" onclick="window.location.href='https://community.kx.com/t5/forums/postpage/choose-node/true/interaction-style/forum/override-styles/true/board-id/kxinsights'"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29 7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160-93.3 160-208 160z"></path></svg></span>&nbsp;Ask a question</button>
+  </body>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/" class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/q" class="md-tabs__link">
+        
+  
+  kdb+ and q
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/core" class="md-tabs__link">
+        
+  
+  kdb Insights SDK
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/platform/" class="md-tabs__link">
+        
+  
+  kdb Insights Enterprise
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/kdbai/" class="md-tabs__link">
+        
+  
+  KDB.AI
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+      
+    
+  
+  
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../index.html" class="md-tabs__link md-tabs__link--active">
+          
+  
+    
+  
+  PyKX
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/api/index.html" class="md-tabs__link">
+        
+  
+  APIs
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/licensing/licensing/" class="md-tabs__link">
+        
+  
+  Licensing
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/home/support/" class="md-tabs__link">
+        
+  
+  Help
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PyKX" class="md-nav__button md-logo" aria-label="PyKX" data-md-component="logo">
+      <img src="https://code.kx.com/img/kx.svg" alt="logo" style="width:1.2rem; height:1.2rem">
+    </a>
+    PyKX
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kxsystems/pykx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/q" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb+ and q
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/core" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb Insights SDK
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/platform/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb Insights Enterprise
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/kdbai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    KDB.AI
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          
+  
+  <span class="md-ellipsis">
+    PyKX
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PyKX" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          PyKX
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Documentation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/what_is_pykx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is PyKX?
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quickstart.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart guide
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/PyKX%20Introduction%20Notebook.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Introduction Notebook
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/q_magic_command.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jupyter q Magic Command Notebook
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/configuration.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_3" type="checkbox" id="__nav_6_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_3">
+          
+  
+  <span class="md-ellipsis">
+    Fundamentals
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fundamentals" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Fundamentals
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/creating.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generating PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/evaluating.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interacting with PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/querying.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying data
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/indexing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Indexing PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/conversion_considerations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conversion considerations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/text.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Representation in PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/fundamentals/nulls_and_infinities.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handling nulls and infinities
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_4" type="checkbox" id="__nav_6_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_4">
+          
+  
+  <span class="md-ellipsis">
+    Advanced usage and performance considerations
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Advanced usage and performance considerations" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced usage and performance considerations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/ipc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Communicating via IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/database.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database interactions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/context_interface.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using q functions in a Pythonic way
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/modes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modes of operation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/numpy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NumPy integration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/serialization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization and de-serialization
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/performance.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance considerations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/limitations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface limitations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/attributes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Attributes
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/pandas_breakdown.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas Like API Coverage
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_1" type="checkbox" id="__nav_6_4_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_1">
+          
+  
+  <span class="md-ellipsis">
+    Code execution
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code execution" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          Code execution
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-execution/q.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX native functions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-execution/embedded_q.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX execution classes
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-execution/ctx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Context interface
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-execution/console.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX console
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_2" type="checkbox" id="__nav_6_4_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_2">
+          
+  
+  <span class="md-ellipsis">
+    Data types and conversions
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data types and conversions" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Data types and conversions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="toq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Convert Pythonic data to PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wrappers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX type wrappers
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    PyKX to Pythonic data type mapping
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="type_conversions.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    PyKX to Pythonic data type mapping
+  </span>
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pykxlist" class="md-nav__link">
+    pykx.List
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxbooleanatom" class="md-nav__link">
+    pykx.BooleanAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxbooleanvector" class="md-nav__link">
+    pykx.BooleanVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxguidatom" class="md-nav__link">
+    pykx.GUIDAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxguidvector" class="md-nav__link">
+    pykx.GUIDVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxbyteatom" class="md-nav__link">
+    pykx.ByteAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxbytevector" class="md-nav__link">
+    pykx.ByteVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxshortatom" class="md-nav__link">
+    pykx.ShortAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxshortvector" class="md-nav__link">
+    pykx.ShortVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxintatom" class="md-nav__link">
+    pykx.IntAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxintvector" class="md-nav__link">
+    pykx.IntVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxlongatom" class="md-nav__link">
+    pykx.LongAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxlongvector" class="md-nav__link">
+    pykx.LongVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxrealatom" class="md-nav__link">
+    pykx.RealAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxrealvector" class="md-nav__link">
+    pykx.RealVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxfloatatom" class="md-nav__link">
+    pykx.FloatAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxfloatvector" class="md-nav__link">
+    pykx.FloatVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxcharatom" class="md-nav__link">
+    pykx.CharAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxcharvector" class="md-nav__link">
+    pykx.CharVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxsymbolatom" class="md-nav__link">
+    pykx.SymbolAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxsymbolvector" class="md-nav__link">
+    pykx.SymbolVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxtimestampatom" class="md-nav__link">
+    pykx.TimestampAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxtimestampvector" class="md-nav__link">
+    pykx.TimestampVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxmonthatom" class="md-nav__link">
+    pykx.MonthAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxmonthvector" class="md-nav__link">
+    pykx.MonthVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxdateatom" class="md-nav__link">
+    pykx.DateAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxdatevector" class="md-nav__link">
+    pykx.DateVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxdatetime-types" class="md-nav__link">
+    pykx.Datetime types
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxtimespanatom" class="md-nav__link">
+    pykx.TimespanAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxtimespanvector" class="md-nav__link">
+    pykx.TimespanVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxminuteatom" class="md-nav__link">
+    pykx.MinuteAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxminutevector" class="md-nav__link">
+    pykx.MinuteVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxsecondatom" class="md-nav__link">
+    pykx.SecondAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxsecondvector" class="md-nav__link">
+    pykx.SecondVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxtimeatom" class="md-nav__link">
+    pykx.TimeAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxtimevector" class="md-nav__link">
+    pykx.TimeVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxdictionary" class="md-nav__link">
+    pykx.Dictionary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxtable" class="md-nav__link">
+    pykx.Table
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="register.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Registering Custom Conversions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/advanced/Pandas_API.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas API
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../random.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random data generation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../query.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compress.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption APIs
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../db.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Interactions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../remote.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote Python Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exceptions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Exceptions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schema.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schema generation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streamlit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streamlit Integration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Command Wrappers
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../util.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_16" type="checkbox" id="__nav_6_4_16" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_16">
+          
+  
+  <span class="md-ellipsis">
+    File loading and saving
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="File loading and saving" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_16">
+          <span class="md-nav__icon md-icon"></span>
+          File loading and saving
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-save-load/write.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Writing data to disk
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pykx-save-load/read.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reading data from disk
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reimporting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reimporter module
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serialize.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          
+  
+  <span class="md-ellipsis">
+    Beta Features
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Beta Features" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Beta Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/db-management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/compress-encypt.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/remote-functions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote Function Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/threading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multithreading
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../beta-features/streamlit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streamlit
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          
+  
+  <span class="md-ellipsis">
+    Python within q
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python within q" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Python within q
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pykx-under-q/intro.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pykx-under-q/api.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pykx-under-q/upgrade.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade from embedPy
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pykx-under-q/known_issues.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Known Issues
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_7" type="checkbox" id="__nav_6_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_7">
+          
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_7">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/subscriber/readme.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Subscriber
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/compress_and_encrypt/readme.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/db-management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Creation and Management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/ipc/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/charting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Charting Data with PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/server/server.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX as a Server
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/threaded_execution/threading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multithreaded Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_8" type="checkbox" id="__nav_6_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_8">
+          
+  
+  <span class="md-ellipsis">
+    Extras
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Extras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_8">
+          <span class="md-nav__icon md-icon"></span>
+          Extras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extras/comparisons.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Comparisons against other Python/q interfaces
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extras/known_issues.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Known issues
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_9" type="checkbox" id="__nav_6_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_9">
+          
+  
+  <span class="md-ellipsis">
+    Release notes
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Release notes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_9">
+          <span class="md-nav__icon md-icon"></span>
+          Release notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-notes/changelog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-notes/underq-changelog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX under q
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blogs, Articles and Videos
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frequently Asked Questions (FAQ)
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributors.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributors
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/api/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    APIs
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/licensing/licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licensing
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/home/support/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Help
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pykxlist" class="md-nav__link">
+    pykx.List
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxbooleanatom" class="md-nav__link">
+    pykx.BooleanAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxbooleanvector" class="md-nav__link">
+    pykx.BooleanVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxguidatom" class="md-nav__link">
+    pykx.GUIDAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxguidvector" class="md-nav__link">
+    pykx.GUIDVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxbyteatom" class="md-nav__link">
+    pykx.ByteAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxbytevector" class="md-nav__link">
+    pykx.ByteVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxshortatom" class="md-nav__link">
+    pykx.ShortAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxshortvector" class="md-nav__link">
+    pykx.ShortVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxintatom" class="md-nav__link">
+    pykx.IntAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxintvector" class="md-nav__link">
+    pykx.IntVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxlongatom" class="md-nav__link">
+    pykx.LongAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxlongvector" class="md-nav__link">
+    pykx.LongVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxrealatom" class="md-nav__link">
+    pykx.RealAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxrealvector" class="md-nav__link">
+    pykx.RealVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxfloatatom" class="md-nav__link">
+    pykx.FloatAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxfloatvector" class="md-nav__link">
+    pykx.FloatVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxcharatom" class="md-nav__link">
+    pykx.CharAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxcharvector" class="md-nav__link">
+    pykx.CharVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxsymbolatom" class="md-nav__link">
+    pykx.SymbolAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxsymbolvector" class="md-nav__link">
+    pykx.SymbolVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxtimestampatom" class="md-nav__link">
+    pykx.TimestampAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxtimestampvector" class="md-nav__link">
+    pykx.TimestampVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxmonthatom" class="md-nav__link">
+    pykx.MonthAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxmonthvector" class="md-nav__link">
+    pykx.MonthVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxdateatom" class="md-nav__link">
+    pykx.DateAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxdatevector" class="md-nav__link">
+    pykx.DateVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxdatetime-types" class="md-nav__link">
+    pykx.Datetime types
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxtimespanatom" class="md-nav__link">
+    pykx.TimespanAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxtimespanvector" class="md-nav__link">
+    pykx.TimespanVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxminuteatom" class="md-nav__link">
+    pykx.MinuteAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxminutevector" class="md-nav__link">
+    pykx.MinuteVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxsecondatom" class="md-nav__link">
+    pykx.SecondAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxsecondvector" class="md-nav__link">
+    pykx.SecondVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxtimeatom" class="md-nav__link">
+    pykx.TimeAtom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxtimevector" class="md-nav__link">
+    pykx.TimeVector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxdictionary" class="md-nav__link">
+    pykx.Dictionary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pykxtable" class="md-nav__link">
+    pykx.Table
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/kxsystems/pykx/edit/main/docs/api/pykx-q-data/type_conversions.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="pykx-to-pythonic-data-type-mapping">PyKX to Pythonic data type mapping</h1>
+<p>A breakdown of each of the <code>pykx.K</code> types and their analogous <code>Python</code>, <code>NumPy</code>, <code>Pandas</code>, and <code>PyArrow</code> types.</p>
+<details>
+<summary>Cheat Sheet: <code>Python</code>, <code>NumPy</code>, <code>PyArrow</code></summary>
+<table>
+<thead>
+<tr>
+<th>PyKX type</th>
+<th>Python type</th>
+<th>Numpy dtype</th>
+<th>PyArrow type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#pykxlist">List</a></td>
+<td>list</td>
+<td>object</td>
+<td>Not Supported</td>
+</tr>
+<tr>
+<td><a href="#pykxbooleanatom">Boolean</a></td>
+<td>bool</td>
+<td>bool</td>
+<td>Not Supported</td>
+</tr>
+<tr>
+<td><a href="#pykxguidatom">GUID</a></td>
+<td>uuid4</td>
+<td>uuid4</td>
+<td>uuid4</td>
+</tr>
+<tr>
+<td><a href="#pykxbyteatom">Byte</a></td>
+<td>int</td>
+<td>uint8</td>
+<td>uint8</td>
+</tr>
+<tr>
+<td><a href="#pykxshortatom">Short</a></td>
+<td>int</td>
+<td>int16</td>
+<td>int16</td>
+</tr>
+<tr>
+<td><a href="#pykxintatom">Int</a></td>
+<td>int</td>
+<td>int32</td>
+<td>int32</td>
+</tr>
+<tr>
+<td><a href="#pykxlongatom">Long</a></td>
+<td>int</td>
+<td>int64</td>
+<td>int64</td>
+</tr>
+<tr>
+<td><a href="#pykxrealatom">Real</a></td>
+<td>float</td>
+<td>float32</td>
+<td>FloatArray</td>
+</tr>
+<tr>
+<td><a href="#pykxfloatatom">Float</a></td>
+<td>float</td>
+<td>float64</td>
+<td>DoubleArray</td>
+</tr>
+<tr>
+<td><a href="#pykxcharatom">Char</a></td>
+<td>bytes</td>
+<td>\|S1</td>
+<td>BinaryArray</td>
+</tr>
+<tr>
+<td><a href="#pykxsymbolatom">Symbol</a></td>
+<td>str</td>
+<td>object</td>
+<td>StringArray</td>
+</tr>
+<tr>
+<td><a href="#pykxtimestampatom">Timestamp</a></td>
+<td>datetime</td>
+<td>datetime64[ns]</td>
+<td>TimestampArray</td>
+</tr>
+<tr>
+<td><a href="#pykxmonthatom">Month</a></td>
+<td>date</td>
+<td>datetime64[M]</td>
+<td>Not Supported</td>
+</tr>
+<tr>
+<td><a href="#pykxdateatom">Date</a></td>
+<td>date</td>
+<td>datetime64[D]</td>
+<td>Date32Array</td>
+</tr>
+<tr>
+<td><a href="#pykxtimespanatom">Timespan</a></td>
+<td>timedelta</td>
+<td>timedelta64[ns]</td>
+<td>DurationArray</td>
+</tr>
+<tr>
+<td><a href="#pykxminuteatom">Minute</a></td>
+<td>timedelta</td>
+<td>timedelta64[m]</td>
+<td>Not Supported</td>
+</tr>
+<tr>
+<td><a href="#pykxsecondatom">Second</a></td>
+<td>timedelta</td>
+<td>timedelta64[s]</td>
+<td>DurationArray</td>
+</tr>
+<tr>
+<td><a href="#TimeAtom">Time</a></td>
+<td>timedelta</td>
+<td>timedelta64[ms]</td>
+<td>DurationArray</td>
+</tr>
+<tr>
+<td><a href="#pykxdictionary">Dictionary</a></td>
+<td>dict</td>
+<td>Not Supported</td>
+<td>Not Supported</td>
+</tr>
+<tr>
+<td><a href="#pykxtable">Table</a></td>
+<td>dict</td>
+<td>records</td>
+<td>Table</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details>
+<summary>Cheat Sheet: <code>Pandas 1.*</code>, <code>Pandas 2.*</code>, <code>Pandas 2.* PyArrow backed</code></summary>
+<p><strong>Note:</strong> Creating PyArrow backed Pandas objects uses <code>as_arrow=True</code> using NumPy arrays as an intermediate data format. </p>
+<table>
+<thead>
+<tr>
+<th>PyKX type</th>
+<th>Pandas 1.* dtype</th>
+<th>Pandas 2.* dtype</th>
+<th>Pandas 2.* as_arrow=True dtype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#pykxlist">List</a></td>
+<td>object</td>
+<td>object</td>
+<td>object</td>
+</tr>
+<tr>
+<td><a href="#pykxbooleanatom">Boolean</a></td>
+<td>bool</td>
+<td>bool</td>
+<td>bool[pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxguidatom">GUID</a></td>
+<td>object</td>
+<td>object</td>
+<td>object</td>
+</tr>
+<tr>
+<td><a href="#pykxbyteatom">Byte</a></td>
+<td>uint8</td>
+<td>uint8</td>
+<td>uint8[pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxshortatom">Short</a></td>
+<td>int16</td>
+<td>int16</td>
+<td>int16[pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxintatom">Int</a></td>
+<td>int32</td>
+<td>int32</td>
+<td>int32[pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxlongatom">Long</a></td>
+<td>int64</td>
+<td>int64</td>
+<td>int64[pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxrealatom">Real</a></td>
+<td>float32</td>
+<td>float32</td>
+<td>float[pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxfloatatom">Float</a></td>
+<td>float64</td>
+<td>float64</td>
+<td>double[pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxcharatom">Char</a></td>
+<td>bytes8</td>
+<td>bytes8</td>
+<td>fixed_size_binary[1][pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxsymbolatom">Symbol</a></td>
+<td>object</td>
+<td>object</td>
+<td>string[pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxtimestampatom">Timestamp</a></td>
+<td>datetime64[ns]</td>
+<td>datetime64[ns]</td>
+<td>timestamp[ns][pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxmonthatom">Month</a></td>
+<td>datetime64[ns]</td>
+<td>datetime64[s]</td>
+<td>timestamp[s][pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxdateatom">Date</a></td>
+<td>datetime64[ns]</td>
+<td>datetime64[s]</td>
+<td>timestamp[s][pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxtimespanatom">Timespan</a></td>
+<td>timedelta64[ns]</td>
+<td>timedelta64[ns]</td>
+<td>duration[ns][pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxminuteatom">Minute</a></td>
+<td>timedelta64[ns]</td>
+<td>timedelta64[s]</td>
+<td>duration[s][pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxsecondatom">Second</a></td>
+<td>timedelta64[ns]</td>
+<td>timedelta64[s]</td>
+<td>duration[s][pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#TimeAtom">Time</a></td>
+<td>timedelta64[ns]</td>
+<td>timedelta64[ms]</td>
+<td>duration[ms][pyarrow]</td>
+</tr>
+<tr>
+<td><a href="#pykxdictionary">Dictionary</a></td>
+<td>Not Supported</td>
+<td>Not Supported</td>
+<td>Not Supported</td>
+</tr>
+<tr>
+<td><a href="#pykxtable">Table</a></td>
+<td>DataFrame</td>
+<td>DataFrame</td>
+<td>DataFrame</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h2 id="pykxlist"><code>pykx.List</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Python</label><label for="__tabbed_1_2">Numpy</label><label for="__tabbed_1_3">Pandas</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A python list of mixed types will be converted into a <code>pykx.List</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.List([1, b'foo', 'bar', 4.5])
+pykx.List(pykx.q('
+1
+"foo"
+`bar
+4.5
+'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.List</code> will return a generic python list object where each object is converted into its analogous python type.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.List([1, b'foo', 'bar', 4.5]).py()
+[1, b'foo', 'bar', 4.5]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>A numpy list with <code>dtype==object</code> containing data of mixed types will be converted into a <code>pykx.List</code></p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.List(np.array([1, b'foo', 'bar', 4.5], dtype=object))
+pykx.List(pykx.q('
+1
+"foo"
+`bar
+4.5
+'))</code></pre>
+<p>Calling <code>.np()</code> on a <code>pykx.List</code> object will return a numpy <code>ndarray</code> with <code>dtype==object</code> where each element has been converted into its closest analogous python type.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.List([1, b'foo', 'bar', 4.5]).np()
+array([1, b'foo', 'bar', 4.5], dtype=object)</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pd()</code> on a <code>pykx.List</code> object will return a pandas <code>Series</code> with <code>dtype==object</code> where each element has been converted into its closest analogous python type.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.List([1, b'foo', 'bar', 4.5]).pd()
+0         1
+1    b'foo'
+2       bar
+3       4.5
+dtype: object</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxbooleanatom"><code>pykx.BooleanAtom</code></h2>
+<p><strong>Python</strong></p>
+<p>The python bool type will be converted into a <code>pykx.BooleanAtom</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.BooleanAtom(True)
+pykx.BooleanAtom(pykx.q('1b'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.BooleanAtom</code> will return a python bool object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.BooleanAtom(True).py()
+True</code></pre>
+<h2 id="pykxbooleanvector"><code>pykx.BooleanVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Python</label><label for="__tabbed_2_2">Numpy, Pandas, Pyarrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python bool types will be converted into a <code>pykx.BooleanVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.BooleanVector([True, False, True])
+pykx.BooleanVector(pykx.q('101b'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.BooleanVector</code> will return a list of python bool objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.BooleanVector([True, False, True]).py()
+[True, False, True]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Converting a <code>pykx.BoolVector</code> will result in an array of objects with the <code>bool</code> <code>dtype</code>, arrays of that <code>dtype</code> can also be converted into <code>pykx.BoolVector</code> objects.</p>
+</div>
+</div>
+</div>
+<h2 id="pykxguidatom"><code>pykx.GUIDAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python uuid4 type from the <code>uuid</code> library will be converted into a <code>pykx.GUIDAtom</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; from uuid import uuid4
+&gt;&gt;&gt; pykx.GUIDAtom(uuid4())
+pykx.GUIDAtom(pykx.q('012e8fb7-52c4-49e6-9b4e-93aa625ca3d7'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.GUIDAtom</code> will return a python uuid4 object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.GUIDAtom(uuid4()).py()
+UUID('d16f9f3f-2a57-4dfd-818e-04c9c7a53584')</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxguidvector"><code>pykx.GUIDVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Python</label><label for="__tabbed_4_2">Numpy, Pandas, PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python uuid4 types from the <code>uuid</code> library will be converted into a <code>pykx.GUIDVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.GUIDVector([uuid4(), uuid4()])
+pykx.GUIDVector(pykx.q('542ccbef-8aa1-4433-804a-7928172ec2d4 ff6f89fb-1aec-4073-821a-ce281ca6263e'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.GUIDVector</code> will return a list of python uuid4 objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.GUIDVector([uuid4(), uuid4()]).py()
+[UUID('a3b284fc-5f31-4ba2-b521-fa8b5c309e02'), UUID('95ee9044-3930-492c-96f2-e336110de023')]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Each of these will return an array of their respective object types around a list of uuid4 objects.</p>
+</div>
+</div>
+</div>
+<h2 id="pykxbyteatom"><code>pykx.ByteAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:1"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python int type will be converted into a <code>pykx.ByteAtom</code>.</p>
+<p>Float types will also be converted but the decimal will be truncated away and no rounding done.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.ByteAtom(1.0)
+pykx.ByteAtom(pykx.q('0x01'))
+&gt;&gt;&gt; pykx.ByteAtom(1.5)
+pykx.ByteAtom(pykx.q('0x01'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.ByteAtom</code> will return a python int object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.ByteAtom(1.5).py()
+1</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxbytevector"><code>pykx.ByteVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Python</label><label for="__tabbed_6_2">Numpy, Pandas, PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python int types will be converted into a <code>pykx.ByteVector</code>.</p>
+<p>Float types will also be converted but the decimal will be truncated away and no rounding done.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.ByteVector([1, 2.5])
+pykx.ByteVector(pykx.q('0x0102'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.ByteVector</code> will return a list of python int objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.ByteVector([1, 2.5]).py()
+[1, 2]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Converting a <code>pykx.ByteVector</code> will result in an array of objects with the <code>uint8</code> <code>dtype</code>, arrays of that <code>dtype</code> can also be converted into <code>pykx.ByteVector</code> objects.</p>
+</div>
+</div>
+</div>
+<h2 id="pykxshortatom"><code>pykx.ShortAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:1"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python int type will be converted into a <code>pykx.ShortAtom</code>.</p>
+<p>Float types will also be converted but the decimal will be truncated away and no rounding done.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.ShortAtom(1)
+pykx.ShortAtom(pykx.q('1h'))
+&gt;&gt;&gt; pykx.ShortAtom(1.5)
+pykx.ShortAtom(pykx.q('1h'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.ShortAtom</code> will return a python int object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.ShortAtom(1.5).py()
+1</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxshortvector"><code>pykx.ShortVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Python</label><label for="__tabbed_8_2">Numpy, Pandas, PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python int types will be converted into a <code>pykx.ShortVector</code>.</p>
+<p>Float types will also be converted but the decimal will be truncated away and no rounding done.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.ShortVector([1, 2.5])
+pykx.ShortVector(pykx.q('1 2h'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.ShortVector</code> will return a list of python int objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.ShortVector([1, 2.5]).py()
+[1, 2]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Converting a <code>pykx.ShortVector</code> will result in an array of objects with the <code>int16</code> <code>dtype</code>, arrays of that <code>dtype</code> can also be converted into <code>pykx.ShortVector</code> objects.</p>
+</div>
+</div>
+</div>
+<h2 id="pykxintatom"><code>pykx.IntAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:1"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python int type will be converted into a <code>pykx.IntAtom</code>.</p>
+<p>Float types will also be converted but the decimal will be truncated away and no rounding done.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.IntAtom(1)
+pykx.IntAtom(pykx.q('1i'))
+&gt;&gt;&gt; pykx.IntAtom(1.5)
+pykx.IntAtom(pykx.q('1i'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.IntAtom</code> will return a python int object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.IntAtom(1.5).py()
+1</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxintvector"><code>pykx.IntVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Python</label><label for="__tabbed_10_2">Numpy, Pandas, PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python int types will be converted into a <code>pykx.IntVector</code>.</p>
+<p>Float types will also be converted but the decimal will be truncated away and no rounding done.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.IntVector([1, 2.5])
+pykx.IntVector(pykx.q('1 2i'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.IntVector</code> will return a list of python int objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.IntVector([1, 2.5]).py()
+[1, 2]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Converting a <code>pykx.IntVector</code> will result in an array of objects with the <code>int32</code> <code>dtype</code>, arrays of that <code>dtype</code> can also be converted into <code>pykx.IntVector</code> objects.</p>
+</div>
+</div>
+</div>
+<h2 id="pykxlongatom"><code>pykx.LongAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:1"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python int type will be converted into a <code>pykx.LongAtom</code>.</p>
+<p>Float types will also be converted but the decimal will be truncated away and no rounding done.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.LongAtom(1)
+pykx.LongAtom(pykx.q('1'))
+&gt;&gt;&gt; pykx.LongAtom(1.5)
+pykx.LongAtom(pykx.q('1'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.LongAtom</code> will return a python int object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.LongAtom(1.5).py()
+1</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxlongvector"><code>pykx.LongVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Python</label><label for="__tabbed_12_2">Numpy, Pandas, PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python int types will be converted into a <code>pykx.LongVector</code>.</p>
+<p>Float types will also be converted but the decimal will be truncated away and no rounding done.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.LongVector([1, 2.5])
+pykx.LongVector(pykx.q('1 2'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.LongVector</code> will return a list of python int objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.LongVector([1, 2.5]).py()
+[1, 2]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Converting a <code>pykx.LongVector</code> will result in an array of objects with the <code>int64</code> <code>dtype</code>, arrays of that <code>dtype</code> can also be converted into <code>pykx.LongVector</code> objects.</p>
+</div>
+</div>
+</div>
+<h2 id="pykxrealatom"><code>pykx.RealAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="13:1"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python float and int types will be converted into a <code>pykx.RealAtom</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.RealAtom(2.5)
+pykx.RealAtom(pykx.q('2.5e'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.RealAtom</code> will return a python float object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.RealAtom(2.5).py()
+2.5</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxrealvector"><code>pykx.RealVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="14:3"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><input id="__tabbed_14_3" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">Python</label><label for="__tabbed_14_2">Numpy, Pandas</label><label for="__tabbed_14_3">PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python int and float types will be converted into a <code>pykx.RealVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.RealVector([1, 2.5])
+pykx.RealVector(pykx.q('1 2.5e'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.RealVector</code> will return a list of python float objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.RealVector([1, 2.5]).py()
+[1.0, 2.5]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Converting a <code>pykx.RealVector</code> will result in an array of objects with the <code>float32</code> <code>dtype</code>, arrays of that <code>dtype</code> can also be converted into <code>pykx.RealVector</code> objects.</p>
+</div>
+<div class="tabbed-block">
+<p>This will return a <code>PyArrow</code> array with the FloatArray type.</p>
+</div>
+</div>
+</div>
+<h2 id="pykxfloatatom"><code>pykx.FloatAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="15:1"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python float and int types will be converted into a <code>pykx.FloatAtom</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.FloatAtom(2.5)
+pykx.FloatAtom(pykx.q('2.5'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.FloatAtom</code> will return a python float object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.FloatAtom(2.5).py()
+2.5</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxfloatvector"><code>pykx.FloatVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="16:3"><input checked="checked" id="__tabbed_16_1" name="__tabbed_16" type="radio" /><input id="__tabbed_16_2" name="__tabbed_16" type="radio" /><input id="__tabbed_16_3" name="__tabbed_16" type="radio" /><div class="tabbed-labels"><label for="__tabbed_16_1">Python</label><label for="__tabbed_16_2">Numpy, Pandas</label><label for="__tabbed_16_3">PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python int and float types will be converted into a <code>pykx.FloatVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.FloatVector([1, 2.5])
+pykx.FloatVector(pykx.q('1 2.5'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.FloatVector</code> will return a list of python float objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.FloatVector([1, 2.5]).py()
+[1.0, 2.5]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Converting a <code>pykx.FloatVector</code> will result in an array of objects with the <code>float64</code> <code>dtype</code>, arrays of that <code>dtype</code> can also be converted into <code>pykx.FloatVector</code> objects.</p>
+</div>
+<div class="tabbed-block">
+<p>This will return a <code>PyArrow</code> array with the DoubleArray type.</p>
+</div>
+</div>
+</div>
+<h2 id="pykxcharatom"><code>pykx.CharAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="17:1"><input checked="checked" id="__tabbed_17_1" name="__tabbed_17" type="radio" /><div class="tabbed-labels"><label for="__tabbed_17_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python bytes type with length 1 will be converted into a <code>pykx.CharAtom</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.CharAtom(b'a')
+pykx.CharAtom(pykx.q('"a"'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.CharAtom</code> will return a python bytes object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.CharAtom(b'a').py()
+b'a'</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxcharvector"><code>pykx.CharVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="18:4"><input checked="checked" id="__tabbed_18_1" name="__tabbed_18" type="radio" /><input id="__tabbed_18_2" name="__tabbed_18" type="radio" /><input id="__tabbed_18_3" name="__tabbed_18" type="radio" /><input id="__tabbed_18_4" name="__tabbed_18" type="radio" /><div class="tabbed-labels"><label for="__tabbed_18_1">Python</label><label for="__tabbed_18_2">Numpy</label><label for="__tabbed_18_3">Pandas</label><label for="__tabbed_18_4">PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python bytes type with length greater than 1 will be converted into a <code>pykx.CharVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.CharVector(b'abc')
+pykx.CharVector(pykx.q('"abc"'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.CharVector</code> will return a python bytes object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.CharVector(b'abc').py()
+b'abc'</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.np()</code> on a <code>pykx.CharVector</code> will return a numpy <code>ndarray</code> with <code>dtype</code> <code>'|S1'</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.CharVector(b'abc').np()
+array([b'a', b'b', b'c'], dtype='|S1')</code></pre>
+<p>Converting a <code>ndarray</code> of this <code>dtype</code> will create a <code>pykx.CharVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.CharVector(np.array([b'a', b'b', b'c'], dtype='|S1'))
+pykx.CharVector(pykx.q('"abc"'))</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pd()</code> on a <code>pykx.CharVector</code> will return a pandas <code>Series</code> with <code>dtype</code> <code>bytes8</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.CharVector(b'abc').pd()
+0    b'a'
+1    b'b'
+2    b'c'
+dtype: bytes8</code></pre>
+<p>Converting a <code>Series</code> of this <code>dtype</code> will create a <code>pykx.CharVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.CharVector(pd.Series([b'a', b'b', b'c'], dtype=bytes))
+pykx.CharVector(pykx.q('"abc"'))</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pa()</code> on a <code>pykx.CharVector</code> will return a pyarrow <code>BinaryArray</code>.</p>
+<pre class="highlight"><code class="language-Python">&lt;pyarrow.lib.BinaryArray object at 0x7f44cc099c00&gt;
+[
+  61,
+  62,
+  63
+]</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxsymbolatom"><code>pykx.SymbolAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="19:1"><input checked="checked" id="__tabbed_19_1" name="__tabbed_19" type="radio" /><div class="tabbed-labels"><label for="__tabbed_19_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python string type will be converted into a <code>pykx.SymbolAtom</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.toq('symbol')
+pykx.SymbolAtom(pykx.q('`symbol'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.SymbolAtom</code> will return a python string object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.toq('symbol').py()
+'symbol'</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxsymbolvector"><code>pykx.SymbolVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="20:4"><input checked="checked" id="__tabbed_20_1" name="__tabbed_20" type="radio" /><input id="__tabbed_20_2" name="__tabbed_20" type="radio" /><input id="__tabbed_20_3" name="__tabbed_20" type="radio" /><input id="__tabbed_20_4" name="__tabbed_20" type="radio" /><div class="tabbed-labels"><label for="__tabbed_20_1">Python</label><label for="__tabbed_20_2">Numpy</label><label for="__tabbed_20_3">Pandas</label><label for="__tabbed_20_4">PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python string types will be converted into a <code>pykx.SymbolVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.SymbolVector(['a', 'b', 'c'])
+pykx.SymbolVector(pykx.q('`a`b`c'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.SymbolVector</code> will return a list of python string objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.SymbolVector(['a', 'b', 'c']).py()
+['a', 'b', 'c']</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.np()</code> on a <code>pykx.SymbolVector</code> will return a numpy <code>ndarray</code> of python strings with <code>dtype</code> <code>object</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.SymbolVector(['a', 'b', 'c']).np()
+array(['a', 'b', 'c'], dtype=object)</code></pre>
+<p>Converting a <code>ndarray</code> of <code>dtype</code> <code>object</code> will create a <code>pykx.SymbolVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.SymbolVector(np.array(['a', 'b', 'c'], dtype=object))
+pykx.SymbolVector(pykx.q('`a`b`c'))</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pd()</code> on a <code>pykx.SymbolVector</code> will return a pandas <code>Series</code> with <code>dtype</code> <code>object</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.SymbolVector(['a', 'b', 'c']).pd()
+0    a
+1    b
+2    c
+dtype: object</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pa()</code> on a <code>pykx.SymbolVector</code> will return a pyarrow <code>StringArray</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; pykx.SymbolVector(['a', 'b', 'c']).pa()
+&lt;pyarrow.lib.StringArray object at 0x7f44cc323fa0&gt;
+[
+  "a",
+  "b",
+  "c"
+]</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxtimestampatom"><code>pykx.TimestampAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="21:1"><input checked="checked" id="__tabbed_21_1" name="__tabbed_21" type="radio" /><div class="tabbed-labels"><label for="__tabbed_21_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python datetime type will be converted into a <code>pykx.TimestampAtom</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimestampAtom(datetime(2150, 10, 22, 20, 31, 15, 70713))
+pykx.TimestampAtom(pykx.q('2150.10.22D20:31:15.070713000'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.TimestampAtom</code> will return a python datetime object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimestampAtom(datetime(2150, 10, 22, 20, 31, 15, 70713)).py()
+datetime.datetime(2150, 10, 22, 20, 31, 15, 70713)</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxtimestampvector"><code>pykx.TimestampVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="22:4"><input checked="checked" id="__tabbed_22_1" name="__tabbed_22" type="radio" /><input id="__tabbed_22_2" name="__tabbed_22" type="radio" /><input id="__tabbed_22_3" name="__tabbed_22" type="radio" /><input id="__tabbed_22_4" name="__tabbed_22" type="radio" /><div class="tabbed-labels"><label for="__tabbed_22_1">Python</label><label for="__tabbed_22_2">Numpy</label><label for="__tabbed_22_3">Pandas</label><label for="__tabbed_22_4">PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python <code>datetime</code> types will be converted into a <code>pykx.TimestampVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimestampVector([datetime(2150, 10, 22, 20, 31, 15, 70713), datetime(2050, 10, 22, 20, 31, 15, 70713)])
+pykx.TimestampVector(pykx.q('2150.10.22D20:31:15.070713000 2050.10.22D20:31:15.070713000'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.TimestampVector</code> will return a list of python <code>datetime</code> objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimestampVector([datetime(2150, 10, 22, 20, 31, 15, 70713), datetime(2050, 10, 22, 20, 31, 15, 70713)]).py()
+[datetime.datetime(2150, 10, 22, 20, 31, 15, 70713), datetime.datetime(2050, 10, 22, 20, 31, 15, 70713)]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.np()</code> on a <code>pykx.TimestampVector</code> will return a numpy <code>ndarray</code> with <code>dtype</code> <code>datetime64[ns]</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimestampVector([datetime(2150, 10, 22, 20, 31, 15, 70713), datetime(2050, 10, 22, 20, 31, 15, 70713)]).np()
+array(['2150-10-22T20:31:15.070713000', '2050-10-22T20:31:15.070713000'],
+      dtype='datetime64[ns]')</code></pre>
+<p>Converting a <code>ndarray</code> of <code>dtype</code> <code>datetime64[ns]</code> will create a <code>pykx.TimestampVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimestampVector(np.array(['2150-10-22T20:31:15.070713000', '2050-10-22T20:31:15.070713000'], dtype='datetime64[ns]'))
+pykx.TimestampVector(pykx.q('2150.10.22D20:31:15.070713000 2050.10.22D20:31:15.070713000'))</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pd()</code> on a <code>pykx.TimestampVector</code> will return a pandas <code>Series</code> with <code>dtype</code>:</p>
+<ol>
+<li>
+<p><code>datetime64[ns]</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.TimestampVector([datetime(2150, 10, 22, 20, 31, 15, 70713), datetime(2050, 10, 22, 20, 31, 15, 70713)]).pd()
+0   2150-10-22 20:31:15.070713
+1   2050-10-22 20:31:15.070713
+dtype: datetime64[ns]</code></pre>
+</li>
+<li>
+<p><code>timestamp[ns][pyarrow]</code> in pandas&gt;=2.0 with <code>as_arrow=True</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.TimestampVector([datetime(2150, 10, 22, 20, 31, 15, 70713), datetime(2050, 10, 22, 20, 31, 15, 70713)]).pd(as_arrow=True)
+0    2150-10-22 20:31:15.070713
+1    2050-10-22 20:31:15.070713
+dtype: timestamp[ns][pyarrow]</code></pre>
+</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pa()</code> on a <code>pykx.TimestampVector</code> will return a pyarrow <code>TimestampArray</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimestampVector([datetime(2150, 10, 22, 20, 31, 15, 70713), datetime(2050, 10, 22, 20, 31, 15, 70713)]).pa()
+&lt;pyarrow.lib.TimestampArray object at 0x7f6428f0dde0&gt;
+[
+  2150-10-22 20:31:15.070713000,
+  2050-10-22 20:31:15.070713000
+]</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxmonthatom"><code>pykx.MonthAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="23:1"><input checked="checked" id="__tabbed_23_1" name="__tabbed_23" type="radio" /><div class="tabbed-labels"><label for="__tabbed_23_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python date type will be converted into a <code>pykx.MonthAtom</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; from datetime import date
+&gt;&gt;&gt; kx.MonthAtom(date(1972, 5, 1))
+pykx.MonthAtom(pykx.q('1972.05m'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.MonthAtom</code> will return a python date object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.MonthAtom(date(1972, 5, 1)).py()
+datetime.date(1972, 5, 1)</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxmonthvector"><code>pykx.MonthVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="24:3"><input checked="checked" id="__tabbed_24_1" name="__tabbed_24" type="radio" /><input id="__tabbed_24_2" name="__tabbed_24" type="radio" /><input id="__tabbed_24_3" name="__tabbed_24" type="radio" /><div class="tabbed-labels"><label for="__tabbed_24_1">Python</label><label for="__tabbed_24_2">Numpy</label><label for="__tabbed_24_3">Pandas</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python <code>date</code> types will be converted into a <code>pykx.MonthVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.MonthVector([date(1972, 5, 1), date(1999, 5, 1)])
+pykx.MonthVector(pykx.q('1972.05 1999.05m'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.MonthVector</code> will return a list of python <code>date</code> objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.MonthVector([date(1972, 5, 1), date(1999, 5, 1)]).py()
+[datetime.date(1972, 5, 1), datetime.date(1999, 5, 1)]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.np()</code> on a <code>pykx.MonthVector</code> will return a numpy <code>ndarray</code> with <code>dtype</code> <code>datetime64[M]</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.MonthVector([date(1972, 5, 1), date(1999, 5, 1)]).np()
+array(['1972-05', '1999-05'], dtype='datetime64[M]')</code></pre>
+<p>Converting a <code>ndarray</code> of <code>dtype</code> <code>datetime64[M]</code> will create a <code>pykx.MonthVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.MonthVector(np.array(['1972-05', '1999-05'], dtype='datetime64[M]'))
+pykx.MonthVector(pykx.q('1972.05 1999.05m'))</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pd()</code> on a <code>pykx.MonthVector</code> will return a pandas <code>Series</code> with <code>dtype</code>:</p>
+<ol>
+<li>
+<p><code>datetime64[ns]</code> in <code>pandas&lt;2.0</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.MonthVector([date(1972, 5, 1), date(1999, 5, 1)]).pd()
+0   1972-05-01
+1   1999-05-01
+dtype: datetime64[ns]</code></pre>
+</li>
+<li>
+<p><code>datetime64[s]</code> in <code>pandas&gt;=2.0</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.MonthVector([date(1972, 5, 1), date(1999, 5, 1)]).pd()
+0   1972-05-01
+1   1999-05-01
+dtype: datetime64[s]</code></pre>
+</li>
+<li>
+<p><code>timestamp[s][pyarrow]</code> in <code>pandas&gt;=2.0</code> with <code>as_arrow=True</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.MonthVector([date(1972, 5, 1), date(1999, 5, 1)]).pd(as_arrow=True)
+0    1972-05-01 00:00:00
+1    1999-05-01 00:00:00
+dtype: timestamp[s][pyarrow]</code></pre>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<h2 id="pykxdateatom"><code>pykx.DateAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="25:1"><input checked="checked" id="__tabbed_25_1" name="__tabbed_25" type="radio" /><div class="tabbed-labels"><label for="__tabbed_25_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python date type will be converted into a <code>pykx.DateAtom</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.DateAtom(date(1972, 5, 31))
+pykx.DateAtom(pykx.q('1972.05.31'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.DateAtom</code> will return a python date object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.DateAtom(date(1972, 5, 31)).py()
+datetime.date(1972, 5, 31)</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxdatevector"><code>pykx.DateVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="26:4"><input checked="checked" id="__tabbed_26_1" name="__tabbed_26" type="radio" /><input id="__tabbed_26_2" name="__tabbed_26" type="radio" /><input id="__tabbed_26_3" name="__tabbed_26" type="radio" /><input id="__tabbed_26_4" name="__tabbed_26" type="radio" /><div class="tabbed-labels"><label for="__tabbed_26_1">Python</label><label for="__tabbed_26_2">Numpy</label><label for="__tabbed_26_3">Pandas</label><label for="__tabbed_26_4">PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python <code>date</code> types will be converted into a <code>pykx.DateVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.DateVector([date(1972, 5, 1), date(1999, 5, 1)])
+pykx.DateVector(pykx.q('1972.05.01 1999.05.01'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.DateVector</code> will return a list of python <code>date</code> objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.DateVector([date(1972, 5, 1), date(1999, 5, 1)]).py()
+[datetime.date(1972, 5, 1), datetime.date(1999, 5, 1)]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.np()</code> on a <code>pykx.DateVector</code> will return a numpy <code>ndarray</code> of python strings with <code>dtype</code> <code>datetime64[D]</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.DateVector([date(1972, 5, 1), date(1999, 5, 1)]).np()
+array(['1972-05-01', '1999-05-01'], dtype='datetime64[D]')</code></pre>
+<p>Converting a <code>ndarray</code> of <code>dtype</code> <code>datetime64[D]</code> will create a <code>pykx.DateVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.DateVector(np.array(['1972-05-01', '1999-05-01'], dtype='datetime64[D]'))
+pykx.DateVector(pykx.q('1972.05.01 1999.05.01'))</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pd()</code> on a <code>pykx.DateVector</code> will return a pandas <code>Series</code> with <code>dtype</code>:</p>
+<ol>
+<li>
+<p><code>datetime64[ns]</code> in <code>pandas&lt;2.0</code>:</p>
+<pre class="highlight"><code class="language-python"># pandas&lt;2.0
+&gt;&gt;&gt; kx.DateVector([date(1972, 5, 1), date(1999, 5, 1)]).pd()
+0   1972-05-01
+1   1999-05-01
+dtype: datetime64[ns]</code></pre>
+</li>
+<li>
+<p><code>datetime64[s]</code> in <code>pandas&gt;=2.0</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.DateVector([date(1972, 5, 1), date(1999, 5, 1)]).pd()
+0   1972-05-01
+1   1999-05-01
+dtype: datetime64[s]</code></pre>
+</li>
+<li>
+<p><code>timestamp[s][pyarrow]</code> in <code>pandas&gt;=2.0</code> with <code>as_arrow=True</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.DateVector([date(1972, 5, 1), date(1999, 5, 1)]).pd(as_arrow=True)
+0    1972-05-01 00:00:00
+1    1999-05-01 00:00:00
+dtype: timestamp[s][pyarrow]</code></pre>
+</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pa()</code> on a <code>pykx.DateVector</code> will return a pyarrow <code>Date32Array</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.DateVector([date(1972, 5, 1), date(1999, 5, 1)]).pa()
+&lt;pyarrow.lib.Date32Array object at 0x7f6428f0de40&gt;
+[
+  1972-05-01,
+  1999-05-01
+]</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxdatetime-types"><code>pykx.Datetime</code> types</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="27:1"><input checked="checked" id="__tabbed_27_1" name="__tabbed_27" type="radio" /><div class="tabbed-labels"><label for="__tabbed_27_1">Python and Numpy</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>These types are deprecated and can only be accessed using the <code>raw</code> key word argument.</p>
+<p>Converting these types to python will return a float object or a <code>float64</code> object in numpy's case.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.q('0001.02.03T04:05:06.007 0001.02.03T04:05:06.007').py(raw=True)
+[-730085.8297915857, -730085.8297915857]
+&gt;&gt;&gt; kx.q('0001.02.03T04:05:06.007 0001.02.03T04:05:06.007').np(raw=True)
+array([-730085.82979159, -730085.82979159])
+&gt;&gt;&gt; kx.q('0001.02.03T04:05:06.007 0001.02.03T04:05:06.007').np(raw=True).dtype
+dtype('float64')</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxtimespanatom"><code>pykx.TimespanAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="28:1"><input checked="checked" id="__tabbed_28_1" name="__tabbed_28" type="radio" /><div class="tabbed-labels"><label for="__tabbed_28_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python <code>timedelta</code> type will be converted into a <code>pykx.TimespanAtom</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; from datetime import timedelta
+&gt;&gt;&gt; kx.TimespanAtom(timedelta(days=43938, seconds=68851, microseconds=664551))
+pykx.TimespanAtom(pykx.q('43938D19:07:31.664551000'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.TimespanAtom</code> will return a python <code>timedelta</code> object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimespanAtom(timedelta(days=43938, seconds=68851, microseconds=664551)).py()
+datetime.timedelta(days=43938, seconds=68851, microseconds=664551)</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxtimespanvector"><code>pykx.TimespanVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="29:4"><input checked="checked" id="__tabbed_29_1" name="__tabbed_29" type="radio" /><input id="__tabbed_29_2" name="__tabbed_29" type="radio" /><input id="__tabbed_29_3" name="__tabbed_29" type="radio" /><input id="__tabbed_29_4" name="__tabbed_29" type="radio" /><div class="tabbed-labels"><label for="__tabbed_29_1">Python</label><label for="__tabbed_29_2">Numpy</label><label for="__tabbed_29_3">Pandas</label><label for="__tabbed_29_4">PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python <code>timedelta</code> types will be converted into a <code>pykx.TimespanVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimespanVector([timedelta(days=43938, seconds=68851, microseconds=664551), timedelta(days=43938, seconds=68851, microseconds=664551)])
+pykx.TimespanVector(pykx.q('43938D19:07:31.664551000 43938D19:07:31.664551000'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.TimespanVector</code> will return a list of python <code>timedelta</code> objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimespanVector([timedelta(days=43938, seconds=68851, microseconds=664551), timedelta(days=43938, seconds=68851, microseconds=664551)]).py()
+[datetime.timedelta(days=43938, seconds=68851, microseconds=664551), datetime.timedelta(days=43938, seconds=68851, microseconds=664551)]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.np()</code> on a <code>pykx.TimespanVector</code> will return a numpy <code>ndarray</code> of python strings with <code>dtype</code> <code>timedelta64[ns]</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimespanVector([timedelta(days=43938, seconds=68851, microseconds=664551), timedelta(days=43938, seconds=68851, microseconds=664551)]).np()
+array([3796312051664551000, 3796312051664551000], dtype='timedelta64[ns]')</code></pre>
+<p>Converting a <code>ndarray</code> of <code>dtype</code> <code>datetime64[ns]</code> will create a <code>pykx.TimespanVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimespanVector(np.array([3796312051664551000, 3796312051664551000], dtype='timedelta64[ns]'))
+pykx.TimespanVector(pykx.q('43938D19:07:31.664551000 43938D19:07:31.664551000'))</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pd()</code> on a <code>pykx.TimespanVector</code> will return a pandas <code>Series</code> with <code>dtype</code>:</p>
+<ol>
+<li>
+<p><code>timedelta64[ns]</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.TimespanVector([timedelta(days=43938, seconds=68851, microseconds=664551), timedelta(days=43938, seconds=68851, microseconds=664551)]).pd()
+0   43938 days 19:07:31.664551
+1   43938 days 19:07:31.664551
+dtype: timedelta64[ns]</code></pre>
+</li>
+<li>
+<p><code>duration[ns][pyarrow]</code> in <code>pandas&gt;=2.0</code> with <code>as_arrow=True</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.TimespanVector([timedelta(days=43938, seconds=68851, microseconds=664551), timedelta(days=43938, seconds=68851, microseconds=664551)]).pd(as_arrow=True)
+0    43938 days 19:07:31.664551
+1    43938 days 19:07:31.664551
+dtype: duration[ns][pyarrow]</code></pre>
+</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pa()</code> on a <code>pykx.TimespanVector</code> will return a pyarrow <code>DurationArray</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimespanVector([timedelta(days=43938, seconds=68851, microseconds=664551), timedelta(days=43938, seconds=68851, microseconds=664551)]).pa()
+&lt;pyarrow.lib.DurationArray object at 0x7f6428f0dea0&gt;
+[
+  3796312051664551000,
+  3796312051664551000
+]</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxminuteatom"><code>pykx.MinuteAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="30:1"><input checked="checked" id="__tabbed_30_1" name="__tabbed_30" type="radio" /><div class="tabbed-labels"><label for="__tabbed_30_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python <code>timedelta</code> type will be converted into a <code>pykx.MinuteAtom</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.MinuteAtom(timedelta(minutes=216))
+pykx.MinuteAtom(pykx.q('03:36'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.MinuteAtom</code> will return a python <code>timedelta</code> object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.MinuteAtom(timedelta(minutes=216)).py()
+datetime.timedelta(seconds=12960)</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxminutevector"><code>pykx.MinuteVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="31:3"><input checked="checked" id="__tabbed_31_1" name="__tabbed_31" type="radio" /><input id="__tabbed_31_2" name="__tabbed_31" type="radio" /><input id="__tabbed_31_3" name="__tabbed_31" type="radio" /><div class="tabbed-labels"><label for="__tabbed_31_1">Python</label><label for="__tabbed_31_2">Numpy</label><label for="__tabbed_31_3">Pandas</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python <code>timedelta</code> types will be converted into a <code>pykx.MinuteVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.MinuteVector([timedelta(minutes=216), timedelta(minutes=67)])
+pykx.MinuteVector(pykx.q('03:36 01:07'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.MinuteVector</code> will return a list of python <code>timedelta</code> objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.MinuteVector([timedelta(minutes=216), timedelta(minutes=67)]).py()
+[datetime.timedelta(seconds=12960), datetime.timedelta(seconds=4020)]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.np()</code> on a <code>pykx.MinuteVector</code> will return a numpy <code>ndarray</code> of python strings with <code>dtype</code> <code>timedelta64[m]</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.MinuteVector([timedelta(minutes=216), timedelta(minutes=67)]).np()
+array([216,  67], dtype='timedelta64[m]')</code></pre>
+<p>Converting a <code>ndarray</code> of <code>dtype</code> <code>timedelta64[m]</code> will create a <code>pykx.MinuteVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.MinuteVector(np.array([216,  67], dtype='timedelta64[m]'))
+pykx.MinuteVector(pykx.q('03:36 01:07'))</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pd()</code> on a <code>pykx.MinuteVector</code> will return a pandas <code>Series</code> with <code>dtype</code>:</p>
+<ol>
+<li>
+<p><code>timedelta64[ns]</code> in <code>pandas&lt;2.0</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.MinuteVector([timedelta(minutes=216), timedelta(minutes=67)]).pd()
+0   0 days 03:36:00
+1   0 days 01:07:00
+dtype: timedelta64[ns]</code></pre>
+</li>
+<li>
+<p><code>timedelta64[s]</code> in <code>pandas&gt;=2.0</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.MinuteVector([timedelta(minutes=216), timedelta(minutes=67)]).pd()
+0   0 days 03:36:00
+1   0 days 01:07:00
+dtype: timedelta64[s]</code></pre>
+</li>
+<li>
+<p><code>duration[s][pyarrow]</code> in <code>pandas&gt;=2.0</code> with <code>as_arrow=True</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.MinuteVector([timedelta(minutes=216), timedelta(minutes=67)]).pd(as_arrow=True)
+0    0 days 03:36:00
+1    0 days 01:07:00
+dtype: duration[s][pyarrow]</code></pre>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<h2 id="pykxsecondatom"><code>pykx.SecondAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="32:1"><input checked="checked" id="__tabbed_32_1" name="__tabbed_32" type="radio" /><div class="tabbed-labels"><label for="__tabbed_32_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python <code>timedelta</code> type will be converted into a <code>pykx.SecondAtom</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.SecondAtom(timedelta(seconds=13019))
+pykx.SecondAtom(pykx.q('03:36:59'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.SecondAtom</code> will return a python <code>timedelta</code> object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.SecondAtom(timedelta(seconds=13019)).py()
+datetime.timedelta(seconds=13019)</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxsecondvector"><code>pykx.SecondVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="33:4"><input checked="checked" id="__tabbed_33_1" name="__tabbed_33" type="radio" /><input id="__tabbed_33_2" name="__tabbed_33" type="radio" /><input id="__tabbed_33_3" name="__tabbed_33" type="radio" /><input id="__tabbed_33_4" name="__tabbed_33" type="radio" /><div class="tabbed-labels"><label for="__tabbed_33_1">Python</label><label for="__tabbed_33_2">Numpy</label><label for="__tabbed_33_3">Pandas</label><label for="__tabbed_33_4">PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python <code>timedelta</code> types will be converted into a <code>pykx.SecondVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.SecondVector([timedelta(seconds=13019), timedelta(seconds=1019)])
+pykx.SecondVector(pykx.q('03:36:59 00:16:59'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.SecondVector</code> will return a list of python <code>timedelta</code> objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.SecondVector([timedelta(seconds=13019), timedelta(seconds=1019)]).py()
+[datetime.timedelta(seconds=13019), datetime.timedelta(seconds=1019)]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.np()</code> on a <code>pykx.SecondVector</code> will return a numpy <code>ndarray</code> of python strings with <code>dtype</code> <code>timedelta64[s]</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.SecondVector([timedelta(seconds=13019), timedelta(seconds=1019)]).np()
+array([13019,  1019], dtype='timedelta64[s]')</code></pre>
+<p>Converting a <code>ndarray</code> of <code>dtype</code> <code>timedelta64[s]</code> will create a <code>pykx.SecondVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.SecondVector(np.array([13019,  1019], dtype='timedelta64[s]'))
+pykx.SecondVector(pykx.q('03:36:59 00:16:59'))</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pd()</code> on a <code>pykx.SecondVector</code> will return a pandas <code>Series</code> with <code>dtype</code>:</p>
+<ol>
+<li>
+<p><code>timedelta64[ns]</code> in <code>pandas&lt;2.0</code>:
+    <pre class="highlight"><code class="language-python"># pandas&lt;2.0
+&gt;&gt;&gt; kx.SecondVector([timedelta(seconds=13019), timedelta(seconds=1019)]).pd()
+0   0 days 03:36:59
+1   0 days 00:16:59
+dtype: timedelta64[ns]</code></pre></p>
+</li>
+<li>
+<p><code>timedelta64[s]</code> in <code>pandas&gt;=2.0</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.SecondVector([timedelta(seconds=13019), timedelta(seconds=1019)]).pd()
+0   0 days 03:36:59
+1   0 days 00:16:59
+dtype: timedelta64[s]</code></pre>
+</li>
+<li>
+<p><code>duration[s][pyarrow]</code> in <code>pandas&gt;=2.0</code> with <code>as_arrow=True</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.SecondVector([timedelta(seconds=13019), timedelta(seconds=1019)]).pd(as_arrow=True)
+0    0 days 03:36:59
+1    0 days 00:16:59
+dtype: duration[s][pyarrow]</code></pre>
+</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pa()</code> on a <code>pykx.SecondVector</code> will return a pyarrow <code>DurationArray</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.SecondVector([timedelta(seconds=13019), timedelta(seconds=1019)]).pa()
+&lt;pyarrow.lib.DurationArray object at 0x7f6428f0e020&gt;
+[
+  13019,
+  1019
+]</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxtimeatom"><code>pykx.TimeAtom</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="34:1"><input checked="checked" id="__tabbed_34_1" name="__tabbed_34" type="radio" /><div class="tabbed-labels"><label for="__tabbed_34_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The python <code>timedelta</code> type will be converted into a <code>pykx.TimeAtom</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimeAtom(timedelta(seconds=59789, microseconds=214000))
+pykx.TimeAtom(pykx.q('16:36:29.214'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.TimeAtom</code> will return a python <code>timedelta</code> object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimeAtom(timedelta(seconds=59789, microseconds=214000)).py()
+datetime.timedelta(seconds=59789, microseconds=214000)</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxtimevector"><code>pykx.TimeVector</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="35:4"><input checked="checked" id="__tabbed_35_1" name="__tabbed_35" type="radio" /><input id="__tabbed_35_2" name="__tabbed_35" type="radio" /><input id="__tabbed_35_3" name="__tabbed_35" type="radio" /><input id="__tabbed_35_4" name="__tabbed_35" type="radio" /><div class="tabbed-labels"><label for="__tabbed_35_1">Python</label><label for="__tabbed_35_2">Numpy</label><label for="__tabbed_35_3">Pandas</label><label for="__tabbed_35_4">PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A list of python <code>timedelta</code> types will be converted into a <code>pykx.TimeVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimeVector([timedelta(seconds=59789, microseconds=214000), timedelta(seconds=23789, microseconds=214000)])
+pykx.TimeVector(pykx.q('16:36:29.214 06:36:29.214'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.TimeVector</code> will return a list of python <code>timedelta</code> objects.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimeVector([timedelta(seconds=59789, microseconds=214000), timedelta(seconds=23789, microseconds=214000)]).py()
+[datetime.timedelta(seconds=59789, microseconds=214000), datetime.timedelta(seconds=23789, microseconds=214000)]</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.np()</code> on a <code>pykx.TimeVector</code> will return a numpy <code>ndarray</code> of python strings with <code>dtype</code> <code>timedelta64[ms]</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimeVector([timedelta(seconds=59789, microseconds=214000), timedelta(seconds=23789, microseconds=214000)]).np()
+array([59789214, 23789214], dtype='timedelta64[ms]')</code></pre>
+<p>Converting a <code>ndarray</code> of <code>dtype</code> <code>timedelta64[ms]</code> will create a <code>pykx.TimeVector</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimeVector(np.array([59789214, 23789214], dtype='timedelta64[ms]'))
+pykx.TimeVector(pykx.q('16:36:29.214 06:36:29.214'))</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pd()</code> on a <code>pykx.TimeVector</code> will return a pandas <code>Series</code> with <code>dtype</code>:</p>
+<ol>
+<li>
+<p><code>timedelta64[ns]</code> in <code>pandas&lt;2.0</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.TimeVector([timedelta(seconds=59789, microseconds=214000), timedelta(seconds=23789, microseconds=214000)]).pd()
+0   0 days 16:36:29.214000
+1   0 days 06:36:29.214000
+dtype: timedelta64[ns]</code></pre>
+</li>
+<li>
+<p><code>timedelta[ms]</code> in <code>pandas&gt;=2.0</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.TimeVector([timedelta(seconds=59789, microseconds=214000), timedelta(seconds=23789, microseconds=214000)]).pd()
+0   0 days 16:36:29.214000
+1   0 days 06:36:29.214000
+dtype: timedelta64[ms]</code></pre>
+</li>
+<li>
+<p><code>duration[ms][pyarrow]</code> in <code>pandas&gt;=2.0</code> with <code>as_arrow=True</code>:</p>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; kx.TimeVector([timedelta(seconds=59789, microseconds=214000), timedelta(seconds=23789, microseconds=214000)]).pd(as_arrow=True)
+0    0 days 16:36:29.214000
+1    0 days 06:36:29.214000
+dtype: duration[ms][pyarrow]</code></pre>
+</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pa()</code> on a <code>pykx.TimeVector</code> will return a pyarrow <code>DurationArray</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.TimeVector([timedelta(seconds=59789, microseconds=214000), timedelta(seconds=23789, microseconds=214000)]).pa()
+&lt;pyarrow.lib.DurationArray object at 0x7f643021ff40&gt;
+[
+  59789214,
+  23789214
+]</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxdictionary"><code>pykx.Dictionary</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="36:1"><input checked="checked" id="__tabbed_36_1" name="__tabbed_36" type="radio" /><div class="tabbed-labels"><label for="__tabbed_36_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A python <code>dict</code> type will be converted into a <code>pykx.Dictionary</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.Dictionary({'foo': b'bar', 'baz': 3.5, 'z': 'prime'})
+pykx.Dictionary(pykx.q('
+foo| "bar"
+baz| 3.5
+z  | `prime
+'))</code></pre>
+<p>Calling <code>.py()</code> on a <code>pykx.Dictionary</code> will return a python <code>dict</code> object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.Dictionary({'foo': b'bar', 'baz': 3.5, 'z': 'prime'}).py()
+{'foo': b'bar', 'baz': 3.5, 'z': 'prime'}</code></pre>
+</div>
+</div>
+</div>
+<h2 id="pykxtable"><code>pykx.Table</code></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="37:4"><input checked="checked" id="__tabbed_37_1" name="__tabbed_37" type="radio" /><input id="__tabbed_37_2" name="__tabbed_37" type="radio" /><input id="__tabbed_37_3" name="__tabbed_37" type="radio" /><input id="__tabbed_37_4" name="__tabbed_37" type="radio" /><div class="tabbed-labels"><label for="__tabbed_37_1">Python</label><label for="__tabbed_37_2">Numpy</label><label for="__tabbed_37_3">Pandas</label><label for="__tabbed_37_4">PyArrow</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Calling <code>.py()</code> on a <code>pykx.Table</code> will return a python <code>dict</code> object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.Table(data={
+...     'a': kx.random.random(10, 10),
+...     'b': kx.random.random(10, 10)}).py()
+{'a': [5, 6, 4, 1, 3, 3, 7, 8, 2, 1], 'b': [8, 1, 7, 2, 4, 5, 4, 2, 7, 8]}</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.np()</code> on a <code>pykx.Table</code> will return a numpy <code>record</code> array of the rows of the table with each type converted to it closest analogous numpy type.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.Table(data={
+...     'a': kx.random.random(10, 10),
+...     'b': kx.random.random(10, 10)}).np()
+rec.array([(9, 9), (9, 7), (2, 6), (5, 6), (4, 4), (2, 7), (5, 8), (8, 4),
+           (7, 4), (9, 6)],
+           dtype=[('a', '&lt;i8'), ('b', '&lt;i8')])</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pd()</code> on a <code>pykx.Table</code> will return a pandas <code>DataFrame</code> with each column being converted to its closest pandas <code>dtype</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.Table(data={
+...     'a': kx.random.random(10, 10),
+...     'b': kx.random.random(10, 10)}).pd()
+   a  b
+0  1  9
+1  0  7
+2  5  7
+3  1  1
+4  0  9
+5  0  1
+6  1  0
+7  7  8
+8  6  8
+9  3  3</code></pre>
+<p>Converting a <code>pandas</code> <code>DataFrame</code> object will result in a <code>pykx.Table</code> object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.Table(pd.DataFrame({'a': [x for x in range(10)], 'b': [float(x) for x in range(10)]}))
+pykx.Table(pykx.q('
+a b
+---
+0 0
+1 1
+2 2
+3 3
+4 4
+5 5
+6 6
+7 7
+8 8
+9 9
+'))</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Calling <code>.pa()</code> on a <code>pykx.Table</code> will return a pyarrow <code>Table</code>.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.Table(data={
+...     'a': kx.random.random(10, 10),
+...     'b': kx.random.random(10, 10)}).pa()
+pyarrow.Table
+a: int64
+b: int64
+----
+a: [[0,7,3,3,6,8,2,3,8,9]]
+b: [[5,7,5,6,7,0,2,1,8,1]]</code></pre>
+<p>Converting a <code>pyarow</code> <code>Table</code> object will result in a <code>pykx.Table</code> object.</p>
+<pre class="highlight"><code class="language-Python">&gt;&gt;&gt; kx.Table(pa.Table.from_arrays([[1, 2, 3, 4], [5, 6, 7, 8]], names=['a', 'b']))
+pykx.Table(pykx.q('
+a b
+---
+1 5
+2 6
+3 7
+4 8
+'))</code></pre>
+</div>
+</div>
+</div>
+
+
+
+
+              
+            </article>
+            
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="wrappers.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: PyKX type wrappers" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              PyKX type wrappers
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="register.html" class="md-footer__link md-footer__link--next" aria-label="Next: Registering Custom Conversions" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Registering Custom Conversions
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2024 Kx Systems, Inc. KX and kdb+ are registered trademarks of Kx Systems, Inc., a subsidiary of FD Technologies plc.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs Insiders
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.tabs.link", "header.autohide", "navigation.tabs", "navigation.footer", "content.code.annotate", "content.action.edit", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c028271.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.dcd4d203.min.js"></script>
+      
+        <script src="https://code.kx.com/scripts/prism.js"></script>
+      
+        <script src="https://code.kx.com/scripts/extra.js"></script>
+      
+        <script src="https://code.kx.com/scripts/mathjax.js"></script>
+      
+        <script src="https://code.kx.com/scripts/polyfill.min.js"></script>
+      
+        <script src="https://code.kx.com/scripts/tex-mmmdtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      
+        <script src="https://use.fontawesome.com/3dbf29ed12.js"></script>
+      
+        <script src="../../&period;&period;/&period;&period;/pykx/scripts/versions.js"></script>
+      
+    
+  </body>
+</html>

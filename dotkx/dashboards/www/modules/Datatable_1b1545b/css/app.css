@@ -1,0 +1,761 @@
+/* gk: MIXINS */
+/* PALLETE */
+/* Kx-dark theme colour schema */
+/* Kx-light theme colour schema */
+.data-table {
+  color: #efefef;
+  color: #efefef;
+  overflow: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /*.table-tools has been moved to _pnlButtons.scss*/
+}
+.data-table > .table-body {
+  overflow: visible;
+}
+.data-table > .table-body > .scrollfix {
+  overflow: auto;
+}
+.data-table > .table-body > .scrollfix > .table-content {
+  overflow: visible;
+}
+.data-table > .table-body > .scrollfix > .table-content > .table-row {
+  overflow: visible;
+}
+.data-table > .table-body > .scrollfix > .table-content > .table-row.expandedSummaryDefaultStyle > div:not(.data-table) {
+  font-weight: bold;
+  border-bottom: double 3px;
+}
+.data-table > .table-body > .scrollfix > .table-content > .table-row.expandedSummaryDefaultStyle > div:not(.data-table):empty:not(:empty ~ :empty):before {
+  content: "Total :";
+}
+.data-table > .table-body > .scrollfix > .table-content > .table-row.expandedSummaryDefaultStyle > div:not(.data-table):empty:not(:empty ~ :empty) {
+  font-weight: bold;
+  border-bottom: double 3px;
+}
+.data-table > .table-header {
+  overflow: hidden !important;
+}
+.data-table > .table-header > .table-row {
+  overflow: visible;
+}
+.data-table .data-table > .table-body {
+  top: 0;
+  overflow: visible;
+}
+.data-table .data-table > .table-body .scrollfix {
+  overflow: visible;
+}
+.data-table .data-table > .table-body .scrollfix .table-content {
+  overflow: visible;
+}
+.data-table .expndbl {
+  z-index: 10;
+}
+.data-table .expndbl:after {
+  content: "\f0fe";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  position: absolute;
+  font-size: 12px;
+  line-height: 12px;
+  top: 50%;
+  left: 5px;
+  margin: -6px 0 0 0;
+  z-index: 1;
+  opacity: 0.8;
+}
+.data-table .expndbl.expanded:after {
+  content: "\f146";
+}
+.data-table .expndbl.expanding:after {
+  content: "\f110";
+  -webkit-animation: fa-spin 1s infinite steps(8);
+  -moz-animation: fa-spin 1s infinite steps(8);
+  animation: fa-spin 1s infinite steps(8);
+}
+.data-table .expndbl:hover:after {
+  opacity: 1;
+}
+.data-table.has-tools.show-filters > .table-header .table-row input.filter {
+  display: block;
+}
+.data-table.has-tools.show-filters > .table-header .table-row input.filter:disabled {
+  display: none;
+}
+.data-table.has-tools.show-filters > .table-body {
+  top: 98px;
+}
+.data-table.has-footer > .table-body {
+  bottom: 31px;
+}
+.data-table.has-footer > .table-footer {
+  display: block;
+}
+.data-table.has-tools > .table-header {
+  top: 36px;
+}
+.data-table.has-tools > .table-body {
+  top: 67px;
+}
+.data-table .resize-col-marker {
+  border-right: 2px dashed #00AEFF;
+  position: fixed;
+  width: 2px;
+  z-index: 100000;
+}
+.data-table .disabled-overlay {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAADpJREFUKFONzDkOACAMA0H8/0cbmSIKkGvr0WINIkl0TkimhIYApNCj9PiiEEbogxm6YIUMdujACRLcCEEoA0xms9oAAAAASUVORK5CYII=);
+  position: relative;
+  z-index: 100000;
+  opacity: 0.3;
+}
+.data-table .reorder-col-placeholder {
+  background: silver;
+  pointer-events: none;
+}
+.data-table .reorder-col-marker {
+  position: fixed;
+  z-index: 100000;
+}
+.data-table .reorder-col-marker .col-icon {
+  color: #00AEFF;
+  font-weight: bold;
+  text-align: center;
+}
+.data-table .reorder-col-marker .col-line {
+  border-right: 2px solid #00AEFF;
+  width: 2px;
+}
+.data-table .reorder-col-tooltip {
+  border: 1px solid #202020;
+  border-radius: 2px;
+  background: #383838;
+  position: fixed;
+  line-height: 30px;
+  font-size: 12px;
+  padding: 2px 10px;
+  z-index: 100000;
+}
+.data-table .table-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: auto;
+  overflow: visible;
+}
+.data-table .table-header .table-row {
+  background: #282828;
+  box-sizing: border-box;
+  position: relative;
+}
+.data-table .table-header .table-row > .th {
+  padding: 0;
+  border-width: 0;
+  overflow: hidden;
+  border-left: 1px solid transparent;
+}
+.data-table .table-header .table-row > .th .linkContainer {
+  position: relative;
+}
+.data-table .table-header .table-row > .th .linkContainer a,
+.data-table .table-header .table-row > .th .linkContainer .ui-state-default {
+  padding: 0 0 0 0;
+  color: #fff;
+}
+.data-table .table-header .table-row > .th .linkContainer a:hover,
+.data-table .table-header .table-row > .th .linkContainer .ui-state-default:hover {
+  color: #fff;
+}
+.data-table .table-header .table-row > .th .linkContainer a.expndbl {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  top: 50%;
+  margin-top: 0;
+  left: 0;
+  box-shadow: none;
+}
+.data-table .table-header .table-row > .th .linkContainer .resizable-col-handle {
+  position: absolute;
+  display: block;
+  cursor: col-resize;
+  user-select: none;
+  width: 3px;
+  right: 0px;
+  top: 0;
+  height: 100%;
+}
+.data-table .table-header .table-row > .th .linkContainer .resizable-col-handle:hover {
+  border-right: 3px solid #00AEFF;
+}
+.data-table .table-header .table-row > .th:last-child .thi {
+  right: 1px;
+}
+.data-table .table-header .table-row .thi {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  box-shadow: inset 0px 0px 1px 0px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0px 0px 1px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: inset 0px 0px 1px 0px rgba(0, 0, 0, 0.3);
+  height: auto;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+.data-table .table-header .table-row .thi a,
+.data-table .table-header .table-row .thi .ui-state-default {
+  box-sizing: border-box;
+  box-shadow: inset 0px 0px 1px 0px rgba(0, 0, 0, 0.3);
+}
+.data-table .table-header .table-row .thi a:hover,
+.data-table .table-header .table-row .thi .ui-state-default:hover {
+  border-color: #6e6e6e;
+}
+.data-table .table-header .table-row .thi .ui-selectmenu-text {
+  color: #D0D0D0;
+}
+.data-table .table-header .table-row .thi *:focus {
+  outline: 0;
+  color: #ffffff;
+}
+.data-table .table-header .table-row .thi input.filter {
+  display: none;
+  background: #424242;
+  border: 1px solid #6d6d6d;
+  width: 100%;
+  height: 25px;
+  padding: 0 1.5em 0 2px;
+  font-size: 12px;
+  box-sizing: border-box;
+  color: #ffffff;
+}
+.data-table .table-header .table-row .thi .clear-filter {
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  right: 0em;
+  bottom: 25%;
+  margin-bottom: -11px;
+  padding: 0.5em;
+  font-size: 11px;
+}
+.data-table .table-header .table-row .thi.filter-active .clear-filter {
+  display: inline-block;
+}
+.data-table .table-header.has-scrollbar {
+  margin-right: 17px;
+}
+.data-table .table-body {
+  position: absolute;
+  top: 31px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 13px;
+  -webkit-touch-callout: text;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+.data-table .negative {
+  background: red;
+}
+.data-table .table-footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 31px;
+  line-height: 31px;
+  font-size: 13px;
+  display: none;
+  overflow: hidden;
+}
+.data-table .table-footer .table-row {
+  height: 31px;
+  box-sizing: border-box;
+  position: relative;
+}
+.data-table .table-footer.has-scrollbar {
+  margin-right: 17px;
+}
+.data-table .bar {
+  fill: steelblue;
+}
+.data-table.dlgBasicPopup {
+  position: relative;
+  left: auto;
+  right: auto;
+  top: auto;
+  bottom: auto;
+}
+.data-table.dlgBasicPopup .dlgCsvExport input, .data-table.dlgBasicPopup .dlgExcelExport input {
+  margin-top: 0.75em;
+  padding: 0.25em;
+  border-width: 1px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.data-table div.scrollfix {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.data-table .ui-icon.ui-icon-arrowreturn-1-e {
+  background-image: url("../img/flip.png");
+  background-position: 0 0;
+  width: 18px;
+  height: 10px;
+  margin: 2px 0 0 -10px;
+  position: absolute;
+}
+.data-table .table-row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+}
+.data-table .table-row .percentageFormatter {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  height: 20px;
+  width: 100%;
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 3px;
+}
+.data-table .table-row .percentageFormatter p {
+  display: block;
+  margin-top: 0;
+  float: left;
+  overflow: hidden;
+  max-width: 100%;
+}
+.data-table .table-row .percentageFormatter span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: block;
+  line-height: 18px;
+  font-size: 0.8em;
+}
+.data-table .table-row > div {
+  padding: 0 2px;
+  cursor: default;
+  position: absolute;
+  overflow: hidden;
+  vertical-align: middle;
+  height: 100%;
+  text-align: center;
+  border-left: 1px solid #202020;
+  border-bottom: 1px solid #202020;
+  box-sizing: border-box;
+  margin-left: -1px;
+}
+.data-table .table-row > div.highlightRulesActive {
+  padding: 0px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.data-table .table-row > div > .highlightDiv {
+  position: relative;
+  padding: 0 2px;
+  pointer-events: none;
+  z-index: 0;
+}
+.data-table .table-row > div > .highlightDiv > .cellIconsLeft {
+  position: absolute;
+  left: 7px;
+}
+.data-table .table-row > div.highlightRulesActive > .highlightDiv > .cellIconsRight {
+  position: absolute;
+  right: 7px;
+}
+.data-table .table-row > div .cellIcons {
+  padding: 3px;
+}
+.data-table .table-row > div.highlightRulesActive > .highlightDiv .Fill_Left-to-Right, .data-table .table-row > div.highlightRulesActive > .highlightDiv .Fill_Right-to-Left {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  box-sizing: border-box;
+  z-index: -1;
+}
+.data-table .table-row > div.highlightRulesActive > .highlightDiv .Fill_Left-to-Right {
+  left: 0;
+  border-radius: 0 3px 3px 0;
+}
+.data-table .table-row > div.highlightRulesActive > .highlightDiv .Fill_Right-to-Left {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+.data-table .table-row > div.expndbl {
+  padding-left: 18px;
+}
+.data-table .table-row > div:has(a.expndbl) {
+  padding-left: 18px;
+}
+.data-table .table-row > div a.expndbl {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  top: 50%;
+  margin-top: 0;
+  left: 0;
+  box-shadow: none;
+}
+.data-table .table-row > div span.sort {
+  display: inline-block;
+  margin-left: 6px;
+  font-family: "gklineicoregular";
+  margin-right: 3px;
+}
+.data-table .table-row > div.th a, .data-table .table-row > div.th .ui-state-default {
+  display: block;
+  line-height: 31px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.data-table .table-row > div i.fa-caret-up, .data-table .table-row > div i.fa-caret-down {
+  float: left;
+  margin-right: -10px;
+  margin: 10px -20px 0 10px;
+}
+.data-table .table-row > div.data-table {
+  box-sizing: border-box;
+  height: auto;
+  overflow: visible;
+  border-bottom: 1px solid transparent;
+}
+.data-table .table-row > div.data-table .table-row > div:first-child {
+  border-left: none;
+}
+.data-table .table-row > .left {
+  text-align: left;
+}
+.data-table .table-row.table-sub-row {
+  height: 0;
+  overflow: hidden;
+  top: 31px;
+  left: 43px;
+  padding: 0;
+  border-left: 0 none;
+}
+.data-table .table-row.table-sub-row > div {
+  border: 0;
+  border-top: 1px solid #202020;
+  padding: 0;
+}
+.data-table .table-row.table-sub-row > div {
+  border-top-color: #202020;
+}
+.data-table.animate .table-row {
+  -webkit-transition: top 0.3s, height 0.3s, background-color 0.2s linear, color 0.2ms linear;
+  -moz-transition: top 0.3s, height 0.3s, background-color 0.2s linear, color 0.2ms linear;
+  transition: top 0.3s, height 0.3s, background-color 0.2s linear, color 0.2ms linear;
+}
+.data-table.animate .table-row > div {
+  -webkit-transition: left 0.2s, width 0.2s, right 0.2s;
+  -moz-transition: left 0.2s, width 0.2s, right 0.2s;
+  transition: left 0.2s, width 0.2s, right 0.2s;
+}
+.data-table.animate .table-row.table-sub-row {
+  -webkit-transition: height 0.2s;
+  -moz-transition: height 0.2s;
+  transition: height 0.2s;
+}
+.data-table.animate .table-row .table-body {
+  -webkit-transition: top 0.2s;
+  -moz-transition: top 0.2s;
+  transition: top 0.2s;
+}
+.data-table .table-tools a {
+  color: #CCC;
+}
+.data-table .table-tools a:hover {
+  color: #fff;
+}
+.data-table .table-tools .toggle-drilldown > input {
+  margin: -4px 4px 0px 0px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.Dark.app-div .data-table > .table-tools {
+  display: none;
+}
+.Dark.app-div .data-table.has-tools > .table-tools {
+  display: block;
+}
+.Dark.app-div .table-tools {
+  position: absolute;
+  top: 0;
+  right: 0;
+  line-height: 36px;
+  height: 36px;
+  box-sizing: border-box;
+  font-size: 13px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.Dark.app-div .table-tools > a {
+  padding: 0 1em;
+  color: #CCC;
+  cursor: pointer;
+  line-height: 36px;
+  display: inline-block;
+}
+.Dark.app-div .table-tools > a:hover {
+  color: #00AEFF;
+}
+.Dark.app-div .table-tools span.lnksExport {
+  padding: 0 1em;
+  /* dividers */
+}
+.Dark.app-div .table-tools span.lnksExport.link-disabled {
+  display: none;
+}
+.Dark.app-div .table-tools span.lnksExport a.lnkCsvExport,
+.Dark.app-div .table-tools span.lnksExport a.lnkExcelExport,
+.Dark.app-div .table-tools span.lnksExport a.lnkFullExport {
+  line-height: 36px;
+  color: #CCC;
+}
+.Dark.app-div .table-tools span.lnksExport a.lnkCsvExport:hover,
+.Dark.app-div .table-tools span.lnksExport a.lnkExcelExport:hover,
+.Dark.app-div .table-tools span.lnksExport a.lnkFullExport:hover {
+  color: #00AEFF;
+  cursor: pointer;
+}
+.Dark.app-div .table-tools span.lnksExport a.lnkCsvExport .export-spinner,
+.Dark.app-div .table-tools span.lnksExport a.lnkExcelExport .export-spinner,
+.Dark.app-div .table-tools span.lnksExport a.lnkFullExport .export-spinner {
+  position: absolute;
+  right: 2px;
+  top: 4px;
+  font-size: 10px;
+}
+.Dark.app-div .table-tools span.lnksExport a.lnkCsvExport.export-in-progress,
+.Dark.app-div .table-tools span.lnksExport a.lnkExcelExport.export-in-progress,
+.Dark.app-div .table-tools span.lnksExport a.lnkFullExport.export-in-progress {
+  pointer-events: none;
+}
+.Dark.app-div .table-tools span.lnksExport a.lnkCsvExport.link-disabled,
+.Dark.app-div .table-tools span.lnksExport a.lnkExcelExport.link-disabled,
+.Dark.app-div .table-tools span.lnksExport a.lnkFullExport.link-disabled {
+  display: none;
+}
+.Dark.app-div .table-tools span.lnksExport a.lnkCsvExport.events-disabled,
+.Dark.app-div .table-tools span.lnksExport a.lnkExcelExport.events-disabled,
+.Dark.app-div .table-tools span.lnksExport a.lnkFullExport.events-disabled {
+  color: #6f6f6f;
+}
+.Dark.app-div .table-tools span.lnksExport a:not(.link-disabled) ~ a:not(.link-disabled):before {
+  display: inline-block;
+  content: " | ";
+  color: #CCC;
+  padding: 0 0.4em 0 0.2em;
+}
+.Dark.app-div .table-row .percentageFormatter {
+  border-color: #a0a0a0;
+  background-color: #383838;
+}
+.Dark.app-div .table-row .percentageFormatter p {
+  background-color: #606060;
+}
+.Dark.app-div .table-row .percentageFormatter span {
+  text-shadow: 1px 1px #434343;
+  box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.8);
+}
+.Dark.app-div .table-row.expandedSummaryDefaultStyle > div:not(.data-table) {
+  background-color: #424242 !important;
+}
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .Dark.app-div .table-header.has-scrollbar, .Dark.app-div .table-footer.has-scrollbar {
+    margin-right: 16px;
+  }
+}
+
+.Light.app-div {
+  background-color: #f8f8f8;
+  color: #101010;
+}
+.Light.app-div .data-table > .table-tools {
+  display: none;
+}
+.Light.app-div .data-table.has-tools > .table-tools {
+  display: block;
+}
+.Light.app-div .table-tools {
+  position: absolute;
+  top: 0;
+  right: 0;
+  line-height: 36px;
+  height: 36px;
+  box-sizing: border-box;
+  font-size: 13px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.Light.app-div .table-tools > a {
+  padding: 0 1em;
+  color: #000;
+  cursor: pointer;
+  line-height: 36px;
+  display: inline-block;
+}
+.Light.app-div .table-tools > a:hover {
+  color: #00AEFF;
+}
+.Light.app-div .table-tools span.lnksExport {
+  padding: 0 1em;
+  /* dividers */
+}
+.Light.app-div .table-tools span.lnksExport.link-disabled {
+  display: none;
+}
+.Light.app-div .table-tools span.lnksExport a.lnkCsvExport,
+.Light.app-div .table-tools span.lnksExport a.lnkExcelExport,
+.Light.app-div .table-tools span.lnksExport a.lnkFullExport {
+  line-height: 36px;
+  color: #000;
+}
+.Light.app-div .table-tools span.lnksExport a.lnkCsvExport:hover,
+.Light.app-div .table-tools span.lnksExport a.lnkExcelExport:hover,
+.Light.app-div .table-tools span.lnksExport a.lnkFullExport:hover {
+  color: #00AEFF;
+  cursor: pointer;
+}
+.Light.app-div .table-tools span.lnksExport a.lnkCsvExport .export-spinner,
+.Light.app-div .table-tools span.lnksExport a.lnkExcelExport .export-spinner,
+.Light.app-div .table-tools span.lnksExport a.lnkFullExport .export-spinner {
+  position: absolute;
+  right: 2px;
+  top: 4px;
+  font-size: 10px;
+}
+.Light.app-div .table-tools span.lnksExport a.lnkCsvExport.export-in-progress,
+.Light.app-div .table-tools span.lnksExport a.lnkExcelExport.export-in-progress,
+.Light.app-div .table-tools span.lnksExport a.lnkFullExport.export-in-progress {
+  pointer-events: none;
+}
+.Light.app-div .table-tools span.lnksExport a.lnkCsvExport.link-disabled,
+.Light.app-div .table-tools span.lnksExport a.lnkExcelExport.link-disabled,
+.Light.app-div .table-tools span.lnksExport a.lnkFullExport.link-disabled {
+  display: none;
+}
+.Light.app-div .table-tools span.lnksExport a.lnkCsvExport.events-disabled,
+.Light.app-div .table-tools span.lnksExport a.lnkExcelExport.events-disabled,
+.Light.app-div .table-tools span.lnksExport a.lnkFullExport.events-disabled {
+  color: #b1b1b1;
+}
+.Light.app-div .table-tools span.lnksExport a:not(.link-disabled) ~ a:not(.link-disabled):before {
+  display: inline-block;
+  content: " | ";
+  color: #000;
+  padding: 0 0.4em 0 0.2em;
+}
+.Light.app-div .data-table {
+  color: #101010;
+}
+.Light.app-div .data-table .disabled-overlay {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAADlJREFUKFONzFEKACAIBNG8/6GNDZI0XZ3vx8iapTJwCtPBg+AYNMSODlXwQxlMUYQleiFFF7YIcAP60woJQao4QgAAAABJRU5ErkJggg==);
+}
+.Light.app-div .data-table .reorder-col-tooltip {
+  background: #f8f8f8;
+  border: 1px solid #c0c0c0;
+}
+.Light.app-div .table-row {
+  border-bottom-color: silver;
+}
+.Light.app-div .table-row > div {
+  border-left-color: #c0c0c0;
+  border-bottom-color: #c0c0c0;
+  /*box-sizing: border-box;*/
+}
+.Light.app-div .table-row > div.data-table {
+  border-bottom: 0px;
+}
+.Light.app-div .table-row > div.th .linkContainer a, .Light.app-div .table-row > div.th .linkContainer .ui-state-default {
+  color: #000;
+}
+.Light.app-div .table-row > div.th .linkContainer a:hover, .Light.app-div .table-row > div.th .linkContainer .ui-state-default:hover {
+  color: #000;
+}
+.Light.app-div .table-row > div .thi a, .Light.app-div .table-row > div .thi .ui-state-default {
+  box-shadow: inset 0px 0px 1px 0px rgba(255, 255, 255, 0.3);
+  border-color: #e4e4e4;
+}
+.Light.app-div .table-row > div .thi a:hover, .Light.app-div .table-row > div .thi .ui-state-default:hover {
+  border-color: #9b9b9b;
+}
+.Light.app-div .table-row > div .thi .ui-selectmenu-text {
+  color: #D0D0D0;
+}
+.Light.app-div .table-row > div .thi *:focus {
+  outline: 0;
+  color: #000;
+}
+.Light.app-div .table-row > div .thi input.filter {
+  background: #fff;
+  border-color: #ababab;
+  color: #000;
+}
+.Light.app-div .table-row.table-sub-row > div {
+  border-top-color: #c0c0c0;
+}
+.Light.app-div .table-row .percentageFormatter {
+  border-color: #707070;
+  background-color: #dddddd;
+}
+.Light.app-div .table-row .percentageFormatter p {
+  background-color: #a8a8a8;
+}
+.Light.app-div .table-row .percentageFormatter span {
+  text-shadow: 1px 1px #c0c0c0;
+  box-shadow: inset 0px 0px 1px 1px rgba(255, 255, 255, 0.8);
+}
+.Light.app-div .table-row.expandedSummaryDefaultStyle > div:not(.data-table) {
+  background-color: rgb(220, 219, 219) !important;
+}
+.Light.app-div .table-header .table-row {
+  background-color: #f8f8f8;
+}
+.Light.app-div .table-header .table-row > .th {
+  border-left: 1px solid #c0c0c0;
+}
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl9nbG9iYWwuc2NzcyIsImFwcC5zY3NzIiwiYm91cmJvbi9hZGRvbnMvX3ByZWZpeGVyLnNjc3MiLCJfcG5sQnV0dG9ucy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0FBZ0JBO0FBaUJBO0FBRUE7QUNuQ0E7RUFDSSxPRGtCUztFQ2hCVDtFQUNBO0VBRUE7RUFDQTtFQUNBO0VBQ0E7RUFDQTtBQXNHQTs7QUFwR0E7RUFDSTs7QUFDQTtFQUNJOztBQUVBO0VBQ0k7O0FBRUE7RUFDSTs7QUFFSjtFQUNJO0VBQ0E7O0FBR0o7RUFDSTs7QUFHSjtFQUNJO0VBQ0E7O0FBUWhCO0VBQ0k7O0FBRUE7RUFDSTs7QUFLUjtFQUNJO0VBQ0E7O0FBRUE7RUFDSTs7QUFFQTtFQUNJOztBQUtaO0VBQ0k7O0FBQ0E7RUFDSTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFHSjtFQUNJOztBQUdKO0VBQ0k7RUN0REosbUJEdURJO0VDbkRKLGdCRG1ESTtFQ3ZDSixXRHVDSTs7QUFHSjtFQUNJOztBQU1BO0VBQ0k7O0FBRUE7RUFDSTs7QUFLWjtFQUNJOztBQU9KO0VBQ0ksUUR2R0E7O0FDMEdKO0VBQ0k7O0FBS0o7RUFDSSxLRGxIRTs7QUNxSE47RUFDSTs7QUFJUjtFQUNJO0VBQ0E7RUFDQTtFQUNBOztBQUdKO0VBQ0k7RUFDQTtFQUNBO0VBQ0E7O0FBR0o7RUFDSTtFQUNBOztBQUdKO0VBQ0k7RUFDQTs7QUFFQTtFQUNJLE9EL0hNO0VDZ0lOO0VBQ0E7O0FBR0o7RUFDSTtFQUNBOztBQUlSO0VBQ0k7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFHSjtFQUNDO0VBQ0E7RUFDQTtFQUNBO0VBQ0c7RUFDQTs7QUFFQTtFQUNJO0VBQ0E7RUFDQTs7QUFFQTtFQUNJO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0k7O0FBRUE7QUFBQTtFQUVJO0VBQ0E7O0FBRUE7QUFBQTtF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 */

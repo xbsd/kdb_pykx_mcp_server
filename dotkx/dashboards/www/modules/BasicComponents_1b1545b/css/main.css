@@ -1,0 +1,580 @@
+.web-component {
+  height: 100%;
+  position: relative;
+}
+.web-component .title {
+  text-align: center;
+}
+.web-component iframe {
+  border: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.web-component.has-title iframe {
+  top: 18px;
+}
+
+.basicComponents_serverStatus {
+  padding: 0.9em;
+  font-size: 13px;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.basicComponents_serverStatus.LOADING .pnlLineStatus {
+  background-color: #9C541B;
+}
+.basicComponents_serverStatus.UP .pnlLineStatus {
+  background-color: #1B9C28;
+}
+.basicComponents_serverStatus.DOWN .pnlLineStatus {
+  background-color: #9C1B1B;
+}
+.basicComponents_serverStatus.DISCONNECTED .pnlLineStatus {
+  background-color: #9C1B1B;
+}
+.basicComponents_serverStatus.DISCONNECTED > * {
+  opacity: 0.5;
+}
+.basicComponents_serverStatus .pnlLineStatus {
+  float: left;
+  padding: 4px 20px;
+  text-align: center;
+  width: 190px;
+  border-radius: 2px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.5s ease-in, opacity 0.5s ease-in;
+}
+.basicComponents_serverStatus .txtLineStatus {
+  padding: 4px 4px;
+}
+.basicComponents_serverStatus .txtServerTime {
+  display: inline-block;
+  padding: 4px 4px;
+  float: right;
+}
+.basicComponents_serverStatus.Light .txtServerTime {
+  color: #000000;
+}
+
+.basicComponents_dropdown.Dark .bbf-editor > div.dropdown-container > select {
+  background-image: linear-gradient(to bottom, #636363 50%, #575757 100%);
+  color: #636363;
+}
+.basicComponents_dropdown.Light .bbf-editor > div.dropdown-container > select {
+  background: #dcdcdc;
+  color: #dcdcdc;
+}
+.basicComponents_dropdown.Light .select2-selection .select2-selection__arrow b {
+  border-color: black transparent transparent transparent;
+}
+.basicComponents_dropdown.Light .select2-selection i.select2-dropdown-arrow {
+  border-color: black transparent transparent transparent;
+}
+.basicComponents_dropdown.Light .select2-selection--multiple {
+  background: #dcdcdc;
+}
+.basicComponents_dropdown.Light .select2-selection--multiple ul > li {
+  padding: 0px 5px;
+}
+.basicComponents_dropdown.Light .select2-selection--single {
+  background: #dcdcdc !important;
+}
+
+.basicComponents_dropdown,
+.basicComponents_radio {
+  color: #fff;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-size: 13px;
+  overflow: hidden;
+}
+.basicComponents_dropdown .dropdown-label,
+.basicComponents_dropdown .basicComponents_cmbCount,
+.basicComponents_radio .dropdown-label,
+.basicComponents_radio .basicComponents_cmbCount {
+  position: relative;
+  top: 0px;
+  display: inline-block;
+}
+.basicComponents_dropdown .bbf-field,
+.basicComponents_radio .bbf-field {
+  margin: 0;
+}
+.basicComponents_dropdown .bbf-field .bbf-editor,
+.basicComponents_radio .bbf-field .bbf-editor {
+  margin-left: 0;
+  width: 100%;
+}
+.basicComponents_dropdown .select2-container .dropdown-count-enabled,
+.basicComponents_radio .select2-container .dropdown-count-enabled {
+  max-width: 85%;
+}
+.basicComponents_dropdown .dropdown-label,
+.basicComponents_radio .dropdown-label {
+  display: inline-block;
+  overflow: hidden;
+  float: none;
+}
+.basicComponents_dropdown .dropdown-container,
+.basicComponents_radio .dropdown-container {
+  display: inline-block;
+}
+.basicComponents_dropdown li[aria-selected=true],
+.basicComponents_radio li[aria-selected=true] {
+  background: linear-gradient(to bottom, #636363 50%, #575757 100%);
+}
+.basicComponents_dropdown .ui-selectmenu-button,
+.basicComponents_dropdown .select2-container,
+.basicComponents_radio .ui-selectmenu-button,
+.basicComponents_radio .select2-container {
+  border-color: #6d6d6d;
+  overflow: hidden;
+}
+.basicComponents_dropdown .select2-container--focus .select2-selection,
+.basicComponents_radio .select2-container--focus .select2-selection {
+  border-color: rgb(0, 174, 255);
+}
+.basicComponents_dropdown.Light,
+.basicComponents_radio.Light {
+  color: #303030;
+}
+.basicComponents_dropdown.Light .ui-selectmenu-button,
+.basicComponents_radio.Light .ui-selectmenu-button {
+  background: #fff;
+  color: #000;
+}
+.basicComponents_dropdown.Light .ui-selectmenu-button .ui-icon,
+.basicComponents_radio.Light .ui-selectmenu-button .ui-icon {
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
+}
+
+.basicComponents_radio .radio_buttons.horizontal > div {
+  display: inline-block;
+}
+.basicComponents_radio .radio_buttons.horizontal > div > label {
+  padding-left: 0.7em;
+  margin-right: 1em;
+}
+.basicComponents_radio .radio_buttons.vertical > div {
+  margin: 1em 0;
+}
+.basicComponents_radio .radio_buttons.vertical > div > label {
+  padding-left: 0.7em;
+}
+
+.select2-dropdown .count {
+  font-size: 10px;
+}
+.select2-dropdown .select2-bulk {
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px 5px;
+  text-align: center;
+  width: 50%;
+}
+
+.basicComponents_cmbSelect {
+  max-height: 200px;
+}
+
+.basicComponents_datePicker {
+  color: #fff;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-size: 13px;
+  /*padding: 1em;*/
+}
+.basicComponents_datePicker .bbf-month {
+  width: 65% !important;
+}
+.basicComponents_datePicker .bbf-year {
+  width: 32% !important;
+}
+.basicComponents_datePicker .datepicker-label {
+  float: left;
+  line-height: 25px;
+  text-align: center;
+}
+.basicComponents_datePicker .datepicker-container {
+  float: left;
+  min-width: 75px;
+}
+.basicComponents_datePicker .datepicker-container .datepicker-input {
+  border-radius: 3px;
+  color: white;
+  display: inline-block;
+  height: 23px;
+  min-width: inherit;
+  text-align: center;
+  width: 100px;
+}
+.basicComponents_datePicker .datepicker-container .datepicker-input input.hasDatepicker {
+  height: 19px !important;
+}
+.basicComponents_datePicker .datepicker-container .datepicker-input.has-container {
+  border: 1px solid #6d6d6d;
+}
+.basicComponents_datePicker .datepicker-container .datepicker-input.has-container.has-button {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 0;
+}
+.basicComponents_datePicker .datepicker-container .datepicker-input.datepicker-extended {
+  min-width: 150px;
+}
+.basicComponents_datePicker .datepicker-container .datepicker-input.month-extended {
+  min-width: 180px;
+}
+.basicComponents_datePicker .datepicker-container .datepicker-input.timespan-extended {
+  min-width: 145px;
+}
+.basicComponents_datePicker .datepicker-container .datepicker-input.timestamp-extended {
+  min-width: 190px;
+}
+.basicComponents_datePicker .datepicker-container .datepicker-input span.ui-spinner {
+  width: 100%;
+}
+.basicComponents_datePicker .datepicker-container .datepicker-input span.ui-spinner input {
+  width: inherit;
+}
+.basicComponents_datePicker .ui-datepicker-trigger img {
+  width: 16px;
+  height: 12px;
+  background-position: -112px -114px;
+  background-image: url("../../../css/themes/darkroom/images/ui-icons_000000_256x240.png");
+}
+.basicComponents_datePicker .datepicker-button {
+  padding: 3px;
+  margin: 0;
+  float: right;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: none;
+  border-color: #6d6d6d;
+  height: 17px;
+}
+.basicComponents_datePicker .datepicker-button .ui-button-icon {
+  font-size: 13px;
+  padding: 6px 0 3px 0px;
+  display: block;
+}
+.basicComponents_datePicker .datepicker-button:hover {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: none;
+  border-color: #6d6d6d;
+}
+.basicComponents_datePicker[data-type=Checkbox] .datepicker-label {
+  line-height: normal;
+  margin: 0px;
+}
+.basicComponents_datePicker[data-type=Checkbox] .datepicker-container {
+  min-width: unset;
+}
+.basicComponents_datePicker[data-type=Checkbox] .datepicker-input {
+  background: none;
+  line-height: 25px;
+  min-width: unset;
+  width: auto;
+}
+.basicComponents_datePicker.Light {
+  color: #303030;
+}
+.basicComponents_datePicker.Light .datepicker-input {
+  background: white;
+  color: black;
+}
+.basicComponents_datePicker.Light[data-type=Checkbox] .datepicker-input {
+  background: none;
+}
+.basicComponents_datePicker.Light .datepicker-button .ui-icon {
+  color: #000;
+}
+.basicComponents_datePicker.Light span.datepicker-label {
+  margin-top: 3px;
+}
+
+.basicComponents_textToSpeech .play-controls {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  bottom: 0;
+  font-size: 12px;
+  white-space: normal;
+  text-align: center;
+  left: 0px;
+  right: 0px;
+}
+.basicComponents_textToSpeech .play-controls .play-btn,
+.basicComponents_textToSpeech .play-controls .back-btn,
+.basicComponents_textToSpeech .play-controls .forward-btn {
+  border: none;
+}
+
+.basicComponents_label,
+.basicComponents_textToSpeech {
+  color: #000;
+  width: 100%;
+  height: 100%;
+  padding: 2px;
+  box-sizing: border-box;
+  background-color: transparent;
+}
+.basicComponents_label.Dark,
+.basicComponents_textToSpeech.Dark {
+  color: #fff;
+}
+.basicComponents_label .htmlContent,
+.basicComponents_textToSpeech .htmlContent {
+  left: 0;
+  top: 0;
+  right: 0px;
+  left: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+.basicComponents_pdfButton,
+.basicComponents_button {
+  color: #000;
+  width: 100%;
+  height: 100%;
+  font-size: 13px;
+  background-color: #222;
+}
+.basicComponents_pdfButton.Dark,
+.basicComponents_button.Dark {
+  color: #fff;
+  background-color: #222;
+}
+
+.basicComponents_pdfButton {
+  position: relative;
+}
+.basicComponents_pdfButton .basicComponents_pdfBtn {
+  position: absolute;
+  top: 50%;
+  margin-top: -15px;
+  left: 8px;
+  width: 32px;
+  height: 28px;
+}
+.basicComponents_pdfButton .basicComponents_pdfBtn .pdfIcon {
+  background-image: url("../images/pdf24.png");
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  top: 2px;
+  left: 4px;
+}
+
+.basicComponents_navbar {
+  padding-top: 5px;
+  height: 100%;
+  /* Navbar container */
+  /* Links inside the navbar */
+  /* The dropdown container */
+  /* Dropdown button */
+  /* Add a background color to navbar links on hover */
+  /* Add a background color to navbar links after clicking */
+  /* Dropdown content (hidden by default) */
+  /* Links inside the dropdown */
+  /* Add a blue hue background color to dropdown links on hover */
+  /* Show the dropdown menu on hover */
+}
+.basicComponents_navbar .dropdown .dropbtn {
+  border-top-color: transparent !important;
+  border-left-color: transparent !important;
+  border-right-color: transparent !important;
+}
+.basicComponents_navbar .dropdown .dropbtn a {
+  margin: 0;
+  padding: 0 5px 0 0;
+  background: transparent !important;
+  text-decoration: none !important;
+}
+.basicComponents_navbar .dropdown .dropbtn a:hover {
+  text-decoration: none !important;
+}
+.basicComponents_navbar .navbar .active-page {
+  background-color: rgba(58, 159, 199, 0.1) !important;
+  border-bottom: 2px solid #25a9e0 !important;
+}
+.basicComponents_navbar .dropdown .dropbtn .active-page {
+  background-color: rgba(58, 159, 199, 0.1);
+  border-left: 2px solid #25a9e0;
+}
+.basicComponents_navbar .dropdown-content .active-page {
+  border-bottom: 0px !important;
+  border-left: 2px solid #25a9e0;
+}
+.basicComponents_navbar .navbar {
+  overflow: hidden;
+  font-family: Segoe UI, Helvetica, Arial, sans-serif;
+  z-index: 1000000 !important;
+}
+.basicComponents_navbar .navbar a {
+  float: left;
+  color: #979797;
+  text-align: center;
+  padding: 9px 16px;
+  text-decoration: none;
+}
+.basicComponents_navbar .navbar .active-page a {
+  color: white;
+}
+.basicComponents_navbar .dropdown {
+  float: left;
+  overflow: hidden;
+  z-index: 999 !important;
+}
+.basicComponents_navbar .dropdown .dropbtn {
+  border: none;
+  outline: none;
+  color: #979797;
+  padding: 9px 16px;
+  background-color: inherit;
+  z-index: 999;
+  /* Important for vertical align on mobile phones */
+  font-family: inherit;
+  margin: 0;
+}
+.basicComponents_navbar .navbar a:hover,
+.basicComponents_navbar .dropdown:hover .dropbtn {
+  background-color: rgba(58, 159, 199, 0.1);
+  height: 100%;
+  z-index: 999;
+}
+.basicComponents_navbar .navbar a::after,
+.basicComponents_navbar .dropdown::after .dropbtn {
+  background-color: rgba(58, 159, 199, 0.467) !important;
+  border-bottom: 2px solid #25a9e0;
+  z-index: 999;
+  border-color: #25a9e0 !important;
+}
+.basicComponents_navbar .dropdown-content {
+  display: none;
+  position: fixed;
+  background-color: #313131;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+.basicComponents_navbar .dropdown-content a {
+  float: none;
+  color: #bababa;
+  padding: 7px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  border-left: 2px solid transparent;
+}
+.basicComponents_navbar .dropdown-content a:hover {
+  background-color: rgba(58, 159, 199, 0.1);
+  border-bottom: none;
+  border-left: 2px solid #25a9e0;
+}
+.basicComponents_navbar .dropdown:hover .dropdown-content {
+  display: block;
+  z-index: 999 !important;
+}
+
+.datePickerButtonError {
+  border-top: 1px solid red !important;
+  border-right: 1px solid red !important;
+  border-bottom: 1px solid red !important;
+}
+
+.datePickerInputBoxError {
+  outline: 1px solid red !important;
+}
+
+.link-button {
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+}
+.link-button .mi {
+  text-indent: 0;
+  background-image: none !important;
+  width: auto;
+  font-size: 1.1em;
+}
+.link-button .button-root {
+  box-sizing: border-box;
+  margin: 0;
+  max-height: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.link-button .button-root:not(.ui-state-focus) {
+  border-color: #6d6d6d;
+}
+
+.quick-dash .properties-panel .container-viewstates_mapping .viewstate-form-control .fa-eye {
+  left: 0px;
+}
+.quick-dash .properties-panel .container-viewstates_mapping table thead tr th:nth-child(3) {
+  width: 36px;
+}
+
+.test-class {
+  background-color: red;
+}
+
+.text-box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /*&.Dark, &.Dark input {
+  	color: #fff;
+  	background-color: #222;
+  }*/
+}
+.text-box input,
+.text-box textarea {
+  resize: none;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px solid #6d6d6d;
+  color: white;
+  background-color: #303030;
+  padding: 4px;
+}
+.text-box input:focus, .text-box input:hover,
+.text-box textarea:focus,
+.text-box textarea:hover {
+  border-color: #00aeff;
+}
+
+.Light .text-box,
+.Light .text-box input,
+.Light .text-box textarea {
+  border-color: rgb(109, 109, 109);
+  color: black;
+  background-color: transparent;
+}
+.Light .basicComponents_navbar .dropdown-content {
+  background: #f0f0f0;
+}
+.Light .basicComponents_navbar .navbar a {
+  color: #606060;
+}
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl93ZWJDb21wb25lbnQuc2NzcyIsIl9zZXJ2ZXJTdGF0dXMuc2NzcyIsIm1haW4uc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNJO0VBQ0E7O0FBRUE7RUFDSTs7QUFHSjtFQUNJO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBSUE7RUFDSSxLQXBCRzs7O0FDQWQ7RUFDRztFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQU87RUFBUztFQUFVOztBQUd0QjtFQUNJOztBQUtKO0VBQ0k7O0FBS0o7RUFDSTs7QUFLSjtFQUNJOztBQUdKO0VBQ0k7O0FBSVI7RUFDSTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFHSjtFQUNJOztBQUdKO0VBQ0k7RUFDQTtFQUNBOztBQUtBO0VBQ0k7OztBQ2pESjtFQUNJO0VBQ0E7O0FBS0o7RUFDSTtFQUNBOztBQUlBO0VBQ0ksY0FsQkU7O0FBcUJOO0VBQ0ksY0F0QkU7O0FBMEJWO0VBQ0ksWUE3QkU7O0FBK0JGO0VBQ0k7O0FBSVI7RUFDSTs7O0FBSVo7QUFBQTtFQUVJO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtBQUFBO0FBQUE7QUFBQTtFQUVJO0VBQ0E7RUFDQTs7QUFHSjtBQUFBO0VBQ0k7O0FBRUE7QUFBQTtFQUNJO0VBQ0E7O0FBTUo7QUFBQTtFQUNJOztBQUlSO0FBQUE7RUFDSTtFQUNBO0VBQ0E7O0FBR0o7QUFBQTtFQUNJOztBQUdKO0FBQUE7RUFDSTs7QUFHSjtBQUFBO0FBQUE7QUFBQTtFQUVJO0VBQ0E7O0FBSUE7QUFBQTtFQUNJOztBQUlSO0FBQUE7RUFDSSxPQXRHTTs7QUF3R047QUFBQTtFQUNJO0VBQ0E7O0FBRUE7QUFBQTtFQUNJO0VBQ0E7OztBQVNKO0VBQ0k7O0FBQ0E7RUFDSTtFQUNBOztBQU1SO0VBQ0k7O0FBQ0E7RUFDSTs7O0FBUWhCO0VBQ0k7O0FBRUo7RUFDSTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7OztBQUlSO0VBQ0k7OztBQUdKO0VBQ0k7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtBQUNBOztBQUVBO0VBQ0k7O0FBR0o7RUFDSTs7QUFHSjtFQUNJO0VBQ0E7RUFDQTs7QUFHSjtFQUNJO0VBQ0E7O0FBRUE7RUFDSTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFDQTtFQUVJOztBQUVKO0VBQ0k7O0FBRUE7RUFDSTtFQUNBO0VBQ0E7O0FBSVI7RUFDSTs7QUFHSjtFQUNJOztBQUdKO0VBQ0k7O0FBR0o7RUFDSTs7QUFHSjtFQUNJOztBQUVBO0VBQ0k7O0FBWVo7RUFDSTtFQUNBO0VBRUE7RUFDQTs7QUFJUjtFQUNJO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7RUFDSTtFQUNBO0VBQ0E7O0FBSVI7RUFDSTtFQUNBO0VBQ0E7RUFDQTs7QUFJQTtFQUNJO0VBQ0E7O0FBR0o7RUFDSTs7QUFHSjtFQUNJO0VBQ0E7RUFDQTtFQUNBOztBQUlSO0VBQ0ksT0FwU007O0FBc1NOO0VBQ0k7RUFDQTs7QUFJQTtFQUNJOztBQUtKO0VBQ0k7O0FBSVI7RUFDSTs7O0FBTVI7RUFDSTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7QUFBQTtBQUFBO0VBR0k7OztBQUtaO0FBQUE7RUFFSTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBRUE7QUFBQTtFQUNJOztBQUlKO0FBQUE7RUFDSTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7OztBQUlSO0FBQUE7RUFFSTtFQUNBO0VBQ0E7RUFDQTtFQUdBOztBQUVBO0FBQUE7RUFDSTtFQUNBOzs7QUFJUjtFQUNJOztBQUVBO0VBQ0k7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0k7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOzs7QUFLWjtFQUNJO0VBQ0E7QUFpQ0E7QUFPQTtBQWFBO0FBT0E7QUFhQTtBQVFBO0FBU0E7QUFVQTtBQVdBO0FBT0E7O0FBcEhBO0VBQ0k7RUFDQTtFQUNBOztBQUdKO0VBQ0k7RUFDQTtFQUNBO0VBQ0E7O0FBR0o7RUFDSTs7QUFHSjtFQUNJO0VBQ0E7O0FBR0o7RUFDSTtFQUNBOztBQUVKO0VBQ0k7RUFDQTs7QUFJSjtFQUNJO0VBQ0E7RUFDQTs7QUFJSjtFQUNJO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7O0FBR0o7RUFDSTs7QUFJSjtFQUNJO0VBQ0E7RUFDQTs7QUFJSjtFQUNJO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtBQUNBO0VBQ0E7RUFDQTs7QUFJSjtBQUFBO0VBRUk7RUFDQTtFQUNBOztBQUlKO0FBQUE7RUFFSTtFQUNBO0VBQ0E7RUFDQTs7QUFJSjtFQUNJO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFJSjtFQUNJO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUlKO0VBQ0k7RUFDQTtFQUNBOztBQUlKO0VBQ0k7RUFDQTs7O0FBSVI7RUFDSTtFQUNBO0VBQ0E7OztBQUdKO0VBQ0k7OztBQUdKO0VBQ0k7RUFDQTtFQUNBOztBQUVBO0VBQ0k7RUFDQTtFQUNBO0VBQ0E7O0FBR0o7RUFDSTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0k7OztBQU9KO0VBQ0k7O0FBS0o7RUFDSTs7O0FBS1o7RUFDSTs7O0FBR0o7RUFDSTtFQUNBO0VBQ0E7QUFxQkE7QUFBQTtBQUFBO0FBQUE7O0FBbkJBO0FBQUE7RUFFSTtFQUNBO0VBQ0E7RUFDQTtFQUVBO0VBQ0E7RUFDQSxrQkFqbEJNO0VBbWxCTjs7QUFFQTtBQUFBO0FBQUE7RUFFSTs7O0FBV1I7QUFBQTtBQUFBO0VBR0k7RUFDQTtFQUNBOztBQUlBO0VBQ0k7O0FBR0o7RUFDSSIsImZpbGUiOiJtYWluLmNzcyJ9 */

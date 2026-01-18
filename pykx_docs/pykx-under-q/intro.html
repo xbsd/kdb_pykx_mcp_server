@@ -1,0 +1,4073 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="How to use PyKX in a q session">
+      
+      
+        <meta name="author" content="KX Systems, Inc.,">
+      
+      
+        <link rel="canonical" href="https://code.kx.com/pykx/pykx-under-q/intro.html">
+      
+      
+        
+      
+      <link rel="icon" href="https://code.kx.com/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.2.7+insiders-4.11.0">
+    
+    
+      
+        <title>PyKX within q - PyKX</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5216e7b8.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+      
+    
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/assets/stylesheets/main.b941530a.min.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/2021.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/prism.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/hide-footer-nav.css">
+    
+      <link rel="stylesheet" href="../stylesheets/mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/stylesheets/dashboards.css">
+    
+      <link rel="stylesheet" href="https://code.kx.com/dashboards/stylesheets/dashboards.css">
+    
+      <link rel="stylesheet" href="../stylesheets/swagger.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PG938LS');</script>
+<!-- End Google Tag Manager -->
+<!-- Delighted Survey tool -->
+<script type="text/javascript">
+	!function(e,t,r,n){if(!e[n]){for(var a=e[n]=[],i=["survey","reset","config","init","set","get","event","identify","track","page","screen","group","alias"],s=0;s<i.length;s++){var c=i[s];a[c]=a[c]||function(e){return function(){var t=Array.prototype.slice.call(arguments);a.push([e,t])}}(c)}a.SNIPPET_VERSION="1.0.1";var o=t.createElement("script");o.type="text/javascript",o.async=!0,o.src="https://d2yyd1h5u9mauk.cloudfront.net/integrations/web/v1/library/"+r+"/"+n+".js";var p=t.getElementsByTagName("script")[0];p.parentNode.insertBefore(o,p)}}(window,document,"QKBtsIp633c7g2I2","delightedThumbsP"); 
+   
+   delightedThumbsP.survey({
+	properties: { // extra context (optional)
+	product: "PyKX"
+	}
+	});
+   </script>
+<!-- End Delighted Survey tool -->
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="kx-light" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#how-to-use-pykx-within-q" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header"  onload="loadVersions()">
+    <!--<link rel="stylesheet" href="https://code.kx.com/home/assets/stylesheets/main.b941530a.min.css">-->
+    <!--<link rel="stylesheet" href="https://code.kx.com/home/assets/stylesheets/vendor/mermaid.733f213f.min.css">-->
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://code.kx.com/" title="code.kx.com" class="md-header__button md-logo" aria-label="PyKX" data-md-component="logo">
+      <img src="https://code.kx.com/img/kx.svg" alt="logo" style="width:1.2rem; height:1.2rem">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic" style="font-weight:500">
+            <span class="md-ellipsis" >
+            PyKX
+          </span>
+          <script>
+            var currVersion = '2.5'
+          </script>
+          <style>
+            .md-version:focus-within .md-version__list, .md-version:hover .md-version__list {
+              max-height: 6rem;
+              opacity: 1;
+              transition: max-height 0ms,opacity .25s;
+            }
+          </style>
+              <div class="md-version">
+                <button class="md-version__current" aria-label="Select version">2.5</button>
+                <ul class="md-version__list" style="margin-top: 20%;">
+                  <div id="versionList"></div>
+                </ul>
+              </div>
+              <div id="latestFlag"></div>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PyKX within q
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="kx-light" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kxsystems/pykx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+<style>
+    @media (max-width: 430px) {
+      .md-typeset span{display:none;}
+    }
+  /* Button used to open the chat form - fixed at the bottom of the page */
+  .open-button {
+    background-color: var(--md-typeset-a-color);
+    border: none;
+    border-radius: 10px;
+    bottom: 23px;
+    box-sizing: border-box;
+    color: var(--md-default-bg-color);
+    cursor: pointer;
+    font-size: 13px;
+    opacity: 0.8;
+    padding: 10px 10px;
+    position: fixed;
+    right: 28px;
+    width: 160px;
+    z-index: 3;
+  }
+</style>
+<body>
+  <button class="open-button md-typeset" onclick="window.location.href='https://community.kx.com/t5/forums/postpage/choose-node/true/interaction-style/forum/override-styles/true/board-id/kxinsights'"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29 7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160-93.3 160-208 160z"></path></svg></span>&nbsp;Ask a question</button>
+  </body>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/" class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/q" class="md-tabs__link">
+        
+  
+  kdb+ and q
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/core" class="md-tabs__link">
+        
+  
+  kdb Insights SDK
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/platform/" class="md-tabs__link">
+        
+  
+  kdb Insights Enterprise
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/kdbai/" class="md-tabs__link">
+        
+  
+  KDB.AI
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+      
+    
+  
+  
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../index.html" class="md-tabs__link md-tabs__link--active">
+          
+  
+    
+  
+  PyKX
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/api/index.html" class="md-tabs__link">
+        
+  
+  APIs
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/insights/licensing/licensing/" class="md-tabs__link">
+        
+  
+  Licensing
+
+      </a>
+    </li>
+  
+
+      
+        
+
+
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://code.kx.com/home/support/" class="md-tabs__link">
+        
+  
+  Help
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="PyKX" class="md-nav__button md-logo" aria-label="PyKX" data-md-component="logo">
+      <img src="https://code.kx.com/img/kx.svg" alt="logo" style="width:1.2rem; height:1.2rem">
+    </a>
+    PyKX
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kxsystems/pykx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/q" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb+ and q
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/core" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb Insights SDK
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/platform/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kdb Insights Enterprise
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/kdbai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    KDB.AI
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          
+  
+  <span class="md-ellipsis">
+    PyKX
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PyKX" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          PyKX
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Documentation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/what_is_pykx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is PyKX?
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/installing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/quickstart.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart guide
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/PyKX%20Introduction%20Notebook.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Introduction Notebook
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/q_magic_command.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jupyter q Magic Command Notebook
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/configuration.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_3" type="checkbox" id="__nav_6_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_3">
+          
+  
+  <span class="md-ellipsis">
+    Fundamentals
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fundamentals" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Fundamentals
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/creating.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generating PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/evaluating.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interacting with PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/querying.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying data
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/indexing.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Indexing PyKX objects
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/conversion_considerations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conversion considerations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/text.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Representation in PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/fundamentals/nulls_and_infinities.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handling nulls and infinities
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_4" type="checkbox" id="__nav_6_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_4">
+          
+  
+  <span class="md-ellipsis">
+    Advanced usage and performance considerations
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Advanced usage and performance considerations" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced usage and performance considerations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/ipc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Communicating via IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/database.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database interactions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/context_interface.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using q functions in a Pythonic way
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/modes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modes of operation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/numpy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NumPy integration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/serialization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization and de-serialization
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/performance.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance considerations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/limitations.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface limitations
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/attributes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Attributes
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/pandas_breakdown.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas Like API Coverage
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_1" type="checkbox" id="__nav_6_4_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_1">
+          
+  
+  <span class="md-ellipsis">
+    Code execution
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code execution" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          Code execution
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-execution/q.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX native functions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-execution/embedded_q.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX execution classes
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-execution/ctx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Context interface
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-execution/console.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX console
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_2" type="checkbox" id="__nav_6_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_2">
+          
+  
+  <span class="md-ellipsis">
+    Data types and conversions
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data types and conversions" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Data types and conversions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-q-data/toq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Convert Pythonic data to PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-q-data/wrappers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX type wrappers
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-q-data/type_conversions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX to Pythonic data type mapping
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-q-data/register.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Registering Custom Conversions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/advanced/Pandas_API.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas API
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/random.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random data generation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/query.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/compress.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption APIs
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/db.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Interactions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/remote.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote Python Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/ipc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/exceptions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX Exceptions
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/schema.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schema generation
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/streamlit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streamlit Integration
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/system.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Command Wrappers
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/util.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_16" type="checkbox" id="__nav_6_4_16" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_16">
+          
+  
+  <span class="md-ellipsis">
+    File loading and saving
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="File loading and saving" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_16">
+          <span class="md-nav__icon md-icon"></span>
+          File loading and saving
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-save-load/write.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Writing data to disk
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/pykx-save-load/read.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reading data from disk
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/reimporting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reimporter module
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/serialize.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          
+  
+  <span class="md-ellipsis">
+    Beta Features
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Beta Features" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Beta Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/db-management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/compress-encypt.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/remote-functions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote Function Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/threading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multithreading
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beta-features/streamlit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Streamlit
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          
+  
+  <span class="md-ellipsis">
+    Python within q
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python within q" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Python within q
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="intro.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    Getting started
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    Install
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialize" class="md-nav__link">
+    Initialize
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-the-library" class="md-nav__link">
+    How to use the library
+  </a>
+  
+    <nav class="md-nav" aria-label="How to use the library">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#evaluate-and-execute-python" class="md-nav__link">
+    Evaluate and Execute Python
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluate and Execute Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#evaluate-python-code" class="md-nav__link">
+    Evaluate Python code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execute-python-code" class="md-nav__link">
+    Execute Python code
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interact-with-pykx-objects" class="md-nav__link">
+    Interact with PyKX objects
+  </a>
+  
+    <nav class="md-nav" aria-label="Interact with PyKX objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#foreign-objects" class="md-nav__link">
+    Foreign objects
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-pykx-objects" class="md-nav__link">
+    Create PyKX objects
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convert-data" class="md-nav__link">
+    Convert data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#none-and-identity" class="md-nav__link">
+    None and identity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-attributes-and-properties" class="md-nav__link">
+    Get attributes and properties
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-attributes-and-properties" class="md-nav__link">
+    Set attributes and properties
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-index" class="md-nav__link">
+    How to Index
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-methods" class="md-nav__link">
+    Get methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx-function-api" class="md-nav__link">
+    PyKX function API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx-examples" class="md-nav__link">
+    PyKX examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-argument-types" class="md-nav__link">
+    Function argument types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-python-variables" class="md-nav__link">
+    Set Python variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-calls" class="md-nav__link">
+    Function calls
+  </a>
+  
+    <nav class="md-nav" aria-label="Function calls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zero-argument-calls" class="md-nav__link">
+    Zero-argument calls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print-or-return" class="md-nav__link">
+    Print or return
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aliases-in-the-root" class="md-nav__link">
+    Aliases in the root
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="upgrade.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade from embedPy
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="known_issues.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Known Issues
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_7" type="checkbox" id="__nav_6_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_7">
+          
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_7">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/subscriber/readme.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Subscriber
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/compress_and_encrypt/readme.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compression and Encryption
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/db-management.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database Creation and Management
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/ipc/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/charting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Charting Data with PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/server/server.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX as a Server
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/threaded_execution/threading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multithreaded Execution
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_8" type="checkbox" id="__nav_6_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_8">
+          
+  
+  <span class="md-ellipsis">
+    Extras
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Extras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_8">
+          <span class="md-nav__icon md-icon"></span>
+          Extras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/comparisons.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Comparisons against other Python/q interfaces
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extras/known_issues.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Known issues
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_9" type="checkbox" id="__nav_6_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_9">
+          
+  
+  <span class="md-ellipsis">
+    Release notes
+  </span>
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Release notes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_9">
+          <span class="md-nav__icon md-icon"></span>
+          Release notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/changelog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/underq-changelog.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyKX under q
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../blogs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blogs, Articles and Videos
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frequently Asked Questions (FAQ)
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../support.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributors.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributors
+  </span>
+
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/api/index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    APIs
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/insights/licensing/licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licensing
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://code.kx.com/home/support/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Help
+  </span>
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    Getting started
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    Install
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialize" class="md-nav__link">
+    Initialize
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-the-library" class="md-nav__link">
+    How to use the library
+  </a>
+  
+    <nav class="md-nav" aria-label="How to use the library">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#evaluate-and-execute-python" class="md-nav__link">
+    Evaluate and Execute Python
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluate and Execute Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#evaluate-python-code" class="md-nav__link">
+    Evaluate Python code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execute-python-code" class="md-nav__link">
+    Execute Python code
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interact-with-pykx-objects" class="md-nav__link">
+    Interact with PyKX objects
+  </a>
+  
+    <nav class="md-nav" aria-label="Interact with PyKX objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#foreign-objects" class="md-nav__link">
+    Foreign objects
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-pykx-objects" class="md-nav__link">
+    Create PyKX objects
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convert-data" class="md-nav__link">
+    Convert data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#none-and-identity" class="md-nav__link">
+    None and identity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-attributes-and-properties" class="md-nav__link">
+    Get attributes and properties
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-attributes-and-properties" class="md-nav__link">
+    Set attributes and properties
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-index" class="md-nav__link">
+    How to Index
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-methods" class="md-nav__link">
+    Get methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx-function-api" class="md-nav__link">
+    PyKX function API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pykx-examples" class="md-nav__link">
+    PyKX examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-argument-types" class="md-nav__link">
+    Function argument types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-python-variables" class="md-nav__link">
+    Set Python variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-calls" class="md-nav__link">
+    Function calls
+  </a>
+  
+    <nav class="md-nav" aria-label="Function calls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zero-argument-calls" class="md-nav__link">
+    Zero-argument calls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print-or-return" class="md-nav__link">
+    Print or return
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aliases-in-the-root" class="md-nav__link">
+    Aliases in the root
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/kxsystems/pykx/edit/main/docs/pykx-under-q/intro.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="how-to-use-pykx-within-q">How to use PyKX within q</h1>
+<p><em>This page provides details on how to run PyKX within a q session, including how to evaluate and execute Python code, how to interact with objects, and how to call a function.</em></p>
+<h2 id="introduction">Introduction</h2>
+<p>PyKX is a Python-first interface to the programming language q and its underlying database kdb+. To overcome a few <a href="../user-guide/advanced/limitations.html">limitations</a>, PyKX allows you to run Python within q, similarly to <a href="https://github.com/kxsystems/embedpy">embedPy</a>. The ability to execute and manipulate Python objects within a q session helps two types of users in the following ways:</p>
+<ul>
+<li>kdb+/q users can build applications which embed machine learning/data science libraries in production q infrastructures.</li>
+<li>Users of Python plotting libraries can visualize and explore the outcomes of their analyses.</li>
+</ul>
+<h2 id="getting-started">Getting started</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Before you run PyKX within q, make sure you:</p>
+<ol>
+<li>Have access to a running <code class="language-python highlight">q</code> environment. [Follow <a href="https://code.kx.com/q/learn/install/">the q installation guide</a>.]</li>
+<li>Have <a href="../getting-started/installing.html">installed</a> the licensed version of PyKX.</li>
+</ol>
+<h3 id="install">Install</h3>
+<p>Run the following command to install the <code class="language-python highlight">pykx.q</code> script into your <code class="language-python highlight">$QHOME</code> directory:</p>
+<pre class="highlight"><code class="language-python">python -c "import pykx;pykx.install_into_QHOME()"</code></pre>
+<p>If you previously had <code class="language-python highlight">embedPy</code> installed, pass:</p>
+<pre class="highlight"><code class="language-python">python -c "import pykx;pykx.install_into_QHOME(overwrite_embedpy=True)"</code></pre>
+<p>If you cannot edit the files in <code class="language-python highlight">QHOME</code>, copy them to your local folder and load <code class="language-python highlight">pykx.q</code> from there:</p>
+<pre class="highlight"><code class="language-bash">python -c "import pykx;pykx.install_into_QHOME(to_local_folder=True)"</code></pre>
+<h3 id="initialize">Initialize</h3>
+<p>Initialize the library as follows:</p>
+<pre class="highlight"><code class="language-q">q)\l pykx.q
+q).pykx
+console    | {pyexec"pykx.console.PyConsole().interact(banner='', exitmsg='')"}
+getattr    | code
+get        | {[f;x]r:wrap f x 0;$[count x:1_x;.[;x];]r}[code]enlist
+setattr    | {i.load[(`set_attr;3)][unwrap x;y;i.convertArg[i.toDefault z]`.]}
+set        | {i.load[(`set_global;2)][x; i.convertArg[i.toDefault y]`.]}
+print      | {$[type[x]in 104 105 112h;i.repr[0b] unwrap x;show x];}
+repr       | {$[type[x]in 104 105 112h;i.repr[1b] unwrap x;.Q.s x]}
+import     | {[f;x]r:wrap f x 0;$[count x:1_x;.[;x];]r}[code]enlist
+..</code></pre>
+<h2 id="how-to-use-the-library">How to use the library</h2>
+<p>Use this library to complete a wide variety of tasks, from the simple execution of Python code through to the generation of streaming applications containing machine learning models. The next sections outline various use-case-agnostic scenarios that you can follow.</p>
+<h3 id="evaluate-and-execute-python">Evaluate and Execute Python</h3>
+<details>
+<summary>Differences between evaluation and execution</summary>
+<p>Python evaluation (unlike Python execution) does not allow side effects. Any attempt at variable assignment or class definition signals an error. To execute a string with side effects, use <code class="language-python highlight">.pykx.pyexec</code> or <code class="language-python highlight">.p.e</code>.</p>
+<p><a href="https://stackoverflow.com/questions/2220699/whats-the-difference-between-eval-exec-and-compile">Difference between eval and exec in Python</a></p>
+</details>
+<details class="info">
+<summary>What’s a Python side effect?</summary>
+<p>A Python function has side effects if it might do more than return a value, for example, modify the state or interact with external entities/systems in a noticeable way. Such effects could manifest as changes to input arguments, modifications to global variables, file operations, or network communications.</p>
+</details>
+<h4 id="evaluate-python-code">Evaluate Python code</h4>
+<p>To evaluate Python code with PyKX, pass a string of Python code to a variety of PyKX functions as shown below.</p>
+<p>For example, if you want to evaluate and return the result to <code class="language-python highlight">q</code>, use the function <code class="language-python highlight">.pykx.qeval</code>:</p>
+<p><pre class="highlight"><code class="language-q">q).pykx.qeval"1+2"
+3</code></pre>
+Similarly, to evaluate Python code and return the result as a <code class="language-python highlight">foreign</code> object denoting the underlying Python object, use:</p>
+<p><pre class="highlight"><code class="language-q">q)show a:.pykx.pyeval"1+2"
+foreign
+q)print a
+3</code></pre>
+Finally, to return a hybrid representation that you can edit to return the q or Python representation, run the following:</p>
+<pre class="highlight"><code class="language-q">q)show b:.pykx.eval"1+2"
+{[f;x].pykx.util.pykx[f;x]}[foreign]enlist
+q)b`       // Convert to a q object
+3
+q)b`.      // Convert to a Python foreign
+foreign</code></pre>
+<h4 id="execute-python-code">Execute Python code</h4>
+<p>This interface allows you to execute Python code in a variety of ways:</p>
+<p>a) Execute directly with the <code class="language-python highlight">.pykx.pyexec</code> function</p>
+<p>This is incredibly useful if you need to script execution of Python code within a library:</p>
+<pre class="highlight"><code class="language-q">q).pykx.pyexec"import numpy as np"
+q).pykx.pyexec"array = np.array([0, 1, 2, 3])"
+q).pykx.pyexec"print(array)"
+[0 1 2 3]</code></pre>
+<p>b) Use the PyKX console functionality</p>
+<p>This is useful when interacting within a q session and you need to prototype a functionality in Python:</p>
+<pre class="highlight"><code class="language-q">q).pykx.console[]
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; print(np.linspace(0, 10, 5))
+[ 0.   2.5  5.   7.5 10. ]
+&gt;&gt;&gt; quit()
+q)</code></pre>
+<p>c) Use a <code class="language-python highlight">p)</code> prompt</p>
+<p>This way of embedding the execution of Python code within a q script also provides backwards compatibility with embedPy:</p>
+<pre class="highlight"><code class="language-q">q)p)import numpy as np
+q)p)print(np.arange(1, 10, 2))
+[1 3 5 7 9]</code></pre>
+<p>d) Load a <code class="language-python highlight">.p</code> file</p>
+<p>This is a method of executing the contents of a Python file in bulk:</p>
+<pre class="highlight"><code class="language-q">$ cat test.p
+def func(x, y):
+        return(x+y)
+$ q pykx.q
+q)\l test.p
+q).pykx.get[`func]
+{[f;x].pykx.util.pykx[f;x]}[foreign]enlist</code></pre>
+<h3 id="interact-with-pykx-objects">Interact with PyKX objects</h3>
+<h4 id="foreign-objects">Foreign objects</h4>
+<p>At the lowest level, Python objects are represented in q as foreign objects, which contain pointers to objects in the Python memory space.</p>
+<p>You can store foreign objects in variables just like any other q datatype, or as part of lists, dictionaries or tables. They will show up as foreign when inspected in the q console or using the string (or .Q.s) representation.</p>
+<details>
+<summary>Serialization and IPC</summary>
+<p>Kdb+ cannot serialize foreign objects, nor send them over IPC. Foreign objects live in the embedded Python memory space. To pass them over IPC, first you have to convert them to q.</p>
+</details>
+<h4 id="create-pykx-objects">Create PyKX objects</h4>
+<p>q doesn't allow you to operate directly with foreign objects. Instead, Python objects are represented as PyKX objects, which wrap the underlying foreign objects. This helps to get and set attributes, index, call or convert the underlying foreign object to a q object.</p>
+<p>Use <code class="language-python highlight">.pykx.wrap</code> to create a PyKX object from a foreign object.</p>
+<pre class="highlight"><code class="language-q">q)x
+foreign
+q)p:.pykx.wrap x
+q)p           /how a PyKX object looks
+{[f;x].pykx.util.pykx[f;x]}[foreign]enlist</code></pre>
+<p>To retrieve PyKX objects directly from Python, choose between the following functions:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Function</strong></th>
+<th><strong>Argument</strong></th>
+<th><strong>Example</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.pykx.import</code></td>
+<td>symbol: name of a Python module or package, optional second argument is the name of an object within the module or package</td>
+<td><code>np:.pykx.import`numpy</code></td>
+</tr>
+<tr>
+<td><code>.pykx.get</code></td>
+<td>symbol: name of a Python variable in <code>__main__</code></td>
+<td><code>v:.pykx.get`varName</code></td>
+</tr>
+<tr>
+<td><code>.pykx.eval</code></td>
+<td>string: Python code to evaluate</td>
+<td><code>x:.pykx.eval"1+1"</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Side effects</p>
+<p>As with other Python evaluation functions, <code class="language-python highlight">.pykx.eval</code> does not allow side effects.</p>
+</div>
+<h4 id="convert-data">Convert data</h4>
+<p>For <code class="language-python highlight">obj</code>, a PyKX object representing Python data, to obtain the underlying data (as foreign object or q) use:</p>
+<pre class="highlight"><code class="language-q">obj`. / get data as foreign
+obj`  / get data as q</code></pre>
+<p>For example:</p>
+<pre class="highlight"><code class="language-q">q)x:.pykx.eval"(1,2,3)"
+q)x
+{[f;x].pykx.util.pykx[f;x]}[foreign]enlist
+q)x`.
+foreign
+q)x`
+1 2 3</code></pre>
+<h4 id="none-and-identity"><code class="language-python highlight">None</code> and identity</h4>
+<p>Python <code class="language-python highlight">None</code> maps to the q identity function <code class="language-python highlight">::</code> when converting from Python to q (and vice versa).</p>
+<div class="admonition warning">
+<p class="admonition-title">Exception!</p>
+<p>When calling Python functions, methods or classes with a single q data argument, passing <code>::</code> results in the Python object being called with <em>no arguments</em>, rather than a single argument of <code>None</code>. See the <a href="#zero-argument-calls">Zero-argument calls</a> section for how to call a Python object with a single <code>None</code> argument.</p>
+</div>
+<h4 id="get-attributes-and-properties">Get attributes and properties</h4>
+<p>Given <code class="language-python highlight">obj</code>, a PyKX object representing a Python object, you can get an attribute or property by using:</p>
+<pre class="highlight"><code class="language-q">obj`:attr         / equivalent to obj.attr in Python
+obj`:attr1.attr2  / equivalent to obj.attr1.attr2 in Python</code></pre>
+<p>These expressions return PyKX objects, allowing you to chain operations together:</p>
+<pre class="highlight"><code class="language-q">obj[`:attr1]`:attr2  / equivalent to obj.attr1.attr2 in Python</code></pre>
+<p>For example:</p>
+<pre class="highlight"><code class="language-bash">$ cat class.p
+class obj:
+    def __init__(self,x=0,y=0):
+        self.x = x
+        self.y = y</code></pre>
+<pre class="highlight"><code class="language-q">q)\l class.p
+q)obj:.pykx.eval"obj(2,3)"
+q)obj[`:x]`
+2
+q)obj[`:y]`
+3</code></pre>
+<h4 id="set-attributes-and-properties">Set attributes and properties</h4>
+<p>Given <code class="language-python highlight">obj</code>, a PyKX object representing a Python object, you can set an attribute or property by using:</p>
+<pre class="highlight"><code class="language-q">obj[:;`:attr;val]  / equivalent to obj.attr=val in Python</code></pre>
+<p>For example:</p>
+<pre class="highlight"><code class="language-q">q)obj[`:x]`
+2
+q)obj[`:y]`
+3
+q)obj[:;`:x;10]
+q)obj[:;`:y;20]
+q)obj[`:x]`
+10
+q)obj[`:y]`
+20</code></pre>
+<h4 id="how-to-index">How to Index</h4>
+<p>Given <code class="language-python highlight">lst</code>, a PyKX object representing an indexable container object in Python, you can access the element at index <code class="language-python highlight">i</code> by using:</p>
+<pre class="highlight"><code class="language-q">lst[@;i]    / equivalent to lst[i] in Python</code></pre>
+<p>Set the element at index <code class="language-python highlight">i</code> (to object <code>#!pythonx</code>) with this command:</p>
+<pre class="highlight"><code class="language-q">lst[=;i;x]  / equivalent to lst[i]=x in Python</code></pre>
+<p>These expressions return PyKX objects, for instance:</p>
+<pre class="highlight"><code class="language-q">q)lst:.pykx.eval"[True,2,3.0,'four']"
+q)lst[@;0]`
+1b
+q)lst[@;-1]`
+`four
+q)lst'[@;;`]2 1 0 3
+3f
+2
+1b
+`four
+q)lst[=;0;0b];
+q)lst[=;-1;`last];
+q)lst`
+0b
+2
+3f
+`last</code></pre>
+<h4 id="get-methods">Get methods</h4>
+<p>Given <code class="language-python highlight">obj</code>, a PyKX object representing a Python object, you can access a method by using:</p>
+<pre class="highlight"><code class="language-q">obj`:method  / equivalent to obj.method in Python</code></pre>
+<p>When calling PyKX objects representing Python methods, the return of evaluation is a PyKX object. For example:</p>
+<pre class="highlight"><code class="language-q">q)np:.pykx.import`numpy
+q)np`:arange
+{[f;x].pykx.util.pykx[f;x]}[foreign]enlist
+q)arange:np`:arange                   / callable returning PyKX object
+q)arange 12
+{[f;x].pykx.util.pykx[f;x]}[foreign]enlist
+q)arange[12]`
+0 1 2 3 4 5 6 7 8 9 10 11</code></pre>
+<h4 id="pykx-function-api">PyKX function API</h4>
+<p>Use the function API to achieve the following:</p>
+<ul>
+<li>Call PyKX objects (to get PyKX objects).</li>
+<li>Declare PyKX objects callable (to get q or <code class="language-python highlight">foreign</code> data).</li>
+</ul>
+<p>The default return is a PyKX object. For q or foreign return type, you need to specify it. </p>
+<p>Given <code class="language-python highlight">func</code>, a <code class="language-python highlight">PyKX</code> object representing a callable Python function or method, you can carry out the following operations:</p>
+<pre class="highlight"><code class="language-q">func                   / func is callable by default (returning PyKX)
+func arg               / call func(arg) (returning PyKX)
+func[&lt;]                / declare func callable (returning q)
+func[&lt;]arg             / call func(arg) (returning q)
+func[&lt;;arg]            / equivalent
+func[&gt;]                / declare func callable (returning foreign)
+func[&gt;]arg             / call func(arg) (returning foreign)
+func[&gt;;arg]            / equivalent</code></pre>
+<div class="admonition info">
+<p class="admonition-title">How to chain operations?</p>
+<p>To chain together sequences of operations, return another PyKX object from a function or method call. Alternatively, call <code>.pykx.import</code>, <code>.pykx.get</code> and <code>.pykx.eval</code>.</p>
+</div>
+<h4 id="pykx-examples">PyKX examples</h4>
+<div class="admonition example">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Example #1</label><label for="__tabbed_1_2">Example #2</label><label for="__tabbed_1_3">Example #3</label><label for="__tabbed_1_4">Example #4</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-bash">$ cat test.p # used for tests
+class obj:
+    def __init__(self,x=0,y=0):
+        self.x = x # attribute
+        self.y = y # property (incrementing on get)
+    @property
+    def y(self):
+        a=self.__y
+        self.__y+=1
+        return a
+    @y.setter
+    def y(self, y):
+        self.__y = y
+    def total(self):
+        return self.x + self.y</code></pre>
+<pre class="highlight"><code class="language-q">q)\l test.p
+q)obj:.pykx.get`obj / obj is the *class* not an instance of the class
+q)o:obj[]           / call obj with no arguments to get an instance
+q)o[`:x]`
+0
+q)o[;`]each 5#`:x
+0 0 0 0 0
+q)o[:;`:x;10]
+q)o[`:x]`
+10
+q)o[`:y]`
+1
+q)o[;`]each 5#`:y
+3 5 7 9 11
+q)o[:;`:y;10]
+q)o[;`]each 5#`:y
+10 13 15 17 19
+q)tot:o[`:total;&lt;]
+q)tot[]
+30
+q)tot[]
+31</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q)np:.pykx.import`numpy
+q)v:np[`:arange;12]
+q)v`
+0 1 2 3 4 5 6 7 8 9 10 11
+q)v[`:mean;&lt;][]
+5.5
+q)rs:v[`:reshape;&lt;]
+q)rs[3;4]
+0 1 2  3
+4 5 6  7
+8 9 10 11
+q)rs[2;6]
+0 1 2 3 4  5
+6 7 8 9 10 11
+q)np[`:arange;12][`:reshape;3;4]`
+0 1 2  3
+4 5 6  7
+8 9 10 11</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q)stdout:.pykx.import[`sys]`:stdout.write
+q)stdout `$"hello\n";
+hello
+q)stderr:.pykx.import[`sys;`:stderr.write]
+q)stderr `$"goodbye\n";
+goodbye</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q)oarg:.pykx.eval"10"
+q)oarg`
+10
+q)ofunc:.pykx.eval["lambda x:2+x";&lt;]
+q)ofunc[1]
+3
+q)ofunc oarg
+12
+q)p)def add2(x,y):return x+y
+q)add2:.pykx.get[`add2;&lt;]
+q)add2[1;oarg]
+11</code></pre>
+</div>
+</div>
+</div>
+</div>
+<h4 id="function-argument-types">Function argument types</h4>
+<p>PyKX supports data type conversions between q and Python for Python native objects, Numpy objects, Pandas objects, PyArrow objects, and PyKX objects.</p>
+<p>By default, when passing a q object to a callable function, it's converted to the most "natural" analogous type, as detailed below: </p>
+<ul>
+<li>PyKX/q generic list objects become Python lists.</li>
+<li>PyKX/q table/keyed table objects become Pandas equivalent DataFrames.</li>
+<li>All other PyKX/q objects become their analogous numpy equivalent types.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Prior to PyKX 2.1.0, all conversions from q objects to Python would convert to their Numpy equivalent. To achieve this now, set the environment variable <code>PYKX_DEFAULT_CONVERSION="np"</code></p>
+</div>
+<p>For function/method calls, control the default behavior of the conversions by setting <code class="language-python highlight">.pykx.util.defaultConv</code>:</p>
+<p><pre class="highlight"><code class="language-q">q).pykx.util.defaultConv
+"default"</code></pre>
+You can apply one of the following values:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Python type</strong></th>
+<th>Default</th>
+<th>Python</th>
+<th>Numpy</th>
+<th>Pandas</th>
+<th>PyArrow</th>
+<th>PyKX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Value</strong>:</td>
+<td>"default"</td>
+<td>"py"</td>
+<td>"np"</td>
+<td>"pd"</td>
+<td>"pa"</td>
+<td>"k"</td>
+</tr>
+</tbody>
+</table>
+<p>In the example below, we start with Numpy and update the default types across all function calls:</p>
+<div class="admonition example">
+<div class="tabbed-set tabbed-alternate" data-tabs="2:5"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Numpy</label><label for="__tabbed_2_2">Python</label><label for="__tabbed_2_3">Pandas</label><label for="__tabbed_2_4">PyArrow</label><label for="__tabbed_2_5">PyKX</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q)typeFunc:.pykx.eval"lambda x:print(type(x))"
+q)typeFunc 1; 
+&lt;class 'numpy.int64'&gt;
+q)typeFunc til 10;
+&lt;class 'numpy.ndarray'&gt;
+q)typeFunc (10?1f;10?1f)
+&lt;class 'list'&gt;
+q)typeFunc ([]100?1f;100?1f);
+&lt;class 'pandas.core.frame.DataFrame'&gt;</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q)typeFunc:.pykx.eval"lambda x:print(type(x))"
+q).pykx.util.defaultConv:"py"
+q)typeFunc 1;
+&lt;class 'int'&gt;
+q)typeFunc til 10;
+&lt;class 'list'&gt;
+q)typeFunc ([]100?1f;100?1f);
+&lt;class 'dict'&gt;</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.util.defaultConv:"pd"
+q)typeFunc 1;
+&lt;class 'numpy.int64'&gt;
+q)typeFunc til 10;
+&lt;class 'pandas.core.series.Series'&gt;
+q)typeFunc ([]100?1f;100?1f);
+&lt;class 'pandas.core.frame.DataFrame'&gt;</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.util.defaultConv:"pa"
+q)typeFunc 1;
+&lt;class 'numpy.int64'&gt;
+q)typeFunc til 10;
+&lt;class 'pyarrow.lib.Int64Array'&gt;
+q)typeFunc ([]100?1f;100?1f);
+&lt;class 'pyarrow.lib.Table'&gt;</code></pre>
+</div>
+<div class="tabbed-block">
+<pre class="highlight"><code class="language-q">q).pykx.util.defaultConv:"k"
+q)typeFunc 1;
+&lt;class 'pykx.wrappers.LongAtom'&gt;
+q)typeFunc til 10;
+&lt;class 'pykx.wrappers.LongVector'&gt;
+q)typeFunc ([]100?1f;100?1f);
+&lt;class 'pykx.wrappers.Table'&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>Alternatively, to modify individual arguments to functions, use the <code class="language-python highlight">.pykx.to*</code> functionality:</p>
+<pre class="highlight"><code class="language-q">q)typeFunc:.pykx.eval"lambda x,y: [print(type(x)), print(type(y))]"
+q)typeFunc[til 10;til 10];                          // Simulate passing both arguments with defaults
+&lt;class 'numpy.ndarray'&gt;
+&lt;class 'numpy.ndarray'&gt;
+q)typeFunc[til 10].pykx.topd til 10;               // Pass in the second argument as Pandas series
+&lt;class 'numpy.ndarray'&gt;
+&lt;class 'pandas.core.series.Series'&gt;
+q)typeFunc[.pykx.topa([]100?1f);til 10];           // Pass in first argument as PyArrow Table
+&lt;class 'pyarrow.lib.Table'&gt;
+&lt;class 'numpy.ndarray'&gt;
+q)typeFunc[.pykx.tok til 10;.pykx.tok ([]100?1f)]; // Pass in two PyKX objects
+&lt;class 'pykx.wrappers.LongVector'&gt;
+&lt;class 'pykx.wrappers.Table'&gt;</code></pre>
+<h4 id="set-python-variables">Set Python variables</h4>
+<p>You can set variables in Python <code class="language-python highlight">__main__</code> by using <code class="language-python highlight">.pykx.set</code>:</p>
+<pre class="highlight"><code class="language-q">q).pykx.set[`var1;42]
+q).pykx.qeval"var1"
+42
+q).pykx.set[`var2;{x*2}]
+q)qfunc:.pykx.get[`var2;&lt;]
+{[f;x].pykx.util.pykx[f;x]}[foreign]enlist
+q)qfunc[3]
+6</code></pre>
+<h3 id="function-calls">Function calls</h3>
+<p>Python allows you to call functions with:</p>
+<ul>
+<li>A variable number of arguments</li>
+<li>A mixture of positional and keyword arguments</li>
+<li>Implicit (default) arguments</li>
+</ul>
+<p>This is available in the PyKX function-call interface, as detailed below:</p>
+<ul>
+<li>Callable PyKX objects are variadic (they accept a variable number of arguments).</li>
+<li>Default arguments are applied where no explicit arguments are given.</li>
+<li>Individual keyword arguments are specified using the (infix) <code class="language-python highlight">pykw</code> operator.</li>
+<li>A list of positional arguments can be passed using <code class="language-python highlight">pyarglist</code> (like Python *args).</li>
+<li>A dictionary of keyword arguments can be passed using <code class="language-python highlight">pykwargs</code> (like Python **kwargs).</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Keyword arguments last</p>
+<p>You can combine positional arguments, lists of positional arguments, keyword arguments, and a dictionary of keyword arguments. However, <em>all</em> keyword arguments must always follow <em>any</em> positional arguments. The dictionary of keyword arguments (if given) must be specified <em>last</em>.</p>
+</div>
+<h4 id="examples">Examples</h4>
+<pre class="highlight"><code class="language-q">q)p)import numpy as np
+q)p)def func(a=1,b=2,c=3,d=4):return np.array([a,b,c,d,a*b*c*d])
+q)qfunc:.pykx.get[`func;&lt;] / callable, returning q</code></pre>
+<p>Enter positional arguments directly. Function calling is variadic, so you can exclude later arguments:</p>
+<pre class="highlight"><code class="language-q">q)qfunc[2;2;2;2]   / all positional args specified
+2 2 2 2 16
+q)qfunc[2;2]       / first 2 positional args specified
+2 2 3 4 48
+q)qfunc[]          / no args specified
+1 2 3 4 24
+q)qfunc[2;2;2;2;2] / error if too many args specified
+'TypeError('func() takes from 0 to 4 positional arguments but 5 were given')
+  [0]  qfunc[2;2;2;2;2] / error if too many args specified
+       ^</code></pre>
+<p>Specify individual keyword arguments with the <code class="language-python highlight">pykw</code> operator (applied infix). The order of keyword arguments doesn't matter.</p>
+<pre class="highlight"><code class="language-q">q)qfunc[`d pykw 1;`c pykw 2;`b pykw 3;`a pykw 4] / all keyword args specified
+4 3 2 1 24
+q)qfunc[1;2;`d pykw 3;`c pykw 4]   / mix of positional and keyword args
+1 2 4 3 24
+q)qfunc[`a pykw 2;`b pykw 2;2;2]   / error if positional args after keyword args
+'TypeError("func() got multiple values for argument 'a'")
+  [0]  qfunc[`a pykw 1;pyarglist 2 2 2] 
+       ^
+q)qfunc[`a pykw 2;`a pykw 2]       / error if duplicate keyword args
+'Expected only unique key names for keyword arguments in function call
+  [0]  qfunc[`a pykw 2;`a pykw 2]  
+       ^</code></pre>
+<p>To specify a list of positional arguments, use <code class="language-python highlight">pyarglist</code> (similar to Python’s *args).
+Again, keyword arguments must follow positional arguments.</p>
+<pre class="highlight"><code class="language-q">q)qfunc[pyarglist 1 1 1 1]          / full positional list specified
+1 1 1 1 1
+q)qfunc[pyarglist 1 1]              / partial positional list specified
+1 1 3 4 12
+q)qfunc[1;1;pyarglist 2 2]          / mix of positional args and positional list
+1 1 2 2 4
+q)qfunc[pyarglist 1 1;`d pykw 5]    / mix of positional list and keyword args
+1 1 3 5 15
+q)qfunc[pyarglist til 10]           / error if too many args specified
+'TypeError('func() takes from 0 to 4 positional arguments but 10 were given')
+  [0]  qfunc[pyarglist til 10]      / error if too many args specified
+       ^
+q)qfunc[`a pykw 1;pyarglist 2 2 2]  / error if positional list after keyword args
+'TypeError("func() got multiple values for argument 'a'")
+  [0]  qfunc[`a pykw 1;pyarglist 2 2 2] 
+       ^</code></pre>
+<p>You can specify a dictionary of keyword arguments by using <code class="language-python highlight">pykwargs</code> (similar to Python’s **kwargs).
+If present, this argument must be the <em>last</em> argument.</p>
+<pre class="highlight"><code class="language-q">q)qfunc[pykwargs`d`c`b`a!1 2 3 4]             / full keyword dict specified
+4 3 2 1 24
+q)qfunc[2;2;pykwargs`d`c!3 3]                 / mix of positional args and keyword dict
+2 2 3 3 36
+q)qfunc[`d pykw 1;`c pykw 2;pykwargs`a`b!3 4] / mix of keyword args and keyword dict
+3 4 2 1 24
+q)qfunc[pykwargs`d`c!3 3;2;2]                 / error if keyword dict not last
+'pykwargs last
+q)qfunc[pykwargs`a`a!1 2]                     / error if duplicate keyword names
+'dupnames</code></pre>
+<p>You can combine all four methods in a single function call if the order follows the above rules.</p>
+<pre class="highlight"><code class="language-q">q)qfunc[4;pyarglist enlist 3;`c pykw 2;pykwargs enlist[`d]!enlist 1]
+4 3 2 1 24</code></pre>
+<div class="admonition warning">
+<p class="admonition-title"><code>pykw</code>, <code>pykwargs</code>, and <code>pyarglist</code></p>
+<p>Before defining functions containing <code>pykw</code>, <code>pykwargs</code>, or <code>pyarglist</code> within a script, you must explicitly load the file <code>p.q</code>. Failure to do so results in errors.</p>
+</div>
+<h4 id="zero-argument-calls">Zero-argument calls</h4>
+<p>In Python these two calls are <em>not</em> equivalent:</p>
+<pre class="highlight"><code class="language-python">func()       #call with no arguments
+func(None)   #call with argument None</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">PyKX function called with <code>::</code> calls Python with no arguments</p>
+<p>Although <code>::</code> in q corresponds to <code>None</code> in Python, if a PyKX function is called with <code>::</code> as its only argument, the corresponding Python function will be called with <em>no</em> arguments.</p>
+</div>
+<p>To call a Python function with <code class="language-python highlight">None</code> as its sole argument, retrieve <code class="language-python highlight">None</code> as a foreign object in q and pass that as the argument:</p>
+<pre class="highlight"><code class="language-q">q)pynone:.pykx.eval"None"
+q)pyfunc:.pykx.eval["print"]
+q)pyfunc pynone;
+None</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong>Python</strong></th>
+<th><strong>Form</strong></th>
+<th><strong>q</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>func()</code></td>
+<td>call with no arguments</td>
+<td><code>func[]</code> or <code>func[::]</code></td>
+</tr>
+<tr>
+<td><code>func(None)</code></td>
+<td>call with argument <code>None</code></td>
+<td><code>func[.pykx.eval"None"]</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">q functions applied to empty argument lists</p>
+<p>The <em>rank</em> (number of arguments) of a q function is determined by its <em>signature</em>,
+an optional list of arguments at the beginning of its definition.
+If the signature is omitted, the default arguments are as many of
+<code>x</code>, <code>y</code> and <code>z</code> as appear, and its rank is 1, 2, or 3.</p>
+<p>If it has no signature, and does not refer to <code>x</code>, <code>y</code>, or <code>z</code>, it has rank 1.
+It is implicitly unary.
+If it is then applied to an empty argument list, the value of <code>x</code> defaults to <code>(::)</code>.</p>
+<p>So <code>func[::]</code> is equivalent to <code>func[]</code> – and in Python to <code>func()</code>, not <code>func[None]</code>.</p>
+</div>
+<h4 id="print-or-return">Print or return</h4>
+<p><code class="language-python highlight">.pykx.repr</code> returns the string representation of a Python object, either PyKX or foreign. You can print this representation to <code class="language-python highlight">stdout</code> by using <code class="language-python highlight">.pykx.print</code>. Here's how to use this function with a q object:</p>
+<pre class="highlight"><code class="language-q">q)x:.pykx.eval"{'a':1,'b':2}"
+q).pykx.repr x
+"{'a': 1, 'b': 2}"
+q).pykx.print x
+{'a': 1, 'b': 2}
+
+q).pykx.repr ([]5?1f;5?1f)
+"x         x1       \n-------------------\n0.3017723 0.3927524\n0.785033  0.5..
+q).pykx.print ([]5?1f;5?1f)
+x         x1        
+--------------------
+0.6137452 0.4931835 
+0.5294808 0.5785203 
+0.6916099 0.08388858
+0.2296615 0.1959907 
+0.6919531 0.375638  </code></pre>
+<h4 id="aliases-in-the-root">Aliases in the root</h4>
+<p>For convenience, <code class="language-python highlight">pykx.q</code> defines <code class="language-python highlight">print</code> in the default namespace of q, as aliases for <code class="language-python highlight">.pykx.print</code>. To prevent the aliasing of this function, set either:</p>
+<ol>
+<li><code class="language-python highlight">UNSET_PYKX_GLOBALS</code> as an environment variable.</li>
+<li><code class="language-python highlight">unsetPyKXGlobals</code> as a command line argument when initializing your q session.</li>
+</ol>
+
+
+
+
+              
+            </article>
+            
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../beta-features/streamlit.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Streamlit" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Streamlit
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="api.html" class="md-footer__link md-footer__link--next" aria-label="Next: API" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              API
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2024 Kx Systems, Inc. KX and kdb+ are registered trademarks of Kx Systems, Inc., a subsidiary of FD Technologies plc.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs Insiders
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link", "header.autohide", "navigation.tabs", "navigation.footer", "content.code.annotate", "content.action.edit", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c028271.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dcd4d203.min.js"></script>
+      
+        <script src="https://code.kx.com/scripts/prism.js"></script>
+      
+        <script src="https://code.kx.com/scripts/extra.js"></script>
+      
+        <script src="https://code.kx.com/scripts/mathjax.js"></script>
+      
+        <script src="https://code.kx.com/scripts/polyfill.min.js"></script>
+      
+        <script src="https://code.kx.com/scripts/tex-mmmdtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      
+        <script src="https://use.fontawesome.com/3dbf29ed12.js"></script>
+      
+        <script src="../&period;&period;/&period;&period;/pykx/scripts/versions.js"></script>
+      
+    
+  </body>
+</html>
